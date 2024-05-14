@@ -1,0 +1,7 @@
+{
+  "name": "frontend-yosto",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
