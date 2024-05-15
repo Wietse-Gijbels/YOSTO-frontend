@@ -20,9 +20,9 @@ npm run build
 ## Web
 
 
-For development run to develop in the browser
+For development run the application in the browser in the browser
 ```bash
-npm start
+npm run start
 ```
 
 Android studio is kinda slow, so we develop in the browser and test afterward in the emulator.
