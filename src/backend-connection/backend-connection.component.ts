@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BackendConnectionService } from '../service/backend-connection.service';
+import { BackendConnectionService } from '../app/service/backend-connection.service';
 import {CommonModule} from "@angular/common";
 import {HttpClientModule} from "@angular/common/http";
 
