@@ -1,38 +1,30 @@
-<div class="user-form" id="username-page">
-  <h2>Enter Chatroom</h2>
-  <form id="usernameForm">
-    <label for="nickname">Nickname:</label>
-    <input type="text" id="nickname" name="nickname" required>
-
-    <label for="fullname">Real Name:</label>
-    <input type="text" id="fullname" name="realname" required>
-
-    <button type="submit">Enter Chatroom</button>
-  </form>
-</div>
-
-<div class="chat-container" id="chat-page">
-  <div class="users-list">
-    <div class="users-list-container">
-      <h2>Online Users</h2>
-      <ul id="connectedUsers">
-      </ul>
-    </div>
+<mat-grid-list cols="2">
+  <mat-list>
+    @for (gebruiker of gebruikers; track gebruiker) {
+      <mat-list-item (click)="onChatClick(gebruiker)">
+        <button mat-button>
+          {{ gebruiker.email }}
+        </button>
+      </mat-list-item>
+    }
+  </mat-list>
+  @if (selectedGebruiker) {
     <div>
-      <p id="connected-user-fullname"></p>
-      <a class="logout" href="javascript:void(0)" id="logout">Logout</a>
-    </div>
-  </div>
-
-  <div class="chat-area">
-    <div class="chat-area" id="chat-messages">
-    </div>
-
-    <form id="messageForm" name="messageForm">
-      <div class="message-input">
-        <input autocomplete="off" type="text" id="message" placeholder="Type your message...">
-        <button>Send</button>
+      @for (bericht of berichten; track bericht) {
+        <div>
+          <span>{{ bericht.content }}</span>
+        </div>
+      }
+      <div>
       </div>
-    </form>
-  </div>
-</div>
+
+      <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+        <div>
+          <input autocomplete="off" type="text" id="message" placeholder="Type your message..." formControlName="message">
+          <button type="submit" [disabled]="!messageForm.valid">Send</button>
+        </div>
+      </form>
+
+    </div>
+  }
+</mat-grid-list>
