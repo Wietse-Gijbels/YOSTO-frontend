@@ -11,7 +11,9 @@
 }
 
 .gebruiker-header img {
-  width: 20%;
+  width: 15%;
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
 
 h1 {
@@ -19,3 +21,14 @@ h1 {
   color: #FFFFFF;
 }
 
+@media only screen and (max-width: 768px) {
+  .gebruiker-header img {
+    width: 20%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .gebruiker-header img {
+    width: 30%;
+  }
+}
