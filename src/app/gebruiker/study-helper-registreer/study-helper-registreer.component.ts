@@ -4,12 +4,14 @@ import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../../service/auth.service";
 import {Router} from "@angular/router";
 import {RegistreerResponse} from "../../models/interfaces";
+import {GebruikerHeaderComponent} from "../gebruiker-header/gebruiker-header.component";
 
 @Component({
   selector: 'app-study-helper-registreer',
   standalone: true,
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    GebruikerHeaderComponent
   ],
   templateUrl: './study-helper-registreer.component.html',
   styleUrl: './study-helper-registreer.component.scss'

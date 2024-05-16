@@ -5,10 +5,6 @@ import {RegistreerResponse} from "../../models/interfaces";
 import {AuthService} from "../../service/auth.service";
 import {Router} from "@angular/router";
 import {GebruikerHeaderComponent} from "../gebruiker-header/gebruiker-header.component";
-import {MatFormField, MatLabel} from "@angular/material/form-field";
-import {MatIcon} from "@angular/material/icon";
-import {MatIconButton} from "@angular/material/button";
-import {MatInput} from "@angular/material/input";
 
 @Component({
   selector: 'app-login',

@@ -4,12 +4,14 @@ import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../../service/auth.service";
 import {Router} from "@angular/router";
 import {RegistreerResponse} from "../../models/interfaces";
+import {GebruikerHeaderComponent} from "../gebruiker-header/gebruiker-header.component";
 
 @Component({
   selector: 'app-study-looker-registreer',
   standalone: true,
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    GebruikerHeaderComponent
   ],
   templateUrl: './study-looker-registreer.component.html',
   styleUrl: './study-looker-registreer.component.scss'
@@ -24,8 +26,13 @@ export class StudyLookerRegistreerComponent {
   }
 
   form = this.formBuilder.nonNullable.group({
+    voornaam: ['', Validators. required],
+    achternaam: ['', Validators. required],
     email: ['', Validators. required],
-    wachtwoord: ['', Validators.required],
+    wachtwoord: ['', Validators. required],
+    bevestigWachtwoord: ['', Validators. required],
+    provincie: ['', Validators. required],
+    huidigeStudie: ['', Validators.required],
   });
   onSubmit(): void {
     const formData = this.form.getRawValue();
