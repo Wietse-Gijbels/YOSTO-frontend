@@ -5,7 +5,7 @@ import {isPlatformBrowser} from "@angular/common";
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(@Inject(PLATFORM_ID) private platformId: any) {} // Dit is om te checken of er een localstorage aanwezig is
+  constructor(@Inject(PLATFORM_ID) private platformId: string) {} // Dit is om te checken of er een localstorage aanwezig is
 
   isLoggedIn(): boolean {
     if (isPlatformBrowser(this.platformId)) {  // Dit is om te checken of er een localstorage aanwezig is
