@@ -64,3 +64,11 @@ button {
   border-radius: 20px;
   padding: 3px 50px;
 }
+
+p {
+  @include style-guide.font-small-tekst;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 12px;
+  margin: 7px;
+}
