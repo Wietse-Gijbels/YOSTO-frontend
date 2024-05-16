@@ -1,20 +1,20 @@
-import {HttpClient} from '@angular/common/http';
-import {Component, inject} from '@angular/core';
-import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {RegistreerResponse} from "../../models/interfaces";
+import { Component } from '@angular/core';
+import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
+import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../../service/auth.service";
 import {Router} from "@angular/router";
-import {GebruikerHeaderComponent} from "../gebruiker-header/gebruiker-header.component";
+import {RegistreerResponse} from "../../models/interfaces";
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-study-helper-registreer',
   standalone: true,
-  imports: [ReactiveFormsModule, GebruikerHeaderComponent],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  imports: [
+    ReactiveFormsModule
+  ],
+  templateUrl: './study-helper-registreer.component.html',
+  styleUrl: './study-helper-registreer.component.scss'
 })
-export class LoginComponent {
-
+export class StudyHelperRegistreerComponent {
   constructor(
     private formBuilder: FormBuilder,
     private httpClient: HttpClient,
@@ -23,15 +23,15 @@ export class LoginComponent {
   ) {
   }
 
+
   form = this.formBuilder.nonNullable.group({
-    email: ['', Validators.required],
+    email: ['', Validators. required],
     wachtwoord: ['', Validators.required],
   });
-
   onSubmit(): void {
     const formData = this.form.getRawValue();
     this.httpClient.post<RegistreerResponse>(
-      'http://localhost:8080/api/v1/auth/login',
+      'http://localhost:8080/api/v1/auth/registreer',
       formData,
     ).subscribe((response) => {
       localStorage.setItem('token', response.token);

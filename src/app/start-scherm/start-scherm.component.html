@@ -6,18 +6,18 @@
     </li>
     <li id="start-scherm-study-buttons-groep">
       <ul id="start-scherm-study-buttons">
-        <li class="study-button custom-font">
+        <li class="study-button custom-font" (click)="navigeerNaarRegistreerHelper()">
           <h2>STUDYHELPER</h2>
           <p class="tekst-wit">Ik wil een student helpen en benefits verdienen</p>
         </li>
-        <li class="study-button">
+        <li class="study-button" (click)="navigeerNaarRegistreerLooker()">
           <h2>STUDYLOOKER</h2>
           <p class="tekst-wit">Ik ben op zoek naar een studierichting</p>
         </li>
       </ul>
     </li>
     <li>
-      <button id="start-scherm-login">LOG-IN</button>
+      <button id="start-scherm-login" (click)="navigeerNaarLogin()">LOG-IN</button>
     </li>
   </ul>
   </div>

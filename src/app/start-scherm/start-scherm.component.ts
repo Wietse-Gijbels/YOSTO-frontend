@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-start-scherm',
+  selector: 'start-scherm',
   standalone: true,
   imports: [],
   templateUrl: './start-scherm.component.html',
@@ -9,4 +10,18 @@ import { Component } from '@angular/core';
 })
 export class StartSchermComponent {
 
+  constructor(private router: Router) { }
+
+
+  navigeerNaarRegistreerHelper() {
+    this.router.navigateByUrl('/study-helper-registreer');
+  }
+
+  navigeerNaarRegistreerLooker() {
+    this.router.navigateByUrl('/study-looker-registreer');
+  }
+
+  navigeerNaarLogin() {
+    this.router.navigateByUrl('/login');
+  }
 }
