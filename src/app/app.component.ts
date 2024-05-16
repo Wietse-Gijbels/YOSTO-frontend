@@ -5,11 +5,12 @@ import {HttpClientModule} from "@angular/common/http";
 import {RegistreerComponent} from "./gebruiker/registreer/registreer.component";
 import {AuthService} from "./service/auth.service";
 import {NgIf} from "@angular/common";
+import {StartSchermComponent} from "./start-scherm/start-scherm.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BackendConnectionComponent, HttpClientModule, RouterLink, RegistreerComponent, NgIf],
+  imports: [RouterOutlet, BackendConnectionComponent, HttpClientModule, RouterLink, RegistreerComponent, NgIf, StartSchermComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -22,9 +23,5 @@ export class AppComponent {
   ) {
   }
   ngOnInit(): void {
-  }
-
-  Logout(): void {
-
   }
 }
