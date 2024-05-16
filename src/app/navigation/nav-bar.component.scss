@@ -1,3 +1,5 @@
+@use "../../style-guide";
+
 ul.navbar {
   display: flex;
   justify-content: space-around;
@@ -10,30 +12,31 @@ ul.navbar {
   margin: 0;
   height: 60px;
   width: 100%;
-  background-color: #FF3800;
+  background-color: style-guide.$primary-rood;
 }
 
-ul.navbar li{
+ul.navbar li {
   list-style: none;
 }
 
-.second-icon{
+.second-icon {
   z-index: 1;
 }
 
-.third-icon{
+.third-icon {
   z-index: 2;
 }
 
-ul.navbar li a {
+ul.navbar li a img {
   color: #FFF;
 }
 
-a fa-icon{
+a fa-icon {
   font-size: 40px;
 
 }
-.center-icon a fa-icon{
+
+.center-icon a fa-icon {
   font-size: 60px;
 }
 
@@ -50,7 +53,7 @@ a fa-icon{
   transform: translateX(-50%);
   width: 110px;
   height: 100px;
-  background-color: #FF3800;
+  background-color: style-guide.$primary-rood;
   border-radius: 50%;
   z-index: -1;
 }
