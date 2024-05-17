@@ -1,4 +1,4 @@
-@use '../../../style-guide.scss';
+@use "../../../style-guide.scss";
 
 .gebruiker-header {
   display: flex;
@@ -18,7 +18,7 @@
 
 h1 {
   @include style-guide.font-large-header;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 @media only screen and (max-width: 768px) {

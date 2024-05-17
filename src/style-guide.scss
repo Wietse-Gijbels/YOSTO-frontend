@@ -1,14 +1,13 @@
 $yosto-palette: (
-  100: #FF3800,
-  200: #FF9100,
-  300: #FF63C6,
-  400: #14C5EE,
-  500: #543AB5,
-  600: #00B980,
-  700: #FFC001,
-  800: #FFBAF9,
-  contrast: (
-  )
+  100: #ff3800,
+  200: #ff9100,
+  300: #ff63c6,
+  400: #14c5ee,
+  500: #543ab5,
+  600: #00b980,
+  700: #ffc001,
+  800: #ffbaf9,
+  contrast: (),
 );
 
 $spacing-large: 30px;
@@ -22,8 +21,8 @@ $mobile-vw-40: 40vw;
 
 $media-mobile: 750px;
 
-$font-header: 'Luckiest Guy', sans-serif;
-$font-tekst: 'Roboto', sans-serif;
+$font-header: "Luckiest Guy", sans-serif;
+$font-tekst: "Roboto", sans-serif;
 
 $font-size-large: 36px;
 $font-size-medium: 20px;
@@ -34,8 +33,7 @@ $font-line-hide-medium: 32px;
 $font-weight-medium: 500;
 
 @mixin font-large-header {
-  font: #{$font-size-large}
-  $font-header;
+  font: #{$font-size-large} $font-header;
 }
 
 @mixin font-medium-header {
@@ -50,8 +48,6 @@ $font-weight-medium: 500;
   font: #{$font-size-small} $font-tekst;
 }
 
-
-
 $primary-rood: map-get($yosto-palette, 100);
 $primary-oranje: map-get($yosto-palette, 200);
 $primary-roos: map-get($yosto-palette, 300);
@@ -60,4 +56,3 @@ $secondary-paars: map-get($yosto-palette, 500);
 $secondary-groen: map-get($yosto-palette, 600);
 $secondary-geel: map-get($yosto-palette, 700);
 $secondary-roos: map-get($yosto-palette, 800);
-

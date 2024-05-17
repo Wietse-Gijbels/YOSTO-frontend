@@ -17,7 +17,7 @@ import {NgForOf, NgIf} from "@angular/common";
     NgIf
   ],
   templateUrl: './study-helper-registreer.component.html',
-  styleUrl: './study-helper-registreer.component.scss'
+  styleUrl: './study-helper-registreer.component.scss',
 })
 export class StudyHelperRegistreerComponent {
   form = this.formBuilder.nonNullable.group({
@@ -42,8 +42,7 @@ export class StudyHelperRegistreerComponent {
     private httpClient: HttpClient,
     private authService: AuthService,
     private router: Router,
-  ) {
-  }
+  ) {}
 
   get behaaldeDiplomaArray(): FormArray {
     return this.form.get('behaaldeDiplomaArray') as FormArray;
@@ -66,11 +65,12 @@ export class StudyHelperRegistreerComponent {
     }
 
     this.httpClient.post<RegistreerResponse>(
-      'http://localhost:8080/api/v1/auth/registreer',
-      formData,
-    ).subscribe((response) => {
-      localStorage.setItem('token', response.token);
-      this.router.navigateByUrl('/');
-    })
+        'http://localhost:8080/api/v1/auth/registreer',
+        formData,
+      )
+      .subscribe((response) => {
+        localStorage.setItem('token', response.token);
+        this.router.navigateByUrl('/');
+      });
   }
 }

@@ -28,12 +28,11 @@ ul.navbar li {
 }
 
 ul.navbar li a img {
-  color: #FFF;
+  color: #fff;
 }
 
 a fa-icon {
   font-size: 40px;
-
 }
 
 .center-icon a fa-icon {
@@ -46,7 +45,7 @@ a fa-icon {
 }
 
 .center-icon::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -7px;
   left: 50%;
@@ -57,5 +56,3 @@ a fa-icon {
   border-radius: 50%;
   z-index: -1;
 }
-
-

@@ -12,30 +12,30 @@ import {VeelGesteldeVragenComponent} from "./veel-gestelde-vragen/veel-gestelde-
 import {RegistreerComponent} from "./registreer/registreer.component";
 
 export const routes: Routes = [
-  {path: '', component: StartSchermComponent}, // Default route to StartSchermComponent
+  {path: '', component: StartSchermComponent }, // Default route to StartSchermComponent
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'registreer',
-    component: RegistreerComponent
+    component: RegistreerComponent,
   },
   {
     path: 'study-helper-registreer',
-    component: StudyHelperRegistreerComponent
+    component: StudyHelperRegistreerComponent,
   },
   {
     path: 'study-looker-registreer',
-    component: StudyLookerRegistreerComponent
+    component: StudyLookerRegistreerComponent,
   },
   {
     path: 'gebruikers-overzicht',
     component: GebruikersOverzichtComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {path: 'home', component: HomeComponent},
   {path: 'favorieten', component: FavorietenComponent},
   {path: 'scholen', component: ScholenComponent},
-  {path: 'veelGesteldeVragen', component: VeelGesteldeVragenComponent}
+  { path: 'veelGesteldeVragen', component: VeelGesteldeVragenComponent },
 ];
