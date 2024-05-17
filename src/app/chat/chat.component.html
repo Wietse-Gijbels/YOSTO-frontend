@@ -10,7 +10,7 @@
   </mat-list>
   @if (selectedGebruiker) {
     <div>
-      @for (bericht of berichten; track bericht) {
+      @for (bericht of berichten$ | async; track bericht) {
         <div>
           <span>{{ bericht.content }}</span>
         </div>
@@ -20,7 +20,8 @@
 
       <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
         <div>
-          <input autocomplete="off" type="text" id="message" placeholder="Type your message..." formControlName="message">
+          <input autocomplete="off" type="text" id="message" placeholder="Type your message..."
+                 formControlName="message">
           <button type="submit" [disabled]="!messageForm.valid">Send</button>
         </div>
       </form>

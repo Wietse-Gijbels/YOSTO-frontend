@@ -10,6 +10,8 @@ import {MatGridList} from "@angular/material/grid-list";
 import {StompService} from "../service/stomp.service";
 import {ChatService} from "../service/chat.service";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {AsyncPipe} from "@angular/common";
+import {Observable, tap} from "rxjs";
 
 @Component({
   selector: 'app-chat',
@@ -22,22 +24,22 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
     MatFormField,
     MatInput,
     MatGridList,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AsyncPipe
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })
-export class ChatComponent implements OnInit{
+export class ChatComponent implements OnInit {
   gebruikers: GebruikerInterface[] = [];
-  selectedGebruiker: GebruikerInterface | null = null;
+  selectedGebruiker?: GebruikerInterface;
   messageForm!: FormGroup;
-  berichten: Message[] = [];
+  berichten$?: Observable<Message[]>;
 
   constructor(private gebruikerService: GebruikerService,
-              private stompService:StompService,
+              private stompService: StompService,
               private chatService: ChatService,
               private formBuilder: FormBuilder) {
-    this.chatService.getMessages();
   }
 
   ngOnInit(): void {
@@ -49,16 +51,18 @@ export class ChatComponent implements OnInit{
         console.error('Error fetching gebruikers:', error);
       }
     );
-    this.stompService.subscribe((): void => {
-      this.chatService.getMessages();
-    })
+
     this.messageForm = this.formBuilder.group({
       message: ['', Validators.required] // 'message' is the form control name
+    });
+
+    this.stompService.connect(this.onConnected(), (error: any) => {
+      console.error('Error connecting to websocket:', error);
     });
   }
 
   onChatClick(gebruiker: GebruikerInterface): void {
-    this.gebruikerService.getGebruikerByEmail(gebruiker.email).subscribe(
+    this.gebruikerService.getGebruikerById(gebruiker.id).subscribe(
       (gebruiker) => {
         this.selectedGebruiker = gebruiker;
       },
@@ -66,16 +70,46 @@ export class ChatComponent implements OnInit{
         console.error('Error fetching gebruiker:', error);
       }
     );
+    this.chatService.getMessages(localStorage.getItem('token')!, this.selectedGebruiker!.id);
+  }
+
+  sendMessage(message: Message): void {
+    // this.berichten ? this.berichten.push(message) : undefined
+  }
+
+  onConnected(): void {
+    this.stompService.subscribe(`/user/${localStorage.getItem('token')}/queue/messages`, this.onMessageReceived());
+    this.stompService.subscribe(`/user/public`, this.onMessageReceived());
   }
 
   onSubmit() {
     if (this.messageForm.valid) {
-      const message = this.messageForm.value.message;
+      const messageContent = this.messageForm.value.message;
 
-      this.stompService.send(message);
+      const chatMessage: Message = {
+        senderId: localStorage.getItem('token')!,
+        responderId: this.selectedGebruiker?.id!,
+        content: messageContent,
+        timestamp: new Date()
+      };
+
+      this.stompService.send("app/chat", JSON.stringify(chatMessage))
+
+      this.displayMessage(chatMessage)
+
+      this.sendMessage(messageContent)
 
       this.messageForm.reset();
     }
   }
 
+  displayMessage(message: Message): void {
+    this.berichten$?.pipe(tap((berichten) => {
+      berichten.push(message)
+    }));
+  }
+
+  onMessageReceived(payload: any): void {
+
+  }
 }

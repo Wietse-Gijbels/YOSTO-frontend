@@ -1,7 +1,7 @@
 import {Component, Inject, inject} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import {HttpClient} from "@angular/common/http";
-import {GebruikerInterface, RegistreerResponse} from "../../models/interfaces";
+import {GebruikerInterface, AuthenticationResponse} from "../../models/interfaces";
 import {response} from "express";
 import {AuthService} from "../../service/auth.service";
 import {Router} from "@angular/router";
@@ -33,7 +33,7 @@ export class RegistreerComponent {
   });
   onSubmit(): void {
     const formData = this.form.getRawValue();
-    this.httpClient.post<RegistreerResponse>(
+    this.httpClient.post<AuthenticationResponse>(
       'http://localhost:8080/api/v1/auth/registreer',
       formData,
       ).subscribe((response) => {

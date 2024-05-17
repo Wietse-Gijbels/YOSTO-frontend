@@ -23,13 +23,11 @@ export interface GebruikerInterface {
   rollen: GebruikerRol[];
 }
 
-export interface RegistreerResponse {
+export interface AuthenticationResponse {
   token: string;
 }
 
 export interface Message {
-  id: string;
-  chatId: string;
   senderId: string;
   responderId: string;
   content: string;

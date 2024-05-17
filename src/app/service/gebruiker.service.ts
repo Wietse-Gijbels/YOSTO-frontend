@@ -8,15 +8,19 @@ import {GebruikerInterface} from "../models/interfaces";
 })
 export class GebruikerService {
 
-  constructor(private http: HttpClient){
+  constructor(private http: HttpClient) {
   }
 
-  getAllConectedGebruikers():Observable<GebruikerInterface[]>{
+  getAllConectedGebruikers(): Observable<GebruikerInterface[]> {
     return this.http.get<GebruikerInterface[]>('http://localhost:8080/api/v1/gebruiker/online');
   }
 
   getGebruikerByEmail(email: string): Observable<GebruikerInterface> {
     return this.http.get<GebruikerInterface>(`http://localhost:8080/api/v1/gebruiker/${email}`);
+  }
+
+  getGebruikerById(id: string): Observable<GebruikerInterface> {
+    return this.http.get<GebruikerInterface>(`http://localhost:8080/api/v1/gebruiker/id/${id}`);
   }
 
 }
