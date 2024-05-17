@@ -1,25 +1,26 @@
 import { Component } from '@angular/core';
-import {RouterLink, RouterOutlet} from '@angular/router';
-import {HttpClientModule} from "@angular/common/http";
-import {NavBarComponent} from "./navigation/nav-bar.component";
-import {AuthService} from "./service/auth.service";
-import {NgIf} from "@angular/common";
-import {StartSchermComponent} from "./start-scherm/start-scherm.component";
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { NavBarComponent } from './navigation/nav-bar.component';
+import { AuthService } from './service/auth.service';
+import { NgIf } from '@angular/common';
+import { StartSchermComponent } from './start-scherm/start-scherm.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule, NavBarComponent, RouterLink, NgIf, StartSchermComponent],
+  imports: [
+    RouterOutlet,
+    HttpClientModule,
+    NavBarComponent,
+    RouterLink,
+    NgIf,
+    StartSchermComponent,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-
-
-  constructor(
-    private authService: AuthService,
-  ) {
-  }
-  ngOnInit(): void {
-  }
+  constructor(private authService: AuthService) {}
+  ngOnInit(): void {}
 }
