@@ -1,27 +1,45 @@
 <div class="container">
   <gebruiker-header [headerText]="'Registreren'"></gebruiker-header>
   <div class="studylooker-registreer-page">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
       <div>
-        <input type="text" class="icon-persoon" placeholder="Voornaam*" formControlName="voornaam">
+        <input class="icon-persoon" formControlName="voornaam" placeholder="Voornaam*" type="text">
       </div>
       <div>
-        <input type="text" class="icon-persoon" placeholder="Achternaam*" formControlName="achternaam">
+        <input class="icon-persoon" formControlName="achternaam" placeholder="Achternaam*" type="text">
       </div>
       <div>
-        <input type="email" class="icon-email" placeholder="E-mailadres*" formControlName="email">
+        <input class="icon-email" formControlName="email" placeholder="E-mailadres*" type="email">
       </div>
       <div>
-        <input type="password" class="icon-wachtwoord" placeholder="Wachtwoord*" formControlName="wachtwoord">
+        <input class="icon-wachtwoord" formControlName="wachtwoord" placeholder="Wachtwoord*" type="password">
       </div>
       <div>
-        <input type="password" class="icon-wachtwoord" placeholder="Bevestig wachtwoord*" formControlName="bevestigWachtwoord">
+        <input class="icon-wachtwoord" formControlName="bevestigWachtwoord" placeholder="Bevestig wachtwoord*"
+               type="password">
       </div>
       <div>
-        <input type="text" class="icon-provincie" placeholder="Provincie*" formControlName="provincie">
+        <input class="icon-provincie" formControlName="provincie" placeholder="Provincie*" type="text">
       </div>
       <div>
-        <input type="text" class="icon-studie" placeholder="Huidige studie*" formControlName="huidigeStudie">
+        <input class="icon-studie" formControlName="huidigeStudie" placeholder="Huidige studie*" type="text">
+      </div>
+      <div>
+        <input class="icon-studie" formControlName="behaaldDiploma" placeholder="Behaalde diploma*" type="text">
+      </div>
+      <div class="smaller-height">
+        <button (click)="addDiplomaField()" class="plus-button" type="button">+</button>
+        <input class="icon-studie smaller-input" formControlName="toegevoegdDiploma" placeholder="Diploma toevoegen"
+               type="text">
+      </div>
+      <div formArrayName="behaaldeDiplomaArray">
+        <div *ngFor="let diploma of behaaldeDiplomaArray.controls; let i = index" [formGroupName]="i">
+          <div class="diploma-field">
+            <input [formControlName]="'diploma'" class="icon-studie smaller-input alignment-right"
+                   placeholder="Diploma toevoegen"
+                   type="text">
+          </div>
+        </div>
       </div>
       <div>
         <button type="submit">Registreer</button>
@@ -30,5 +48,3 @@
     <p>Door te registreren ga je akkoord met de algemene <br> voorwaarden en het Privacybeleid.</p>
   </div>
 </div>
-
-
