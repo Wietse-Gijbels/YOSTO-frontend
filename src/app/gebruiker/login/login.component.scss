@@ -1,17 +1,11 @@
 @use '../../../style-guide.scss';
 
 .icon-email {
-  padding-left: 35px;
-  background: url("/assets/images/mail-envloppe.png") no-repeat 5px center; /* Adjust the background position */
-  background-size: 20px;
-  background-color: style-guide.$primary-rood;
+  background: url("/assets/images/mail-envloppe.png") no-repeat 5px center;
 }
 
 .icon-wachtwoord {
-  padding-left: 35px;
   background: url("/assets/images/wachtwoord.png") no-repeat 5px center;
-  background-size: 20px;
-  background-color: style-guide.$primary-rood;
 }
 .login-page {
   background-color: style-guide.$primary-rood;
@@ -28,10 +22,10 @@
   color: #FFFFFF;
   border: 1px solid #FFFFFF;
   border-radius: 5px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-right: 100px;
   margin-bottom: 10px;
+  background-size: 20px;
+  background-color: style-guide.$primary-rood;
+  padding: 5px 100px 5px 35px;
 }
 
 .icon-email:focus, .icon-wachtwoord:focus {

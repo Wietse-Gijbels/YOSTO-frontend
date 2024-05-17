@@ -1,7 +1,7 @@
 @use '../../../style-guide.scss';
 
 .icon-email {
-  background: url("/assets/images/mail-envloppe.png") no-repeat 5px center; /* Adjust the background position */
+  background: url("/assets/images/mail-envloppe.png") no-repeat 5px center;
 }
 
 .icon-wachtwoord {
@@ -9,7 +9,7 @@
 }
 
 .icon-persoon {
-  background: url("/assets/images/persoon.png") no-repeat 5px center; /* Adjust the background position */
+  background: url("/assets/images/persoon.png") no-repeat 5px center;
 }
 
 .icon-provincie {
@@ -35,7 +35,7 @@
 
 .icon-email:focus, .icon-wachtwoord:focus, .icon-provincie:focus, .icon-persoon:focus, .icon-studie:focus {
   border: 1px solid #FFFFFF;
-  outline: none; /* Remove the default focus outline */
+  outline: none;
 }
 
 .studylooker-registreer-page {

@@ -25,10 +25,14 @@ export class StudyHelperRegistreerComponent {
   ) {
   }
 
-
   form = this.formBuilder.nonNullable.group({
+    voornaam: ['', Validators. required],
+    achternaam: ['', Validators. required],
     email: ['', Validators. required],
-    wachtwoord: ['', Validators.required],
+    wachtwoord: ['', Validators. required],
+    bevestigWachtwoord: ['', Validators. required],
+    provincie: ['', Validators. required],
+    huidigeStudie: ['', Validators.required],
   });
   onSubmit(): void {
     const formData = this.form.getRawValue();
