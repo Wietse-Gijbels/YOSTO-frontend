@@ -1,4 +1,4 @@
-@use '../../../style-guide.scss';
+@use "../../../style-guide.scss";
 
 .icon-email {
   background: url("/assets/images/mail-envloppe.png") no-repeat 5px center;
@@ -20,12 +20,16 @@
   background: url("/assets/images/studie.png") no-repeat 5px center;
 }
 
-.icon-email, .icon-wachtwoord, .icon-provincie, .icon-persoon, .icon-studie {
+.icon-email,
+.icon-wachtwoord,
+.icon-provincie,
+.icon-persoon,
+.icon-studie {
   @include style-guide.font-small-tekst;
   font-size: 14px;
   font-weight: 300;
-  color: #FFFFFF;
-  border: 1px solid #FFFFFF;
+  color: #ffffff;
+  border: 1px solid #ffffff;
   border-radius: 5px;
   margin-bottom: 10px;
   background-size: 20px;
@@ -33,8 +37,12 @@
   background-color: style-guide.$primary-rood;
 }
 
-.icon-email:focus, .icon-wachtwoord:focus, .icon-provincie:focus, .icon-persoon:focus, .icon-studie:focus {
-  border: 1px solid #FFFFFF;
+.icon-email:focus,
+.icon-wachtwoord:focus,
+.icon-provincie:focus,
+.icon-persoon:focus,
+.icon-studie:focus {
+  border: 1px solid #ffffff;
   outline: none;
 }
 
@@ -53,7 +61,7 @@
 }
 
 ::placeholder {
-  color: #FFFFFF;
+  color: #ffffff;
   opacity: 1;
 }
 
@@ -74,7 +82,7 @@ button {
 }
 
 .plus-button {
-  color: #FFFFFF;
+  color: #ffffff;
   background-color: style-guide.$primary-rood;
   margin-right: 5px;
   padding: 0;
@@ -84,7 +92,7 @@ button {
 
 p {
   @include style-guide.font-small-tekst;
-  color: #FFFFFF;
+  color: #ffffff;
   text-align: center;
   font-size: 12px;
   margin: 7px;

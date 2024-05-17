@@ -9,10 +9,7 @@ import { GebruikerHeaderComponent } from '../gebruiker-header/gebruiker-header.c
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    GebruikerHeaderComponent
-  ],
+  imports: [ReactiveFormsModule, GebruikerHeaderComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

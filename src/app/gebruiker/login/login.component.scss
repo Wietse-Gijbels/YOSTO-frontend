@@ -1,4 +1,4 @@
-@use '../../../style-guide.scss';
+@use "../../../style-guide.scss";
 
 .icon-email {
   background: url("/assets/images/mail-envloppe.png") no-repeat 5px center;
@@ -15,12 +15,13 @@
   background-size: cover;
 }
 
-.icon-email, .icon-wachtwoord {
+.icon-email,
+.icon-wachtwoord {
   @include style-guide.font-small-tekst;
   font-size: 14px;
   font-weight: 300;
-  color: #FFFFFF;
-  border: 1px solid #FFFFFF;
+  color: #ffffff;
+  border: 1px solid #ffffff;
   border-radius: 5px;
   margin-bottom: 10px;
   background-size: 20px;
@@ -28,8 +29,9 @@
   padding: 5px 100px 5px 35px;
 }
 
-.icon-email:focus, .icon-wachtwoord:focus {
-  border: 1px solid #FFFFFF;
+.icon-email:focus,
+.icon-wachtwoord:focus {
+  border: 1px solid #ffffff;
   outline: none; /* Remove the default focus outline */
 }
 
@@ -40,7 +42,7 @@
 }
 
 ::placeholder {
-  color: #FFFFFF;
+  color: #ffffff;
   opacity: 1;
 }
 
@@ -61,7 +63,7 @@ button {
 
 p {
   @include style-guide.font-small-tekst;
-  color: #FFFFFF;
+  color: #ffffff;
   text-align: center;
   font-size: 12px;
   margin: 7px;

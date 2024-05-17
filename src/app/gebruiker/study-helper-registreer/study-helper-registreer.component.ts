@@ -1,21 +1,21 @@
-import {Component} from '@angular/core';
-import {FormArray, FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
-import {AuthService} from "../../service/auth.service";
-import {Router} from "@angular/router";
-import {RegistreerResponse} from "../../models/interfaces";
-import {GebruikerHeaderComponent} from "../gebruiker-header/gebruiker-header.component";
-import {NgForOf, NgIf} from "@angular/common";
+import { Component } from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../service/auth.service';
+import { Router } from '@angular/router';
+import { RegistreerResponse } from '../../models/interfaces';
+import { GebruikerHeaderComponent } from '../gebruiker-header/gebruiker-header.component';
+import { NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-study-helper-registreer',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    GebruikerHeaderComponent,
-    NgForOf,
-    NgIf
-  ],
+  imports: [ReactiveFormsModule, GebruikerHeaderComponent, NgForOf, NgIf],
   templateUrl: './study-helper-registreer.component.html',
   styleUrl: './study-helper-registreer.component.scss',
 })
@@ -32,9 +32,9 @@ export class StudyHelperRegistreerComponent {
     toegevoegdDiploma: ['', Validators.required],
     behaaldeDiplomaArray: this.formBuilder.array([
       this.formBuilder.group({
-        diploma: ['', Validators.required]
-      })
-    ])
+        diploma: ['', Validators.required],
+      }),
+    ]),
   });
 
   constructor(
@@ -49,9 +49,11 @@ export class StudyHelperRegistreerComponent {
   }
 
   addDiplomaField(): void {
-    this.behaaldeDiplomaArray.push(this.formBuilder.group({
-      diploma: ['', Validators.required]
-    }));
+    this.behaaldeDiplomaArray.push(
+      this.formBuilder.group({
+        diploma: ['', Validators.required],
+      }),
+    );
   }
 
   onSubmit(): void {
@@ -59,12 +61,15 @@ export class StudyHelperRegistreerComponent {
 
     const toegevoegdDiploma = formData.toegevoegdDiploma;
     if (toegevoegdDiploma) {
-      this.behaaldeDiplomaArray.push(this.formBuilder.group({
-        diploma: [toegevoegdDiploma, Validators.required]
-      }));
+      this.behaaldeDiplomaArray.push(
+        this.formBuilder.group({
+          diploma: [toegevoegdDiploma, Validators.required],
+        }),
+      );
     }
 
-    this.httpClient.post<RegistreerResponse>(
+    this.httpClient
+      .post<RegistreerResponse>(
         'http://localhost:8080/api/v1/auth/registreer',
         formData,
       )
