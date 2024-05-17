@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NavBarComponent } from './navigation/nav-bar.component';
-import { AuthService } from './service/auth.service';
 import { NgIf } from '@angular/common';
 import { StartSchermComponent } from './start-scherm/start-scherm.component';
 
@@ -21,6 +20,7 @@ import { StartSchermComponent } from './start-scherm/start-scherm.component';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  constructor(private authService: AuthService) {}
+  constructor() {}
+
   ngOnInit(): void {}
 }
