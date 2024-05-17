@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
@@ -10,15 +10,16 @@ import {Router} from "@angular/router";
 })
 export class StartSchermComponent {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
 
   navigeerNaarRegistreerHelper() {
-    this.router.navigateByUrl('/study-helper-registreer');
+    this.router.navigateByUrl('/registreer?form=helper');
   }
 
   navigeerNaarRegistreerLooker() {
-    this.router.navigateByUrl('/study-looker-registreer');
+    this.router.navigateByUrl('/registreer?form=looker');
   }
 
   navigeerNaarLogin() {

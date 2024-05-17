@@ -44,6 +44,7 @@
   overflow: hidden;
   position: relative;
   background-size: cover;
+  height: 60vh;
 }
 
 .container {
@@ -72,6 +73,7 @@ button {
   padding: 3px 50px;
   margin-top: 5px;
 }
+
 p {
   @include style-guide.font-small-tekst;
   color: #FFFFFF;
