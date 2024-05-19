@@ -2,6 +2,7 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { RegistreerResponse } from '../models/interfaces';
 
 @Injectable({
@@ -9,16 +10,15 @@ import { RegistreerResponse } from '../models/interfaces';
 })
 export class AuthService {
   constructor(
-    @Inject(PLATFORM_ID) private platformId: string,
+    @Inject(PLATFORM_ID) private platformId: Object,
     private httpClient: HttpClient,
     private router: Router,
+    private cookieService: CookieService,
   ) {}
 
   isLoggedIn(): boolean {
     if (isPlatformBrowser(this.platformId)) {
-      // Dit is om te checken of er een localstorage aanwezig is
-      return !!localStorage.getItem('token');
-      // TO DO Call naar de backend om te checken of dat de token die aanwezig is in de localstorage wel valid is
+      return this.cookieService.check('token');
     }
     return false;
   }
@@ -34,13 +34,45 @@ export class AuthService {
       )
       .subscribe(
         (response) => {
-          localStorage.setItem('token', response.token);
+          this.cookieService.set('token', response.token);
           this.router.navigateByUrl('/');
         },
         (error) => {
           console.error('Fout bij registreren:', error);
-          // Handel fouten hier verder af indien nodig
+          // Handle errors here if necessary
         },
       );
+  }
+
+  login(formData: any): void {
+    this.httpClient
+      .post<RegistreerResponse>(
+        'http://localhost:8080/api/v1/auth/login',
+        formData,
+      )
+      .subscribe(
+        (response) => {
+          this.cookieService.set('token', response.token);
+          this.router.navigateByUrl('/');
+        },
+        (error) => {
+          console.error('Fout bij inloggen:', error);
+          // Handle errors here if necessary
+        },
+      );
+  }
+
+  logout(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.cookieService.delete('token');
+      this.router.navigateByUrl('/login');
+    }
+  }
+
+  getToken(): string | null {
+    if (isPlatformBrowser(this.platformId)) {
+      return this.cookieService.get('token');
+    }
+    return null;
   }
 }

@@ -8,9 +8,5 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './gebruikers-overzicht.component.scss',
 })
 export class GebruikersOverzichtComponent implements OnInit {
-  tokenString: string | null = '';
-
-  ngOnInit(): void {
-    this.tokenString = localStorage.getItem('token');
-  }
+  ngOnInit(): void {}
 }
