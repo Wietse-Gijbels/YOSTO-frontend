@@ -1,0 +1,7 @@
+{
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "ignorePatterns": ["node_modules/", "dist/", "/android"],
+  "rules": {
+    // Your rules here
+  }
+}

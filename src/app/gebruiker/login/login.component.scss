@@ -1,0 +1,70 @@
+@use "../../../style-guide.scss";
+
+.icon-email {
+  background: url("/assets/images/mail-envloppe.png") no-repeat 5px center;
+}
+
+.icon-wachtwoord {
+  background: url("/assets/images/wachtwoord.png") no-repeat 5px center;
+}
+.login-page {
+  background-color: style-guide.$primary-rood;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background-size: cover;
+}
+
+.icon-email,
+.icon-wachtwoord {
+  @include style-guide.font-small-tekst;
+  font-size: 14px;
+  font-weight: 300;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-size: 20px;
+  background-color: style-guide.$primary-rood;
+  padding: 5px 100px 5px 35px;
+}
+
+.icon-email:focus,
+.icon-wachtwoord:focus {
+  border: 1px solid #ffffff;
+  outline: none; /* Remove the default focus outline */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+::placeholder {
+  color: #ffffff;
+  opacity: 1;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  color: style-guide.$primary-rood;
+  @include style-guide.font-large-header;
+  font-size: 16px;
+  border: none;
+  border-radius: 20px;
+  padding: 3px 50px;
+}
+
+p {
+  @include style-guide.font-small-tekst;
+  color: #ffffff;
+  text-align: center;
+  font-size: 12px;
+  margin: 7px;
+}

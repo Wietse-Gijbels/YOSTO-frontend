@@ -1,0 +1,67 @@
+<div class="studylooker-registreer-page">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <div>
+      <input
+        class="icon-persoon"
+        formControlName="voornaam"
+        placeholder="Voornaam*"
+        type="text"
+      />
+    </div>
+    <div>
+      <input
+        class="icon-persoon"
+        formControlName="achternaam"
+        placeholder="Achternaam*"
+        type="text"
+      />
+    </div>
+    <div>
+      <input
+        class="icon-email"
+        formControlName="email"
+        placeholder="E-mailadres*"
+        type="email"
+      />
+    </div>
+    <div>
+      <input
+        class="icon-wachtwoord"
+        formControlName="wachtwoord"
+        placeholder="Wachtwoord*"
+        type="password"
+      />
+    </div>
+    <div>
+      <input
+        class="icon-wachtwoord"
+        formControlName="bevestigWachtwoord"
+        placeholder="Bevestig wachtwoord*"
+        type="password"
+      />
+    </div>
+    <div>
+      <input
+        class="icon-provincie"
+        formControlName="woonplaats"
+        placeholder="Provincie*"
+        type="text"
+      />
+    </div>
+    <div>
+      <input
+        class="icon-studie"
+        formControlName="huidigeStudie"
+        placeholder="Huidige studie*"
+        type="text"
+      />
+    </div>
+    <div>
+      <button type="submit">Registreer</button>
+    </div>
+  </form>
+  <p>
+    Door te registreren ga je akkoord met de algemene <br />
+    voorwaarden en het Privacybeleid.
+  </p>
+</div>

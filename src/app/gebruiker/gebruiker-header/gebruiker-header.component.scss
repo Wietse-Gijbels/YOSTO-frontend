@@ -1,0 +1,34 @@
+@use "../../../style-guide.scss";
+
+.gebruiker-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  background-color: style-guide.$primary-rood;
+}
+
+.gebruiker-header img {
+  width: 15%;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+h1 {
+  @include style-guide.font-large-header;
+  color: #ffffff;
+}
+
+@media only screen and (max-width: 768px) {
+  .gebruiker-header img {
+    width: 20%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .gebruiker-header img {
+    width: 30%;
+  }
+}

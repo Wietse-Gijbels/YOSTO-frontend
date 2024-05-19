@@ -1,12 +1,27 @@
-<h1>Login</h1>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div>
-    <input type="text" placeholder="Email" formControlName="email" />
+<div class="container">
+  <gebruiker-header [headerText]="'LOG IN'"></gebruiker-header>
+  <div class="login-page">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div>
+        <input
+          type="text"
+          class="icon-email"
+          placeholder="E-mailadres*"
+          formControlName="email"
+        />
+      </div>
+      <div>
+        <input
+          type="password"
+          class="icon-wachtwoord"
+          placeholder="Wachtwoord*"
+          formControlName="wachtwoord"
+        />
+      </div>
+      <div>
+        <button type="submit">Log In!</button>
+      </div>
+    </form>
+    <p>Ik ben mijn wachtwoord vergeten.</p>
   </div>
-  <div>
-    <input type="password" placeholder="Wachtwoord" formControlName="wachtwoord" />
-  </div>
-  <div>
-    <button type="submit">Log In</button>
-  </div>
-</form>
+</div>

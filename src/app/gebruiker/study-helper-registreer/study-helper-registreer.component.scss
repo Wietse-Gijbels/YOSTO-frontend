@@ -1,0 +1,111 @@
+@use "../../../style-guide.scss";
+
+.icon-email {
+  background: url("/assets/images/mail-envloppe.png") no-repeat 5px center;
+}
+
+.icon-wachtwoord {
+  background: url("/assets/images/wachtwoord.png") no-repeat 5px center;
+}
+
+.icon-persoon {
+  background: url("/assets/images/persoon.png") no-repeat 5px center;
+}
+
+.icon-provincie {
+  background: url("/assets/images/provincie.png") no-repeat 5px center;
+}
+
+.icon-studie {
+  background: url("/assets/images/studie.png") no-repeat 5px center;
+}
+
+.icon-email,
+.icon-wachtwoord,
+.icon-provincie,
+.icon-persoon,
+.icon-studie {
+  @include style-guide.font-small-tekst;
+  font-size: 14px;
+  font-weight: 300;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-size: 20px;
+  padding: 5px 100px 5px 35px;
+  background-color: style-guide.$primary-rood;
+}
+
+.icon-email:focus,
+.icon-wachtwoord:focus,
+.icon-provincie:focus,
+.icon-persoon:focus,
+.icon-studie:focus {
+  border: 1px solid #ffffff;
+  outline: none;
+}
+
+.studylooker-registreer-page {
+  background-color: style-guide.$primary-rood;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background-size: cover;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  // height: 100vh;
+}
+
+::placeholder {
+  color: #ffffff;
+  opacity: 1;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  color: style-guide.$primary-rood;
+  @include style-guide.font-large-header;
+  font-size: 16px;
+  border: none;
+  border-radius: 20px;
+  padding: 3px 50px;
+  margin-top: 5px;
+}
+
+.plus-button {
+  color: #ffffff;
+  background-color: style-guide.$primary-rood;
+  margin-right: 5px;
+  padding: 0;
+  font-size: 24px;
+  margin-top: 0;
+}
+
+p {
+  @include style-guide.font-small-tekst;
+  color: #ffffff;
+  text-align: center;
+  font-size: 12px;
+  margin: 7px;
+}
+
+.smaller-input {
+  padding: 5px 84.06px 5px 35px;
+}
+
+.alignment-right {
+  margin-left: 15.94px;
+}
+
+.smaller-height {
+  margin-top: -3.8px !important;
+}
