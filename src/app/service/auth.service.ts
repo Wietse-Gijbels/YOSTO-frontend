@@ -23,9 +23,37 @@ export class AuthService {
     return false;
   }
 
-  registreer(formData: any): void {
+  registreerLooker(formData: any): void {
     // Verwijder het bevestigWachtwoord-veld voordat we de registratie uitvoeren
     const { bevestigWachtwoord, huidigeStudie, ...registreerData } = formData;
+
+    this.httpClient
+      .post<AuthenticationResponse>(
+        'http://localhost:8080/api/v1/auth/registreer',
+        registreerData,
+      )
+      .subscribe(
+        (response) => {
+          this.cookieService.set('token', response.token);
+          this.router.navigateByUrl('/');
+        },
+        (error) => {
+          console.error('Fout bij registreren:', error);
+          // Handle errors here if necessary
+        },
+      );
+  }
+
+  registreerHelper(formData: any): void {
+    // Verwijder het bevestigWachtwoord-veld voordat we de registratie uitvoeren
+    const {
+      bevestigWachtwoord,
+      huidigeStudie,
+      behaaldDiploma,
+      behaaldeDiplomaArray,
+      toegevoegdDiploma,
+      ...registreerData
+    } = formData;
 
     this.httpClient
       .post<AuthenticationResponse>(

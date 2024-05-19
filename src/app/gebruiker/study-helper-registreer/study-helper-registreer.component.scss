@@ -52,12 +52,13 @@
   overflow: hidden;
   position: relative;
   background-size: cover;
+  height: 60vh;
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  // height: 100vh;
+  height: 110vh;
 }
 
 ::placeholder {

@@ -34,10 +34,15 @@ export class StudyLookerRegistreerComponent {
     const formData = this.form.getRawValue();
 
     if (formData.wachtwoord !== formData.bevestigWachtwoord) {
-      // Handel het geval af waarin wachtwoordbevestiging niet overeenkomt
+      // TODO Handel het geval af waarin wachtwoordbevestiging niet overeenkomt
       return;
     }
 
-    this.authService.registreer(formData);
+    const formDataWithRole = {
+      ...formData,
+      rol: 'STUDYLOOKER', // STUDYLOOKER als rol setten
+    };
+
+    this.authService.registreerLooker(formDataWithRole);
   }
 }

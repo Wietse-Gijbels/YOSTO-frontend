@@ -10,7 +10,6 @@ import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 import { GebruikerHeaderComponent } from '../gebruiker-header/gebruiker-header.component';
 import { NgForOf, NgIf } from '@angular/common';
-import { AuthenticationResponse } from '../../models/interfaces';
 
 @Component({
   selector: 'app-study-helper-registreer',
@@ -26,13 +25,17 @@ export class StudyHelperRegistreerComponent {
     email: ['', Validators.required],
     wachtwoord: ['', Validators.required],
     bevestigWachtwoord: ['', Validators.required],
-    provincie: ['', Validators.required],
-    huidigeStudie: ['', Validators.required],
-    behaaldDiploma: ['', Validators.required],
-    toegevoegdDiploma: ['', Validators.required],
+    woonplaats: ['', Validators.required],
+    huidigeStudie: [''],
+    behaaldDiploma: [''],
+    // huidigeStudie: ['', Validators.required], VALIDATOR AANZETTEN VANAF HET MOMENT DAT WE STUDIES KUNNEN OPHALEN
+    // behaaldDiploma: ['', Validators.required], VALIDATOR AANZETTEN VANAF HET MOMENT DAT WE STUDIES KUNNEN OPHALEN
+    toegevoegdDiploma: [''],
+    // toegevoegdDiploma: ['', Validators.required], VALIDATOR AANZETTEN VANAF HET MOMENT DAT WE STUDIES KUNNEN OPHALEN
     behaaldeDiplomaArray: this.formBuilder.array([
       this.formBuilder.group({
-        diploma: ['', Validators.required],
+        diploma: [''],
+        // diploma: ['', Validators.required], VALIDATOR AANZETTEN VANAF HET MOMENT DAT WE STUDIES KUNNEN OPHALEN
       }),
     ]),
   });
@@ -51,31 +54,27 @@ export class StudyHelperRegistreerComponent {
   addDiplomaField(): void {
     this.behaaldeDiplomaArray.push(
       this.formBuilder.group({
-        diploma: ['', Validators.required],
+        diploma: [''],
       }),
     );
   }
 
   onSubmit(): void {
-    const formData = this.form.getRawValue();
-
-    const toegevoegdDiploma = formData.toegevoegdDiploma;
-    if (toegevoegdDiploma) {
-      this.behaaldeDiplomaArray.push(
-        this.formBuilder.group({
-          diploma: [toegevoegdDiploma, Validators.required],
-        }),
-      );
+    if (this.form.invalid) {
+      return;
     }
 
-    this.httpClient
-      .post<AuthenticationResponse>(
-        'http://localhost:8080/api/v1/auth/registreer',
-        formData,
-      )
-      .subscribe((response) => {
-        localStorage.setItem('token', response.token);
-        this.router.navigateByUrl('/');
-      });
+    const formData = this.form.getRawValue();
+
+    if (formData.wachtwoord !== formData.bevestigWachtwoord) {
+      // TODO Handel het geval af waarin wachtwoordbevestiging niet overeenkomt
+      return;
+    }
+
+    const formDataWithRole = {
+      ...formData,
+      rol: 'STUDYHELPER', // STUDYHELPER als rol setten
+    };
+    this.authService.registreerHelper(formDataWithRole);
   }
 }
