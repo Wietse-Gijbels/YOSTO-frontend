@@ -52,13 +52,15 @@
   overflow: hidden;
   position: relative;
   background-size: cover;
-  height: 60vh;
+  min-height: 70vh;
+  align-items: center;
+  justify-content: center;
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 85vh;
 }
 
 ::placeholder {
