@@ -15,17 +15,20 @@
           <span>{{ bericht.content }}</span>
         </div>
       }
-      <div>
-      </div>
+      <div></div>
 
       <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
         <div>
-          <input autocomplete="off" type="text" id="message" placeholder="Type your message..."
-                 formControlName="message">
+          <input
+            autocomplete="off"
+            type="text"
+            id="message"
+            placeholder="Type your message..."
+            formControlName="message"
+          />
           <button type="submit" [disabled]="!messageForm.valid">Send</button>
         </div>
       </form>
-
     </div>
   }
 </mat-grid-list>

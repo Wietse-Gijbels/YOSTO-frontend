@@ -8,9 +8,9 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
-import { RegistreerResponse } from '../../models/interfaces';
 import { GebruikerHeaderComponent } from '../gebruiker-header/gebruiker-header.component';
 import { NgForOf, NgIf } from '@angular/common';
+import { AuthenticationResponse } from '../../models/interfaces';
 
 @Component({
   selector: 'app-study-helper-registreer',
@@ -69,7 +69,7 @@ export class StudyHelperRegistreerComponent {
     }
 
     this.httpClient
-      .post<RegistreerResponse>(
+      .post<AuthenticationResponse>(
         'http://localhost:8080/api/v1/auth/registreer',
         formData,
       )

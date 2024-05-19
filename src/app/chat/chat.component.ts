@@ -1,17 +1,23 @@
-import {Component, OnInit} from '@angular/core';
-import {MatList, MatListItem} from "@angular/material/list";
-import {MatLine} from "@angular/material/core";
-import {GebruikerService} from "../service/gebruiker.service";
-import {GebruikerInterface, Message} from "../models/interfaces";
-import {MatButton} from "@angular/material/button";
-import {MatFormField} from "@angular/material/form-field";
-import {MatInput} from "@angular/material/input";
-import {MatGridList} from "@angular/material/grid-list";
-import {StompService} from "../service/stomp.service";
-import {ChatService} from "../service/chat.service";
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {AsyncPipe} from "@angular/common";
-import {Observable, tap} from "rxjs";
+import { Component, OnInit } from '@angular/core';
+import { MatList, MatListItem } from '@angular/material/list';
+import { MatLine } from '@angular/material/core';
+import { GebruikerService } from '../service/gebruiker.service';
+import { GebruikerInterface, Message } from '../models/interfaces';
+import { MatButton } from '@angular/material/button';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatGridList } from '@angular/material/grid-list';
+import { StompService } from '../service/stomp.service';
+import { ChatService } from '../service/chat.service';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
+import { Observable, tap } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-chat',
@@ -25,10 +31,10 @@ import {Observable, tap} from "rxjs";
     MatInput,
     MatGridList,
     ReactiveFormsModule,
-    AsyncPipe
+    AsyncPipe,
   ],
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss'
+  styleUrl: './chat.component.scss',
 })
 export class ChatComponent implements OnInit {
   gebruikers: GebruikerInterface[] = [];
@@ -36,11 +42,13 @@ export class ChatComponent implements OnInit {
   messageForm!: FormGroup;
   berichten$?: Observable<Message[]>;
 
-  constructor(private gebruikerService: GebruikerService,
-              private stompService: StompService,
-              private chatService: ChatService,
-              private formBuilder: FormBuilder) {
-  }
+  constructor(
+    private gebruikerService: GebruikerService,
+    private stompService: StompService,
+    private chatService: ChatService,
+    private formBuilder: FormBuilder,
+    private cookieService: CookieService,
+  ) {}
 
   ngOnInit(): void {
     this.gebruikerService.getAllConectedGebruikers().subscribe(
@@ -49,11 +57,11 @@ export class ChatComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching gebruikers:', error);
-      }
+      },
     );
 
     this.messageForm = this.formBuilder.group({
-      message: ['', Validators.required] // 'message' is the form control name
+      message: ['', Validators.required], // 'message' is the form control name
     });
 
     this.stompService.connect(this.onConnected(), (error: any) => {
@@ -68,9 +76,12 @@ export class ChatComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching gebruiker:', error);
-      }
+      },
     );
-    this.chatService.getMessages(localStorage.getItem('token')!, this.selectedGebruiker!.id);
+    this.chatService.getMessages(
+      this.cookieService.get('token')!,
+      this.selectedGebruiker!.id,
+    );
   }
 
   sendMessage(message: Message): void {
@@ -78,8 +89,11 @@ export class ChatComponent implements OnInit {
   }
 
   onConnected(): void {
-    this.stompService.subscribe(`/user/${localStorage.getItem('token')}/queue/messages`, this.onMessageReceived());
-    this.stompService.subscribe(`/user/public`, this.onMessageReceived());
+    this.stompService.subscribe(
+      `/user/${this.cookieService.get('token')}/queue/messages`,
+      this.onMessageReceived,
+    );
+    this.stompService.subscribe(`/user/public`, this.onMessageReceived);
   }
 
   onSubmit() {
@@ -87,29 +101,29 @@ export class ChatComponent implements OnInit {
       const messageContent = this.messageForm.value.message;
 
       const chatMessage: Message = {
-        senderId: localStorage.getItem('token')!,
+        senderId: this.cookieService.get('token')!,
         responderId: this.selectedGebruiker?.id!,
         content: messageContent,
-        timestamp: new Date()
+        timestamp: new Date(),
       };
 
-      this.stompService.send("app/chat", JSON.stringify(chatMessage))
+      this.stompService.send('app/chat', JSON.stringify(chatMessage));
 
-      this.displayMessage(chatMessage)
+      this.displayMessage(chatMessage);
 
-      this.sendMessage(messageContent)
+      this.sendMessage(messageContent);
 
       this.messageForm.reset();
     }
   }
 
   displayMessage(message: Message): void {
-    this.berichten$?.pipe(tap((berichten) => {
-      berichten.push(message)
-    }));
+    this.berichten$?.pipe(
+      tap((berichten) => {
+        berichten.push(message);
+      }),
+    );
   }
 
-  onMessageReceived(payload: any): void {
-
-  }
+  onMessageReceived(payload: any): void {}
 }

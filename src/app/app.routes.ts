@@ -10,7 +10,7 @@ import { FavorietenComponent } from './favorieten/favorieten.component';
 import { ScholenComponent } from './scholen/scholen.component';
 import { VeelGesteldeVragenComponent } from './veel-gestelde-vragen/veel-gestelde-vragen.component';
 import { RegistreerComponent } from './registreer/registreer.component';
-import {ChatComponent} from './chat/chat.component';
+import { ChatComponent } from './chat/chat.component';
 
 export const routes: Routes = [
   { path: '', component: StartSchermComponent }, // Default route to StartSchermComponent

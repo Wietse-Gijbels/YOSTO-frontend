@@ -3,7 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { RegistreerResponse } from '../models/interfaces';
+import { AuthenticationResponse } from '../models/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +28,7 @@ export class AuthService {
     const { bevestigWachtwoord, huidigeStudie, ...registreerData } = formData;
 
     this.httpClient
-      .post<RegistreerResponse>(
+      .post<AuthenticationResponse>(
         'http://localhost:8080/api/v1/auth/registreer',
         registreerData,
       )
@@ -46,7 +46,7 @@ export class AuthService {
 
   login(formData: any): void {
     this.httpClient
-      .post<RegistreerResponse>(
+      .post<AuthenticationResponse>(
         'http://localhost:8080/api/v1/auth/login',
         formData,
       )
