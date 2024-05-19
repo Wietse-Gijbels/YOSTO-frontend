@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-gebruikers-overzicht',
@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
   templateUrl: './gebruikers-overzicht.component.html',
   styleUrl: './gebruikers-overzicht.component.scss',
 })
-export class GebruikersOverzichtComponent {}
+export class GebruikersOverzichtComponent implements OnInit {
+  tokenString: string | null = '';
+
+  ngOnInit(): void {
+    this.tokenString = localStorage.getItem('token');
+  }
+}
