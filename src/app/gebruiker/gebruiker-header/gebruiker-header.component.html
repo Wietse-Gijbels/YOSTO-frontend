@@ -1,4 +1,6 @@
 <div class="gebruiker-header">
-  <img src="assets/images/yosto-logo.png" alt="logo van yosto" />
-  <h1>{{ headerText }}</h1>
+  <img alt="logo van yosto" src="assets/images/yosto-logo.png" />
+  @if (headerText) {
+    <h1>{{ headerText }}</h1>
+  }
 </div>

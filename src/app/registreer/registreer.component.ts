@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { StudyHelperRegistreerComponent } from '../gebruiker/study-helper-registreer/study-helper-registreer.component';
 import { StudyLookerRegistreerComponent } from '../gebruiker/study-looker-registreer/study-looker-registreer.component';
-import { NgIf } from '@angular/common';
 import { GebruikerHeaderComponent } from '../gebruiker/gebruiker-header/gebruiker-header.component';
 import {
   MatButtonToggle,
@@ -15,7 +14,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   imports: [
     StudyHelperRegistreerComponent,
     StudyLookerRegistreerComponent,
-    NgIf,
     GebruikerHeaderComponent,
     MatButtonToggleGroup,
     MatButtonToggle,

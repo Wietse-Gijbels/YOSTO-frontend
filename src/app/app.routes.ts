@@ -5,7 +5,7 @@ import { authGuard } from './guards/AuthGuard';
 import { StudyHelperRegistreerComponent } from './gebruiker/study-helper-registreer/study-helper-registreer.component';
 import { StudyLookerRegistreerComponent } from './gebruiker/study-looker-registreer/study-looker-registreer.component';
 import { StartSchermComponent } from './start-scherm/start-scherm.component';
-import { HomeComponent } from './Home/home.component';
+import { HomeComponent } from './home/home.component';
 import { FavorietenComponent } from './favorieten/favorieten.component';
 import { ScholenComponent } from './scholen/scholen.component';
 import { VeelGesteldeVragenComponent } from './veel-gestelde-vragen/veel-gestelde-vragen.component';

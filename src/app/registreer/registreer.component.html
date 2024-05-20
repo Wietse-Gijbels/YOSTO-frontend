@@ -19,10 +19,10 @@
     </div>
   </div>
 
-  <div *ngIf="currentComponent === 'helper'">
+  @if (currentComponent === "helper") {
     <app-study-helper-registreer></app-study-helper-registreer>
-  </div>
-  <div *ngIf="currentComponent === 'looker'">
+  }
+  @if (currentComponent === "looker") {
     <app-study-looker-registreer></app-study-looker-registreer>
-  </div>
+  }
 </div>

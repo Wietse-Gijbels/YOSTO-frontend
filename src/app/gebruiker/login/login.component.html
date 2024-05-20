@@ -2,9 +2,11 @@
   <gebruiker-header [headerText]="'LOG IN'"></gebruiker-header>
   <div class="login-page">
     <div class="error-container">
-      <p *ngIf="errorMessages['errorLogin']" class="errorTop">
-        {{ errorMessages["errorLogin"] }}
-      </p>
+      @if (errorMessages["errorLogin"]) {
+        <p class="errorTop">
+          {{ errorMessages["errorLogin"] }}
+        </p>
+      }
     </div>
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
       <div class="input-container">
@@ -14,9 +16,11 @@
           placeholder="E-mailadres*"
           type="text"
         />
-        <p *ngIf="errorMessages['errorLoginEmail']" class="error">
-          {{ errorMessages["errorLoginEmail"] }}
-        </p>
+        @if (errorMessages["errorLoginEmail"]) {
+          <p class="error">
+            {{ errorMessages["errorLoginEmail"] }}
+          </p>
+        }
       </div>
       <div class="input-container">
         <input
@@ -25,9 +29,11 @@
           placeholder="Wachtwoord*"
           type="password"
         />
-        <p *ngIf="errorMessages['errorLoginWachtwoord']" class="error">
-          {{ errorMessages["errorLoginWachtwoord"] }}
-        </p>
+        @if (errorMessages["errorLoginWachtwoord"]) {
+          <p class="error">
+            {{ errorMessages["errorLoginWachtwoord"] }}
+          </p>
+        }
       </div>
       <div>
         <button type="submit">Log In!</button>
