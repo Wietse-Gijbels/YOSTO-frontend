@@ -4,12 +4,11 @@ import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 import { GebruikerHeaderComponent } from '../gebruiker-header/gebruiker-header.component';
 import { CookieService } from 'ngx-cookie-service';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, GebruikerHeaderComponent, NgIf],
+  imports: [ReactiveFormsModule, GebruikerHeaderComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
@@ -33,7 +32,7 @@ export class LoginComponent {
     this.authService.login(formData).subscribe(
       (response) => {
         this.cookieService.set('token', response.token);
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/home');
       },
       (error) => {
         if (error.error) {

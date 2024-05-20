@@ -1,5 +1,8 @@
 <div class="container">
-  <gebruiker-header [headerText]="'Registreren'"></gebruiker-header>
+  <gebruiker-header
+    [backgroundColor]="'background-rood'"
+    [headerText]="'Registreren'"
+  ></gebruiker-header>
   <div class="rectangle-container">
     <div class="rectangle">
       <p
@@ -19,10 +22,10 @@
     </div>
   </div>
 
-  <div *ngIf="currentComponent === 'helper'">
+  @if (currentComponent === "helper") {
     <app-study-helper-registreer></app-study-helper-registreer>
-  </div>
-  <div *ngIf="currentComponent === 'looker'">
+  }
+  @if (currentComponent === "looker") {
     <app-study-looker-registreer></app-study-looker-registreer>
-  </div>
+  }
 </div>

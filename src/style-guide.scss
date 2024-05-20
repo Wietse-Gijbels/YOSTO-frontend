@@ -7,6 +7,7 @@ $yosto-palette: (
   600: #00b980,
   700: #ffc001,
   800: #ffbaf9,
+  900: #ffffff,
   contrast: (),
 );
 
@@ -56,3 +57,4 @@ $secondary-paars: map-get($yosto-palette, 500);
 $secondary-groen: map-get($yosto-palette, 600);
 $secondary-geel: map-get($yosto-palette, 700);
 $secondary-roos: map-get($yosto-palette, 800);
+$secondary-wit: map-get($yosto-palette, 900);

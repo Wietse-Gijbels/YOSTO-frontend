@@ -9,13 +9,13 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 import { GebruikerHeaderComponent } from '../gebruiker-header/gebruiker-header.component';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgForOf } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-study-helper-registreer',
   standalone: true,
-  imports: [ReactiveFormsModule, GebruikerHeaderComponent, NgForOf, NgIf],
+  imports: [ReactiveFormsModule, GebruikerHeaderComponent, NgForOf],
   templateUrl: './study-helper-registreer.component.html',
   styleUrls: ['./study-helper-registreer.component.scss'],
 })
@@ -79,7 +79,7 @@ export class StudyHelperRegistreerComponent {
       (response) => {
         // Verwerk succesvolle registratie
         this.cookieService.set('token', response.token);
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/home');
       },
       (error) => {
         if (error.error) {

@@ -4,12 +4,11 @@ import { AuthService } from '../../service/auth.service';
 import { GebruikerHeaderComponent } from '../gebruiker-header/gebruiker-header.component';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-study-looker-registreer',
   standalone: true,
-  imports: [ReactiveFormsModule, GebruikerHeaderComponent, NgIf],
+  imports: [ReactiveFormsModule, GebruikerHeaderComponent],
   templateUrl: './study-looker-registreer.component.html',
   styleUrl: './study-looker-registreer.component.scss',
 })
@@ -57,7 +56,7 @@ export class StudyLookerRegistreerComponent {
       (response) => {
         // Verwerk succesvolle registratie
         this.cookieService.set('token', response.token);
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/home');
       },
       (error) => {
         if (error.error) {
