@@ -64,9 +64,12 @@ export class ChatComponent implements OnInit {
       message: ['', Validators.required], // 'message' is the form control name
     });
 
-    this.stompService.connect(this.onConnected(), (error: any) => {
-      console.error('Error connecting to websocket:', error);
-    });
+    this.stompService.connect(
+      () => this.onConnected(),
+      (error: Error) => {
+        console.error('Error connecting to websocket:', error);
+      },
+    );
   }
 
   onChatClick(gebruiker: GebruikerInterface): void {
@@ -84,16 +87,14 @@ export class ChatComponent implements OnInit {
     );
   }
 
-  sendMessage(message: Message): void {
-    // this.berichten ? this.berichten.push(message) : undefined
-  }
-
   onConnected(): void {
-    this.stompService.subscribe(
-      `/user/${this.cookieService.get('token')}/queue/messages`,
-      this.onMessageReceived,
-    );
-    this.stompService.subscribe(`/user/public`, this.onMessageReceived);
+    setTimeout(() => {
+      this.stompService.subscribe(
+        `/user/${this.cookieService.get('token')}/queue/messages`,
+        this.onMessageReceived,
+      );
+      this.stompService.subscribe(`/user/public`, this.onMessageReceived);
+    }, 500);
   }
 
   onSubmit() {
@@ -102,16 +103,14 @@ export class ChatComponent implements OnInit {
 
       const chatMessage: Message = {
         senderId: this.cookieService.get('token')!,
-        responderId: this.selectedGebruiker?.id!,
+        recipientId: this.selectedGebruiker?.id ?? '',
         content: messageContent,
         timestamp: new Date(),
       };
 
-      this.stompService.send('app/chat', JSON.stringify(chatMessage));
+      this.stompService.send('/app/chat', JSON.stringify(chatMessage));
 
       this.displayMessage(chatMessage);
-
-      this.sendMessage(messageContent);
 
       this.messageForm.reset();
     }
@@ -125,5 +124,7 @@ export class ChatComponent implements OnInit {
     );
   }
 
-  onMessageReceived(payload: any): void {}
+  onMessageReceived(payload: unknown): void {
+    console.log('Message received:', payload);
+  }
 }

@@ -29,7 +29,7 @@ export interface AuthenticationResponse {
 
 export interface Message {
   senderId: string;
-  responderId: string;
+  recipientId: string;
   content: string;
   timestamp: Date;
 }
