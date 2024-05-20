@@ -1,0 +1,34 @@
+<mat-grid-list cols="2">
+  <mat-list>
+    @for (gebruiker of gebruikers; track gebruiker) {
+      <mat-list-item (click)="onChatClick(gebruiker)">
+        <button mat-button>
+          {{ gebruiker.email }}
+        </button>
+      </mat-list-item>
+    }
+  </mat-list>
+  @if (selectedGebruiker) {
+    <div>
+      @for (bericht of berichten$ | async; track bericht) {
+        <div>
+          <span>{{ bericht.content }}</span>
+        </div>
+      }
+      <div></div>
+
+      <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+        <div>
+          <input
+            autocomplete="off"
+            type="text"
+            id="message"
+            placeholder="Type your message..."
+            formControlName="message"
+          />
+          <button type="submit" [disabled]="!messageForm.valid">Send</button>
+        </div>
+      </form>
+    </div>
+  }
+</mat-grid-list>

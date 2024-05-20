@@ -1,16 +1,38 @@
-<gebruiker-header [headerText]="'LOG IN'"></gebruiker-header>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div>
-    <input type="text" placeholder="Email" formControlName="email" />
+<div class="container">
+  <gebruiker-header [headerText]="'LOG IN'"></gebruiker-header>
+  <div class="login-page">
+    <div class="error-container">
+      <p *ngIf="errorMessages['errorLogin']" class="errorTop">
+        {{ errorMessages["errorLogin"] }}
+      </p>
+    </div>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div class="input-container">
+        <input
+          class="icon-email"
+          formControlName="email"
+          placeholder="E-mailadres*"
+          type="text"
+        />
+        <p *ngIf="errorMessages['errorLoginEmail']" class="error">
+          {{ errorMessages["errorLoginEmail"] }}
+        </p>
+      </div>
+      <div class="input-container">
+        <input
+          class="icon-wachtwoord"
+          formControlName="wachtwoord"
+          placeholder="Wachtwoord*"
+          type="password"
+        />
+        <p *ngIf="errorMessages['errorLoginWachtwoord']" class="error">
+          {{ errorMessages["errorLoginWachtwoord"] }}
+        </p>
+      </div>
+      <div>
+        <button type="submit">Log In!</button>
+      </div>
+    </form>
+    <p>Ik ben mijn wachtwoord vergeten.</p>
   </div>
-  <div>
-    <input
-      type="password"
-      placeholder="Wachtwoord"
-      formControlName="wachtwoord"
-    />
-  </div>
-  <div>
-    <button type="submit">Log In</button>
-  </div>
-</form>
+</div>

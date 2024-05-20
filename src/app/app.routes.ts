@@ -9,12 +9,18 @@ import { HomeComponent } from './Home/home.component';
 import { FavorietenComponent } from './favorieten/favorieten.component';
 import { ScholenComponent } from './scholen/scholen.component';
 import { VeelGesteldeVragenComponent } from './veel-gestelde-vragen/veel-gestelde-vragen.component';
+import { RegistreerComponent } from './registreer/registreer.component';
+import { ChatComponent } from './chat/chat.component';
 
 export const routes: Routes = [
   { path: '', component: StartSchermComponent }, // Default route to StartSchermComponent
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'registreer',
+    component: RegistreerComponent,
   },
   {
     path: 'study-helper-registreer',
@@ -33,4 +39,5 @@ export const routes: Routes = [
   { path: 'favorieten', component: FavorietenComponent },
   { path: 'scholen', component: ScholenComponent },
   { path: 'veelGesteldeVragen', component: VeelGesteldeVragenComponent },
+  { path: 'chat', component: ChatComponent },
 ];

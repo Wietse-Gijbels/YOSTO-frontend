@@ -1,16 +1,128 @@
-<h1>Register</h1>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div>
-    <input type="text" placeholder="Email" formControlName="email" />
-  </div>
-  <div>
-    <input
-      type="password"
-      placeholder="Wachtwoord"
-      formControlName="wachtwoord"
-    />
-  </div>
-  <div>
-    <button type="submit">Registreer</button>
-  </div>
-</form>
+<div class="studylooker-registreer-page">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <div class="input-container">
+      <input
+        class="icon-persoon"
+        formControlName="voornaam"
+        placeholder="Voornaam*"
+        type="text"
+      />
+      <p *ngIf="errorMessages['errorVoornaam']" class="error">
+        {{ errorMessages["errorVoornaam"] }}
+      </p>
+    </div>
+    <div class="input-container">
+      <input
+        class="icon-persoon"
+        formControlName="achternaam"
+        placeholder="Achternaam*"
+        type="text"
+      />
+      <p *ngIf="errorMessages['errorAchternaam']" class="error">
+        {{ errorMessages["errorAchternaam"] }}
+      </p>
+    </div>
+    <div class="input-container">
+      <input
+        class="icon-email"
+        formControlName="email"
+        placeholder="E-mailadres*"
+        type="email"
+      />
+      <p *ngIf="errorMessages['errorEmail']" class="error">
+        {{ errorMessages["errorEmail"] }}
+      </p>
+      <p *ngIf="errorMessages['errorDuplicate']" class="error">
+        {{ errorMessages["errorDuplicate"] }}
+      </p>
+    </div>
+    <div class="input-container">
+      <input
+        class="icon-wachtwoord"
+        formControlName="wachtwoord"
+        placeholder="Wachtwoord*"
+        type="password"
+      />
+      <p
+        *ngIf="
+          errorMessages['errorWachtwoord'] &&
+          !errorMessages['errorWachtwoordDubbel']
+        "
+        class="error"
+      >
+        {{ errorMessages["errorWachtwoord"] }}
+      </p>
+      <p *ngIf="errorMessages['errorWachtwoordDubbel']" class="error">
+        {{ errorMessages["errorWachtwoordDubbel"] }}
+      </p>
+    </div>
+    <div class="input-container">
+      <input
+        class="icon-wachtwoord"
+        formControlName="bevestigWachtwoord"
+        placeholder="Bevestig wachtwoord*"
+        type="password"
+      />
+    </div>
+    <div class="input-container">
+      <input
+        class="icon-provincie"
+        formControlName="woonplaats"
+        placeholder="Provincie*"
+        type="text"
+      />
+      <p *ngIf="errorMessages['errorProvincie']" class="error">
+        {{ errorMessages["errorProvincie"] }}
+      </p>
+    </div>
+    <div class="input-container">
+      <input
+        class="icon-studie"
+        formControlName="huidigeStudie"
+        placeholder="Huidige studie*"
+        type="text"
+      />
+    </div>
+    <div class="input-container">
+      <input
+        class="icon-studie"
+        formControlName="behaaldDiploma"
+        placeholder="Behaalde diploma*"
+        type="text"
+      />
+    </div>
+    <div class="input-container smaller-height">
+      <button (click)="addDiplomaField()" class="plus-button" type="button">
+        +
+      </button>
+      <input
+        class="icon-studie smaller-input"
+        formControlName="toegevoegdDiploma"
+        placeholder="Diploma toevoegen"
+        type="text"
+      />
+    </div>
+    <div formArrayName="behaaldeDiplomaArray">
+      <div
+        *ngFor="let diploma of behaaldeDiplomaArray.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <div class="diploma-field">
+          <input
+            [formControlName]="'diploma'"
+            class="icon-studie smaller-input alignment-right"
+            placeholder="Diploma toevoegen"
+            type="text"
+          />
+        </div>
+      </div>
+    </div>
+    <div>
+      <button type="submit">Registreer</button>
+    </div>
+  </form>
+  <p>
+    Door te registreren ga je akkoord met de algemene <br />
+    voorwaarden en het Privacybeleid.
+  </p>
+</div>
