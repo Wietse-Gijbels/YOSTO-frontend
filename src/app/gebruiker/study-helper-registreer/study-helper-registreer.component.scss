@@ -31,7 +31,7 @@
   color: #ffffff;
   border: 1px solid #ffffff;
   border-radius: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 0;
   background-size: 20px;
   padding: 5px 100px 5px 35px;
   background-color: style-guide.$primary-rood;
@@ -46,6 +46,27 @@
   outline: none;
 }
 
+.error {
+  @include style-guide.font-small-tekst;
+  color: #ffffff;
+  text-align: left;
+  font-size: 12px;
+  position: absolute;
+  bottom: -23px;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  visibility: hidden;
+}
+
+.error:empty {
+  visibility: hidden;
+}
+
+.error:not(:empty) {
+  visibility: visible;
+}
+
 .studylooker-registreer-page {
   background-color: style-guide.$primary-rood;
   flex: 1;
@@ -53,8 +74,14 @@
   position: relative;
   background-size: cover;
   min-height: 70vh;
+  display: flex;
   align-items: center;
-  justify-content: center;
+  flex-direction: column;
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
 }
 
 .container {
@@ -84,6 +111,14 @@ button {
   margin-top: 5px;
 }
 
+p {
+  @include style-guide.font-small-tekst;
+  color: #ffffff;
+  text-align: center;
+  font-size: 12px;
+  margin: 7px;
+}
+
 .plus-button {
   color: #ffffff;
   background-color: style-guide.$primary-rood;
@@ -91,14 +126,6 @@ button {
   padding: 0;
   font-size: 24px;
   margin-top: 0;
-}
-
-p {
-  @include style-guide.font-small-tekst;
-  color: #ffffff;
-  text-align: center;
-  font-size: 12px;
-  margin: 7px;
 }
 
 .smaller-input {

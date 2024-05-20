@@ -1,22 +1,33 @@
 <div class="container">
   <gebruiker-header [headerText]="'LOG IN'"></gebruiker-header>
   <div class="login-page">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div>
+    <div class="error-container">
+      <p *ngIf="errorMessages['errorLogin']" class="errorTop">
+        {{ errorMessages["errorLogin"] }}
+      </p>
+    </div>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div class="input-container">
         <input
-          type="text"
           class="icon-email"
-          placeholder="E-mailadres*"
           formControlName="email"
+          placeholder="E-mailadres*"
+          type="text"
         />
+        <p *ngIf="errorMessages['errorLoginEmail']" class="error">
+          {{ errorMessages["errorLoginEmail"] }}
+        </p>
       </div>
-      <div>
+      <div class="input-container">
         <input
-          type="password"
           class="icon-wachtwoord"
-          placeholder="Wachtwoord*"
           formControlName="wachtwoord"
+          placeholder="Wachtwoord*"
+          type="password"
         />
+        <p *ngIf="errorMessages['errorLoginWachtwoord']" class="error">
+          {{ errorMessages["errorLoginWachtwoord"] }}
+        </p>
       </div>
       <div>
         <button type="submit">Log In!</button>

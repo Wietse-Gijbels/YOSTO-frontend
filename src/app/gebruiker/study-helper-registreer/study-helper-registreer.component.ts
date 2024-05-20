@@ -10,41 +10,41 @@ import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 import { GebruikerHeaderComponent } from '../gebruiker-header/gebruiker-header.component';
 import { NgForOf, NgIf } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-study-helper-registreer',
   standalone: true,
   imports: [ReactiveFormsModule, GebruikerHeaderComponent, NgForOf, NgIf],
   templateUrl: './study-helper-registreer.component.html',
-  styleUrl: './study-helper-registreer.component.scss',
+  styleUrls: ['./study-helper-registreer.component.scss'],
 })
 export class StudyHelperRegistreerComponent {
   form = this.formBuilder.nonNullable.group({
     voornaam: ['', Validators.required],
     achternaam: ['', Validators.required],
-    email: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
     wachtwoord: ['', Validators.required],
     bevestigWachtwoord: ['', Validators.required],
     woonplaats: ['', Validators.required],
     huidigeStudie: [''],
     behaaldDiploma: [''],
-    // huidigeStudie: ['', Validators.required], VALIDATOR AANZETTEN VANAF HET MOMENT DAT WE STUDIES KUNNEN OPHALEN
-    // behaaldDiploma: ['', Validators.required], VALIDATOR AANZETTEN VANAF HET MOMENT DAT WE STUDIES KUNNEN OPHALEN
     toegevoegdDiploma: [''],
-    // toegevoegdDiploma: ['', Validators.required], VALIDATOR AANZETTEN VANAF HET MOMENT DAT WE STUDIES KUNNEN OPHALEN
     behaaldeDiplomaArray: this.formBuilder.array([
       this.formBuilder.group({
         diploma: [''],
-        // diploma: ['', Validators.required], VALIDATOR AANZETTEN VANAF HET MOMENT DAT WE STUDIES KUNNEN OPHALEN
       }),
     ]),
   });
+
+  errorMessages: { [key: string]: string } = {};
 
   constructor(
     private formBuilder: FormBuilder,
     private httpClient: HttpClient,
     private authService: AuthService,
     private router: Router,
+    private cookieService: CookieService,
   ) {}
 
   get behaaldeDiplomaArray(): FormArray {
@@ -60,21 +60,40 @@ export class StudyHelperRegistreerComponent {
   }
 
   onSubmit(): void {
-    if (this.form.invalid) {
-      return;
-    }
+    this.clearErrorMessages();
 
     const formData = this.form.getRawValue();
 
     if (formData.wachtwoord !== formData.bevestigWachtwoord) {
-      // TODO Handel het geval af waarin wachtwoordbevestiging niet overeenkomt
-      return;
+      this.errorMessages = {
+        errorWachtwoordDubbel: 'Wachtwoorden komen niet overeen.',
+      };
     }
 
     const formDataWithRole = {
       ...formData,
       rol: 'STUDYHELPER', // STUDYHELPER als rol setten
     };
-    this.authService.registreerHelper(formDataWithRole);
+
+    this.authService.registreerHelper(formDataWithRole).subscribe(
+      (response) => {
+        // Verwerk succesvolle registratie
+        this.cookieService.set('token', response.token);
+        this.router.navigateByUrl('/');
+      },
+      (error) => {
+        if (error.error) {
+          this.errorMessages = { ...error.error, ...this.errorMessages };
+        } else {
+          this.errorMessages = {
+            errorRegistreer: 'Er is een fout opgetreden bij het registreren.',
+          };
+        }
+      },
+    );
+  }
+
+  private clearErrorMessages() {
+    this.errorMessages = {};
   }
 }

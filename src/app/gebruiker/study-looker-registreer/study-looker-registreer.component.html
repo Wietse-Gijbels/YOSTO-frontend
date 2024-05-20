@@ -1,38 +1,62 @@
 <div class="studylooker-registreer-page">
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
-    <div>
+    <div class="input-container">
       <input
         class="icon-persoon"
         formControlName="voornaam"
         placeholder="Voornaam*"
         type="text"
       />
+      <p *ngIf="errorMessages['errorVoornaam']" class="error">
+        {{ errorMessages["errorVoornaam"] }}
+      </p>
     </div>
-    <div>
+    <div class="input-container">
       <input
         class="icon-persoon"
         formControlName="achternaam"
         placeholder="Achternaam*"
         type="text"
       />
+      <p *ngIf="errorMessages['errorAchternaam']" class="error">
+        {{ errorMessages["errorAchternaam"] }}
+      </p>
     </div>
-    <div>
+    <div class="input-container">
       <input
         class="icon-email"
         formControlName="email"
         placeholder="E-mailadres*"
         type="email"
       />
+      <p *ngIf="errorMessages['errorEmail']" class="error">
+        {{ errorMessages["errorEmail"] }}
+      </p>
+      <p *ngIf="errorMessages['errorDuplicate']" class="error">
+        {{ errorMessages["errorDuplicate"] }}
+      </p>
     </div>
-    <div>
+    <div class="input-container">
       <input
         class="icon-wachtwoord"
         formControlName="wachtwoord"
         placeholder="Wachtwoord*"
         type="password"
       />
+      <p
+        *ngIf="
+          errorMessages['errorWachtwoord'] &&
+          !errorMessages['errorWachtwoordDubbel']
+        "
+        class="error"
+      >
+        {{ errorMessages["errorWachtwoord"] }}
+      </p>
+      <p *ngIf="errorMessages['errorWachtwoordDubbel']" class="error">
+        {{ errorMessages["errorWachtwoordDubbel"] }}
+      </p>
     </div>
-    <div>
+    <div class="input-container">
       <input
         class="icon-wachtwoord"
         formControlName="bevestigWachtwoord"
@@ -40,15 +64,18 @@
         type="password"
       />
     </div>
-    <div>
+    <div class="input-container">
       <input
         class="icon-provincie"
         formControlName="woonplaats"
         placeholder="Provincie*"
         type="text"
       />
+      <p *ngIf="errorMessages['errorProvincie']" class="error">
+        {{ errorMessages["errorProvincie"] }}
+      </p>
     </div>
-    <div>
+    <div class="input-container">
       <input
         class="icon-studie"
         formControlName="huidigeStudie"
