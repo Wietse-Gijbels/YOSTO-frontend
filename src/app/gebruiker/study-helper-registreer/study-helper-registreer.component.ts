@@ -79,7 +79,7 @@ export class StudyHelperRegistreerComponent {
       (response) => {
         // Verwerk succesvolle registratie
         this.cookieService.set('token', response.token);
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/home');
       },
       (error) => {
         if (error.error) {

@@ -32,7 +32,7 @@ export class LoginComponent {
     this.authService.login(formData).subscribe(
       (response) => {
         this.cookieService.set('token', response.token);
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/home');
       },
       (error) => {
         if (error.error) {

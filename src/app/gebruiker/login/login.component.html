@@ -1,5 +1,8 @@
 <div class="container">
-  <gebruiker-header [headerText]="'LOG IN'"></gebruiker-header>
+  <gebruiker-header
+    [backgroundColor]="'background-rood'"
+    [headerText]="'LOG IN'"
+  ></gebruiker-header>
   <div class="login-page">
     <div class="error-container">
       @if (errorMessages["errorLogin"]) {
