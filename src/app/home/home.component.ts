@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavBarComponent } from '../navigation/nav-bar.component';
 import { GebruikerHeaderComponent } from '../gebruiker/gebruiker-header/gebruiker-header.component';
 import { NgClass, NgForOf, NgOptimizedImage } from '@angular/common';
+import { SocialsComponent } from '../socials/socials.component';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ import { NgClass, NgForOf, NgOptimizedImage } from '@angular/common';
     NgOptimizedImage,
     NgForOf,
     NgClass,
+    SocialsComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
