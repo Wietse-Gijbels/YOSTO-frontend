@@ -4,9 +4,15 @@
       <ng-container *ngFor="let gebruiker of gebruikers">
         <mat-list-item
           (click)="onChatClick(gebruiker)"
+          [ngClass]="{ 'selected-user': selectedGebruiker?.id === gebruiker.id }"
           *ngIf="gebruiker.id !== userId"
         >
-          {{ gebruiker.email }}
+          <button mat-button class="user-button">
+            {{ gebruiker.email }}
+            <span *ngIf="gebruiker.newMessageCount" class="new-message-notification">
+              ({{ gebruiker.newMessageCount }} new chat{{ gebruiker.newMessageCount > 1 ? 's' : '' }})
+            </span>
+          </button>
         </mat-list-item>
         <mat-divider></mat-divider>
       </ng-container>

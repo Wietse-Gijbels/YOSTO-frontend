@@ -21,6 +21,7 @@ export interface GebruikerInterface {
   woonplaates: string;
   status: GebruikerStatus;
   rollen: GebruikerRol[];
+  newMessageCount?: number;
 }
 
 export interface AuthenticationResponse {

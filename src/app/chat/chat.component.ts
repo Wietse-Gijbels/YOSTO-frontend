@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
 import { GebruikerService } from '../service/gebruiker.service';
 import { GebruikerInterface, Message } from '../models/interfaces';
@@ -32,6 +33,7 @@ import { FormControl } from '@angular/forms';
     MatInputModule,
     MatGridListModule,
     MatIconModule,
+    MatDividerModule,
     ReactiveFormsModule,
     AsyncPipe,
   ],
@@ -71,6 +73,10 @@ export class ChatComponent implements OnInit {
               this.gebruikers = gebruikers.filter(
                 (gebruiker) => gebruiker.id !== this.userId,
               );
+              // Select the first user by default if available
+              if (this.gebruikers.length > 0) {
+                this.onChatClick(this.gebruikers[0]);
+              }
             },
             (error) => {
               console.error('Error fetching gebruikers:', error);
@@ -95,6 +101,9 @@ export class ChatComponent implements OnInit {
   onChatClick(gebruiker: GebruikerInterface): void {
     this.messageForm.reset();
     this.selectedGebruiker = gebruiker;
+
+    // Reset newMessageCount property when the chat is selected
+    gebruiker.newMessageCount = 0;
 
     this.chatService.getMessages(this.userId, gebruiker.id).subscribe(
       (messages) => {
@@ -151,6 +160,13 @@ export class ChatComponent implements OnInit {
       message.senderId === this.selectedGebruiker.id
     ) {
       this.berichtenSubject.next([...this.berichtenSubject.value, message]);
+    } else {
+      const sender = this.gebruikers.find(
+        (gebruiker) => gebruiker.id === message.senderId,
+      );
+      if (sender) {
+        sender.newMessageCount = (sender.newMessageCount || 0) + 1;
+      }
     }
   };
 }
