@@ -16,7 +16,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
-import { Observable, tap } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { tap, switchMap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -34,13 +35,14 @@ import { CookieService } from 'ngx-cookie-service';
     AsyncPipe,
   ],
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss',
+  styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit {
   gebruikers: GebruikerInterface[] = [];
   selectedGebruiker?: GebruikerInterface;
   messageForm!: FormGroup;
-  berichten$?: Observable<Message[]>;
+  private berichtenSubject = new BehaviorSubject<Message[]>([]);
+  berichten$ = this.berichtenSubject.asObservable();
 
   constructor(
     private gebruikerService: GebruikerService,
@@ -61,7 +63,7 @@ export class ChatComponent implements OnInit {
     );
 
     this.messageForm = this.formBuilder.group({
-      message: ['', Validators.required], // 'message' is the form control name
+      message: ['', Validators.required],
     });
 
     this.stompService.connect(
@@ -73,18 +75,18 @@ export class ChatComponent implements OnInit {
   }
 
   onChatClick(gebruiker: GebruikerInterface): void {
-    this.gebruikerService.getGebruikerById(gebruiker.id).subscribe(
-      (gebruiker) => {
-        this.selectedGebruiker = gebruiker;
-      },
-      (error) => {
-        console.error('Error fetching gebruiker:', error);
-      },
-    );
-    this.chatService.getMessages(
-      this.cookieService.get('token')!,
-      this.selectedGebruiker!.id,
-    );
+    this.selectedGebruiker = gebruiker;
+
+    this.chatService
+      .getMessages(this.cookieService.get('token')!, gebruiker.id)
+      .subscribe(
+        (messages) => {
+          this.berichtenSubject.next(messages);
+        },
+        (error) => {
+          console.error('Error fetching messages:', error);
+        },
+      );
   }
 
   onConnected(): void {
@@ -110,21 +112,26 @@ export class ChatComponent implements OnInit {
 
       this.stompService.send('/app/chat', JSON.stringify(chatMessage));
 
-      this.displayMessage(chatMessage);
-
       this.messageForm.reset();
+
+      if (this.selectedGebruiker) {
+        this.berichtenSubject.next([
+          ...this.berichtenSubject.value,
+          chatMessage,
+        ]);
+      }
     }
   }
 
-  displayMessage(message: Message): void {
-    this.berichten$?.pipe(
-      tap((berichten) => {
-        berichten.push(message);
-      }),
-    );
-  }
+  onMessageReceived = (payload: any): void => {
+    const message = JSON.parse(payload.body);
+    console.log('Message received:', message);
 
-  onMessageReceived(payload: unknown): void {
-    console.log('Message received:', payload);
-  }
+    if (
+      this.selectedGebruiker &&
+      message.senderId === this.selectedGebruiker.id
+    ) {
+      this.berichtenSubject.next([...this.berichtenSubject.value, message]);
+    }
+  };
 }
