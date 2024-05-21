@@ -1,33 +1,30 @@
-<mat-grid-list cols="2">
-  <mat-list>
-    @for (gebruiker of gebruikers; track gebruiker) {
-      <mat-list-item (click)="onChatClick(gebruiker)">
-        <button mat-button>
-          {{ gebruiker.email }}
-        </button>
-      </mat-list-item>
-    }
-  </mat-list>
-  @if (selectedGebruiker) {
-    <div>
-      @for (bericht of berichten$ | async; track bericht) {
-        <div>
-          <span>{{ bericht.content }}</span>
-        </div>
-      }
-
-      <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
-        <div>
-          <input
-            autocomplete="off"
-            type="text"
-            id="message"
-            placeholder="Type your message..."
-            formControlName="message"
-          />
-          <button type="submit" [disabled]="!messageForm.valid">Send</button>
-        </div>
-      </form>
+<div class="chat-container">
+  <div class="user-list">
+    <mat-list>
+      <ng-container *ngFor="let gebruiker of gebruikers">
+        <mat-list-item (click)="onChatClick(gebruiker)" *ngIf="gebruiker.id !== userId">
+            {{ gebruiker.email }}
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </mat-list>
+  </div>
+  
+  <div class="chat-window" *ngIf="selectedGebruiker">
+    <div class="messages">
+      <div *ngFor="let bericht of berichten$ | async" [ngClass]="{'my-message': bericht.senderId === userId, 'other-message': bericht.senderId !== userId}">
+        <span>{{ bericht.content }}</span>
+      </div>
     </div>
-  }
-</mat-grid-list>
+
+    <form [formGroup]="messageForm" (ngSubmit)="onSubmit()" class="message-form">
+      <mat-form-field class="message-input" appearance="fill">
+        <mat-label>Type your message...</mat-label>
+        <input matInput autocomplete="off" formControlName="message" />
+      </mat-form-field>
+      <button mat-icon-button type="submit" [disabled]="isMessageFieldEmpty()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </form>
+  </div>
+</div>

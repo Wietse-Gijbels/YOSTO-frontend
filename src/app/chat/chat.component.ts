@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MatList, MatListItem } from '@angular/material/list';
-import { MatLine } from '@angular/material/core';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 import { GebruikerService } from '../service/gebruiker.service';
 import { GebruikerInterface, Message } from '../models/interfaces';
-import { MatButton } from '@angular/material/button';
-import { MatFormField } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { MatGridList } from '@angular/material/grid-list';
 import { StompService } from '../service/stomp.service';
 import { ChatService } from '../service/chat.service';
 import {
@@ -16,21 +17,21 @@ import {
   Validators,
 } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { tap, switchMap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
   imports: [
-    MatList,
-    MatListItem,
-    MatLine,
-    MatButton,
-    MatFormField,
-    MatInput,
-    MatGridList,
+    CommonModule,
+    MatListModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatGridListModule,
+    MatIconModule,
     ReactiveFormsModule,
     AsyncPipe,
   ],
@@ -43,6 +44,7 @@ export class ChatComponent implements OnInit {
   messageForm!: FormGroup;
   private berichtenSubject = new BehaviorSubject<Message[]>([]);
   berichten$ = this.berichtenSubject.asObservable();
+  userId: string = '';
 
   constructor(
     private gebruikerService: GebruikerService,
@@ -53,46 +55,61 @@ export class ChatComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.gebruikerService.getAllConectedGebruikers().subscribe(
-      (gebruikers) => {
-        this.gebruikers = gebruikers;
-      },
-      (error) => {
-        console.error('Error fetching gebruikers:', error);
-      },
-    );
+    this.gebruikerService
+      .getGebruikerIdByToken(this.cookieService.get('token')!)
+      .subscribe(
+        (userId) => {
+          this.userId = userId;
+          this.stompService.connect(
+            () => this.onConnected(),
+            (error: Error) => {
+              console.error('Error connecting to websocket:', error);
+            },
+          );
+          this.gebruikerService.getAllConectedGebruikers().subscribe(
+            (gebruikers) => {
+              this.gebruikers = gebruikers.filter(
+                (gebruiker) => gebruiker.id !== this.userId,
+              );
+            },
+            (error) => {
+              console.error('Error fetching gebruikers:', error);
+            },
+          );
+        },
+        (error) => {
+          console.error('Error fetching userId:', error);
+        },
+      );
 
     this.messageForm = this.formBuilder.group({
-      message: ['', Validators.required],
+      message: [''],
     });
+  }
 
-    this.stompService.connect(
-      () => this.onConnected(),
-      (error: Error) => {
-        console.error('Error connecting to websocket:', error);
-      },
-    );
+  isMessageFieldEmpty(): boolean {
+    const messageControl = this.messageForm.get('message') as FormControl;
+    return !messageControl.value || messageControl.value.trim() === '';
   }
 
   onChatClick(gebruiker: GebruikerInterface): void {
+    this.messageForm.reset();
     this.selectedGebruiker = gebruiker;
 
-    this.chatService
-      .getMessages(this.cookieService.get('token')!, gebruiker.id)
-      .subscribe(
-        (messages) => {
-          this.berichtenSubject.next(messages);
-        },
-        (error) => {
-          console.error('Error fetching messages:', error);
-        },
-      );
+    this.chatService.getMessages(this.userId, gebruiker.id).subscribe(
+      (messages) => {
+        this.berichtenSubject.next(messages);
+      },
+      (error) => {
+        console.error('Error fetching messages:', error);
+      },
+    );
   }
 
   onConnected(): void {
     setTimeout(() => {
       this.stompService.subscribe(
-        `/user/${this.cookieService.get('token')}/queue/messages`,
+        `/user/${this.userId}/queue/messages`,
         this.onMessageReceived,
       );
       this.stompService.subscribe(`/user/public`, this.onMessageReceived);
@@ -103,22 +120,24 @@ export class ChatComponent implements OnInit {
     if (this.messageForm.valid) {
       const messageContent = this.messageForm.value.message;
 
-      const chatMessage: Message = {
-        senderId: this.cookieService.get('token')!,
-        recipientId: this.selectedGebruiker?.id ?? '',
-        content: messageContent,
-        timestamp: new Date(),
-      };
+      if (this.userId !== '') {
+        const chatMessage: Message = {
+          senderId: this.userId,
+          recipientId: this.selectedGebruiker?.id ?? '',
+          content: messageContent,
+          timestamp: new Date(),
+        };
 
-      this.stompService.send('/app/chat', JSON.stringify(chatMessage));
+        this.stompService.send('/app/chat', JSON.stringify(chatMessage));
 
-      this.messageForm.reset();
+        this.messageForm.reset();
 
-      if (this.selectedGebruiker) {
-        this.berichtenSubject.next([
-          ...this.berichtenSubject.value,
-          chatMessage,
-        ]);
+        if (this.selectedGebruiker) {
+          this.berichtenSubject.next([
+            ...this.berichtenSubject.value,
+            chatMessage,
+          ]);
+        }
       }
     }
   }

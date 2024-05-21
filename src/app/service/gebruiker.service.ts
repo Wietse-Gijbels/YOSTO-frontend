@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { GebruikerInterface } from '../models/interfaces';
 
 @Injectable({
@@ -15,15 +15,9 @@ export class GebruikerService {
     );
   }
 
-  getGebruikerByEmail(email: string): Observable<GebruikerInterface> {
-    return this.http.get<GebruikerInterface>(
-      `http://localhost:8080/api/v1/gebruiker/${email}`,
-    );
-  }
-
-  getGebruikerById(id: string): Observable<GebruikerInterface> {
-    return this.http.get<GebruikerInterface>(
-      `http://localhost:8080/api/v1/gebruiker/id/${id}`,
-    );
+  getGebruikerIdByToken(token: string): Observable<string> {
+    return this.http
+      .get<{ id: string }>(`http://localhost:8080/api/v1/gebruiker/id/${token}`)
+      .pipe(map((response) => response.id));
   }
 }
