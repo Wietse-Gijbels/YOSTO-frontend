@@ -70,7 +70,6 @@ export class StudierichtingenComponent implements OnInit {
 
   // Shuffle array based on seed
   private shuffleArray(array: any[], seed: string): any[] {
-    console.log(seed);
     const seedLength = seed.length;
     const shuffledArray = [...array];
     let currentIndex = shuffledArray.length;
