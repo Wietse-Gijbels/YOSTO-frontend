@@ -11,14 +11,28 @@
 }
 
 .gebruiker-header img {
-  width: 15%;
+  width: 10%;
   padding-bottom: 20px;
   padding-top: 20px;
 }
 
+.background-rood {
+  background-color: style-guide.$primary-rood;
+  color: style-guide.$secondary-wit;
+}
+
+.background-wit {
+  background-color: style-guide.$secondary-wit;
+  color: style-guide.$primary-rood;
+}
+
+.background-groen {
+  background-color: style-guide.$secondary-groen;
+}
+
 h1 {
   @include style-guide.font-large-header;
-  color: #ffffff;
+  background-color: style-guide.$secondary-wit;
 }
 
 @media only screen and (max-width: 768px) {

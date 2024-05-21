@@ -9,39 +9,42 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 import { GebruikerHeaderComponent } from '../gebruiker-header/gebruiker-header.component';
-import { NgForOf, NgIf } from '@angular/common';
-import { AuthenticationResponse } from '../../models/interfaces';
+import { NgForOf } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-study-helper-registreer',
   standalone: true,
-  imports: [ReactiveFormsModule, GebruikerHeaderComponent, NgForOf, NgIf],
+  imports: [ReactiveFormsModule, GebruikerHeaderComponent, NgForOf],
   templateUrl: './study-helper-registreer.component.html',
-  styleUrl: './study-helper-registreer.component.scss',
+  styleUrls: ['./study-helper-registreer.component.scss'],
 })
 export class StudyHelperRegistreerComponent {
   form = this.formBuilder.nonNullable.group({
     voornaam: ['', Validators.required],
     achternaam: ['', Validators.required],
-    email: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
     wachtwoord: ['', Validators.required],
     bevestigWachtwoord: ['', Validators.required],
-    provincie: ['', Validators.required],
-    huidigeStudie: ['', Validators.required],
-    behaaldDiploma: ['', Validators.required],
-    toegevoegdDiploma: ['', Validators.required],
+    woonplaats: ['', Validators.required],
+    huidigeStudie: [''],
+    behaaldDiploma: [''],
+    toegevoegdDiploma: [''],
     behaaldeDiplomaArray: this.formBuilder.array([
       this.formBuilder.group({
-        diploma: ['', Validators.required],
+        diploma: [''],
       }),
     ]),
   });
+
+  errorMessages: { [key: string]: string } = {};
 
   constructor(
     private formBuilder: FormBuilder,
     private httpClient: HttpClient,
     private authService: AuthService,
     private router: Router,
+    private cookieService: CookieService,
   ) {}
 
   get behaaldeDiplomaArray(): FormArray {
@@ -51,31 +54,46 @@ export class StudyHelperRegistreerComponent {
   addDiplomaField(): void {
     this.behaaldeDiplomaArray.push(
       this.formBuilder.group({
-        diploma: ['', Validators.required],
+        diploma: [''],
       }),
     );
   }
 
   onSubmit(): void {
+    this.clearErrorMessages();
+
     const formData = this.form.getRawValue();
 
-    const toegevoegdDiploma = formData.toegevoegdDiploma;
-    if (toegevoegdDiploma) {
-      this.behaaldeDiplomaArray.push(
-        this.formBuilder.group({
-          diploma: [toegevoegdDiploma, Validators.required],
-        }),
-      );
+    if (formData.wachtwoord !== formData.bevestigWachtwoord) {
+      this.errorMessages = {
+        errorWachtwoordDubbel: 'Wachtwoorden komen niet overeen.',
+      };
     }
 
-    this.httpClient
-      .post<AuthenticationResponse>(
-        'http://localhost:8080/api/v1/auth/registreer',
-        formData,
-      )
-      .subscribe((response) => {
-        localStorage.setItem('token', response.token);
-        this.router.navigateByUrl('/');
-      });
+    const formDataWithRole = {
+      ...formData,
+      rol: 'STUDYHELPER', // STUDYHELPER als rol setten
+    };
+
+    this.authService.registreerHelper(formDataWithRole).subscribe(
+      (response) => {
+        // Verwerk succesvolle registratie
+        this.cookieService.set('token', response.token);
+        this.router.navigateByUrl('/home');
+      },
+      (error) => {
+        if (error.error) {
+          this.errorMessages = { ...error.error, ...this.errorMessages };
+        } else {
+          this.errorMessages = {
+            errorRegistreer: 'Er is een fout opgetreden bij het registreren.',
+          };
+        }
+      },
+    );
+  }
+
+  private clearErrorMessages() {
+    this.errorMessages = {};
   }
 }

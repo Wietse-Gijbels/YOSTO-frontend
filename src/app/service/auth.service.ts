@@ -4,13 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthenticationResponse } from '../models/interfaces';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: object,
     private httpClient: HttpClient,
     private router: Router,
     private cookieService: CookieService,
@@ -23,42 +24,53 @@ export class AuthService {
     return false;
   }
 
-  registreer(formData: any): void {
-    // Verwijder het bevestigWachtwoord-veld voordat we de registratie uitvoeren
+  registreerLooker(formData: any): Observable<AuthenticationResponse> {
     const { bevestigWachtwoord, huidigeStudie, ...registreerData } = formData;
 
-    this.httpClient
+    return this.httpClient
       .post<AuthenticationResponse>(
         'http://localhost:8080/api/v1/auth/registreer',
         registreerData,
       )
-      .subscribe(
-        (response) => {
-          this.cookieService.set('token', response.token);
-          this.router.navigateByUrl('/');
-        },
-        (error) => {
-          console.error('Fout bij registreren:', error);
-          // Handle errors here if necessary
-        },
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        }),
       );
   }
 
-  login(formData: any): void {
-    this.httpClient
+  registreerHelper(formData: any): Observable<AuthenticationResponse> {
+    const {
+      bevestigWachtwoord,
+      huidigeStudie,
+      behaaldDiploma,
+      behaaldeDiplomaArray,
+      toegevoegdDiploma,
+      ...registreerData
+    } = formData;
+
+    return this.httpClient
+      .post<AuthenticationResponse>(
+        'http://localhost:8080/api/v1/auth/registreer',
+        registreerData,
+      )
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        }),
+      );
+  }
+
+  login(formData: any): Observable<AuthenticationResponse> {
+    return this.httpClient
       .post<AuthenticationResponse>(
         'http://localhost:8080/api/v1/auth/login',
         formData,
       )
-      .subscribe(
-        (response) => {
-          this.cookieService.set('token', response.token);
-          this.router.navigateByUrl('/');
-        },
-        (error) => {
-          console.error('Fout bij inloggen:', error);
-          // Handle errors here if necessary
-        },
+      .pipe(
+        catchError((error) => {
+          throw error;
+        }),
       );
   }
 

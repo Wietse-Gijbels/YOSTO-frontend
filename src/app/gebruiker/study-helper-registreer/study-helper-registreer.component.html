@@ -1,38 +1,71 @@
 <div class="studylooker-registreer-page">
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
-    <div>
+    <div class="input-container">
       <input
         class="icon-persoon"
         formControlName="voornaam"
         placeholder="Voornaam*"
         type="text"
       />
+      @if (errorMessages["errorVoornaam"]) {
+        <p class="error">
+          {{ errorMessages["errorVoornaam"] }}
+        </p>
+      }
     </div>
-    <div>
+    <div class="input-container">
       <input
         class="icon-persoon"
         formControlName="achternaam"
         placeholder="Achternaam*"
         type="text"
       />
+      @if (errorMessages["errorAchternaam"]) {
+        <p class="error">
+          {{ errorMessages["errorAchternaam"] }}
+        </p>
+      }
     </div>
-    <div>
+    <div class="input-container">
       <input
         class="icon-email"
         formControlName="email"
         placeholder="E-mailadres*"
         type="email"
       />
+      @if (errorMessages["errorEmail"]) {
+        <p class="error">
+          {{ errorMessages["errorEmail"] }}
+        </p>
+      }
+      @if (errorMessages["errorDuplicate"]) {
+        <p class="error">
+          {{ errorMessages["errorDuplicate"] }}
+        </p>
+      }
     </div>
-    <div>
+    <div class="input-container">
       <input
         class="icon-wachtwoord"
         formControlName="wachtwoord"
         placeholder="Wachtwoord*"
         type="password"
       />
+      @if (
+        errorMessages["errorWachtwoord"] &&
+        !errorMessages["errorWachtwoordDubbel"]
+      ) {
+        <p class="error">
+          {{ errorMessages["errorWachtwoord"] }}
+        </p>
+      }
+      @if (errorMessages["errorWachtwoordDubbel"]) {
+        <p class="error">
+          {{ errorMessages["errorWachtwoordDubbel"] }}
+        </p>
+      }
     </div>
-    <div>
+    <div class="input-container">
       <input
         class="icon-wachtwoord"
         formControlName="bevestigWachtwoord"
@@ -40,15 +73,20 @@
         type="password"
       />
     </div>
-    <div>
+    <div class="input-container">
       <input
         class="icon-provincie"
-        formControlName="provincie"
+        formControlName="woonplaats"
         placeholder="Provincie*"
         type="text"
       />
+      @if (errorMessages["errorProvincie"]) {
+        <p class="error">
+          {{ errorMessages["errorProvincie"] }}
+        </p>
+      }
     </div>
-    <div>
+    <div class="input-container">
       <input
         class="icon-studie"
         formControlName="huidigeStudie"
@@ -56,7 +94,7 @@
         type="text"
       />
     </div>
-    <div>
+    <div class="input-container">
       <input
         class="icon-studie"
         formControlName="behaaldDiploma"
@@ -64,7 +102,7 @@
         type="text"
       />
     </div>
-    <div class="smaller-height">
+    <div class="input-container smaller-height">
       <button (click)="addDiplomaField()" class="plus-button" type="button">
         +
       </button>
