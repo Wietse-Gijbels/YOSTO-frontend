@@ -2,22 +2,35 @@
   <div class="user-list">
     <mat-list>
       <ng-container *ngFor="let gebruiker of gebruikers">
-        <mat-list-item (click)="onChatClick(gebruiker)" *ngIf="gebruiker.id !== userId">
-            {{ gebruiker.email }}
+        <mat-list-item
+          (click)="onChatClick(gebruiker)"
+          *ngIf="gebruiker.id !== userId"
+        >
+          {{ gebruiker.email }}
         </mat-list-item>
         <mat-divider></mat-divider>
       </ng-container>
     </mat-list>
   </div>
-  
+
   <div class="chat-window" *ngIf="selectedGebruiker">
     <div class="messages">
-      <div *ngFor="let bericht of berichten$ | async" [ngClass]="{'my-message': bericht.senderId === userId, 'other-message': bericht.senderId !== userId}">
+      <div
+        *ngFor="let bericht of berichten$ | async"
+        [ngClass]="{
+          'my-message': bericht.senderId === userId,
+          'other-message': bericht.senderId !== userId
+        }"
+      >
         <span>{{ bericht.content }}</span>
       </div>
     </div>
 
-    <form [formGroup]="messageForm" (ngSubmit)="onSubmit()" class="message-form">
+    <form
+      [formGroup]="messageForm"
+      (ngSubmit)="onSubmit()"
+      class="message-form"
+    >
       <mat-form-field class="message-input" appearance="fill">
         <mat-label>Type your message...</mat-label>
         <input matInput autocomplete="off" formControlName="message" />
