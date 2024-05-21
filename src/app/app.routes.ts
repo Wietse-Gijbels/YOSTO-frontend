@@ -7,10 +7,10 @@ import { StudyLookerRegistreerComponent } from './gebruiker/study-looker-registr
 import { StartSchermComponent } from './start-scherm/start-scherm.component';
 import { HomeComponent } from './home/home.component';
 import { FavorietenComponent } from './favorieten/favorieten.component';
-import { ScholenComponent } from './scholen/scholen.component';
 import { VeelGesteldeVragenComponent } from './veel-gestelde-vragen/veel-gestelde-vragen.component';
 import { RegistreerComponent } from './registreer/registreer.component';
 import { ChatComponent } from './chat/chat.component';
+import { StudierichtingenComponent } from './studierichtingen/studierichtingen.component';
 
 export const routes: Routes = [
   { path: '', component: StartSchermComponent }, // Default route to StartSchermComponent
@@ -37,7 +37,7 @@ export const routes: Routes = [
   },
   { path: 'home', component: HomeComponent },
   { path: 'favorieten', component: FavorietenComponent },
-  { path: 'scholen', component: ScholenComponent },
+  { path: 'studierichting', component: StudierichtingenComponent },
   { path: 'veelGesteldeVragen', component: VeelGesteldeVragenComponent },
   { path: 'chat', component: ChatComponent },
 ];
