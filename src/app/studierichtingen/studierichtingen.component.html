@@ -1,0 +1,29 @@
+<div class="container">
+  <header class="header">
+    <button class="back-button">←</button>
+    <div class="logo-container">
+      <img alt="logo van yosto" src="assets/images/yosto-logo.png" />
+    </div>
+  </header>
+  <main>
+    <h1 class="title">Studierichtingen</h1>
+    @if (studierrichtingen$ | async; as studierrichtingen) {
+      <ul>
+        @for (studierichting of studierrichtingen; track studierichting.id) {
+          <li>
+            <div
+              class="icon"
+              [ngStyle]="getRandomGradient(studierichting.id.toString())"
+            ></div>
+            <div class="details">
+              <h2>{{ studierichting.naam }}</h2>
+              <p>{{ studierichting.soort }}</p>
+            </div>
+            <span class="likes">❤️ 100</span>
+          </li>
+        }
+      </ul>
+    }
+  </main>
+</div>
+<app-nav-bar></app-nav-bar>

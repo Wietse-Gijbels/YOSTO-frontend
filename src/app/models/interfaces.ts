@@ -23,6 +23,12 @@ export interface GebruikerInterface {
   rollen: GebruikerRol[];
 }
 
+export interface StudierichtingInterface {
+  id: String;
+  naam: String;
+  soort: String;
+}
+
 export interface AuthenticationResponse {
   token: string;
 }
