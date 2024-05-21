@@ -21,6 +21,7 @@ export interface GebruikerInterface {
   woonplaates: string;
   status: GebruikerStatus;
   rollen: GebruikerRol[];
+  newMessageCount?: number;
 }
 
 export interface StudierichtingInterface {
@@ -35,7 +36,7 @@ export interface AuthenticationResponse {
 
 export interface Message {
   senderId: string;
-  responderId: string;
+  recipientId: string;
   content: string;
   timestamp: Date;
 }
