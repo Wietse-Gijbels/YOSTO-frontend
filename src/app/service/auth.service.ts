@@ -18,10 +18,7 @@ export class AuthService {
   ) {}
 
   isLoggedIn(): boolean {
-    if (isPlatformBrowser(this.platformId)) {
-      return this.cookieService.check('token');
-    }
-    return false;
+    return this.cookieService.check('token');
   }
 
   registreerLooker(formData: any): Observable<AuthenticationResponse> {

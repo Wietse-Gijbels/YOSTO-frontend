@@ -31,7 +31,7 @@ export class LoginComponent {
     const formData = this.form.getRawValue();
     this.authService.login(formData).subscribe(
       (response) => {
-        this.cookieService.set('token', response.token);
+        this.cookieService.set('token', response.token, { expires: 1 });
         this.router.navigateByUrl('/home');
       },
       (error) => {
