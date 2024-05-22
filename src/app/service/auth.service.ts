@@ -1,6 +1,6 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthenticationResponse } from '../models/interfaces';
@@ -10,6 +10,12 @@ import { catchError, Observable, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
+  token: string = this.cookieService.get('token');
+  headers: HttpHeaders = new HttpHeaders({
+    Authorization: `Bearer ${this.token}`,
+    'Content-Type': 'application/json',
+  });
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
     private httpClient: HttpClient,
@@ -28,6 +34,7 @@ export class AuthService {
       .post<AuthenticationResponse>(
         'http://localhost:8080/api/v1/auth/registreer',
         registreerData,
+        { headers: this.headers },
       )
       .pipe(
         catchError((error) => {
@@ -50,6 +57,7 @@ export class AuthService {
       .post<AuthenticationResponse>(
         'http://localhost:8080/api/v1/auth/registreer',
         registreerData,
+        { headers: this.headers },
       )
       .pipe(
         catchError((error) => {
@@ -63,6 +71,7 @@ export class AuthService {
       .post<AuthenticationResponse>(
         'http://localhost:8080/api/v1/auth/login',
         formData,
+        { headers: this.headers },
       )
       .pipe(
         catchError((error) => {
