@@ -1,29 +1,30 @@
-<div class="container">
-  <header class="header">
-    <button class="back-button">←</button>
-    <div class="logo-container">
-      <img alt="logo van yosto" src="assets/images/yosto-logo.png" />
-    </div>
-  </header>
-  <main>
-    <h1 class="title">Studierichtingen</h1>
-    @if (studierrichtingen$ | async; as studierrichtingen) {
-      <ul>
-        @for (studierichting of studierrichtingen; track studierichting.id) {
-          <li>
-            <div
-              class="icon"
-              [ngStyle]="getRandomGradient(studierichting.id.toString())"
-            ></div>
-            <div class="details">
-              <h2>{{ studierichting.naam }}</h2>
-              <p>{{ studierichting.soort }}</p>
-            </div>
-            <span class="likes">❤️ 100</span>
-          </li>
-        }
-      </ul>
-    }
-  </main>
-</div>
+<gebruiker-header [backgroundColor]="'background-wit'" subText="Studierichtingen"></gebruiker-header>
+<main>
+  @if (studierichtingen$ | async; as studierichtingen) {
+    <ul>
+      @for (studierichting of studierichtingen.content; track studierichting.id) {
+        <li>
+          <div class="icon" [ngStyle]="getRandomGradient(studierichting.id.toString())"></div>
+          <div class="details">
+            <h2>{{ studierichting.naam }}</h2>
+            @if (studierichting.studiepunten) {
+              <p>{{ studierichting.studiepunten }} stp</p>
+            }
+            @if (studierichting.afstudeerrichting.length > 0) {
+              <p>
+                {{ studierichting.niveauNaam }} - {{ studierichting.afstudeerrichting }}
+              </p>
+            } @else {
+              {{ studierichting.niveauNaam }}
+            }
+          </div>
+          <span class="likes">❤️ 100</span>
+        </li>
+      }
+    </ul>
+    <mat-paginator [length]="studierichtingen.totalElements" [pageIndex]="page" [pageSize]="pageSize"
+                   (page)="onPageChange($event)">
+    </mat-paginator>
+  }
+</main>
 <app-nav-bar></app-nav-bar>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { StudierichtingInterface } from '../models/interfaces';
 
 @Injectable({
@@ -11,9 +11,17 @@ export class StudierichtingService {
 
   constructor(private http: HttpClient) {}
 
-  findAll(): Observable<StudierichtingInterface[]> {
-    return this.http.get<StudierichtingInterface[]>(
-      `${this.studierichtingUrl}`,
-    );
+  findAll(
+    page: number,
+    pageSize: number,
+  ): Observable<{ totalElements: number; content: StudierichtingInterface[] }> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<{
+      totalElements: number;
+      content: StudierichtingInterface[];
+    }>(this.studierichtingUrl, { params });
   }
 }

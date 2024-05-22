@@ -27,7 +27,20 @@ export interface GebruikerInterface {
 export interface StudierichtingInterface {
   id: String;
   naam: String;
-  soort: String;
+  studiepunten: String;
+  niveauNaam: String;
+  afstudeerrichting: String;
+  instellingen: InstellingInterface[];
+}
+
+export interface InstellingInterface {
+  id: String;
+  naam: String;
+  campus: String;
+  postcode: String;
+  gemeente: String;
+  adres: String;
+  studierichting: StudierichtingInterface[];
 }
 
 export interface AuthenticationResponse {

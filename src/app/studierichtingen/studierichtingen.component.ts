@@ -1,19 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { NavBarComponent } from '../navigation/nav-bar.component';
 import { StudierichtingService } from '../service/studierichting.service';
-import { Observable } from 'rxjs';
 import { StudierichtingInterface } from '../models/interfaces';
+import { Observable } from 'rxjs';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { GebruikerHeaderComponent } from '../gebruiker/gebruiker-header/gebruiker-header.component';
 import { AsyncPipe, NgStyle } from '@angular/common';
+import { NavBarComponent } from '../navigation/nav-bar.component';
 
 @Component({
   selector: 'app-studierichtingen',
   templateUrl: './studierichtingen.component.html',
   styleUrls: ['./studierichtingen.component.scss'],
   standalone: true,
-  imports: [NavBarComponent, AsyncPipe, NgStyle],
+  imports: [
+    GebruikerHeaderComponent,
+    AsyncPipe,
+    NgStyle,
+    MatPaginator,
+    NavBarComponent,
+  ],
 })
 export class StudierichtingenComponent implements OnInit {
-  public studierrichtingen$?: Observable<StudierichtingInterface[]>;
+  public studierichtingen$!: Observable<{
+    totalElements: number;
+    content: StudierichtingInterface[];
+  }>;
+  public pageSize = 20;
+  public page = 0;
   private colors: string[] = [
     '#FF5733',
     '#33FF57',
@@ -50,10 +63,18 @@ export class StudierichtingenComponent implements OnInit {
   constructor(private studierichtingService: StudierichtingService) {}
 
   ngOnInit() {
-    this.studierrichtingen$ = this.studierichtingService.findAll();
+    this.loadPage(this.page, this.pageSize);
   }
 
-  // Generate a random gradient background based on seed
+  onPageChange(event: PageEvent) {
+    this.page = event.pageIndex;
+    this.loadPage(event.pageIndex, this.pageSize);
+  }
+
+  private loadPage(page: number, pageSize: number) {
+    this.studierichtingen$ = this.studierichtingService.findAll(page, pageSize);
+  }
+
   getRandomGradient(seed: string): { [klass: string]: any } {
     const shuffledColors = this.shuffleArray(this.colors, seed);
     const [color1, color2, color3] = shuffledColors.slice(0, 3);
@@ -68,7 +89,6 @@ export class StudierichtingenComponent implements OnInit {
     };
   }
 
-  // Shuffle array based on seed
   private shuffleArray(array: any[], seed: string): any[] {
     const seedLength = seed.length;
     const shuffledArray = [...array];
@@ -76,7 +96,6 @@ export class StudierichtingenComponent implements OnInit {
     let temporaryValue;
     let randomIndex;
 
-    // Use seed characters to determine the shuffle
     for (let i = currentIndex - 1; i > 0; i--) {
       randomIndex = Math.floor(
         (seed.charCodeAt(i % seedLength) / 255) * (i + 1),

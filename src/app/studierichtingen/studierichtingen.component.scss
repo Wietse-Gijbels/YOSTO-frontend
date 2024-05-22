@@ -1,43 +1,11 @@
 @use "../../style-guide.scss";
 
-.container {
+main {
   max-width: 400px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1rem 1rem 100px 1rem;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 0;
-
-  .back-button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-
-  img {
-    width: 70px;
-    height: 70px;
-    background: url("/assets/images/yosto-logo.png") no-repeat center center;
-    background-size: contain;
-  }
-
-  .logo-container {
-    flex-grow: 1; /* Added to make the logo container take up remaining space */
-    display: flex; /* Added to align the logo horizontally */
-    justify-content: center; /* Added to center the logo horizontally */
-  }
-}
-
-.title {
-  @include style-guide.font-medium-header;
-  text-align: center;
-  color: style-guide.$primary-rood;
-}
 
 ul {
   li {
@@ -65,7 +33,7 @@ ul {
       }
 
       p {
-        font-size: 0.875rem;
+        @include style-guide.font-small-tekst;
       }
     }
 
@@ -75,4 +43,16 @@ ul {
       white-space: nowrap; /* Prevent text from wrapping */
     }
   }
+}
+
+::ng-deep.mat-paginator .mat-paginator-outer-container {
+  background-color: black !important;
+  color: white;
+  border-radius: 30px;
+  border: 5px;
+}
+
+::ng-deep .mat-paginator-range-actions {
+  background-color: style-guide.$primary-rood;
+  border-radius: 30px;
 }
