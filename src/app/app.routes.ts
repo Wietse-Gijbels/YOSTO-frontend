@@ -11,6 +11,7 @@ import { VeelGesteldeVragenComponent } from './veel-gestelde-vragen/veel-gesteld
 import { RegistreerComponent } from './registreer/registreer.component';
 import { ChatComponent } from './chat/chat.component';
 import { StudierichtingenComponent } from './studierichtingen/studierichtingen.component';
+import { GeschenkCategorieOverviewComponent } from './geschenken/geschenk-categorie-overview/geschenk-categorie-overview.component';
 
 export const routes: Routes = [
   { path: '', component: StartSchermComponent }, // Default route to StartSchermComponent
@@ -40,4 +41,5 @@ export const routes: Routes = [
   { path: 'studierichting', component: StudierichtingenComponent },
   { path: 'veelGesteldeVragen', component: VeelGesteldeVragenComponent },
   { path: 'chat', component: ChatComponent },
+  { path: 'geschenken', component: GeschenkCategorieOverviewComponent },
 ];

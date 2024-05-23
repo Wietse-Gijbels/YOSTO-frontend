@@ -22,6 +22,7 @@ export interface GebruikerInterface {
   status: GebruikerStatus;
   rollen: GebruikerRol[];
   newMessageCount?: number;
+  geschenken?: Geschenk[];
 }
 
 export interface StudierichtingInterface {
@@ -39,4 +40,21 @@ export interface Message {
   recipientId: string;
   content: string;
   timestamp: Date;
+}
+
+export interface Geschenk {
+  id: string;
+  titel: string;
+  isBeschikbaar: boolean;
+  gebruiker: GebruikerInterface;
+  geschenkCategorie: GeschenkCategorie;
+}
+
+export interface GeschenkCategorie {
+  id: string;
+  naam: string;
+  prijs: number;
+  beschrijving: string;
+  fotoUrl: string;
+  geschenken?: Geschenk[];
 }
