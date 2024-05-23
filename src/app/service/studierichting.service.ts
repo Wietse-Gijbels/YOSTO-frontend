@@ -28,9 +28,14 @@ export class StudierichtingService {
       .set('page', page.toString())
       .set('pageSize', pageSize.toString());
 
+    const options = {
+      params: params,
+      headers: this.headers,
+    };
+
     return this.http.get<{
       totalElements: number;
       content: StudierichtingInterface[];
-    }>(this.studierichtingUrl, { params }, { headers: this.headers });
+    }>(this.studierichtingUrl, options);
   }
 }
