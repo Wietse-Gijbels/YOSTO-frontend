@@ -1,0 +1,33 @@
+<mat-grid-list cols="2">
+  <fa-icon [icon]="faUser"></fa-icon>
+  <h1>Persoonlijke Info</h1>
+  @if (gebruiker$ | async; as gebruiker) {
+    <form [formGroup]="form">
+      <ul>
+        <label>Voornaam:</label>
+        <li>
+          <label [hidden]="!edit">{{ gebruiker.voornaam }}</label>
+          <input formControlName="voornaam" matInput [hidden]="edit" [value]="gebruiker.voornaam">
+        </li>
+        <label>Achternaam:</label>
+        <li>
+          <label [hidden]="!edit">{{ gebruiker.achternaam }}</label>
+          <input formControlName="achternaam" matInput [hidden]="edit" [value]="gebruiker.achternaam">
+        </li>
+        <label>E-mail:</label>
+        <li>
+          <label [hidden]="!edit">{{ gebruiker.email }}</label>
+          <input formControlName="email" matInput [hidden]="edit" [value]="gebruiker.email">
+        </li>
+        <label>Woonplaats:</label>
+        <li>
+          <label [hidden]="!edit">{{ gebruiker.woonplaats }}</label>
+          <input formControlName="woonplaats" matInput [hidden]="edit" [value]="gebruiker.woonplaats">
+        </li>
+      </ul>
+    </form>
+  }
+  <button (click)="editGebruiker()" [hidden]="!edit">Bewerken</button>
+  <button (click)="save()" [hidden]="edit">Opslaan</button>
+  <button (click)="edit = !edit" [hidden]="edit">Annuleren</button>
+</mat-grid-list>
