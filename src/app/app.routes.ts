@@ -12,9 +12,10 @@ import { RegistreerComponent } from './registreer/registreer.component';
 import { ChatComponent } from './chat/chat.component';
 import { StudierichtingenComponent } from './studierichtingen/studierichtingen.component';
 import { GeschenkCategorieOverviewComponent } from './geschenken/geschenk-categorie-overview/geschenk-categorie-overview.component';
+import { AddGeschenkCategorieComponent } from './geschenken/add-geschenk-categorie/add-geschenk-categorie.component';
 
 export const routes: Routes = [
-  { path: '', component: StartSchermComponent }, // Default route to StartSchermComponent
+  { path: '', component: StartSchermComponent },
   {
     path: 'login',
     component: LoginComponent,
@@ -41,5 +42,10 @@ export const routes: Routes = [
   { path: 'studierichting', component: StudierichtingenComponent },
   { path: 'veelGesteldeVragen', component: VeelGesteldeVragenComponent },
   { path: 'chat', component: ChatComponent },
-  { path: 'geschenken', component: GeschenkCategorieOverviewComponent },
+  {
+    path: 'geschenken-overview',
+    component: GeschenkCategorieOverviewComponent,
+  },
+  { path: 'add-geschenk-categorie', component: AddGeschenkCategorieComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

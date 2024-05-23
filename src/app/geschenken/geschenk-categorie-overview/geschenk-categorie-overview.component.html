@@ -3,13 +3,6 @@
   [headerText]="''"
 ></gebruiker-header>
 <div class="container">
-  <div class="upload-container">
-    <input [(ngModel)]="naam" placeholder="Naam" type="text" />
-    <input [(ngModel)]="prijs" placeholder="Prijs" type="number" />
-    <input [(ngModel)]="beschrijving" placeholder="Beschrijving" type="text" />
-    <input (change)="onFileSelected($event)" type="file" />
-    <button (click)="onUpload()">Upload en Maak Categorie</button>
-  </div>
   <div *ngFor="let categorie of geschenkCategorieen" class="categorie-card">
     <div class="tile-item">
       <div class="tile-content">
@@ -20,10 +13,9 @@
       <div class="tile-image">
         <img
           alt="{{ categorie.naam }}"
-          src="
-            'http://localhost:8080/api/v1/geschenkcategorie/files/' +
+          src="http://localhost:8080/api/v1/geschenkcategorie/files/{{
             categorie.fotoUrl
-          "
+          }}"
         />
       </div>
     </div>

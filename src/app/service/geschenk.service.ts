@@ -30,12 +30,10 @@ export class GeschenkService {
     );
   }
 
-  createGeschenkCategorie(
-    categorie: GeschenkCategorie,
-  ): Observable<GeschenkCategorie> {
+  createGeschenkCategorie(uploadData: FormData): Observable<GeschenkCategorie> {
     return this.http.post<GeschenkCategorie>(
       `${this.categorieApiUrl}/create`,
-      categorie,
+      uploadData,
     );
   }
 
