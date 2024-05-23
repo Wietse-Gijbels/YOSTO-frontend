@@ -11,4 +11,5 @@ import { NgClass } from '@angular/common';
 export class GebruikerHeaderComponent {
   @Input() headerText: string = '';
   @Input({ required: true }) backgroundColor!: string;
+  @Input() subText: string = '';
 }

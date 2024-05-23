@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { StudierichtingInterface } from '../models/interfaces';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -20,10 +20,17 @@ export class StudierichtingService {
     private cookieService: CookieService,
   ) {}
 
-  findAll(): Observable<StudierichtingInterface[]> {
-    return this.http.get<StudierichtingInterface[]>(
-      `${this.studierichtingUrl}`,
-      { headers: this.headers },
-    );
+  findAll(
+    page: number,
+    pageSize: number,
+  ): Observable<{ totalElements: number; content: StudierichtingInterface[] }> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<{
+      totalElements: number;
+      content: StudierichtingInterface[];
+    }>(this.studierichtingUrl, { params }, { headers: this.headers });
   }
 }
