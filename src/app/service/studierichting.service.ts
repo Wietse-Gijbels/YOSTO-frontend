@@ -29,7 +29,8 @@ export class StudierichtingService {
       .set('pageSize', pageSize.toString());
 
     const options = {
-      params: params,
+      pageSize: pageSize.toString(),
+      page: page.toString(),
       headers: this.headers,
     };
 
