@@ -1,0 +1,31 @@
+<div class="container">
+  <gebruiker-header
+    [backgroundColor]="'background-rood'"
+    [headerText]="'Registreren'"
+  ></gebruiker-header>
+  <div class="rectangle-container">
+    <div class="rectangle">
+      <p
+        (click)="toggleComponent('looker')"
+        [class.active]="currentComponent === 'looker'"
+        class="half"
+      >
+        StudyLooker
+      </p>
+      <p
+        (click)="toggleComponent('helper')"
+        [class.active]="currentComponent === 'helper'"
+        class="half"
+      >
+        StudyHelper
+      </p>
+    </div>
+  </div>
+
+  @if (currentComponent === "helper") {
+    <app-study-helper-registreer></app-study-helper-registreer>
+  }
+  @if (currentComponent === "looker") {
+    <app-study-looker-registreer></app-study-looker-registreer>
+  }
+</div>

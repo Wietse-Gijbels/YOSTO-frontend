@@ -20,7 +20,7 @@
             "outputPath": "dist/frontend-yosto",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": ["zone.js", "src/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
@@ -84,11 +84,18 @@
             "styles": ["src/styles.scss"],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "e8cec1b4-e660-4090-98d5-3e8382a0aa29"
+    "analytics": "e8cec1b4-e660-4090-98d5-3e8382a0aa29",
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }

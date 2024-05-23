@@ -1,0 +1,56 @@
+<div class="chat-container">
+  <div class="user-list">
+    <mat-list>
+      <ng-container *ngFor="let gebruiker of gebruikers">
+        <mat-list-item
+          (click)="onChatClick(gebruiker)"
+          [ngClass]="{
+            'selected-user': selectedGebruiker?.id === gebruiker.id
+          }"
+          *ngIf="gebruiker.id !== userId"
+        >
+          <button mat-button class="user-button">
+            {{ gebruiker.email }}
+            <span
+              *ngIf="gebruiker.newMessageCount"
+              class="new-message-notification"
+            >
+              ({{ gebruiker.newMessageCount }} new chat{{
+                gebruiker.newMessageCount > 1 ? "s" : ""
+              }})
+            </span>
+          </button>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </mat-list>
+  </div>
+
+  <div class="chat-window" *ngIf="selectedGebruiker">
+    <div class="messages">
+      <div
+        *ngFor="let bericht of berichten$ | async"
+        [ngClass]="{
+          'my-message': bericht.senderId === userId,
+          'other-message': bericht.senderId !== userId
+        }"
+      >
+        <span>{{ bericht.content }}</span>
+      </div>
+    </div>
+
+    <form
+      [formGroup]="messageForm"
+      (ngSubmit)="onSubmit()"
+      class="message-form"
+    >
+      <mat-form-field class="message-input" appearance="fill">
+        <mat-label>Type your message...</mat-label>
+        <input matInput autocomplete="off" formControlName="message" />
+      </mat-form-field>
+      <button mat-icon-button type="submit" [disabled]="isMessageFieldEmpty()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </form>
+  </div>
+</div>

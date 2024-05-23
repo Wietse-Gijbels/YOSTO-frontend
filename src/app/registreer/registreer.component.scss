@@ -1,0 +1,57 @@
+@use "../../style-guide.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  //height: 100%;
+}
+
+.rectangle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: style-guide.$primary-rood;
+  padding: 10px 0 20px;
+}
+
+.rectangle {
+  width: 299.8px;
+  height: 30px;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  border: solid 2px #ffffff;
+}
+
+.rectangle:hover {
+  cursor: pointer;
+}
+
+.half {
+  display: block;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  line-height: 30px;
+  text-decoration: none;
+  color: #ffffff;
+  position: absolute;
+  top: 0;
+  transition: background-color 0.3s;
+}
+
+.half:first-child {
+  left: 0;
+  background-color: style-guide.$primary-rood;
+}
+
+.half:last-child {
+  right: 0;
+  background-color: style-guide.$primary-rood;
+}
+
+.half.active {
+  background-color: #ffffff;
+  color: style-guide.$primary-rood;
+  font-weight: 700;
+}
