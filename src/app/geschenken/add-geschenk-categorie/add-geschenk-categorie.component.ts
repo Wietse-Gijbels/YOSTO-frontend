@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { GeschenkService } from '../../service/geschenk.service';
-import { NavBarComponent } from '../../navigation/nav-bar.component';
-import { GebruikerHeaderComponent } from '../../gebruiker/gebruiker-header/gebruiker-header.component';
 import { NgIf } from '@angular/common';
+import { NavBarComponent } from '../../common/navigation/nav-bar.component';
+import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
 
 @Component({
   selector: 'app-add-geschenk-categorie',

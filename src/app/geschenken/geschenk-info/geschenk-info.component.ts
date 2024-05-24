@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { GeschenkCategorie } from '../../models/interfaces';
 import { GeschenkService } from '../../service/geschenk.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { GebruikerHeaderComponent } from '../../gebruiker/gebruiker-header/gebruiker-header.component';
-import { NavBarComponent } from '../../navigation/nav-bar.component';
+import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
+import { NavBarComponent } from '../../common/navigation/nav-bar.component';
+import { GeschenkCategorie } from '../../common/models/interfaces';
 
 @Component({
   selector: 'app-geschenk-info',

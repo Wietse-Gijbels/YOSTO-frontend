@@ -1,8 +1,8 @@
-@use "style-guide";
+@use "../../../style-guide";
 
 #start-scherm-background {
   position: relative;
-  background-image: url("/src/assets/images/startscherm-background.jpeg");
+  background-image: url("../../../assets/images/startscherm-background.jpeg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

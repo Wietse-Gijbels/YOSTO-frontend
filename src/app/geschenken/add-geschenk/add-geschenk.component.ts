@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { GeschenkService } from '../../service/geschenk.service';
-import { NavBarComponent } from '../../navigation/nav-bar.component';
-import { GebruikerHeaderComponent } from '../../gebruiker/gebruiker-header/gebruiker-header.component';
 import { NgForOf, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
-import { GeschenkCategorie } from '../../models/interfaces';
+import { NavBarComponent } from '../../common/navigation/nav-bar.component';
+import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
+import { GeschenkCategorie } from '../../common/models/interfaces';
 
 @Component({
   selector: 'app-add-geschenk',

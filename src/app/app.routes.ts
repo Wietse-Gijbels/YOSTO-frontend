@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './registreer-login/login/login.component';
-import { GebruikersOverzichtComponent } from './gebruiker/gebruikers-overzicht/gebruikers-overzicht.component';
-import { authGuard } from './common/guards/AuthGuard';
 import { StudyHelperRegistreerComponent } from './registreer-login/study-helper-registreer/study-helper-registreer.component';
 import { StudyLookerRegistreerComponent } from './registreer-login/study-looker-registreer/study-looker-registreer.component';
 import { StartSchermComponent } from './registreer-login/start-scherm/start-scherm.component';
@@ -33,11 +31,6 @@ export const routes: Routes = [
   {
     path: 'study-looker-registreer',
     component: StudyLookerRegistreerComponent,
-  },
-  {
-    path: 'gebruikers-overzicht',
-    component: GebruikersOverzichtComponent,
-    canActivate: [authGuard],
   },
   { path: 'home', component: HomeComponent },
   { path: 'favorieten', component: FavorietenComponent },

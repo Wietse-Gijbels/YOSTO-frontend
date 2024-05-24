@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Geschenk, GeschenkCategorie } from '../models/interfaces';
+import { Geschenk, GeschenkCategorie } from '../common/models/interfaces';
 
 @Injectable({
   providedIn: 'root',
