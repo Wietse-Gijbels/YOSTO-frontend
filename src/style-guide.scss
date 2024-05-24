@@ -58,3 +58,23 @@ $secondary-groen: map-get($yosto-palette, 600);
 $secondary-geel: map-get($yosto-palette, 700);
 $secondary-roos: map-get($yosto-palette, 800);
 $secondary-wit: map-get($yosto-palette, 900);
+
+$categorie-colors: (
+  $primary-rood,
+  $primary-oranje,
+  $primary-roos,
+  $secondary-licht-blauw,
+  $secondary-paars,
+  $secondary-groen,
+  $secondary-geel,
+  $secondary-roos,
+  $secondary-wit
+);
+
+@mixin alternating-background-colors {
+  @for $i from 1 through length($categorie-colors) {
+    &:nth-of-type(#{$i}) {
+      background-color: nth($categorie-colors, $i);
+    }
+  }
+}

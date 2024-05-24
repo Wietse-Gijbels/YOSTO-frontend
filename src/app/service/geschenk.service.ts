@@ -46,4 +46,8 @@ export class GeschenkService {
       `${this.categorieApiUrl}/all-beschikbaar`,
     );
   }
+
+  getGeschenkCategorieById(id: string): Observable<GeschenkCategorie> {
+    return this.http.get<GeschenkCategorie>(`${this.categorieApiUrl}/${id}`);
+  }
 }

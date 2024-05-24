@@ -7,6 +7,7 @@ import { NavBarComponent } from '../../navigation/nav-bar.component';
 import { GebruikerHeaderComponent } from '../../gebruiker/gebruiker-header/gebruiker-header.component';
 import { FormsModule } from '@angular/forms';
 import { GeschenkService } from '../../service/geschenk.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-geschenk-categorie-overview',
@@ -24,16 +25,32 @@ import { GeschenkService } from '../../service/geschenk.service';
   styleUrls: ['./geschenk-categorie-overview.component.scss'],
 })
 export class GeschenkCategorieOverviewComponent implements OnInit {
-  selectedFile: File | null = null;
-  naam: string = '';
-  prijs: number = 0;
-  beschrijving: string = '';
   geschenkCategorieen: GeschenkCategorie[] = [];
+  backgroundColorClasses: string[] = [];
 
-  constructor(private geschenkService: GeschenkService) {}
+  categorieColors = [
+    'categorie-color-100',
+    'categorie-color-200',
+    'categorie-color-300',
+    'categorie-color-400',
+    'categorie-color-500',
+    'categorie-color-600',
+    'categorie-color-700',
+  ];
+
+  constructor(
+    private geschenkService: GeschenkService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.loadGeschenkCategorieen();
+  }
+
+  assignColorsToCategories(): void {
+    this.backgroundColorClasses = this.geschenkCategorieen.map(
+      (_, index) => this.categorieColors[index % this.categorieColors.length],
+    );
   }
 
   loadGeschenkCategorieen(): void {
@@ -41,10 +58,11 @@ export class GeschenkCategorieOverviewComponent implements OnInit {
       .getAllGeschenkCategorieen()
       .subscribe((data: GeschenkCategorie[]) => {
         this.geschenkCategorieen = data;
+        this.assignColorsToCategories(); // Assign colors after data is loaded
       });
   }
 
-  meerInfo(categorie: GeschenkCategorie): void {
-    // Implement the function to show more info
+  meerInfo(id: string): void {
+    this.router.navigate(['/geschenk-info', id]);
   }
 }

@@ -1,14 +1,18 @@
 <gebruiker-header
   [backgroundColor]="'background-wit'"
   [headerText]="''"
+  [subText]="'Geschenken'"
 ></gebruiker-header>
 <div class="container">
-  <div *ngFor="let categorie of geschenkCategorieen" class="categorie-card">
-    <div class="tile-item">
+  <div
+    *ngFor="let categorie of geschenkCategorieen; let i = index"
+    class="categorie-card"
+  >
+    <div class="tile-item {{ backgroundColorClasses[i] }}">
       <div class="tile-content">
         <h3>{{ categorie.naam }}</h3>
         <p>{{ categorie.prijs }} XP</p>
-        <button (click)="meerInfo(categorie)">Meer info</button>
+        <button (click)="meerInfo(categorie.id)">Meer info</button>
       </div>
       <div class="tile-image">
         <img

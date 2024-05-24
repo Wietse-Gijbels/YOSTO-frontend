@@ -56,5 +56,6 @@ export interface GeschenkCategorie {
   prijs: number;
   beschrijving: string;
   fotoUrl: string;
-  geschenken?: Geschenk[];
+  geschenken: Geschenk[];
+  color?: string;
 }

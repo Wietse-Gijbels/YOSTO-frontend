@@ -1,9 +1,10 @@
+@use "../../../style-guide.scss";
+
 .container {
   padding-bottom: 115px;
   margin: 15px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
@@ -26,16 +27,31 @@
   text-align: left;
   width: 100%;
   box-sizing: border-box;
-  background-color: #6a1b9a;
   position: relative;
   overflow: hidden;
+}
+
+.tile-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), transparent);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 .tile-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  z-index: 1;
 }
 
 .tile-image {
@@ -55,13 +71,17 @@ img {
 
 button {
   color: #fff;
-  background-color: #8e24aa;
+  font-weight: bold;
+  background: none;
   font-size: 15px;
-  border: none;
   border-radius: 20px;
   padding: 5px 20px;
   margin-top: 10px;
   cursor: pointer;
+  border: 1px solid style-guide.$secondary-wit;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 h3 {
@@ -72,4 +92,103 @@ h3 {
 p {
   font-size: 14px;
   margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .categorie-card {
+    flex: 0 1 calc(50% - 40px); /* 50% width minus the gap */
+  }
+}
+
+@media (min-width: 1024px) {
+  .categorie-card {
+    flex: 30%; /* 33.333% width minus the gap */
+  }
+
+  .container {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+}
+
+.categorie-color-100 {
+  background: linear-gradient(
+    to top,
+    style-guide.$primary-rood,
+    darken(style-guide.$primary-rood, 5%)
+  );
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.categorie-color-200 {
+  background: linear-gradient(
+    to top,
+    style-guide.$primary-oranje,
+    darken(style-guide.$primary-oranje, 5%)
+  );
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.categorie-color-300 {
+  background: linear-gradient(
+    to top,
+    style-guide.$primary-roos,
+    darken(style-guide.$primary-roos, 5%)
+  );
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.categorie-color-400 {
+  background: linear-gradient(
+    to top,
+    style-guide.$secondary-licht-blauw,
+    darken(style-guide.$secondary-licht-blauw, 5%)
+  );
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.categorie-color-500 {
+  background: linear-gradient(
+    to top,
+    style-guide.$secondary-paars,
+    darken(style-guide.$secondary-paars, 5%)
+  );
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.categorie-color-600 {
+  background: linear-gradient(
+    to top,
+    style-guide.$secondary-groen,
+    darken(style-guide.$secondary-groen, 5%)
+  );
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.categorie-color-700 {
+  background: linear-gradient(
+    to top,
+    style-guide.$secondary-geel,
+    darken(style-guide.$secondary-geel, 5%)
+  );
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.2);
 }
