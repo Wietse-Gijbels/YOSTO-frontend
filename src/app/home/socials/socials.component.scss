@@ -1,0 +1,66 @@
+@use "style-guide";
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+
+  .klein {
+    font-size: 30px;
+  }
+
+  .medium {
+    font-size: 36px;
+  }
+
+  .groot {
+    font-size: 42px;
+  }
+
+  .extra-groot {
+    font-size: 48px;
+  }
+}
+
+.rood {
+  color: style-guide.$primary-rood;
+}
+
+.wit {
+  color: style-guide.$secondary-wit;
+}
+
+.groen {
+  color: style-guide.$secondary-groen;
+}
+
+.oranje {
+  color: style-guide.$primary-oranje;
+}
+
+.roos {
+  color: style-guide.$secondary-roos;
+}
+
+.paars {
+  color: style-guide.$secondary-paars;
+}
+
+.geel {
+  color: style-guide.$secondary-geel;
+}
+
+.licht-blauw {
+  color: style-guide.$secondary-licht-blauw;
+}
+
+.links {
+  justify-content: start;
+}
+
+.midden {
+  justify-content: center;
+}
+
+.rechts {
+  justify-content: end;
+}

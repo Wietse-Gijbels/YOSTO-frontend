@@ -1,0 +1,53 @@
+@use "style-guide";
+
+.gebruiker-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  background-color: style-guide.$primary-rood;
+}
+
+.gebruiker-header img {
+  width: 10%;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.background-rood {
+  background-color: style-guide.$primary-rood;
+  color: style-guide.$secondary-wit;
+}
+
+.background-wit {
+  background-color: style-guide.$secondary-wit;
+  color: style-guide.$primary-rood;
+}
+
+.background-groen {
+  background-color: style-guide.$secondary-groen;
+}
+
+h1 {
+  @include style-guide.font-large-header;
+  background-color: style-guide.$secondary-wit;
+}
+
+h2 {
+  @include style-guide.font-medium-tekst;
+  background-color: style-guide.$primary-oranje;
+}
+
+@media only screen and (max-width: 768px) {
+  .gebruiker-header img {
+    width: 20%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .gebruiker-header img {
+    width: 30%;
+  }
+}
