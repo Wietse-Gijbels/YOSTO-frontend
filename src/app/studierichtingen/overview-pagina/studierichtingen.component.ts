@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { StudierichtingService } from '../service/studierichting.service';
-import { StudierichtingInterface } from '../models/interfaces';
+import { StudierichtingService } from '../../common/service/studierichting.service';
+import { StudierichtingInterface } from '../../common/models/interfaces';
 import { Observable } from 'rxjs';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { GebruikerHeaderComponent } from '../gebruiker/gebruiker-header/gebruiker-header.component';
+import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
 import { AsyncPipe, NgStyle } from '@angular/common';
-import { NavBarComponent } from '../navigation/nav-bar.component';
+import { NavBarComponent } from '../../navigation/nav-bar.component';
 
 @Component({
   selector: 'app-studierichtingen',

@@ -1,23 +1,23 @@
-@use "../../../style-guide.scss";
+@use "style-guide";
 
 .icon-email {
-  background: url("/assets/images/mail-envloppe.png") no-repeat 5px center;
+  background: url("/src/assets/images/mail-envloppe.png") no-repeat 5px center;
 }
 
 .icon-wachtwoord {
-  background: url("/assets/images/wachtwoord.png") no-repeat 5px center;
+  background: url("/src/assets/images/wachtwoord.png") no-repeat 5px center;
 }
 
 .icon-persoon {
-  background: url("/assets/images/persoon.png") no-repeat 5px center;
+  background: url("/src/assets/images/persoon.png") no-repeat 5px center;
 }
 
 .icon-provincie {
-  background: url("/assets/images/provincie.png") no-repeat 5px center;
+  background: url("/src/assets/images/provincie.png") no-repeat 5px center;
 }
 
 .icon-studie {
-  background: url("/assets/images/studie.png") no-repeat 5px center;
+  background: url("/src/assets/images/studie.png") no-repeat 5px center;
 }
 
 .icon-email,
@@ -117,4 +117,25 @@ p {
   text-align: center;
   font-size: 12px;
   margin: 7px;
+}
+
+.plus-button {
+  color: #ffffff;
+  background-color: style-guide.$primary-rood;
+  margin-right: 5px;
+  padding: 0;
+  font-size: 24px;
+  margin-top: 0;
+}
+
+.smaller-input {
+  padding: 5px 84.06px 5px 35px;
+}
+
+.alignment-right {
+  margin-left: 15.94px;
+}
+
+.smaller-height {
+  margin-top: -3.8px !important;
 }

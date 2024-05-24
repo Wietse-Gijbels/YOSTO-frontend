@@ -1,16 +1,16 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './gebruiker/login/login.component';
+import { LoginComponent } from './registreer-login/login/login.component';
 import { GebruikersOverzichtComponent } from './gebruiker/gebruikers-overzicht/gebruikers-overzicht.component';
-import { authGuard } from './guards/AuthGuard';
-import { StudyHelperRegistreerComponent } from './gebruiker/study-helper-registreer/study-helper-registreer.component';
-import { StudyLookerRegistreerComponent } from './gebruiker/study-looker-registreer/study-looker-registreer.component';
-import { StartSchermComponent } from './start-scherm/start-scherm.component';
-import { HomeComponent } from './home/home.component';
-import { FavorietenComponent } from './favorieten/favorieten.component';
+import { authGuard } from './common/guards/AuthGuard';
+import { StudyHelperRegistreerComponent } from './registreer-login/study-helper-registreer/study-helper-registreer.component';
+import { StudyLookerRegistreerComponent } from './registreer-login/study-looker-registreer/study-looker-registreer.component';
+import { StartSchermComponent } from './registreer-login/start-scherm/start-scherm.component';
+import { HomeComponent } from './home/home-pagina/home.component';
+import { FavorietenComponent } from './studierichtingen/favorieten/favorieten.component';
 import { VeelGesteldeVragenComponent } from './veel-gestelde-vragen/veel-gestelde-vragen.component';
-import { RegistreerComponent } from './registreer/registreer.component';
+import { RegistreerComponent } from './registreer-login/registreer-pagina/registreer.component';
 import { ChatComponent } from './chat/chat.component';
-import { StudierichtingenComponent } from './studierichtingen/studierichtingen.component';
+import { StudierichtingenComponent } from './studierichtingen/overview-pagina/studierichtingen.component';
 
 export const routes: Routes = [
   { path: '', component: StartSchermComponent }, // Default route to StartSchermComponent

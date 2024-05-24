@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { StudyHelperRegistreerComponent } from '../gebruiker/study-helper-registreer/study-helper-registreer.component';
-import { StudyLookerRegistreerComponent } from '../gebruiker/study-looker-registreer/study-looker-registreer.component';
-import { GebruikerHeaderComponent } from '../gebruiker/gebruiker-header/gebruiker-header.component';
+import { StudyHelperRegistreerComponent } from '../study-helper-registreer/study-helper-registreer.component';
+import { StudyLookerRegistreerComponent } from '../study-looker-registreer/study-looker-registreer.component';
+import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
 import {
   MatButtonToggle,
   MatButtonToggleGroup,

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../../service/auth.service';
-import { GebruikerHeaderComponent } from '../gebruiker-header/gebruiker-header.component';
+import { AuthService } from '../../common/service/auth.service';
+import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
