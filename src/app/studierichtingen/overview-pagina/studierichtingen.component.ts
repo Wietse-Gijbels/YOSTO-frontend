@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
 import { AsyncPipe, NgStyle } from '@angular/common';
-import { NavBarComponent } from '../../navigation/nav-bar.component';
+import { NavBarComponent } from '../../common/navigation/nav-bar.component';
 
 @Component({
   selector: 'app-studierichtingen',

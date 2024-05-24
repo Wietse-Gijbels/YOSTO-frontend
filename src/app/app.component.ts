@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { NavBarComponent } from './navigation/nav-bar.component';
+import { NavBarComponent } from './common/navigation/nav-bar.component';
 import { StartSchermComponent } from './registreer-login/start-scherm/start-scherm.component';
 import { CookieService } from 'ngx-cookie-service';
 
