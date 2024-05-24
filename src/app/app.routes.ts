@@ -14,6 +14,7 @@ import { StudierichtingenComponent } from './studierichtingen/studierichtingen.c
 import { GeschenkCategorieOverviewComponent } from './geschenken/geschenk-categorie-overview/geschenk-categorie-overview.component';
 import { AddGeschenkCategorieComponent } from './geschenken/add-geschenk-categorie/add-geschenk-categorie.component';
 import { GeschenkInfoComponent } from './geschenken/geschenk-info/geschenk-info.component';
+import { AddGeschenkComponent } from './geschenken/add-geschenk/add-geschenk.component';
 
 export const routes: Routes = [
   { path: '', component: StartSchermComponent },
@@ -48,6 +49,7 @@ export const routes: Routes = [
     component: GeschenkCategorieOverviewComponent,
   },
   { path: 'add-geschenk-categorie', component: AddGeschenkCategorieComponent },
+  { path: 'add-geschenk', component: AddGeschenkComponent },
   { path: 'geschenk-info/:id', component: GeschenkInfoComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

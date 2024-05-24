@@ -43,10 +43,9 @@ export interface Message {
 }
 
 export interface Geschenk {
-  id: string;
   titel: string;
+  code: string;
   isBeschikbaar: boolean;
-  gebruiker: GebruikerInterface;
   geschenkCategorie: GeschenkCategorie;
 }
 
