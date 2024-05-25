@@ -23,6 +23,7 @@ export interface GebruikerInterface {
   rollen: GebruikerRol[];
   newMessageCount?: number;
   geschenken?: Geschenk[];
+  xpAantal: number;
 }
 
 export interface StudierichtingInterface {

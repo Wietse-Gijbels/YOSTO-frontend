@@ -22,10 +22,10 @@ export class GeschenkService {
 
   addGeschenkToGebruiker(
     gebruikerId: string,
-    geschenkId: string,
+    geschenkCategorieId: string,
   ): Observable<void> {
     return this.http.post<void>(
-      `${this.apiUrl}/addToGebruiker/${gebruikerId}/${geschenkId}`,
+      `${this.apiUrl}/addToGebruiker/${gebruikerId}/${geschenkCategorieId}`,
       {},
     );
   }

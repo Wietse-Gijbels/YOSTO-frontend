@@ -17,6 +17,11 @@
       Er is nog 1 geschenk beschikbaar voor {{ category.prijs }} XP
     </p>
     <p>{{ category.beschrijving }}</p>
+    <button (click)="claimGeschenk()" class="claim-button">
+      Claim geschenk
+    </button>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
   </div>
 </div>
 <app-nav-bar></app-nav-bar>
