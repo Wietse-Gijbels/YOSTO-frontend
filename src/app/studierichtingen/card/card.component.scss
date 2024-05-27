@@ -1,0 +1,58 @@
+@use "../../../style-guide";
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 25px;
+  background-color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Box shadow for the card effect */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
+
+  .icon {
+    width: 50px; /* Adjust the width as needed */
+    height: 50px; /* Fixed height to maintain aspect ratio */
+    border-radius: 50%;
+    margin-right: 1rem;
+    flex-shrink: 0; /* Prevent flex items from shrinking */
+  }
+
+  &:hover {
+    transform: translateY(-5px); /* Lift the card slightly on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+  }
+
+  .details {
+    flex-grow: 1;
+
+    h4 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      @include style-guide.font-small-tekst;
+    }
+  }
+
+  .map-link {
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  fa-icon {
+    color: style-guide.$primary-rood;
+    font-size: 36px;
+  }
+
+  .likes {
+    margin-left: auto; /* Align likes to the right */
+    font-size: 0.875rem;
+    white-space: nowrap; /* Prevent text from wrapping */
+  }
+}

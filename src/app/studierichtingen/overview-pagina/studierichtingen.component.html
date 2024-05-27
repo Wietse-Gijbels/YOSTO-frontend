@@ -5,31 +5,15 @@
 <main>
   @if (studierichtingen$ | async; as studierichtingen) {
     <ul>
-      @for (
-        studierichting of studierichtingen.content;
-        track studierichting.id
-      ) {
-        <li>
-          <div
-            class="icon"
-            [ngStyle]="getRandomGradient(studierichting.id.toString())"
-          ></div>
-          <div class="details">
-            <h2>{{ studierichting.naam }}</h2>
-            @if (studierichting.studiepunten) {
-              <p>{{ studierichting.studiepunten }} stp</p>
-            }
-            @if (studierichting.afstudeerrichting.length > 0) {
-              <p>
-                {{ studierichting.niveauNaam }} -
-                {{ studierichting.afstudeerrichting }}
-              </p>
-            } @else {
-              {{ studierichting.niveauNaam }}
-            }
-          </div>
-          <span class="likes">❤️ 100</span>
-        </li>
+      @for (studierichting of studierichtingen.content;
+        track studierichting.id) {
+        <app-card
+          [subtextLine1]="studierichting.afstudeerrichting.length > 0 ? studierichting.niveauNaam + '-' + studierichting.afstudeerrichting : studierichting.niveauNaam "
+          [subtextLine2]="studierichting.studiepunten ? studierichting.studiepunten  + ' stp': 'geen studiepunten'"
+          [afterText]="'❤️ 100'"
+          [title]="studierichting.naam "
+          [id]="studierichting.id">
+        </app-card>
       }
     </ul>
     <mat-paginator

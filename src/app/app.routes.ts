@@ -6,6 +6,7 @@ import { StartSchermComponent } from './registreer-login/start-scherm/start-sche
 import { HomeComponent } from './home/home-pagina/home.component';
 import { FavorietenComponent } from './studierichtingen/favorieten/favorieten.component';
 import { VeelGesteldeVragenComponent } from './veel-gestelde-vragen/veel-gestelde-vragen.component';
+import { StudierichtingDetailsComponent } from './studierichtingen/studierichting-details/studierichting-details.component';
 import { RegistreerComponent } from './registreer-login/registreer-pagina/registreer.component';
 import { GeschenkCategorieOverviewComponent } from './geschenken/geschenk-categorie-overview/geschenk-categorie-overview.component';
 import { AddGeschenkCategorieComponent } from './geschenken/add-geschenk-categorie/add-geschenk-categorie.component';
@@ -36,6 +37,7 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'favorieten', component: FavorietenComponent },
   { path: 'studierichting', component: StudierichtingenComponent },
+  { path: 'studierichting/:id', component: StudierichtingDetailsComponent },
   { path: 'veelGesteldeVragen', component: VeelGesteldeVragenComponent },
   { path: 'chat', component: GebruikersLijstComponent },
   { path: 'chat/:id', component: ChatComponent },

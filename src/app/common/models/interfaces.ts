@@ -33,6 +33,7 @@ export interface StudierichtingInterface {
   studiepunten: string;
   niveauNaam: string;
   afstudeerrichting: string;
+  beschrijving: string;
   instellingen: InstellingInterface[];
 }
 

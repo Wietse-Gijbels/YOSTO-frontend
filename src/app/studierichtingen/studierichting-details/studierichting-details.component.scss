@@ -1,0 +1,22 @@
+@use "../../../style-guide";
+
+main {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1rem 1rem 100px 1rem;
+}
+
+::ng-deep main .beschrijving p {
+  margin-bottom: 16px; /* Adjust the value as needed */
+}
+
+h3 {
+  @include style-guide.font-medium-header;
+  color: style-guide.$primary-rood;
+  margin-bottom: 10px;
+}
+
+::ng-deep div ul li {
+  list-style-type: none;
+}
+
