@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GebruikerService } from '../../service/gebruiker.service';
-import { GebruikerInterface } from '../../models/interfaces';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { CookieService } from 'ngx-cookie-service';
-import { NavBarComponent } from '../../navigation/nav-bar.component';
-import { GebruikerHeaderComponent } from '../../gebruiker/gebruiker-header/gebruiker-header.component';
 import { MatIconModule } from '@angular/material/icon';
-import { LookerQueueService } from '../../service/lookerQueue.service';
-import { ChatService } from '../../service/chat.service';
-import { time } from 'node:console';
+import { LookerQueueService } from '../../common/service/lookerQueue.service';
+import { GebruikerInterface } from '../../common/models/interfaces';
+import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
+import { NavBarComponent } from '../../common/navigation/nav-bar.component';
+import { GebruikerService } from '../../common/service/gebruiker.service';
+import { ChatService } from '../../common/service/chat.service';
 
 @Component({
   selector: 'app-gebruikers-lijst',

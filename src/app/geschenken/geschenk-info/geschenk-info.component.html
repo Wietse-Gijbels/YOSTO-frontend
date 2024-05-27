@@ -1,0 +1,41 @@
+<gebruiker-header
+  [backgroundColor]="'background-wit'"
+  [headerText]="''"
+  [subText]="''"
+></gebruiker-header>
+<div class="container">
+  @if (geschenkCategorie) {
+    <div class="small-container">
+      <h1>{{ geschenkCategorie.naam }}</h1>
+
+      @if (getAvailableGeschenkenCount() === 0) {
+        <p class="availability">
+          Er zijn spijtig genoeg geen geschenken meer beschikbaar
+        </p>
+      } @else if (getAvailableGeschenkenCount() > 1) {
+        <p class="availability">
+          Er zijn nog {{ getAvailableGeschenkenCount() }} geschenken beschikbaar
+          voor maar {{ geschenkCategorie.prijs }} XP
+        </p>
+      } @else {
+        <p class="availability">
+          Er is nog 1 geschenk beschikbaar voor {{ geschenkCategorie.prijs }} XP
+        </p>
+      }
+
+      <p>{{ geschenkCategorie.beschrijving }}</p>
+      <button (click)="claimGeschenk()" class="claim-button">
+        Claim geschenk
+      </button>
+
+      @if (errorMessage) {
+        <p class="error-message">{{ errorMessage }}</p>
+      }
+
+      @if (successMessage) {
+        <p class="success-message">{{ successMessage }}</p>
+      }
+    </div>
+  }
+</div>
+<app-nav-bar></app-nav-bar>

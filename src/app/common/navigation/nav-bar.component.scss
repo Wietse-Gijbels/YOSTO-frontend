@@ -1,0 +1,58 @@
+@use "../../../style-guide";
+
+ul.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5px 0;
+  margin: 0;
+  height: 60px;
+  width: 100%;
+  background-color: style-guide.$primary-rood;
+}
+
+ul.navbar li {
+  list-style: none;
+}
+
+.second-icon {
+  z-index: 1;
+}
+
+.third-icon {
+  z-index: 2;
+}
+
+ul.navbar li a img {
+  color: #fff;
+}
+
+a fa-icon {
+  font-size: 40px;
+}
+
+.center-icon a fa-icon {
+  font-size: 60px;
+}
+
+.center-icon {
+  position: relative;
+  transform: translateY(-40px);
+}
+
+.center-icon::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 90px;
+  background-color: style-guide.$primary-rood;
+  border-radius: 50%;
+  z-index: -1;
+}

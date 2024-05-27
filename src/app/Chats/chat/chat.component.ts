@@ -14,17 +14,16 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
-
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { FormControl } from '@angular/forms';
-import { GebruikerInterface, Message } from '../../models/interfaces';
-import { GebruikerService } from '../../service/gebruiker.service';
-import { StompService } from '../../service/stomp.service';
-import { ChatService } from '../../service/chat.service';
 import { IFrame } from '@stomp/stompjs';
+import { GebruikerInterface, Message } from '../../common/models/interfaces';
+import { StompService } from '../../common/service/stomp.service';
+import { GebruikerService } from '../../common/service/gebruiker.service';
+import { ChatService } from '../../common/service/chat.service';
 
 @Component({
   selector: 'app-chat',

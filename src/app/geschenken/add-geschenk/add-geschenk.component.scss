@@ -1,0 +1,112 @@
+@use "../../../style-guide.scss";
+
+.add-geschenk-page-form-group {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background-size: cover;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-container {
+  height: 20px;
+  position: relative;
+}
+
+.errorTop {
+  color: style-guide.$primary-rood;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  visibility: hidden;
+}
+
+.errorTop:empty {
+  visibility: hidden;
+}
+
+.errorTop:not(:empty) {
+  visibility: visible;
+}
+
+.input-container {
+  margin-bottom: 10px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.icon-titel,
+.icon-categorie,
+input[type="file"] {
+  @include style-guide.font-small-tekst;
+  font-size: 14px;
+  font-weight: 300;
+  color: #000000;
+  border: 1px solid style-guide.$primary-rood;
+  border-radius: 5px;
+  margin-bottom: 0;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: #000000;
+  }
+}
+
+.icon-titel:focus,
+.icon-categorie:focus {
+  border: 1px solid style-guide.$primary-rood;
+  outline: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+::placeholder {
+  color: #ffffff;
+  opacity: 1;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+button {
+  @include style-guide.font-large-header;
+  color: style-guide.$secondary-wit;
+  background-color: style-guide.$primary-rood;
+  font-size: 16px;
+  border: none;
+  border-radius: 20px;
+  padding: 3px 50px;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.info-tekst {
+  @include style-guide.font-medium-tekst;
+  color: #000000;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.4;
+  padding-left: 20px;
+  padding-right: 20px;
+}

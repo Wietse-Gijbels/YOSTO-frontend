@@ -1,0 +1,62 @@
+<gebruiker-header
+  [backgroundColor]="'background-wit'"
+  [headerText]="''"
+  [subText]="'Geschenk Categorie'"
+></gebruiker-header>
+<div class="add-categorie-page">
+  <p class="info-tekst">
+    Op deze pagina kan u een nieuwe categorie van geschenken toevoegen. Kies een
+    leuke naam, een eerlijke prijs, een blitse beschrijving en voeg als kers op
+    de taart nog een toffe foto toe!
+  </p>
+  <div class="error-container">
+    @if (errorMessages["createGeschenkCategorie"]) {
+      <p class="errorTop">
+        {{ errorMessages["createGeschenkCategorie"] }}
+      </p>
+    }
+  </div>
+  <div class="add-categorie-page-form-group">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div class="input-container">
+        <input
+          class="icon-naam"
+          formControlName="naam"
+          placeholder="Naam*"
+          type="text"
+        />
+      </div>
+      <div class="input-container">
+        <input
+          class="icon-prijs"
+          formControlName="prijs"
+          placeholder="Prijs*"
+          type="number"
+        />
+      </div>
+      <div class="input-container">
+        <input
+          class="icon-beschrijving"
+          formControlName="beschrijving"
+          placeholder="Beschrijving*"
+          type="text"
+        />
+      </div>
+      <div class="input-container">
+        <input
+          (change)="onFileSelected($event)"
+          hidden
+          id="fileInput"
+          type="file"
+        />
+        <label class="custom-file-upload" for="fileInput">
+          {{ selectedFile ? selectedFile.name : "Kies een bestand" }}
+        </label>
+      </div>
+      <div>
+        <button type="submit">Upload en Maak Categorie</button>
+      </div>
+    </form>
+  </div>
+</div>
+<app-nav-bar></app-nav-bar>
