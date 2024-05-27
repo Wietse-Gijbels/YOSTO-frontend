@@ -10,9 +10,11 @@
     de taart nog een toffe foto toe!
   </p>
   <div class="error-container">
-    <p *ngIf="errorMessages['createGeschenkCategorie']" class="errorTop">
-      {{ errorMessages["createGeschenkCategorie"] }}
-    </p>
+    @if (errorMessages["createGeschenkCategorie"]) {
+      <p class="errorTop">
+        {{ errorMessages["createGeschenkCategorie"] }}
+      </p>
+    }
   </div>
   <div class="add-categorie-page-form-group">
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
