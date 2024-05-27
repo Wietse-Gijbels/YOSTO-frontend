@@ -55,7 +55,7 @@ export class GeschenkCategorieOverviewComponent implements OnInit {
 
   loadGeschenkCategorieen(): void {
     this.geschenkService
-      .getAllGeschenkCategorieen()
+      .getAllGeschenkCategorieenBeschikbaar()
       .subscribe((data: GeschenkCategorie[]) => {
         this.geschenkCategorieen = data;
         this.assignColorsToCategories(); // Assign colors after data is loaded

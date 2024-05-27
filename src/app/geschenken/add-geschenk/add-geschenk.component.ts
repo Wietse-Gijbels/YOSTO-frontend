@@ -51,7 +51,7 @@ export class AddGeschenkComponent {
 
     const titel = this.form.get('titel')?.value;
     const code = this.form.get('code')?.value;
-    const isBeschikbaar = this.form.get('isBeschikbaar')?.value;
+    const beschikbaar = this.form.get('isBeschikbaar')?.value;
     const geschenkCategorieId = this.form.get('geschenkCategorie')?.value;
 
     const geschenkCategorie = this.geschenkCategorieen.find(
@@ -62,7 +62,7 @@ export class AddGeschenkComponent {
       const newGeschenk = {
         titel,
         code,
-        isBeschikbaar,
+        beschikbaar,
         geschenkCategorie,
       };
 

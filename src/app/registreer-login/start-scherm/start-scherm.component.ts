@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'start-scherm',
@@ -8,18 +9,25 @@ import { Router } from '@angular/router';
   templateUrl: './start-scherm.component.html',
   styleUrl: './start-scherm.component.scss',
 })
-export class StartSchermComponent {
-  constructor(private router: Router) {}
+export class StartSchermComponent implements OnInit {
+  constructor(
+    private router: Router,
+    private cookieService: CookieService,
+  ) {}
 
-  navigeerNaarRegistreerHelper() {
+  ngOnInit(): void {
+    this.cookieService.delete('token');
+  }
+
+  navigeerNaarRegistreerHelper(): void {
     this.router.navigateByUrl('/registreer?form=helper');
   }
 
-  navigeerNaarRegistreerLooker() {
+  navigeerNaarRegistreerLooker(): void {
     this.router.navigateByUrl('/registreer?form=looker');
   }
 
-  navigeerNaarLogin() {
+  navigeerNaarLogin(): void {
     this.router.navigateByUrl('/login');
   }
 }

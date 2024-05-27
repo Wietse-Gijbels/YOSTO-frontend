@@ -4,19 +4,38 @@
   [subText]="''"
 ></gebruiker-header>
 <div class="container">
-  <div *ngIf="geschenkCategorie as category" class="small-container">
-    <h1>{{ category.naam }}</h1>
-    <p *ngIf="category.geschenken.length === 0" class="availability">
-      Er zijn spijtig genoeg geen geschenken meer beschikbaar
-    </p>
-    <p *ngIf="category.geschenken.length > 1" class="availability">
-      Er zijn nog {{ category.geschenken.length }} geschenken beschikbaar voor
-      maar {{ category.prijs }} XP
-    </p>
-    <p *ngIf="category.geschenken.length === 1" class="availability">
-      Er is nog 1 geschenk beschikbaar voor {{ category.prijs }} XP
-    </p>
-    <p>{{ category.beschrijving }}</p>
-  </div>
+  @if (geschenkCategorie) {
+    <div class="small-container">
+      <h1>{{ geschenkCategorie.naam }}</h1>
+
+      @if (getAvailableGeschenkenCount() === 0) {
+        <p class="availability">
+          Er zijn spijtig genoeg geen geschenken meer beschikbaar
+        </p>
+      } @else if (getAvailableGeschenkenCount() > 1) {
+        <p class="availability">
+          Er zijn nog {{ getAvailableGeschenkenCount() }} geschenken beschikbaar
+          voor maar {{ geschenkCategorie.prijs }} XP
+        </p>
+      } @else {
+        <p class="availability">
+          Er is nog 1 geschenk beschikbaar voor {{ geschenkCategorie.prijs }} XP
+        </p>
+      }
+
+      <p>{{ geschenkCategorie.beschrijving }}</p>
+      <button (click)="claimGeschenk()" class="claim-button">
+        Claim geschenk
+      </button>
+
+      @if (errorMessage) {
+        <p class="error-message">{{ errorMessage }}</p>
+      }
+
+      @if (successMessage) {
+        <p class="success-message">{{ successMessage }}</p>
+      }
+    </div>
+  }
 </div>
 <app-nav-bar></app-nav-bar>

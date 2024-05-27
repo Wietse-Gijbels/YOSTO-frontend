@@ -9,9 +9,11 @@
     selecteer de beschikbaarheid en kies de juiste categorie.
   </p>
   <div class="error-container">
-    <p *ngIf="errorMessages['createGeschenk']" class="errorTop">
-      {{ errorMessages["createGeschenk"] }}
-    </p>
+    @if (errorMessages["createGeschenk"]) {
+      <p class="errorTop">
+        {{ errorMessages["createGeschenk"] }}
+      </p>
+    }
   </div>
   <div class="add-geschenk-page-form-group">
     <form (ngSubmit)="onSubmit()" [formGroup]="form">

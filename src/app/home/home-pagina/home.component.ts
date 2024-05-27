@@ -3,6 +3,8 @@ import { NavBarComponent } from '../../common/navigation/nav-bar.component';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
 import { NgClass, NgForOf, NgOptimizedImage } from '@angular/common';
 import { SocialsComponent } from '../socials/socials.component';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -36,10 +38,19 @@ export class HomeComponent {
       icon: '../../assets/images/studeer-hoed.png',
     },
   ];
-
   internships = [
     { name: 'Business Consultant', backgroundColor: 'background-groen' },
     { name: 'Tandarts', backgroundColor: 'background-geel' },
     { name: 'ICT-helpdesk', backgroundColor: 'background-paars' },
   ];
+
+  constructor(
+    private cookieService: CookieService,
+    private router: Router,
+  ) {}
+
+  logout(): void {
+    this.cookieService.delete('token');
+    this.router.navigateByUrl('/');
+  }
 }

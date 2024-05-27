@@ -23,6 +23,7 @@ export interface GebruikerInterface {
   rollen: GebruikerRol[];
   newMessageCount?: number;
   geschenken?: Geschenk[];
+  xpAantal: number;
 }
 
 export interface StudierichtingInterface {
@@ -58,7 +59,7 @@ export interface Message {
 export interface Geschenk {
   titel: string;
   code: string;
-  isBeschikbaar: boolean;
+  beschikbaar: boolean;
   geschenkCategorie: GeschenkCategorie;
 }
 
