@@ -3,14 +3,14 @@ import { MatTable } from '@angular/material/table';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { MatGridList } from '@angular/material/grid-list';
-import { GebruikerService } from '../service/gebruiker.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { GebruikerInterface } from '../models/interfaces';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { GebruikerInterface } from '../common/models/interfaces';
+import { GebruikerService } from '../common/service/gebruiker.service';
 
 @Component({
   selector: 'app-persoonlijke-info',
