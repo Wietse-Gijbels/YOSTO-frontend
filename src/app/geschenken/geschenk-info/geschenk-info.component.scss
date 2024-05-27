@@ -1,0 +1,56 @@
+@use "../../../style-guide.scss";
+
+.container {
+  padding-bottom: 115px;
+  margin: 15px;
+}
+
+.small-container {
+  padding: 20px;
+  margin: 25px 0;
+}
+
+h1 {
+  @include style-guide.font-large-header;
+  color: style-guide.$primary-rood;
+}
+
+.availability {
+  @include style-guide.font-small-tekst;
+  color: style-guide.$primary-rood;
+  margin-bottom: 15px;
+}
+
+p {
+  @include style-guide.font-small-tekst;
+  color: #666;
+  margin: 10px 0;
+}
+
+strong {
+  color: #333;
+}
+
+.claim-button {
+  background-color: #f0ad4e;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.success-message {
+  color: green;
+  margin-top: 10px;
+}

@@ -7,10 +7,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
-import { GebruikerService } from '../service/gebruiker.service';
-import { GebruikerInterface, Message } from '../models/interfaces';
-import { StompService } from '../service/stomp.service';
-import { ChatService } from '../service/chat.service';
+import { GebruikerService } from '../common/service/gebruiker.service';
+import { GebruikerInterface, Message } from '../common/models/interfaces';
+import { StompService } from '../common/service/stomp.service';
+import { ChatService } from '../common/service/chat.service';
 import {
   FormBuilder,
   FormGroup,

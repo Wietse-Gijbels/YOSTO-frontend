@@ -1,0 +1,52 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../common/service/auth.service';
+import { Router } from '@angular/router';
+import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
+import { CookieService } from 'ngx-cookie-service';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [ReactiveFormsModule, GebruikerHeaderComponent],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+})
+export class LoginComponent implements OnInit {
+  form = this.formBuilder.nonNullable.group({
+    email: [''],
+    wachtwoord: [''],
+  });
+
+  errorMessages: { [key: string]: string } = {};
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private cookieService: CookieService,
+  ) {}
+
+  onSubmit(): void {
+    const formData = this.form.getRawValue();
+    this.authService.login(formData).subscribe(
+      (response) => {
+        this.cookieService.set('token', response.token, { expires: 1 });
+        this.router.navigateByUrl('/home');
+      },
+      (error) => {
+        if (error.error) {
+          this.errorMessages = error.error;
+        } else {
+          this.errorMessages = {
+            errorLogin: 'Er is een fout opgetreden bij het inloggen',
+          };
+        }
+      },
+    );
+  }
+
+  ngOnInit(): void {
+    this.cookieService.delete('token');
+  }
+}

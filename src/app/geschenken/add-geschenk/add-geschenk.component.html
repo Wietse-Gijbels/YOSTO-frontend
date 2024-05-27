@@ -1,0 +1,59 @@
+<gebruiker-header
+  [backgroundColor]="'background-wit'"
+  [headerText]="''"
+  [subText]="'Geschenk toevoegen'"
+></gebruiker-header>
+<div class="add-geschenk-page">
+  <p class="info-tekst">
+    Op deze pagina kunt u een nieuw geschenk toevoegen. Vul de titel in,
+    selecteer de beschikbaarheid en kies de juiste categorie.
+  </p>
+  <div class="error-container">
+    @if (errorMessages["createGeschenk"]) {
+      <p class="errorTop">
+        {{ errorMessages["createGeschenk"] }}
+      </p>
+    }
+  </div>
+  <div class="add-geschenk-page-form-group">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div class="input-container">
+        <input
+          class="icon-titel"
+          formControlName="titel"
+          placeholder="Titel*"
+          type="text"
+        />
+      </div>
+      <div class="input-container">
+        <input
+          class="icon-titel"
+          formControlName="code"
+          placeholder="Code*"
+          type="text"
+        />
+      </div>
+      <div class="input-container">
+        <select class="icon-categorie" formControlName="geschenkCategorie">
+          <option disabled selected value="">Kies een categorie*</option>
+          <option
+            *ngFor="let category of geschenkCategorieen"
+            [value]="category.id"
+          >
+            {{ category.naam }}
+          </option>
+        </select>
+      </div>
+      <div class="input-container">
+        <label>
+          <input formControlName="isBeschikbaar" type="checkbox" />
+          Beschikbaar
+        </label>
+      </div>
+      <div>
+        <button type="submit">Voeg Geschenk Toe</button>
+      </div>
+    </form>
+  </div>
+</div>
+<app-nav-bar></app-nav-bar>

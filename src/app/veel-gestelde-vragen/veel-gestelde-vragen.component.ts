@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavBarComponent } from '../navigation/nav-bar.component';
+import { NavBarComponent } from '../common/navigation/nav-bar.component';
 
 @Component({
   selector: 'app-veel-gestelde-vragen',

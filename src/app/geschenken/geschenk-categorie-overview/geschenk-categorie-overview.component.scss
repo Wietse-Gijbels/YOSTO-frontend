@@ -1,0 +1,194 @@
+@use "../../../style-guide.scss";
+
+.container {
+  padding-bottom: 115px;
+  margin: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.categorie-card {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+}
+
+.tile-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.tile-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), transparent);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.tile-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tile-image {
+  width: 50%;
+  height: auto;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  margin-left: 20px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+button {
+  color: #fff;
+  font-weight: bold;
+  background: none;
+  font-size: 15px;
+  border-radius: 20px;
+  padding: 5px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  border: 1px solid style-guide.$secondary-wit;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .categorie-card {
+    flex: 0 1 calc(50% - 40px); /* 50% width minus the gap */
+  }
+}
+
+@media (min-width: 1024px) {
+  .categorie-card {
+    flex: 30%; /* 33.333% width minus the gap */
+  }
+
+  .container {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+}
+
+.categorie-color-100 {
+  background: linear-gradient(
+    to top,
+    style-guide.$primary-rood,
+    darken(style-guide.$primary-rood, 5%)
+  );
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.categorie-color-200 {
+  background: linear-gradient(
+    to top,
+    style-guide.$primary-oranje,
+    darken(style-guide.$primary-oranje, 5%)
+  );
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.categorie-color-300 {
+  background: linear-gradient(
+    to top,
+    style-guide.$primary-roos,
+    darken(style-guide.$primary-roos, 5%)
+  );
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.categorie-color-400 {
+  background: linear-gradient(
+    to top,
+    style-guide.$secondary-licht-blauw,
+    darken(style-guide.$secondary-licht-blauw, 5%)
+  );
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.categorie-color-500 {
+  background: linear-gradient(
+    to top,
+    style-guide.$secondary-paars,
+    darken(style-guide.$secondary-paars, 5%)
+  );
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.categorie-color-600 {
+  background: linear-gradient(
+    to top,
+    style-guide.$secondary-groen,
+    darken(style-guide.$secondary-groen, 5%)
+  );
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.categorie-color-700 {
+  background: linear-gradient(
+    to top,
+    style-guide.$secondary-geel,
+    darken(style-guide.$secondary-geel, 5%)
+  );
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
