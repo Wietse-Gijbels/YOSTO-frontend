@@ -50,6 +50,13 @@ $frontend-yosto-theme: mat.define-light-theme(
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Barlow";
+  src: url("assets/fonts/Barlow/Barlow-Black.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 html,
 body {
   height: 100%;

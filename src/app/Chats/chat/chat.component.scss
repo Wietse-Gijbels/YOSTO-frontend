@@ -1,0 +1,130 @@
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.chat-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  background-color: #ff3800; /* Orange color */
+  color: #fff;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+
+.chat-header button {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 40px; /* Increase button size */
+  height: 40px; /* Increase button size */
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.email {
+  font-weight: bold;
+}
+
+.messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.message-form {
+  display: flex;
+  padding: 12px;
+  background-color: #ff3800;
+  border-top: 1px solid #ddd;
+  align-items: center;
+  justify-content: space-between; /* Ensure content is spaced evenly */
+}
+
+.message-input {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 14px; /* Add padding for better appearance */
+  border: none;
+  border-radius: 20px; /* Rounded corners */
+  background-color: #fff;
+  color: #000;
+}
+
+.send-button {
+  background-color: transparent; /* Make background transparent */
+  border: none; /* Remove border */
+}
+
+.send-icon {
+  color: white; /* Set icon color to white */
+}
+
+.my-message-container,
+.other-message-container {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Ensure alignment for both types of messages */
+}
+
+.other-message-container {
+  align-items: flex-start; /* Ensure alignment for other messages */
+}
+
+.message-content {
+  display: flex;
+  justify-content: flex-end; /* Align content to the right */
+  width: 100%; /* Ensure the content uses the full width */
+}
+
+.other-message-container .message-content {
+  justify-content: flex-start; /* Align content to the left */
+}
+
+.message-content span {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%; /* Use 60% of the screen width */
+  word-wrap: break-word;
+}
+
+.my-message-container .message-content span {
+  background-color: #00b980; /* Background color for my messages */
+}
+
+.other-message-container .message-content span {
+  background-color: #fff; /* Background color for other messages */
+  border: 1px solid #ddd; /* Border color for messages */
+}
+
+.message-timestamp {
+  display: block;
+  font-size: 0.75em;
+  color: grey;
+  margin-top: 5px;
+}
+
+.my-timestamp {
+  text-align: right;
+}
+
+.other-timestamp {
+  text-align: left;
+}

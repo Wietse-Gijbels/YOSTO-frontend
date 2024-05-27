@@ -36,7 +36,7 @@ h1 {
 }
 
 h2 {
-  @include style-guide.font-medium-tekst;
+  @include style-guide.font-subtext;
   background-color: style-guide.$primary-oranje;
 }
 
