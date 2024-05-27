@@ -56,14 +56,11 @@ export class PersoonlijkeInfoComponent implements OnInit {
 
   save() {
     const fromData = this.form.getRawValue();
-    this.gebruikerService
-      .updateGebruiker(this.cookieService.get('token'), fromData)
-      .subscribe(() => {
-        this.edit = true;
-      });
-    this.gebruiker$ = this.gebruikerService.getGebruiker(
+    this.gebruiker$ = this.gebruikerService.updateGebruiker(
       this.cookieService.get('token'),
+      fromData,
     );
+    this.edit = !this.edit;
   }
 
   editGebruiker() {

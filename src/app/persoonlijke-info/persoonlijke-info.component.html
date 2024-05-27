@@ -7,22 +7,42 @@
         <label>Voornaam:</label>
         <li>
           <label [hidden]="!edit">{{ gebruiker.voornaam }}</label>
-          <input formControlName="voornaam" matInput [hidden]="edit" [value]="gebruiker.voornaam">
+          <input
+            formControlName="voornaam"
+            matInput
+            [hidden]="edit"
+            [value]="gebruiker.voornaam"
+          />
         </li>
         <label>Achternaam:</label>
         <li>
           <label [hidden]="!edit">{{ gebruiker.achternaam }}</label>
-          <input formControlName="achternaam" matInput [hidden]="edit" [value]="gebruiker.achternaam">
+          <input
+            formControlName="achternaam"
+            matInput
+            [hidden]="edit"
+            [value]="gebruiker.achternaam"
+          />
         </li>
         <label>E-mail:</label>
         <li>
           <label [hidden]="!edit">{{ gebruiker.email }}</label>
-          <input formControlName="email" matInput [hidden]="edit" [value]="gebruiker.email">
+          <input
+            formControlName="email"
+            matInput
+            [hidden]="edit"
+            [value]="gebruiker.email"
+          />
         </li>
         <label>Woonplaats:</label>
         <li>
           <label [hidden]="!edit">{{ gebruiker.woonplaats }}</label>
-          <input formControlName="woonplaats" matInput [hidden]="edit" [value]="gebruiker.woonplaats">
+          <input
+            formControlName="woonplaats"
+            matInput
+            [hidden]="edit"
+            [value]="gebruiker.woonplaats"
+          />
         </li>
       </ul>
     </form>
