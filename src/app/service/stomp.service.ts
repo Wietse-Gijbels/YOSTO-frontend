@@ -1,23 +1,38 @@
 import { Injectable } from '@angular/core';
+import { Client, IFrame, Message } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import * as Stomp from 'stompjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StompService {
-  socket = new SockJS('http://localhost:8080/ws');
-  stompClient = Stomp.over(this.socket);
+  private stompClient: Client;
 
-  connect(callback: any, errorCallback: any): void {
-    this.stompClient.connect({}, callback, errorCallback);
+  constructor() {
+    this.stompClient = new Client({
+      webSocketFactory: () => new SockJS('http://localhost:8080/ws'),
+    });
   }
 
-  subscribe(options: string, callback: any): void {
-    this.stompClient.subscribe(options, callback);
+  connect(callback: () => void, errorCallback: (frame: IFrame) => void): void {
+    this.stompClient.onConnect = callback;
+    this.stompClient.onStompError = (frame: IFrame) => {
+      // Handle the error frame here
+      console.error(`Broker reported error: ${frame.headers['message']}`);
+      console.error(`Additional details: ${frame.body}`);
+      errorCallback(frame);
+    };
+    this.stompClient.activate();
   }
 
-  send(options: string, value: any): void {
-    this.stompClient.send(options, {}, value);
+  subscribe(destination: string, callback: (message: Message) => void): void {
+    this.stompClient.subscribe(destination, callback);
+  }
+
+  send(destination: string, body: any): void {
+    this.stompClient.publish({
+      destination: destination,
+      body: body,
+    });
   }
 }

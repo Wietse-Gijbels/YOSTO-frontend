@@ -22,6 +22,7 @@ export interface GebruikerInterface {
   status: GebruikerStatus;
   rollen: GebruikerRol[];
   newMessageCount?: number;
+  lastMessage?: string;
 }
 
 export interface StudierichtingInterface {

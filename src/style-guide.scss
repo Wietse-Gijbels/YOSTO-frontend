@@ -24,14 +24,20 @@ $media-mobile: 750px;
 
 $font-header: "Luckiest Guy", sans-serif;
 $font-tekst: "Roboto", sans-serif;
+$font-subtext: "Barlow", sans-serif;
 
 $font-size-large: 36px;
 $font-size-medium: 20px;
+$font-size-semi-medium: 18px;
 $font-size-small: 15px;
 
 $font-line-hide-medium: 32px;
 
 $font-weight-medium: 500;
+
+@mixin font-subtext {
+  font: #{$font-weight-medium} #{$font-size-semi-medium} $font-subtext;
+}
 
 @mixin font-large-header {
   font: #{$font-size-large} $font-header;

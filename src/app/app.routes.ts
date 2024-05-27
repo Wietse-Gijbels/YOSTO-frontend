@@ -9,8 +9,9 @@ import { HomeComponent } from './home/home.component';
 import { FavorietenComponent } from './favorieten/favorieten.component';
 import { VeelGesteldeVragenComponent } from './veel-gestelde-vragen/veel-gestelde-vragen.component';
 import { RegistreerComponent } from './registreer/registreer.component';
-import { ChatComponent } from './chat/chat.component';
+import { ChatComponent } from './Chats/chat/chat.component';
 import { StudierichtingenComponent } from './studierichtingen/studierichtingen.component';
+import { GebruikersLijstComponent } from './Chats/gebruikers-lijst/gebruikers-lijst.component';
 
 export const routes: Routes = [
   { path: '', component: StartSchermComponent }, // Default route to StartSchermComponent
@@ -39,5 +40,6 @@ export const routes: Routes = [
   { path: 'favorieten', component: FavorietenComponent },
   { path: 'studierichting', component: StudierichtingenComponent },
   { path: 'veelGesteldeVragen', component: VeelGesteldeVragenComponent },
-  { path: 'chat', component: ChatComponent },
+  { path: 'chat', component: GebruikersLijstComponent },
+  { path: 'chat/:id', component: ChatComponent },
 ];

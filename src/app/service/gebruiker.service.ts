@@ -20,4 +20,10 @@ export class GebruikerService {
       .get<{ id: string }>(`http://localhost:8080/api/v1/gebruiker/id/${token}`)
       .pipe(map((response) => response.id));
   }
+
+  getGebruikerById(id: string): Observable<GebruikerInterface> {
+    return this.http.get<GebruikerInterface>(
+      `http://localhost:8080/api/v1/gebruiker/gebruiker/${id}`,
+    );
+  }
 }

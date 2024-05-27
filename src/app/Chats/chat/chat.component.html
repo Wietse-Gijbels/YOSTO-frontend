@@ -1,0 +1,43 @@
+<div class="chat-container">
+  <div class="chat-header">
+    <button mat-icon-button (click)="goBack()" class="back-button">
+      <img
+        alt="Arrow back"
+        src="{{ '../assets/images/arrowback.png' }}"
+      />
+    </button>
+    <div class="header-content">
+      <div class="profile-circle" [ngStyle]="{ 'background-color': stringToColor(selectedGebruiker?.email || '') }"></div>
+      <span class="email">{{ selectedGebruiker?.email }}</span>
+    </div>
+  </div>
+
+  <div class="messages" #messagesContainer>
+    <div
+      *ngFor="let bericht of berichten$ | async"
+      [ngClass]="{
+        'my-message-container': bericht.senderId === userId,
+        'other-message-container': bericht.senderId !== userId
+      }"
+    >
+      <div class="message-content">
+        <span>{{ bericht.content }}</span>
+      </div>
+      <span class="message-timestamp">
+        {{ bericht.timestamp | date: 'shortTime' }}
+      </span>
+    </div>
+  </div>
+
+  <form [formGroup]="messageForm" (ngSubmit)="onSubmit()" class="message-form">
+    <input
+      type="text"
+      class="message-input"
+      placeholder="Type your message..."
+      formControlName="message"
+    />
+    <button type="submit" [disabled]="isMessageFieldEmpty()" class="send-button">
+      <mat-icon class="send-icon">send</mat-icon>
+    </button>
+  </form>
+</div>
