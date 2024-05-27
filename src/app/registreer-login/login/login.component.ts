@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../common/service/auth.service';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   form = this.formBuilder.nonNullable.group({
     email: [''],
     wachtwoord: [''],
@@ -44,5 +44,9 @@ export class LoginComponent {
         }
       },
     );
+  }
+
+  ngOnInit(): void {
+    this.cookieService.delete('token');
   }
 }
