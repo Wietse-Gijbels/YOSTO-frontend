@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GeschenkService } from '../../service/geschenk.service';
+import { GeschenkService } from '../../common/service/geschenk.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
