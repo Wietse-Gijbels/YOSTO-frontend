@@ -53,4 +53,16 @@ export class HomeComponent {
     this.cookieService.delete('token');
     this.router.navigateByUrl('/');
   }
+
+  addGeschenk(): void {
+    this.router.navigateByUrl('/add-geschenk');
+  }
+
+  addGeschenkCategorie(): void {
+    this.router.navigateByUrl('/add-geschenk-categorie');
+  }
+
+  geschenkenOverview(): void {
+    this.router.navigateByUrl('/geschenken-overview');
+  }
 }
