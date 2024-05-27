@@ -1,7 +1,12 @@
 @if (studierichting$ | async; as studierichting) {
   <gebruiker-header
     [backgroundColor]="'background-wit'"
-    [subText]="studierichting.naam + (studierichting.afstudeerrichting ? ' - ' + studierichting.afstudeerrichting : '')"
+    [subText]="
+      studierichting.naam +
+      (studierichting.afstudeerrichting
+        ? ' - ' + studierichting.afstudeerrichting
+        : '')
+    "
   ></gebruiker-header>
   <main>
     @if (studierichting.beschrijving.length > 0) {
@@ -12,10 +17,23 @@
 
     <ul>
       @for (instelling of studierichting.instellingen; track instelling.id) {
-        <app-card [subtextLine1]="instelling.adres" [subtextLine2]="instelling.gemeente + ' ' + instelling.postcode"
-                  [title]="instelling.naam ? instelling.naam + '-' + instelling.campus: instelling.campus "
-                  [icon]="faLocationDot"
-                  [mapsUrl]="'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(instelling.adres.toString()) + ' ' + encodeURIComponent(instelling.postcode.toString()) + encodeURIComponent(instelling.gemeente.toString())">
+        <app-card
+          [subtextLine1]="instelling.adres"
+          [subtextLine2]="instelling.gemeente + ' ' + instelling.postcode"
+          [title]="
+            instelling.naam
+              ? instelling.naam + '-' + instelling.campus
+              : instelling.campus
+          "
+          [icon]="faLocationDot"
+          [mapsUrl]="
+            'https://www.google.com/maps/search/?api=1&query=' +
+            encodeURIComponent(instelling.adres.toString()) +
+            ' ' +
+            encodeURIComponent(instelling.postcode.toString()) +
+            encodeURIComponent(instelling.gemeente.toString())
+          "
+        >
         </app-card>
       }
     </ul>
