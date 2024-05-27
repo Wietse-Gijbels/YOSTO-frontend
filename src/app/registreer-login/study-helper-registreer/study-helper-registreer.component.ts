@@ -27,7 +27,7 @@ export class StudyHelperRegistreerComponent {
     wachtwoord: ['', Validators.required],
     bevestigWachtwoord: ['', Validators.required],
     woonplaats: ['', Validators.required],
-    huidigeStudie: [''],
+    huidigeStudieAndNiveau: [''],
     behaaldDiploma: [''],
     toegevoegdDiploma: [''],
     behaaldeDiplomaArray: this.formBuilder.array([

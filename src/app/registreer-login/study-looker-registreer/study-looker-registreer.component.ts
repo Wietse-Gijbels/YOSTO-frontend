@@ -20,7 +20,7 @@ export class StudyLookerRegistreerComponent {
     wachtwoord: [''],
     bevestigWachtwoord: [''],
     woonplaats: [''],
-    huidigeStudie: [''],
+    huidigeStudieAndNiveau: [''],
   });
 
   errorMessages: { [key: string]: string } = {};

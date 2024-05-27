@@ -89,10 +89,15 @@
     <div class="input-container">
       <input
         class="icon-studie"
-        formControlName="huidigeStudie"
+        formControlName="huidigeStudieAndNiveau"
         placeholder="Huidige studie*"
         type="text"
       />
+      @if (errorMessages["errorRichtingParser"]) {
+        <p class="error">
+          {{ errorMessages["errorRichtingParser"] }}
+        </p>
+      }
     </div>
     <div>
       <button type="submit">Registreer</button>
