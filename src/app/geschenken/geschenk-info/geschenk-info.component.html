@@ -6,14 +6,14 @@
 <div class="container">
   <div *ngIf="geschenkCategorie as category" class="small-container">
     <h1>{{ category.naam }}</h1>
-    <p *ngIf="category.geschenken.length === 0" class="availability">
+    <p *ngIf="getAvailableGeschenkenCount() === 0" class="availability">
       Er zijn spijtig genoeg geen geschenken meer beschikbaar
     </p>
-    <p *ngIf="category.geschenken.length > 1" class="availability">
-      Er zijn nog {{ category.geschenken.length }} geschenken beschikbaar voor
-      maar {{ category.prijs }} XP
+    <p *ngIf="getAvailableGeschenkenCount() > 1" class="availability">
+      Er zijn nog {{ getAvailableGeschenkenCount() }} geschenken beschikbaar
+      voor maar {{ category.prijs }} XP
     </p>
-    <p *ngIf="category.geschenken.length === 1" class="availability">
+    <p *ngIf="getAvailableGeschenkenCount() === 1" class="availability">
       Er is nog 1 geschenk beschikbaar voor {{ category.prijs }} XP
     </p>
     <p>{{ category.beschrijving }}</p>

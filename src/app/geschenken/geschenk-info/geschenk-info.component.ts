@@ -60,4 +60,11 @@ export class GeschenkInfoComponent implements OnInit {
         });
     }
   }
+
+  getAvailableGeschenkenCount(): number {
+    return (
+      this.geschenkCategorie?.geschenken.filter((g) => g.beschikbaar).length ||
+      0
+    );
+  }
 }

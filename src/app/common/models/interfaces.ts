@@ -59,7 +59,7 @@ export interface Message {
 export interface Geschenk {
   titel: string;
   code: string;
-  isBeschikbaar: boolean;
+  beschikbaar: boolean;
   geschenkCategorie: GeschenkCategorie;
 }
 
