@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { GeschenkService } from '../../service/geschenk.service';
+import { GeschenkService } from '../../common/service/geschenk.service';
 import { NgForOf, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { NavBarComponent } from '../../common/navigation/nav-bar.component';

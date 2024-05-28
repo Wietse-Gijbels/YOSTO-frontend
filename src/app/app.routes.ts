@@ -45,6 +45,6 @@ export const routes: Routes = [
   { path: 'add-geschenk-categorie', component: AddGeschenkCategorieComponent },
   { path: 'add-geschenk', component: AddGeschenkComponent },
   { path: 'geschenk-info/:id', component: GeschenkInfoComponent },
-  { path: '**', redirectTo: '', pathMatch: 'full' },
   { path: 'persoonlijkeInfo', component: PersoonlijkeInfoComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

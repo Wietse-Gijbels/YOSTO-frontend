@@ -11,6 +11,7 @@ import { AsyncPipe } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { GebruikerInterface } from '../common/models/interfaces';
 import { GebruikerService } from '../common/service/gebruiker.service';
+import { NavBarComponent } from '../common/navigation/nav-bar.component';
 
 @Component({
   selector: 'app-persoonlijke-info',
@@ -24,6 +25,7 @@ import { GebruikerService } from '../common/service/gebruiker.service';
     MatInput,
     AsyncPipe,
     ReactiveFormsModule,
+    NavBarComponent,
   ],
   templateUrl: './persoonlijke-info.component.html',
   styleUrl: './persoonlijke-info.component.scss',
@@ -34,9 +36,11 @@ export class PersoonlijkeInfoComponent implements OnInit {
   form: FormGroup = this.fromBuilder.group({
     voornaam: [''],
     achternaam: [''],
-    email: [''],
     woonplaats: [''],
+    leeftijd: [0],
+    geslacht: [''],
   });
+  numbers: number[] = Array.from({ length: 101 }, (_, i) => i);
   protected readonly faUser = faUser;
 
   constructor(
@@ -52,6 +56,11 @@ export class PersoonlijkeInfoComponent implements OnInit {
     this.gebruiker$.subscribe((gebruiker) => {
       this.form.patchValue(gebruiker);
     });
+    this.form.disable();
+  }
+
+  preventEnter(event: Event) {
+    event.preventDefault();
   }
 
   save() {
@@ -61,9 +70,19 @@ export class PersoonlijkeInfoComponent implements OnInit {
       fromData,
     );
     this.edit = !this.edit;
+    this.form.disable();
   }
 
   editGebruiker() {
     this.edit = !this.edit;
+    this.form.enable();
+  }
+
+  cancel() {
+    this.edit = !this.edit;
+    this.form.disable();
+    this.gebruiker$?.subscribe((gebruiker) => {
+      this.form.patchValue(gebruiker);
+    });
   }
 }
