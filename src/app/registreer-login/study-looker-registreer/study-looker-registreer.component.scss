@@ -119,3 +119,50 @@ p {
   font-size: 12px;
   margin: 7px;
 }
+
+.suggestions {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  width: 296px;
+  background-color: lighten(style-guide.$primary-rood, 90%);
+  outline: none;
+  //border: 1px solid #FFFFFF;
+}
+
+.suggestions li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions li:hover {
+  background-color: lighten(style-guide.$primary-rood, 10%);
+}
+
+.suggestions::-webkit-scrollbar {
+  width: 8px;
+}
+
+.suggestions::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.suggestions::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.aangepaste-radius {
+  border-radius: 5px 5px 0 0;
+}
+
+.normale-radius {
+  border-radius: 5px;
+}

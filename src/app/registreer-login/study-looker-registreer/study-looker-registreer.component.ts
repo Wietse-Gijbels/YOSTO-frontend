@@ -4,13 +4,17 @@ import { AuthService } from '../../common/service/auth.service';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { NgForOf, NgIf } from '@angular/common';
+import { StudierichtingService } from '../../common/service/studierichting.service';
 
 @Component({
   selector: 'app-study-looker-registreer',
   standalone: true,
-  imports: [ReactiveFormsModule, GebruikerHeaderComponent],
+  imports: [ReactiveFormsModule, GebruikerHeaderComponent, NgIf, NgForOf],
   templateUrl: './study-looker-registreer.component.html',
-  styleUrl: './study-looker-registreer.component.scss',
+  styleUrls: ['./study-looker-registreer.component.scss'],
 })
 export class StudyLookerRegistreerComponent {
   form = this.formBuilder.nonNullable.group({
@@ -24,13 +28,37 @@ export class StudyLookerRegistreerComponent {
   });
 
   errorMessages: { [key: string]: string } = {};
+  filteredRichtingen: string[] = [];
+  borderRadiusStudie: string = 'normale-radius';
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private cookieService: CookieService,
+    private studierichtingService: StudierichtingService,
   ) {}
+
+  ngOnInit() {
+    this.form
+      .get('huidigeStudieAndNiveau')!
+      .valueChanges.pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((value) => {
+          if (value) {
+            this.borderRadiusStudie = 'aangepaste-radius';
+            return this.studierichtingService.getFilteredRichtingen(value);
+          } else {
+            this.borderRadiusStudie = 'normale-radius';
+            return of([]);
+          }
+        }),
+      )
+      .subscribe((richtingen) => {
+        this.filteredRichtingen = richtingen;
+      });
+  }
 
   onSubmit(): void {
     if (this.form.invalid) {
@@ -45,6 +73,7 @@ export class StudyLookerRegistreerComponent {
       this.errorMessages = {
         errorWachtwoordDubbel: 'Wachtwoorden komen niet overeen.',
       };
+      return;
     }
 
     const formDataWithRole = {
@@ -68,6 +97,11 @@ export class StudyLookerRegistreerComponent {
         }
       },
     );
+  }
+
+  onRichtingClick(richting: string) {
+    this.form.get('huidigeStudieAndNiveau')!.setValue(richting);
+    this.filteredRichtingen = [];
   }
 
   private clearErrorMessages() {

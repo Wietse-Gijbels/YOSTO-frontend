@@ -9,13 +9,16 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../common/service/auth.service';
 import { Router } from '@angular/router';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
-import { NgForOf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { StudierichtingService } from '../../common/service/studierichting.service';
 
 @Component({
   selector: 'app-study-helper-registreer',
   standalone: true,
-  imports: [ReactiveFormsModule, GebruikerHeaderComponent, NgForOf],
+  imports: [ReactiveFormsModule, GebruikerHeaderComponent, NgIf, NgForOf],
   templateUrl: './study-helper-registreer.component.html',
   styleUrls: ['./study-helper-registreer.component.scss'],
 })
@@ -28,7 +31,6 @@ export class StudyHelperRegistreerComponent {
     bevestigWachtwoord: ['', Validators.required],
     woonplaats: ['', Validators.required],
     huidigeStudieAndNiveau: [''],
-    behaaldDiploma: [''],
     toegevoegdDiploma: [''],
     behaaldeDiplomaArray: this.formBuilder.array([
       this.formBuilder.group({
@@ -38,6 +40,8 @@ export class StudyHelperRegistreerComponent {
   });
 
   errorMessages: { [key: string]: string } = {};
+  filteredRichtingen: string[] = [];
+  borderRadiusStudie: string = 'normale-radius';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,10 +49,34 @@ export class StudyHelperRegistreerComponent {
     private authService: AuthService,
     private router: Router,
     private cookieService: CookieService,
+    private studierichtingService: StudierichtingService,
   ) {}
 
   get behaaldeDiplomaArray(): FormArray {
     return this.form.get('behaaldeDiplomaArray') as FormArray;
+  }
+
+  ngOnInit() {
+    this.form
+      .get('huidigeStudieAndNiveau')!
+      .valueChanges.pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((value) => {
+          if (value) {
+            this.borderRadiusStudie = 'aangepaste-radius';
+            return this.studierichtingService.getFilteredHogerOnderwijsRichtingen(
+              value,
+            );
+          } else {
+            this.borderRadiusStudie = 'normale-radius';
+            return of([]);
+          }
+        }),
+      )
+      .subscribe((richtingen) => {
+        this.filteredRichtingen = richtingen;
+      });
   }
 
   addDiplomaField(): void {
@@ -91,6 +119,11 @@ export class StudyHelperRegistreerComponent {
         }
       },
     );
+  }
+
+  onRichtingClick(richting: string) {
+    this.form.get('huidigeStudieAndNiveau')!.setValue(richting);
+    this.filteredRichtingen = [];
   }
 
   private clearErrorMessages() {

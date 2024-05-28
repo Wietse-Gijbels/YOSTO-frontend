@@ -88,30 +88,24 @@
     </div>
     <div class="input-container">
       <input
-        class="icon-studie"
+        class="icon-studie {{ borderRadiusStudie }}"
         formControlName="huidigeStudieAndNiveau"
         placeholder="Huidige studie*"
         type="text"
       />
-    </div>
-    <div class="input-container">
-      <input
-        class="icon-studie"
-        formControlName="behaaldDiploma"
-        placeholder="Behaalde diploma*"
-        type="text"
-      />
-    </div>
-    <div class="input-container smaller-height">
-      <button (click)="addDiplomaField()" class="plus-button" type="button">
-        +
-      </button>
-      <input
-        class="icon-studie smaller-input"
-        formControlName="toegevoegdDiploma"
-        placeholder="Diploma toevoegen"
-        type="text"
-      />
+      <ul *ngIf="filteredRichtingen.length > 0" class="suggestions">
+        <li
+          (click)="onRichtingClick(richting)"
+          *ngFor="let richting of filteredRichtingen"
+        >
+          {{ richting }}
+        </li>
+      </ul>
+      @if (errorMessages["errorRichtingParser"]) {
+        <p class="error">
+          {{ errorMessages["errorRichtingParser"] }}
+        </p>
+      }
     </div>
     <div formArrayName="behaaldeDiplomaArray">
       <div
@@ -121,12 +115,17 @@
         <div class="diploma-field">
           <input
             [formControlName]="'diploma'"
-            class="icon-studie smaller-input alignment-right"
+            class="icon-studie"
             placeholder="Diploma toevoegen"
             type="text"
           />
         </div>
       </div>
+    </div>
+    <div class="input-container smaller-height">
+      <button (click)="addDiplomaField()" class="plus-button" type="button">
+        +
+      </button>
     </div>
     <div>
       <button type="submit">Registreer</button>

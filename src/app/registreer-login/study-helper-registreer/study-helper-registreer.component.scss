@@ -120,23 +120,84 @@ p {
   margin: 7px;
 }
 
+.suggestions {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  width: 296px;
+  background-color: lighten(style-guide.$primary-rood, 90%);
+  outline: none;
+  border: 1px solid #ffffff;
+}
+
+.suggestions li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions li:hover {
+  background-color: lighten(style-guide.$primary-rood, 10%);
+}
+
+.suggestions::-webkit-scrollbar {
+  width: 8px;
+}
+
+.suggestions::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.suggestions::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.aangepaste-radius {
+  border-radius: 5px 5px 0 0;
+}
+
+.normale-radius {
+  border-radius: 5px;
+}
+
 .plus-button {
   color: #ffffff;
   background-color: style-guide.$primary-rood;
-  margin-right: 5px;
   padding: 0;
   font-size: 24px;
   margin-top: 0;
+  border: none;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0 !important;
 }
 
 .smaller-input {
   padding: 5px 84.06px 5px 35px;
 }
 
+.smaller-height {
+  margin-bottom: 0;
+}
+
 .alignment-right {
   margin-left: 15.94px;
 }
 
-.smaller-height {
-  margin-top: -3.8px !important;
+.diploma-field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
