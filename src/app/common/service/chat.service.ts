@@ -1,28 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Message } from '../models/interfaces';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
+import { GebruikerInterface, Message } from '../models/interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatService {
-  token: string = this.cookieService.get('token');
-  headers: HttpHeaders = new HttpHeaders({
-    Authorization: `Bearer ${this.token}`,
-    'Content-Type': 'application/json',
-  });
-
-  constructor(
-    private http: HttpClient,
-    private cookieService: CookieService,
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getMessages(senderId: string, receiverId: string): Observable<Message[]> {
     return this.http.get<Message[]>(
       `http://localhost:8080/messages/${senderId}/${receiverId}`,
-      { headers: this.headers },
+    );
+  }
+
+  getMyChatRooms(userId: string): Observable<GebruikerInterface[]> {
+    return this.http.get<GebruikerInterface[]>(
+      `http://localhost:8080/api/v1/chatroom/getMyChatRooms/${userId}`,
     );
   }
 }

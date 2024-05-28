@@ -1,0 +1,110 @@
+@use "../../../style-guide.scss";
+
+.user-list {
+  height: 100vh;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #ffffff;
+}
+
+mat-list-item {
+  height: 80px !important; /* Set the height to 80px */
+  padding: 15px 10px; /* Increase padding for more height */
+  margin-bottom: 10px; /* Space between list items */
+  border: 1px solid #ff3800; /* Orange border color */
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Distribute space between elements */
+  cursor: pointer; /* Add cursor pointer for clickable items */
+}
+
+.user-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.profile-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1; /* Allow user-info to grow */
+}
+
+.user-email {
+  @include style-guide.font-medium-tekst;
+  font-weight: bold;
+}
+
+.details {
+  font-size: 0.85em;
+  color: grey;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.rating mat-icon {
+  font-size: 24px;
+  margin-right: 5px;
+}
+
+mat-divider {
+  width: 100%;
+  background-color: #ddd;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Specific styles for the Help someone item */
+.help-someone-item {
+  height: 50px !important; /* Make the Help someone item less high */
+  padding: 10px 10px; /* Adjust padding accordingly */
+}
+
+.help-someone-info {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the text */
+}
+
+@media screen and (max-width: 600px) {
+  mat-list-item {
+    height: 80px;
+    padding: 15px 10px;
+  }
+
+  .profile-circle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .user-email {
+    font-size: 0.9em;
+  }
+
+  .details {
+    font-size: 0.75em;
+  }
+
+  .rating span {
+    font-size: 0.9em;
+  }
+}

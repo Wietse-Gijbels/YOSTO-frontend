@@ -22,26 +22,28 @@ export interface GebruikerInterface {
   status: GebruikerStatus;
   rollen: GebruikerRol[];
   newMessageCount?: number;
+  lastMessage?: string;
   geschenken?: Geschenk[];
   xpAantal: number;
 }
 
 export interface StudierichtingInterface {
-  id: String;
-  naam: String;
-  studiepunten: String;
-  niveauNaam: String;
-  afstudeerrichting: String;
+  id: string;
+  naam: string;
+  studiepunten: string;
+  niveauNaam: string;
+  afstudeerrichting: string;
+  beschrijving: string;
   instellingen: InstellingInterface[];
 }
 
 export interface InstellingInterface {
-  id: String;
-  naam: String;
-  campus: String;
-  postcode: String;
-  gemeente: String;
-  adres: String;
+  id: string;
+  naam: string;
+  campus: string;
+  postcode: string;
+  gemeente: string;
+  adres: string;
   studierichting: StudierichtingInterface[];
 }
 

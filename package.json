@@ -45,7 +45,6 @@
     "ngx-cookie-service": "^17.1.0",
     "rxjs": "~7.8.0",
     "sockjs-client": "^1.5.0",
-    "stompjs": "^2.3.3",
     "tslib": "^2.3.0",
     "ws": "^8.17.0",
     "zone.js": "~0.14.3"
