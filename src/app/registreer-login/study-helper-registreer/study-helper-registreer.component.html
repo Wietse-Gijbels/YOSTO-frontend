@@ -117,10 +117,21 @@
             <input
               [formControlName]="'diploma'"
               class="icon-studie diploma"
-              placeholder="Diploma toevoegen"
+              placeholder="Behaald diploma toevoegen"
               type="text"
             />
           </div>
+          <ul
+            *ngIf="hasFilteredRichtingen(diploma)"
+            class="suggestions smaller-suggestions"
+          >
+            <li
+              (click)="onRichtingClick(richting, i)"
+              *ngFor="let richting of diploma.get('filteredRichtingen')?.value"
+            >
+              {{ richting }}
+            </li>
+          </ul>
         </div>
       </div>
       <div class="input-container smaller-height">

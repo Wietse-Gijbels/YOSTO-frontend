@@ -34,8 +34,9 @@
   border-radius: 5px;
   margin-bottom: 0;
   background-size: 20px;
-  padding: 5px 100px 5px 35px;
+  padding: 5px 5px 5px 35px;
   background-color: style-guide.$primary-rood;
+  width: 278px;
 }
 
 .icon-email:focus,
@@ -130,6 +131,11 @@ p {
   background-color: lighten(style-guide.$primary-rood, 90%);
   outline: none;
   border: 1px solid #ffffff;
+}
+
+.smaller-suggestions {
+  width: 279.8px;
+  margin-top: -10px;
 }
 
 .suggestions li {

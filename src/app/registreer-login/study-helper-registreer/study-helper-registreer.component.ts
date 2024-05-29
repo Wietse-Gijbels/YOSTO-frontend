@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormArray,
   FormBuilder,
   ReactiveFormsModule,
@@ -22,7 +23,7 @@ import { StudierichtingService } from '../../common/service/studierichting.servi
   templateUrl: './study-helper-registreer.component.html',
   styleUrls: ['./study-helper-registreer.component.scss'],
 })
-export class StudyHelperRegistreerComponent {
+export class StudyHelperRegistreerComponent implements OnInit {
   form = this.formBuilder.nonNullable.group({
     voornaam: ['', Validators.required],
     achternaam: ['', Validators.required],
@@ -31,10 +32,10 @@ export class StudyHelperRegistreerComponent {
     bevestigWachtwoord: ['', Validators.required],
     woonplaats: ['', Validators.required],
     huidigeStudieAndNiveau: [''],
-    toegevoegdDiploma: [''],
     behaaldeDiplomaArray: this.formBuilder.array([
       this.formBuilder.group({
         diploma: [''],
+        filteredRichtingen: [[]],
       }),
     ]),
   });
@@ -77,14 +78,70 @@ export class StudyHelperRegistreerComponent {
       .subscribe((richtingen) => {
         this.filteredRichtingen = richtingen;
       });
+
+    this.setupDiplomaFieldSubscriptions();
+  }
+
+  setupDiplomaFieldSubscriptions() {
+    this.behaaldeDiplomaArray.controls.forEach((control, index) => {
+      const diplomaControl = control.get('diploma');
+      diplomaControl!.valueChanges
+        .pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          switchMap((value) => {
+            if (value) {
+              return this.studierichtingService.getFilteredHogerOnderwijsRichtingen(
+                value,
+              );
+            } else {
+              return of([]);
+            }
+          }),
+        )
+        .subscribe((richtingen) => {
+          (this.behaaldeDiplomaArray.at(index) as any).patchValue(
+            {
+              filteredRichtingen: richtingen,
+            },
+            { emitEvent: false },
+          );
+        });
+    });
   }
 
   addDiplomaField(): void {
-    this.behaaldeDiplomaArray.push(
-      this.formBuilder.group({
-        diploma: [''],
-      }),
-    );
+    const newField = this.formBuilder.group({
+      diploma: [''],
+      filteredRichtingen: [[]],
+    });
+    this.behaaldeDiplomaArray.push(newField);
+
+    // Add subscription for the new field
+    const index = this.behaaldeDiplomaArray.length - 1;
+    const diplomaControl = newField.get('diploma');
+    diplomaControl!.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((value) => {
+          if (value) {
+            return this.studierichtingService.getFilteredHogerOnderwijsRichtingen(
+              value,
+            );
+          } else {
+            return of([]);
+          }
+        }),
+      )
+      .subscribe((richtingen) => {
+        (this.behaaldeDiplomaArray.at(index) as any).patchValue(
+          {
+            filteredRichtingen: richtingen,
+          },
+          { emitEvent: false },
+        );
+      });
   }
 
   onSubmit(): void {
@@ -102,7 +159,6 @@ export class StudyHelperRegistreerComponent {
       ...formData,
       rol: 'STUDYHELPER', // STUDYHELPER als rol setten
     };
-
     this.authService.registreerHelper(formDataWithRole).subscribe(
       (response) => {
         // Verwerk succesvolle registratie
@@ -121,9 +177,27 @@ export class StudyHelperRegistreerComponent {
     );
   }
 
-  onRichtingClick(richting: string) {
-    this.form.get('huidigeStudieAndNiveau')!.setValue(richting);
-    this.filteredRichtingen = [];
+  onRichtingClick(richting: string, diplomaIndex?: number) {
+    if (diplomaIndex !== undefined) {
+      this.behaaldeDiplomaArray
+        .at(diplomaIndex)
+        .get('diploma')!
+        .setValue(richting);
+      (this.behaaldeDiplomaArray.at(diplomaIndex) as any).patchValue(
+        {
+          filteredRichtingen: [],
+        },
+        { emitEvent: false },
+      );
+    } else {
+      this.form.get('huidigeStudieAndNiveau')!.setValue(richting);
+      this.filteredRichtingen = [];
+    }
+  }
+
+  hasFilteredRichtingen(diploma: AbstractControl<any>): boolean {
+    const richtingen = diploma.get('filteredRichtingen')?.value;
+    return Array.isArray(richtingen) && richtingen.length > 0;
   }
 
   private clearErrorMessages() {
