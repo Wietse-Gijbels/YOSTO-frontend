@@ -87,7 +87,7 @@ export class LookerTestformComponent implements OnInit {
   }
 
   calculateSimilarity() {
-    const userValues = this.topics.map((topic) => topic.value);
+    const userValues: number[] = this.topics.map((topic) => topic.value);
     const randomValues = this.richtingValues;
 
     const totalDifference = userValues.reduce((sum, value, index) => {
