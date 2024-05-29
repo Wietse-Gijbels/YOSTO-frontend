@@ -26,7 +26,7 @@ export class LookerTestformComponent implements OnInit {
   ];
 
   radarChartData: any[] = [];
-  radarChartLabels = this.topics.map(topic => topic.name);
+  radarChartLabels = this.topics.map((topic) => topic.name);
   radarChartOptions = {
     responsive: true,
     scales: {
@@ -37,26 +37,26 @@ export class LookerTestformComponent implements OnInit {
           beginAtZero: true,
           stepSize: 20,
           backdropColor: 'rgba(0, 0, 0, 0)',
-          showLabelBackdrop: false // Hide the label backdrop for the ticks
+          showLabelBackdrop: false, // Hide the label backdrop for the ticks
         },
         pointLabels: {
           font: {
-            size: 14
-          }
+            size: 14,
+          },
         },
         grid: {
-          color: 'rgba(0, 0, 0, 0.1)'
+          color: 'rgba(0, 0, 0, 0.1)',
         },
         angleLines: {
-          color: 'rgba(0, 0, 0, 0.1)'
-        }
-      }
+          color: 'rgba(0, 0, 0, 0.1)',
+        },
+      },
     },
     plugins: {
       legend: {
-        display: true // Show the legend to distinguish datasets
-      }
-    }
+        display: true, // Show the legend to distinguish datasets
+      },
+    },
   };
 
   richtingValues: number[] = [];
@@ -75,19 +75,19 @@ export class LookerTestformComponent implements OnInit {
   updateChart() {
     this.radarChartData = [
       {
-        data: this.topics.map(topic => topic.value),
-        label: 'Mijn Skills'
+        data: this.topics.map((topic) => topic.value),
+        label: 'Mijn Skills',
       },
       {
         data: this.richtingValues,
-        label: 'Toegepaste Informatica'
-      }
+        label: 'Toegepaste Informatica',
+      },
     ];
     this.calculateSimilarity();
   }
 
   calculateSimilarity() {
-    const userValues = this.topics.map(topic => topic.value);
+    const userValues = this.topics.map((topic) => topic.value);
     const randomValues = this.richtingValues;
 
     const totalDifference = userValues.reduce((sum, value, index) => {
@@ -95,6 +95,7 @@ export class LookerTestformComponent implements OnInit {
     }, 0);
 
     const maxDifference = 100 * userValues.length;
-    this.similarityPercentage = ((maxDifference - totalDifference) / maxDifference) * 100;
+    this.similarityPercentage =
+      ((maxDifference - totalDifference) / maxDifference) * 100;
   }
 }

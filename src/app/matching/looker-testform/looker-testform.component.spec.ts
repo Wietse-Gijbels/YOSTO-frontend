@@ -8,10 +8,9 @@ describe('LookerTestformComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LookerTestformComponent]
-    })
-    .compileComponents();
-    
+      imports: [LookerTestformComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(LookerTestformComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

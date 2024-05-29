@@ -13,6 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideHttpClient(),
     provideAnimationsAsync(),
-    StompService, provideCharts(withDefaultRegisterables()),
+    StompService,
+    provideCharts(withDefaultRegisterables()),
   ],
 };
