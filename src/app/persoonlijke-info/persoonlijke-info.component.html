@@ -1,0 +1,61 @@
+<mat-grid-list class="container" cols="2">
+  <fa-icon [icon]="faUser"></fa-icon>
+  <h1>Persoonlijke Info</h1>
+  <div class="error-container">
+    <!-- Add error message handling if needed -->
+  </div>
+  @if (gebruiker$ | async; as gebruiker) {
+    <form [formGroup]="form" (keydown.enter)="preventEnter($event)">
+      <div class="persoonlijke-info-form-group">
+        <label>Voornaam</label>
+        <input
+          class="input"
+          formControlName="voornaam"
+          matInput
+          [value]="gebruiker?.voornaam"
+        />
+        <label>Achternaam</label>
+        <input
+          class="input"
+          formControlName="achternaam"
+          matInput
+          [value]="gebruiker?.achternaam"
+        />
+        <label>Woonplaats</label>
+        <input
+          class="input"
+          formControlName="woonplaats"
+          matInput
+          [value]="gebruiker?.woonplaats"
+        />
+        <label>Leeftijd</label>
+        <select formControlName="leeftijd" class="input" [disabled]="edit">
+          @for (i of numbers; track i) {
+            <option [value]="i">{{ i }}</option>
+          }
+        </select>
+        <label>Geslacht</label>
+        <select formControlName="geslacht" class="input" [disabled]="edit">
+          <option>Man</option>
+          <option>Vrouw</option>
+        </select>
+      </div>
+      <div class="container">
+        <button
+          (click)="editGebruiker()"
+          [hidden]="!edit"
+          class="custom-file-upload"
+        >
+          Bewerken
+        </button>
+        <button (click)="save()" [hidden]="edit" class="custom-file-upload">
+          Opslaan
+        </button>
+        <button (click)="cancel()" [hidden]="edit" class="custom-file-upload">
+          Annuleren
+        </button>
+      </div>
+    </form>
+  }
+</mat-grid-list>
+<app-nav-bar></app-nav-bar>

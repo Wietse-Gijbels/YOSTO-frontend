@@ -8,6 +8,7 @@ import { FavorietenComponent } from './studierichtingen/favorieten/favorieten.co
 import { VeelGesteldeVragenComponent } from './veel-gestelde-vragen/veel-gestelde-vragen.component';
 import { StudierichtingDetailsComponent } from './studierichtingen/studierichting-details/studierichting-details.component';
 import { RegistreerComponent } from './registreer-login/registreer-pagina/registreer.component';
+import { PersoonlijkeInfoComponent } from './persoonlijke-info/persoonlijke-info.component';
 import { GeschenkCategorieOverviewComponent } from './geschenken/geschenk-categorie-overview/geschenk-categorie-overview.component';
 import { AddGeschenkCategorieComponent } from './geschenken/add-geschenk-categorie/add-geschenk-categorie.component';
 import { GeschenkInfoComponent } from './geschenken/geschenk-info/geschenk-info.component';
@@ -49,6 +50,7 @@ export const routes: Routes = [
   { path: 'add-geschenk-categorie', component: AddGeschenkCategorieComponent },
   { path: 'add-geschenk', component: AddGeschenkComponent },
   { path: 'geschenk-info/:id', component: GeschenkInfoComponent },
+  { path: 'persoonlijkeInfo', component: PersoonlijkeInfoComponent },
   { path: 'matching-test', component: LookerTestformComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
