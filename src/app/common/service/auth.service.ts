@@ -44,14 +44,7 @@ export class AuthService {
   }
 
   registreerHelper(formData: any): Observable<AuthenticationResponse> {
-    const {
-      bevestigWachtwoord,
-      huidigeStudie,
-      behaaldDiploma,
-      behaaldeDiplomaArray,
-      toegevoegdDiploma,
-      ...registreerData
-    } = formData;
+    const { bevestigWachtwoord, ...registreerData } = formData;
 
     return this.httpClient
       .post<AuthenticationResponse>(

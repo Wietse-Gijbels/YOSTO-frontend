@@ -93,18 +93,35 @@
         placeholder="Huidige studie*"
         type="text"
       />
-      <ul *ngIf="filteredRichtingen.length > 0" class="suggestions">
-        <li
-          (click)="onRichtingClick(richting)"
-          *ngFor="let richting of filteredRichtingen"
-        >
-          {{ richting }}
-        </li>
-      </ul>
-      @if (errorMessages["errorRichtingParser"]) {
+      @if (filteredRichtingen.length > 0) {
+        <ul class="suggestions">
+          <li
+            (click)="onRichtingClick(richting)"
+            *ngFor="let richting of filteredRichtingen"
+          >
+            {{ richting }}
+          </li>
+        </ul>
+      }
+      @if (
+        errorMessages["errorRichtingParser"] &&
+        !errorMessages["errorDiplomaParser"]
+      ) {
         <p class="error">
           {{ errorMessages["errorRichtingParser"] }}
         </p>
+      } @else if (
+        !errorMessages["errorRichtingParser"] &&
+        errorMessages["errorDiplomaParser"]
+      ) {
+        <p class="error">
+          {{ errorMessages["errorDiplomaParser"] }}
+        </p>
+      } @else if (
+        errorMessages["errorRichtingParser"] &&
+        errorMessages["errorDiplomaParser"]
+      ) {
+        <p class="error">Onjuiste studie en diploma('s)</p>
       }
     </div>
     <div class="extra-diploma">
@@ -121,21 +138,31 @@
               type="text"
             />
           </div>
-          <ul
-            *ngIf="hasFilteredRichtingen(diploma)"
-            class="suggestions smaller-suggestions"
-          >
-            <li
-              (click)="onRichtingClick(richting, i)"
-              *ngFor="let richting of diploma.get('filteredRichtingen')?.value"
-            >
-              {{ richting }}
-            </li>
-          </ul>
+          @if (hasFilteredRichtingen(diploma)) {
+            <ul class="suggestions smaller-suggestions">
+              <li
+                (click)="onRichtingClick(richting, i)"
+                *ngFor="
+                  let richting of diploma.get('filteredRichtingen')?.value
+                "
+              >
+                {{ richting }}
+              </li>
+            </ul>
+          }
         </div>
       </div>
       <div class="input-container smaller-height">
-        <button (click)="addDiplomaField()" class="plus-button" type="button">
+        <button
+          (click)="addDiplomaField()"
+          [disabled]="
+            !behaaldeDiplomaArray
+              .at(behaaldeDiplomaArray.length - 1)
+              .get('diploma')?.value
+          "
+          class="plus-button"
+          type="button"
+        >
           +
         </button>
       </div>

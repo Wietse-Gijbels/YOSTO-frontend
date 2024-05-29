@@ -111,53 +111,69 @@ export class StudyHelperRegistreerComponent implements OnInit {
   }
 
   addDiplomaField(): void {
-    const newField = this.formBuilder.group({
-      diploma: [''],
-      filteredRichtingen: [[]],
-    });
-    this.behaaldeDiplomaArray.push(newField);
-
-    // Add subscription for the new field
-    const index = this.behaaldeDiplomaArray.length - 1;
-    const diplomaControl = newField.get('diploma');
-    diplomaControl!.valueChanges
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        switchMap((value) => {
-          if (value) {
-            return this.studierichtingService.getFilteredHogerOnderwijsRichtingen(
-              value,
-            );
-          } else {
-            return of([]);
-          }
-        }),
-      )
-      .subscribe((richtingen) => {
-        (this.behaaldeDiplomaArray.at(index) as any).patchValue(
-          {
-            filteredRichtingen: richtingen,
-          },
-          { emitEvent: false },
-        );
+    // Check if the last diploma field has a value before adding a new one
+    const lastDiplomaControl = this.behaaldeDiplomaArray.at(
+      this.behaaldeDiplomaArray.length - 1,
+    );
+    if (lastDiplomaControl && lastDiplomaControl.get('diploma')!.value) {
+      const newField = this.formBuilder.group({
+        diploma: [''],
+        filteredRichtingen: [[]],
       });
+      this.behaaldeDiplomaArray.push(newField);
+
+      // Add subscription for the new field
+      const index = this.behaaldeDiplomaArray.length - 1;
+      const diplomaControl = newField.get('diploma');
+      diplomaControl!.valueChanges
+        .pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          switchMap((value) => {
+            if (value) {
+              return this.studierichtingService.getFilteredHogerOnderwijsRichtingen(
+                value,
+              );
+            } else {
+              return of([]);
+            }
+          }),
+        )
+        .subscribe((richtingen) => {
+          (this.behaaldeDiplomaArray.at(index) as any).patchValue(
+            {
+              filteredRichtingen: richtingen,
+            },
+            { emitEvent: false },
+          );
+        });
+    } else {
+      // Optionally show a message to the user indicating the need to fill the previous field
+      console.warn(
+        'Please fill the previous diploma field before adding a new one.',
+      );
+    }
   }
 
   onSubmit(): void {
     this.clearErrorMessages();
 
     const formData = this.form.getRawValue();
-
+    console.log(formData);
     if (formData.wachtwoord !== formData.bevestigWachtwoord) {
       this.errorMessages = {
         errorWachtwoordDubbel: 'Wachtwoorden komen niet overeen.',
       };
     }
 
+    const behaaldeDiplomas = formData.behaaldeDiplomaArray.map(
+      (d: any) => d.diploma,
+    );
+
     const formDataWithRole = {
       ...formData,
-      rol: 'STUDYHELPER', // STUDYHELPER als rol setten
+      rol: 'STUDYHELPER',
+      behaaldeDiplomas, // STUDYHELPER als rol setten
     };
     this.authService.registreerHelper(formDataWithRole).subscribe(
       (response) => {
