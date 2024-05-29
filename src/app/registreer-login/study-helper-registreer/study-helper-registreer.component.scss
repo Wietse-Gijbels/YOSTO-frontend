@@ -172,7 +172,7 @@ p {
   background-color: style-guide.$primary-rood;
   padding: 0;
   font-size: 24px;
-  margin-top: 0;
+  margin-top: 3px;
   border: none;
   cursor: pointer;
   width: 20px;
@@ -200,4 +200,18 @@ p {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+}
+
+.extra-diploma {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+
+.diploma-field {
+  width: 279.8px;
+}
+
+.diploma {
+  overflow: hidden;
 }

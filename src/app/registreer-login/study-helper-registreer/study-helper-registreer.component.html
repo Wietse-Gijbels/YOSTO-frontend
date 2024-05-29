@@ -107,25 +107,27 @@
         </p>
       }
     </div>
-    <div formArrayName="behaaldeDiplomaArray">
-      <div
-        *ngFor="let diploma of behaaldeDiplomaArray.controls; let i = index"
-        [formGroupName]="i"
-      >
-        <div class="diploma-field">
-          <input
-            [formControlName]="'diploma'"
-            class="icon-studie"
-            placeholder="Diploma toevoegen"
-            type="text"
-          />
+    <div class="extra-diploma">
+      <div formArrayName="behaaldeDiplomaArray">
+        <div
+          *ngFor="let diploma of behaaldeDiplomaArray.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <div class="diploma-field">
+            <input
+              [formControlName]="'diploma'"
+              class="icon-studie diploma"
+              placeholder="Diploma toevoegen"
+              type="text"
+            />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="input-container smaller-height">
-      <button (click)="addDiplomaField()" class="plus-button" type="button">
-        +
-      </button>
+      <div class="input-container smaller-height">
+        <button (click)="addDiplomaField()" class="plus-button" type="button">
+          +
+        </button>
+      </div>
     </div>
     <div>
       <button type="submit">Registreer</button>
