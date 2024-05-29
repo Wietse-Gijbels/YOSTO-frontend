@@ -16,6 +16,7 @@ import { AddGeschenkComponent } from './geschenken/add-geschenk/add-geschenk.com
 import { StudierichtingenComponent } from './studierichtingen/overview-pagina/studierichtingen.component';
 import { GebruikersLijstComponent } from './Chats/gebruikers-lijst/gebruikers-lijst.component';
 import { ChatComponent } from './Chats/chat/chat.component';
+import { LookerTestformComponent } from './matching/looker-testform/looker-testform.component';
 
 export const routes: Routes = [
   { path: '', component: StartSchermComponent },
@@ -50,5 +51,6 @@ export const routes: Routes = [
   { path: 'add-geschenk', component: AddGeschenkComponent },
   { path: 'geschenk-info/:id', component: GeschenkInfoComponent },
   { path: 'persoonlijkeInfo', component: PersoonlijkeInfoComponent },
+  { path: 'matching-test', component: LookerTestformComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
