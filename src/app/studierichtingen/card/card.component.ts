@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
 export class CardComponent {
   @Input({ required: true }) title!: String;
   @Input({ required: true }) subtextLine1!: String;
-  @Input({ required: true }) subtextLine2!: String;
+  @Input() subtextLine2!: String;
   @Input() id?: String;
   @Input() icon?: IconProp;
   @Input() afterText?: String;

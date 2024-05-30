@@ -12,4 +12,5 @@ export class GebruikerHeaderComponent {
   @Input() headerText: string = '';
   @Input({ required: true }) backgroundColor!: string;
   @Input() subText: string = '';
+  @Input() subMediumText: string = '';
 }
