@@ -1,9 +1,9 @@
 import {
+  AfterViewChecked,
   Component,
+  ElementRef,
   OnInit,
   ViewChild,
-  ElementRef,
-  AfterViewChecked,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
@@ -13,12 +13,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { FormControl } from '@angular/forms';
 import { IFrame } from '@stomp/stompjs';
 import { GebruikerInterface, Message } from '../../common/models/interfaces';
 import { StompService } from '../../common/service/stomp.service';
@@ -44,14 +47,13 @@ import { ChatService } from '../../common/service/chat.service';
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit, AfterViewChecked {
-  @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
-
   gebruikers: GebruikerInterface[] = [];
   selectedGebruiker?: GebruikerInterface;
   messageForm!: FormGroup;
+  userId: string = '';
+  @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
   private berichtenSubject = new BehaviorSubject<Message[]>([]);
   berichten$ = this.berichtenSubject.asObservable();
-  userId: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -75,8 +77,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
           },
         );
         this.route.params.subscribe((params) => {
-          const gebruikerId = params['id'];
-          this.gebruikerService.getGebruikerById(gebruikerId).subscribe(
+          const token = this.cookieService.get('token');
+          this.gebruikerService.getGebruiker(token).subscribe(
             (gebruiker: any) => {
               this.selectedGebruiker = gebruiker;
               console.log('Selected gebruiker:', this.selectedGebruiker);

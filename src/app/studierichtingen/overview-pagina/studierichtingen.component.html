@@ -10,13 +10,7 @@
         track studierichting.id
       ) {
         <app-card
-          [subtextLine1]="
-            studierichting.afstudeerrichting.length > 0
-              ? studierichting.niveauNaam +
-                '-' +
-                studierichting.afstudeerrichting
-              : studierichting.niveauNaam
-          "
+          [subtextLine1]="studierichting.niveauNaam"
           [subtextLine2]="
             studierichting.studiepunten
               ? studierichting.studiepunten + ' stp'
