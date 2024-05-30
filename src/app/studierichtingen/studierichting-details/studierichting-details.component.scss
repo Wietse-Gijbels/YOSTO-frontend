@@ -12,8 +12,6 @@ main {
 
 ::ng-deep main .beschrijving p {
   margin-bottom: 20px;
-  hyphens: auto;
-
 }
 
 ::ng-deep .beschrijving ul {
@@ -32,13 +30,11 @@ main {
   left: 0;
 }
 
-
 h3 {
   @include style-guide.font-subtext;
   color: style-guide.$primary-rood;
   padding: 15px 0;
 }
-
 
 mat-tab-group {
   z-index: 1;

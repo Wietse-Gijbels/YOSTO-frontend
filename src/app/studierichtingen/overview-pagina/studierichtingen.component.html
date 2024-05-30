@@ -5,8 +5,10 @@
 <main>
   @if (studierichtingen$ | async; as studierichtingen) {
     <ul>
-      @for (studierichting of studierichtingen.content;
-        track studierichting.id) {
+      @for (
+        studierichting of studierichtingen.content;
+        track studierichting.id
+      ) {
         <app-card
           [subtextLine1]="studierichting.niveauNaam"
           [subtextLine2]="
