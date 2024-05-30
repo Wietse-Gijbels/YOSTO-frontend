@@ -16,6 +16,17 @@
   </div>
 </div>
 
+<button (click)="submitValues()">Submit</button>
+
+
+<div *ngIf="similarities.length > 0">
+  <h3>Top 10 Studierichtingen Voor Mij</h3>
+  <div *ngFor="let similarity of similarities">
+    <p>{{ similarity.naam }} ({{ similarity.niveauNaam }}): {{ similarity.similarityPercentage.toFixed(2) }}%</p>
+  </div>
+</div>
+
+
 <div class="chart-container">
   <canvas
     baseChart

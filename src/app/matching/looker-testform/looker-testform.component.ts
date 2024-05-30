@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BaseChartDirective } from 'ng2-charts';
+import { SimilarityService } from '../../common/service/similarity.service';
 
 interface Topic {
   name: string;
@@ -61,6 +62,9 @@ export class LookerTestformComponent implements OnInit {
 
   richtingValues: number[] = [];
   similarityPercentage: number = 0;
+  similarities: any[] = []; // To store the similarities
+
+  constructor(private similarityService: SimilarityService) {} // Inject the service
 
   ngOnInit() {
     this.richtingValues = this.generateRandomValues();
@@ -97,5 +101,31 @@ export class LookerTestformComponent implements OnInit {
     const maxDifference = 100 * userValues.length;
     this.similarityPercentage =
       ((maxDifference - totalDifference) / maxDifference) * 100;
+  }
+
+  submitValues() {
+    const userValues = {
+      conventioneel:
+        this.topics.find((topic) => topic.name === 'Conventioneel')?.value || 0,
+      praktisch:
+        this.topics.find((topic) => topic.name === 'Praktisch')?.value || 0,
+      analytisch:
+        this.topics.find((topic) => topic.name === 'Analytisch')?.value || 0,
+      kunstzinnig:
+        this.topics.find((topic) => topic.name === 'Kunstzinnig')?.value || 0,
+      sociaal:
+        this.topics.find((topic) => topic.name === 'Sociaal')?.value || 0,
+      ondernemend:
+        this.topics.find((topic) => topic.name === 'Ondernemend')?.value || 0,
+    };
+
+    this.similarityService.calculateSimilarity(userValues).subscribe(
+      (similarities) => {
+        this.similarities = similarities.slice(0, 10); // Get top 10
+      },
+      (error) => {
+        console.error('Error calculating similarity', error);
+      },
+    );
   }
 }
