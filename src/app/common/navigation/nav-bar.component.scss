@@ -56,3 +56,45 @@ a fa-icon {
   border-radius: 50%;
   z-index: -1;
 }
+
+.pop-up {
+  background-color: style-guide.$primary-rood;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.pop-up-button {
+  background-color: style-guide.$primary-rood;
+  border: none;
+}
+
+.pop-up-container {
+  position: absolute;
+  bottom: 80px;
+  right: 5px;
+  z-index: 1000;
+  padding: 10px;
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.pop-up-item {
+  padding: 5px;
+
+  fa-icon {
+    display: block;
+    background-color: style-guide.$primary-rood;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 9px;
+  }
+
+  img {
+    display: block;
+    background-color: style-guide.$primary-rood;
+    border-radius: 4px;
+    padding: 10px;
+  }
+}

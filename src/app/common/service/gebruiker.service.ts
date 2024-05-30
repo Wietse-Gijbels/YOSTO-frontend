@@ -36,9 +36,21 @@ export class GebruikerService {
       .pipe(map((response) => response.id));
   }
 
-  getGebruikerById(id: string): Observable<GebruikerInterface> {
+  getGebruiker(token: string): Observable<GebruikerInterface> {
     return this.http.get<GebruikerInterface>(
-      `http://localhost:8080/api/v1/gebruiker/gebruiker/${id}`,
+      `http://localhost:8080/api/v1/gebruiker/${token}`,
+      { headers: this.headers },
+    );
+  }
+
+  updateGebruiker(
+    token: string,
+    fromData: any,
+  ): Observable<GebruikerInterface> {
+    return this.http.put<GebruikerInterface>(
+      `http://localhost:8080/api/v1/gebruiker/${token}`,
+      fromData,
+      { headers: this.headers },
     );
   }
 }

@@ -18,7 +18,7 @@ export interface GebruikerInterface {
   wachtwoord: string;
   geslacht: string;
   leeftijd: number;
-  woonplaates: string;
+  woonplaats: string;
   status: GebruikerStatus;
   rollen: GebruikerRol[];
   newMessageCount?: number;
@@ -33,6 +33,7 @@ export interface StudierichtingInterface {
   studiepunten: string;
   niveauNaam: string;
   afstudeerrichting: string;
+  beschrijving: string;
   instellingen: InstellingInterface[];
 }
 
