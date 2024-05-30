@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { GebruikerInterface } from '../models/interfaces';
+import { GebruikerInterface, GebruikerRol } from '../models/interfaces';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
@@ -18,13 +18,6 @@ export class GebruikerService {
     private http: HttpClient,
     private cookieService: CookieService,
   ) {}
-
-  getAllConectedGebruikers(): Observable<GebruikerInterface[]> {
-    return this.http.get<GebruikerInterface[]>(
-      'http://localhost:8080/api/v1/gebruiker/online',
-      { headers: this.headers },
-    );
-  }
 
   getGebruikerIdByToken(token: string): Observable<string> {
     return this.http
@@ -50,6 +43,13 @@ export class GebruikerService {
     return this.http.put<GebruikerInterface>(
       `http://localhost:8080/api/v1/gebruiker/${token}`,
       fromData,
+      { headers: this.headers },
+    );
+  }
+
+  getRol(): Observable<GebruikerRol> {
+    return this.http.get<GebruikerRol>(
+      `http://localhost:8080/api/v1/gebruiker/rol/${this.token}`,
       { headers: this.headers },
     );
   }
