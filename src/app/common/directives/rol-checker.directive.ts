@@ -1,6 +1,6 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { GebruikerService } from './service/gebruiker.service';
-import { GebruikerRol } from './models/interfaces';
+import { GebruikerService } from '../service/gebruiker.service';
+import { GebruikerRol } from '../models/interfaces';
 
 @Directive({
   selector: '[rolChecker]',

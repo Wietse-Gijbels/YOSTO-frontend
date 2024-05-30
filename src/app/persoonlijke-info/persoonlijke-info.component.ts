@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { GebruikerInterface, GebruikerRol } from '../common/models/interfaces';
 import { GebruikerService } from '../common/service/gebruiker.service';
 import { NavBarComponent } from '../common/navigation/nav-bar.component';
-import { rolChecker } from '../common/looker-rol-checker.directive';
+import { rolChecker } from '../common/directives/rol-checker.directive';
 
 @Component({
   selector: 'app-persoonlijke-info',

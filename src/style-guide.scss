@@ -8,6 +8,9 @@ $yosto-palette: (
   700: #ffc001,
   800: #ffbaf9,
   900: #ffffff,
+  1000: #144CB9,
+  1100: #FB63C4,
+  1200: #12C5ED,
   contrast: (),
 );
 
@@ -64,6 +67,9 @@ $secondary-groen: map-get($yosto-palette, 600);
 $secondary-geel: map-get($yosto-palette, 700);
 $secondary-roos: map-get($yosto-palette, 800);
 $secondary-wit: map-get($yosto-palette, 900);
+$helper-blauw: map-get($yosto-palette, 1000);
+$helper-roos: map-get($yosto-palette, 1100);
+$helper-groen: map-get($yosto-palette, 1200);
 
 $categorie-colors: (
   $primary-rood,
@@ -74,7 +80,10 @@ $categorie-colors: (
   $secondary-groen,
   $secondary-geel,
   $secondary-roos,
-  $secondary-wit
+  $secondary-wit,
+  $helper-blauw,
+  $helper-roos,
+  $helper-groen,
 );
 
 @mixin alternating-background-colors {

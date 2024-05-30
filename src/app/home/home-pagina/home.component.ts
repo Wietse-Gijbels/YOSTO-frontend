@@ -1,22 +1,26 @@
 import { Component } from '@angular/core';
 import { NavBarComponent } from '../../common/navigation/nav-bar.component';
-import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
 import { NgClass, NgForOf, NgOptimizedImage } from '@angular/common';
 import { SocialsComponent } from '../socials/socials.component';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { GebruikerRol } from '../../common/models/interfaces';
+import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
+import { rolStyle } from '../../common/directives/rol-style.directive';
+import { rolChecker } from '../../common/directives/rol-checker.directive';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     NavBarComponent,
-    GebruikerHeaderComponent,
     NgOptimizedImage,
     NgForOf,
     NgClass,
     SocialsComponent,
+    GebruikerHeaderComponent,
+    rolStyle,
+    rolChecker,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

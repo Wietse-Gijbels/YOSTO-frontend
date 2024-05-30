@@ -26,6 +26,8 @@ import { StudierichtingService } from '../../common/service/studierichting.servi
 export class StudierichtingDetailsComponent implements OnInit {
   studierichtingId: string | null = null;
   public studierichting$?: Observable<StudierichtingInterface>;
+  protected readonly encodeURIComponent = encodeURIComponent;
+  protected readonly faLocationDot = faLocationDot;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,7 +44,4 @@ export class StudierichtingDetailsComponent implements OnInit {
       }
     });
   }
-
-  protected readonly encodeURIComponent = encodeURIComponent;
-  protected readonly faLocationDot = faLocationDot;
 }
