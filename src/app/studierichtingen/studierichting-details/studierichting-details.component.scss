@@ -6,16 +6,62 @@ main {
   padding: 1rem 1rem 100px 1rem;
 }
 
-::ng-deep main .beschrijving p {
-  margin-bottom: 16px; /* Adjust the value as needed */
+::ng-deep .beschrijving {
+  word-break: break-all;
 }
+
+::ng-deep main .beschrijving p {
+  margin-bottom: 20px;
+  hyphens: auto;
+
+}
+
+::ng-deep .beschrijving ul {
+  list-style-type: none;
+  padding-left: 5px;
+}
+
+::ng-deep .beschrijving ul li {
+  position: relative;
+  padding-left: 20px;
+}
+
+::ng-deep .beschrijving ul li:before {
+  content: "-";
+  position: absolute;
+  left: 0;
+}
+
 
 h3 {
-  @include style-guide.font-medium-header;
+  @include style-guide.font-subtext;
   color: style-guide.$primary-rood;
-  margin-bottom: 10px;
+  padding: 15px 0;
 }
 
-::ng-deep div ul li {
-  list-style-type: none;
+
+mat-tab-group {
+  z-index: 1;
+  position: relative;
+}
+
+::ng-deep .mat-tab-label {
+  white-space: normal !important;
+  text-align: center;
+}
+
+::ng-deep .mat-tab-label-content {
+  display: block;
+  white-space: normal;
+  line-height: 1.2;
+}
+
+::ng-deep .mat-tab-labels {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+::ng-deep .mat-tab-group {
+  display: flex;
+  justify-content: center;
 }

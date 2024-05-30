@@ -32,7 +32,12 @@ export interface StudierichtingInterface {
   naam: string;
   studiepunten: string;
   niveauNaam: string;
-  afstudeerrichting: string;
+  afstudeerrichtingen: AfstudreerrichtingInterface[];
+}
+
+export interface AfstudreerrichtingInterface {
+  id: String;
+  naam: String;
   beschrijving: string;
   instellingen: InstellingInterface[];
 }
@@ -44,7 +49,6 @@ export interface InstellingInterface {
   postcode: string;
   gemeente: string;
   adres: string;
-  studierichting: StudierichtingInterface[];
 }
 
 export interface AuthenticationResponse {
