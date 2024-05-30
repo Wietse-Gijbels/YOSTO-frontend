@@ -41,13 +41,60 @@
     </a>
   </li>
   <li>
-    <a routerLink="/veelGesteldeVragen" routerLinkActive="active">
+    <button (click)="openSelection()" class="pop-up-button">
       <img
         alt="Start pagina"
         height="36"
         ngSrc="{{ '../../assets/images/menu.png' }}"
         width="36"
       />
-    </a>
+    </button>
   </li>
 </ul>
+@if (open) {
+  <div class="pop-up-container">
+    <a
+      routerLink="/persoonlijkeInfo"
+      routerLinkActive="active"
+      class="pop-up-item"
+    >
+      <fa-icon [icon]="faAddressCard"></fa-icon>
+    </a>
+    <a
+      routerLink="/persoonlijkeInfo"
+      routerLinkActive="active"
+      class="pop-up-item"
+    >
+      <img
+        alt="Start pagina"
+        height="46"
+        ngSrc="{{ '../../assets/images/studeer-hoed.png' }}"
+        width="42"
+      />
+    </a>
+    <a
+      routerLink="/persoonlijkeInfo"
+      routerLinkActive="active"
+      class="pop-up-item"
+    >
+      <img
+        alt="Start pagina"
+        height="46"
+        ngSrc="{{ '../../assets/images/studeer-hoed.png' }}"
+        width="42"
+      />
+    </a>
+    <a
+      routerLink="/persoonlijkeInfo"
+      routerLinkActive="active"
+      class="pop-up-item"
+    >
+      <img
+        alt="Start pagina"
+        height="46"
+        ngSrc="{{ '../../assets/images/studeer-hoed.png' }}"
+        width="42"
+      />
+    </a>
+  </div>
+}
