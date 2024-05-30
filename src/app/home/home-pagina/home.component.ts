@@ -5,6 +5,7 @@ import { NgClass, NgForOf, NgOptimizedImage } from '@angular/common';
 import { SocialsComponent } from '../socials/socials.component';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { GebruikerRol } from '../../common/models/interfaces';
 
 @Component({
   selector: 'app-home',
@@ -43,6 +44,7 @@ export class HomeComponent {
     { name: 'Tandarts', backgroundColor: 'background-geel' },
     { name: 'ICT-helpdesk', backgroundColor: 'background-paars' },
   ];
+  protected readonly GebruikerRol = GebruikerRol;
 
   constructor(
     private cookieService: CookieService,

@@ -9,9 +9,10 @@ import { MatInput } from '@angular/material/input';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { GebruikerInterface } from '../common/models/interfaces';
+import { GebruikerInterface, GebruikerRol } from '../common/models/interfaces';
 import { GebruikerService } from '../common/service/gebruiker.service';
 import { NavBarComponent } from '../common/navigation/nav-bar.component';
+import { rolChecker } from '../common/looker-rol-checker.directive';
 
 @Component({
   selector: 'app-persoonlijke-info',
@@ -26,6 +27,7 @@ import { NavBarComponent } from '../common/navigation/nav-bar.component';
     AsyncPipe,
     ReactiveFormsModule,
     NavBarComponent,
+    rolChecker,
   ],
   templateUrl: './persoonlijke-info.component.html',
   styleUrl: './persoonlijke-info.component.scss',
@@ -42,6 +44,7 @@ export class PersoonlijkeInfoComponent implements OnInit {
   });
   numbers: number[] = Array.from({ length: 101 }, (_, i) => i);
   protected readonly faUser = faUser;
+  protected readonly GebruikerRol = GebruikerRol;
 
   constructor(
     private gebruikerService: GebruikerService,
