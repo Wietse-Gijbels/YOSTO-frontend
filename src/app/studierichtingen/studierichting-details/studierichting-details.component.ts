@@ -9,6 +9,7 @@ import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruike
 import { NavBarComponent } from '../../common/navigation/nav-bar.component';
 import { StudierichtingInterface } from '../../common/models/interfaces';
 import { StudierichtingService } from '../../common/service/studierichting.service';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-studierichting-details',
@@ -19,6 +20,8 @@ import { StudierichtingService } from '../../common/service/studierichting.servi
     AsyncPipe,
     FaIconComponent,
     CardComponent,
+    MatTabGroup,
+    MatTab,
   ],
   templateUrl: './studierichting-details.component.html',
   styleUrls: ['./studierichting-details.component.scss'],

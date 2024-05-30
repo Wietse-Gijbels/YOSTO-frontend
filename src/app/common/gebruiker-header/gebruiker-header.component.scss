@@ -37,6 +37,12 @@ h1 {
 }
 
 h2 {
+  @include style-guide.font-medium-header;
+  background-color: style-guide.$primary-oranje;
+  width: 90%;
+}
+
+h3 {
   @include style-guide.font-subtext;
   background-color: style-guide.$primary-oranje;
   width: 90%;
