@@ -11,7 +11,7 @@ import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruike
 import { NavBarComponent } from '../../common/navigation/nav-bar.component';
 import { GebruikerService } from '../../common/service/gebruiker.service';
 import { ChatService } from '../../common/service/chat.service';
-import {rolStyle} from "../../common/directives/rol-style.directive";
+import { rolStyle } from '../../common/directives/rol-style.directive';
 
 @Component({
   selector: 'app-gebruikers-lijst',

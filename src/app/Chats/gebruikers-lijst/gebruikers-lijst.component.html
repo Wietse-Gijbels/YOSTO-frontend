@@ -5,44 +5,44 @@
 ></gebruiker-header>
 
 <div rolStyle>
-<div class="user-list">
-  <mat-list>
-    <mat-list-item class="help-someone-item" (click)="helpSomeone()">
-      <div class="user-button">
-        <div class="user-info help-someone-info">
-          <span class="user-email" *ngIf="amountOfLookers > 0">
-            Help een van de {{ amountOfLookers }} lookers
-          </span>
-          <span class="user-email" *ngIf="amountOfLookers === 0">
-            Goed nieuws, alle Lookers krijgen op dit moment de nodige hulp
-          </span>
-        </div>
-      </div>
-    </mat-list-item>
-
-    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-
-    <ng-container *ngFor="let gebruiker of gebruikers">
-      <mat-list-item (click)="openChat(gebruiker)">
+  <div class="user-list">
+    <mat-list>
+      <mat-list-item class="help-someone-item" (click)="helpSomeone()">
         <div class="user-button">
-          <div
-            class="profile-circle"
-            [ngStyle]="{ 'background-color': stringToColor(gebruiker.email) }"
-          ></div>
-          <div class="user-info">
-            <span class="user-email">{{ gebruiker.email }}</span>
-            <span class="details">180 stp - UCLL, Leuven</span>
-          </div>
-          <div class="rating">
-            <mat-icon [ngStyle]="{ color: stringToColor(gebruiker.email) }"
-              >star</mat-icon
-            >
-            <span>200</span>
+          <div class="user-info help-someone-info">
+            <span class="user-email" *ngIf="amountOfLookers > 0">
+              Help een van de {{ amountOfLookers }} lookers
+            </span>
+            <span class="user-email" *ngIf="amountOfLookers === 0">
+              Goed nieuws, alle Lookers krijgen op dit moment de nodige hulp
+            </span>
           </div>
         </div>
       </mat-list-item>
-    </ng-container>
-  </mat-list>
-</div>
+
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+      <ng-container *ngFor="let gebruiker of gebruikers">
+        <mat-list-item (click)="openChat(gebruiker)">
+          <div class="user-button">
+            <div
+              class="profile-circle"
+              [ngStyle]="{ 'background-color': stringToColor(gebruiker.email) }"
+            ></div>
+            <div class="user-info">
+              <span class="user-email">{{ gebruiker.email }}</span>
+              <span class="details">180 stp - UCLL, Leuven</span>
+            </div>
+            <div class="rating">
+              <mat-icon [ngStyle]="{ color: stringToColor(gebruiker.email) }"
+                >star</mat-icon
+              >
+              <span>200</span>
+            </div>
+          </div>
+        </mat-list-item>
+      </ng-container>
+    </mat-list>
+  </div>
 </div>
 <app-nav-bar></app-nav-bar>

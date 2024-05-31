@@ -32,13 +32,23 @@
           [value]="gebruiker?.woonplaats"
         />
         <label for="leeftijd">Leeftijd</label>
-        <select id="leeftijd" formControlName="leeftijd" class="input" [disabled]="edit">
+        <select
+          id="leeftijd"
+          formControlName="leeftijd"
+          class="input"
+          [disabled]="edit"
+        >
           @for (i of numbers; track i) {
             <option [value]="i">{{ i }}</option>
           }
         </select>
         <label for="geslacht">Geslacht</label>
-        <select id="geslacht" formControlName="geslacht" class="input" [disabled]="edit">
+        <select
+          id="geslacht"
+          formControlName="geslacht"
+          class="input"
+          [disabled]="edit"
+        >
           <option>Man</option>
           <option>Vrouw</option>
         </select>

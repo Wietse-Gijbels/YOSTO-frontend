@@ -5,7 +5,6 @@
   flex-direction: column;
   text-align: center;
 
-
   .persoonlijke-info-form-group {
     overflow: hidden;
     position: relative;
@@ -41,7 +40,6 @@
     width: 100%;
     max-width: 500px;
   }
-
 
   button {
     @include style-guide.font-large-header;
@@ -86,7 +84,6 @@
   flex-direction: column;
   text-align: center;
 
-
   .persoonlijke-info-form-group {
     overflow: hidden;
     position: relative;
@@ -115,8 +112,6 @@
     }
   }
 
-
-
   form {
     display: flex;
     flex-direction: column;
@@ -124,7 +119,6 @@
     width: 100%;
     max-width: 500px;
   }
-
 
   button {
     @include style-guide.font-large-header;

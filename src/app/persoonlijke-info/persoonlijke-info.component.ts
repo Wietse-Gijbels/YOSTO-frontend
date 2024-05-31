@@ -13,7 +13,7 @@ import { GebruikerInterface, GebruikerRol } from '../common/models/interfaces';
 import { GebruikerService } from '../common/service/gebruiker.service';
 import { NavBarComponent } from '../common/navigation/nav-bar.component';
 import { rolChecker } from '../common/directives/rol-checker.directive';
-import {rolStyle} from "../common/directives/rol-style.directive";
+import { rolStyle } from '../common/directives/rol-style.directive';
 
 @Component({
   selector: 'app-persoonlijke-info',

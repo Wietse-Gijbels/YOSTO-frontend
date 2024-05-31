@@ -2,7 +2,9 @@
   <gebruiker-header
     [backgroundColor]="'background-rood'"
     [headerText]="'Registreren'"
-    [fotoPath]="'../../../assets/images/'+ currentComponent + '-yosto-logo.png'"
+    [fotoPath]="
+      '../../../assets/images/' + currentComponent + '-yosto-logo.png'
+    "
     [class]="class"
   ></gebruiker-header>
   <div [class]="currentComponent + '-container'">
@@ -27,9 +29,9 @@
   </div>
 
   @if (currentComponent === "helper") {
-  <app-study-helper-registreer></app-study-helper-registreer>
+    <app-study-helper-registreer></app-study-helper-registreer>
   }
   @if (currentComponent === "looker") {
-  <app-study-looker-registreer></app-study-looker-registreer>
+    <app-study-looker-registreer></app-study-looker-registreer>
   }
 </div>

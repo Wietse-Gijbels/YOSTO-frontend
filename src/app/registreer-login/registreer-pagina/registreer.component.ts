@@ -8,7 +8,7 @@ import {
 } from '@angular/material/button-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import {rolStyle} from "../../common/directives/rol-style.directive";
+import { rolStyle } from '../../common/directives/rol-style.directive';
 
 @Component({
   selector: 'app-registreer',
@@ -39,7 +39,10 @@ export class RegistreerComponent {
     this.route.queryParams.subscribe((params) => {
       const form = params['form'];
       this.currentComponent = form === 'helper' ? 'helper' : 'looker';
-      this.class = this.currentComponent === 'helper' ? 'helper-container' : 'looker-container';
+      this.class =
+        this.currentComponent === 'helper'
+          ? 'helper-container'
+          : 'looker-container';
     });
     this.cookieService.delete('token');
   }
@@ -50,8 +53,7 @@ export class RegistreerComponent {
     if (component === 'helper') {
       this.foto = '../../../assets/images/helper-yosto-logo.png';
       this.class = 'helper-container';
-    }
-    else {
+    } else {
       this.foto = '../../../assets/images/looker-yosto-logo.png';
       this.class = 'looker-container';
     }

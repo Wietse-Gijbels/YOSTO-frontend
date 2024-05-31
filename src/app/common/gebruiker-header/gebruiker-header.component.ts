@@ -1,8 +1,8 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { NgClass } from '@angular/common';
 import { GebruikerService } from '../service/gebruiker.service';
 import { GebruikerRol } from '../models/interfaces';
-import {rolStyle} from "../directives/rol-style.directive";
+import { rolStyle } from '../directives/rol-style.directive';
 
 @Component({
   selector: 'gebruiker-header',
@@ -11,7 +11,7 @@ import {rolStyle} from "../directives/rol-style.directive";
   templateUrl: './gebruiker-header.component.html',
   styleUrls: ['./gebruiker-header.component.scss'],
 })
-export class GebruikerHeaderComponent implements OnInit{
+export class GebruikerHeaderComponent implements OnInit,OnChanges {
   @Input() headerText: string = '';
   @Input({ required: true }) backgroundColor!: string;
   @Input() subText: string = '';
@@ -24,15 +24,20 @@ export class GebruikerHeaderComponent implements OnInit{
   ngOnInit() {
     if (this.fotoPath) {
       this.src = this.fotoPath;
-    }
-    else{
+    } else {
       this.gebruikerService.getRol().subscribe((rol) => {
         if (rol === GebruikerRol.STUDYHELPER) {
           this.src = '../../../assets/images/helper-yosto-logo.png';
         } else {
           this.src = '../../../assets/images/looker-yosto-logo.png';
         }
-      })
+      });
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['fotoPath'] ){
+      this.src = changes['fotoPath'].currentValue;
     }
   }
 }
