@@ -1,4 +1,10 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { NgClass } from '@angular/common';
 import { GebruikerService } from '../service/gebruiker.service';
 import { GebruikerRol } from '../models/interfaces';
@@ -11,7 +17,7 @@ import { rolStyle } from '../directives/rol-style.directive';
   templateUrl: './gebruiker-header.component.html',
   styleUrls: ['./gebruiker-header.component.scss'],
 })
-export class GebruikerHeaderComponent implements OnInit,OnChanges {
+export class GebruikerHeaderComponent implements OnInit, OnChanges {
   @Input() headerText: string = '';
   @Input({ required: true }) backgroundColor!: string;
   @Input() subText: string = '';
@@ -36,7 +42,7 @@ export class GebruikerHeaderComponent implements OnInit,OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['fotoPath'] ){
+    if (changes['fotoPath']) {
       this.src = changes['fotoPath'].currentValue;
     }
   }
