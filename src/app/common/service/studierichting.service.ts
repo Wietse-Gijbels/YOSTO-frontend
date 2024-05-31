@@ -50,4 +50,27 @@ export class StudierichtingService {
       },
     );
   }
+
+  getOverviewFilteredHogerOnderwijsRichtingen(
+    page: number,
+    naam: string,
+    niveau: string,
+    sortOrder: string,
+  ): Observable<{ totalElements: number; content: StudierichtingInterface[] }> {
+    return this.http.get<{
+      totalElements: number;
+      content: StudierichtingInterface[];
+    }>(
+      this.studierichtingUrl +
+        '/filter?naam=' +
+        naam +
+        '&niveauNaam=' +
+        niveau +
+        '&sortOrder=' +
+        sortOrder +
+        '&page=' +
+        page,
+      { headers: this.headers },
+    );
+  }
 }

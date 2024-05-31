@@ -3,7 +3,7 @@
 main {
   max-width: 400px;
   margin: 0 auto;
-  padding: 1rem 1rem 100px 1rem;
+  padding: 2px 16px 100px 16px;
 }
 
 ul {
@@ -54,4 +54,57 @@ ul {
 ::ng-deep .mat-paginator-range-actions {
   background-color: style-guide.$primary-rood;
   border-radius: 30px;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 10px 10px;
+}
+
+.filter-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.filter-form input,
+.filter-form select {
+  @include style-guide.font-small-tekst;
+  font-size: 14px;
+  font-weight: 300;
+  color: #000000;
+  border: 1px solid style-guide.$primary-rood;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  padding: 5px 10px;
+  width: 100%;
+  max-width: 278px;
+  outline: none;
+}
+
+.filter-form input {
+  margin-top: 15px;
+}
+
+.filter-form button,
+.filter-container button {
+  color: style-guide.$primary-rood;
+  @include style-guide.font-large-header;
+  font-size: 16px;
+  border: 3px solid style-guide.$primary-rood;
+  border-radius: 20px;
+  padding: 5px 20px;
+  margin-top: 5px;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.not-found {
+  text-align: center;
+  @include style-guide.font-medium-tekst;
+  line-height: 1.2;
+  font-size: 14px;
 }
