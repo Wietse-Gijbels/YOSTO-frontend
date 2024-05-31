@@ -35,4 +35,42 @@ export class StudierichtingService {
       { headers: this.headers },
     );
   }
+
+  getFilteredRichtingen(filter: string): Observable<string[]> {
+    return this.http.get<string[]>(`${this.studierichtingUrl}/all/dto`, {
+      params: { filter },
+    });
+  }
+
+  getFilteredHogerOnderwijsRichtingen(filter: string): Observable<string[]> {
+    return this.http.get<string[]>(
+      `${this.studierichtingUrl}/hoger-onderwijs/dto`,
+      {
+        params: { filter },
+      },
+    );
+  }
+
+  getOverviewFilteredHogerOnderwijsRichtingen(
+    page: number,
+    naam: string,
+    niveau: string,
+    sortOrder: string,
+  ): Observable<{ totalElements: number; content: StudierichtingInterface[] }> {
+    return this.http.get<{
+      totalElements: number;
+      content: StudierichtingInterface[];
+    }>(
+      this.studierichtingUrl +
+        '/filter?naam=' +
+        naam +
+        '&niveauNaam=' +
+        niveau +
+        '&sortOrder=' +
+        sortOrder +
+        '&page=' +
+        page,
+      { headers: this.headers },
+    );
+  }
 }

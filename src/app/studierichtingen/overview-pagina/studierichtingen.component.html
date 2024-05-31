@@ -3,6 +3,40 @@
   subText="Studierichtingen"
 ></gebruiker-header>
 <main>
+  <div class="filter-container">
+    <button (click)="toggleFilter()">
+      Filter
+      <span
+        [ngClass]="{ 'arrow-down': !showFilter, 'arrow-up': showFilter }"
+      ></span>
+    </button>
+    @if (showFilter) {
+      <div class="filter-form">
+        <input
+          [(ngModel)]="filterNaam"
+          placeholder="Filter op naam"
+          type="text"
+        />
+        <select [(ngModel)]="filterNiveau">
+          <option value="">Alle niveaus</option>
+          <option value="Academische bachelor">Academische bachelor</option>
+          <option value="Master">Master</option>
+          <option value="Bachelor-na-bachelor">Bachelor-na-bachelor</option>
+          <option value="Graduaatsopleiding">Graduaatsopleiding</option>
+          <option value="Professionele bachelor">Professionele bachelor</option>
+        </select>
+        <select [(ngModel)]="order">
+          <option value="asc">Oplopend</option>
+          <option value="desc">Aflopend</option>
+        </select>
+        <button (click)="applyFilter()">Toepassen</button>
+      </div>
+    }
+  </div>
+
+  @if (loading) {
+    <div class="not-found">Loading...</div>
+  }
   @if (studierichtingen$ | async; as studierichtingen) {
     <ul>
       @for (
@@ -30,6 +64,14 @@
       (page)="onPageChange($event)"
     >
     </mat-paginator>
+  } @else {
+    @if (!loading) {
+      <ng-container>
+        <p class="not-found">
+          We konden geen richtingen vinden die voldoen aan uw zoekopdracht.
+        </p>
+      </ng-container>
+    }
   }
 </main>
 <app-nav-bar></app-nav-bar>
