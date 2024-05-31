@@ -28,14 +28,6 @@ export const routes: Routes = [
     path: 'registreer',
     component: RegistreerComponent,
   },
-  {
-    path: 'study-helper-registreer',
-    component: StudyHelperRegistreerComponent,
-  },
-  {
-    path: 'study-looker-registreer',
-    component: StudyLookerRegistreerComponent,
-  },
   { path: 'home', component: HomeComponent },
   { path: 'favorieten', component: FavorietenComponent },
   { path: 'studierichting', component: StudierichtingenComponent },

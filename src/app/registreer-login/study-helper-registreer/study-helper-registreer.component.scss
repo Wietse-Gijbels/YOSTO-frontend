@@ -35,7 +35,7 @@
   margin-bottom: 0;
   background-size: 20px;
   padding: 5px 100px 5px 35px;
-  background-color: style-guide.$primary-rood;
+  background-color: style-guide.$helper-blauw;
 }
 
 .icon-email:focus,
@@ -69,7 +69,7 @@
 }
 
 .studylooker-registreer-page {
-  background-color: style-guide.$primary-rood;
+  background-color: style-guide.$helper-blauw;
   flex: 1;
   overflow: hidden;
   position: relative;
@@ -103,7 +103,7 @@ form {
 }
 
 button {
-  color: style-guide.$primary-rood;
+  color: style-guide.$helper-blauw;
   @include style-guide.font-large-header;
   font-size: 16px;
   border: none;
@@ -122,7 +122,7 @@ p {
 
 .plus-button {
   color: #ffffff;
-  background-color: style-guide.$primary-rood;
+  background-color: style-guide.$helper-blauw;
   margin-right: 5px;
   padding: 0;
   font-size: 24px;

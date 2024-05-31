@@ -10,6 +10,7 @@ import {
 } from '@angular/material/expansion';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { faAddressCard } from '@fortawesome/free-regular-svg-icons';
+import {rolStyle} from "../directives/rol-style.directive";
 
 @Component({
   selector: 'app-nav-bar',
@@ -25,6 +26,7 @@ import { faAddressCard } from '@fortawesome/free-regular-svg-icons';
     MatExpansionPanelHeader,
     MatMenu,
     MatMenuTrigger,
+    rolStyle,
   ],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss',

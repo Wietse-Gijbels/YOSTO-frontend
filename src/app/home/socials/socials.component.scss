@@ -1,66 +1,138 @@
 @use "../../../style-guide";
 
-.social-icons {
-  display: flex;
-  gap: 10px;
+.looker-container {
 
-  .klein {
-    font-size: 30px;
+  .social-icons {
+    display: flex;
+    gap: 10px;
+
+    .klein {
+      font-size: 30px;
+    }
+
+    .medium {
+      font-size: 36px;
+    }
+
+    .groot {
+      font-size: 42px;
+    }
+
+    .extra-groot {
+      font-size: 48px;
+    }
   }
 
-  .medium {
-    font-size: 36px;
+  .rood {
+    color: style-guide.$primary-rood;
   }
 
-  .groot {
-    font-size: 42px;
+  .wit {
+    color: style-guide.$secondary-wit;
   }
 
-  .extra-groot {
-    font-size: 48px;
+  .groen {
+    color: style-guide.$secondary-groen;
+  }
+
+  .oranje {
+    color: style-guide.$primary-oranje;
+  }
+
+  .roos {
+    color: style-guide.$secondary-roos;
+  }
+
+  .paars {
+    color: style-guide.$secondary-paars;
+  }
+
+  .geel {
+    color: style-guide.$secondary-geel;
+  }
+
+  .licht-blauw {
+    color: style-guide.$secondary-licht-blauw;
+  }
+
+  .links {
+    justify-content: start;
+  }
+
+  .midden {
+    justify-content: center;
+  }
+
+  .rechts {
+    justify-content: end;
   }
 }
 
-.rood {
-  color: style-guide.$primary-rood;
-}
+.helper-container {
 
-.wit {
-  color: style-guide.$secondary-wit;
-}
 
-.groen {
-  color: style-guide.$secondary-groen;
-}
+  .social-icons {
+    display: flex;
+    gap: 10px;
 
-.oranje {
-  color: style-guide.$primary-oranje;
-}
+    .klein {
+      font-size: 30px;
+    }
 
-.roos {
-  color: style-guide.$secondary-roos;
-}
+    .medium {
+      font-size: 36px;
+    }
 
-.paars {
-  color: style-guide.$secondary-paars;
-}
+    .groot {
+      font-size: 42px;
+    }
 
-.geel {
-  color: style-guide.$secondary-geel;
-}
+    .extra-groot {
+      font-size: 48px;
+    }
+  }
 
-.licht-blauw {
-  color: style-guide.$secondary-licht-blauw;
-}
+  .rood {
+    color: style-guide.$helper-blauw;
+  }
 
-.links {
-  justify-content: start;
-}
+  .wit {
+    color: style-guide.$secondary-wit;
+  }
 
-.midden {
-  justify-content: center;
-}
+  .groen {
+    color: style-guide.$secondary-groen;
+  }
 
-.rechts {
-  justify-content: end;
+  .oranje {
+    color: style-guide.$helper-roos;
+  }
+
+  .roos {
+    color: style-guide.$secondary-roos;
+  }
+
+  .paars {
+    color: style-guide.$secondary-paars;
+  }
+
+  .geel {
+    color: style-guide.$secondary-geel;
+  }
+
+  .licht-blauw {
+    color: style-guide.$secondary-licht-blauw;
+  }
+
+  .links {
+    justify-content: start;
+  }
+
+  .midden {
+    justify-content: center;
+  }
+
+  .rechts {
+    justify-content: end;
+  }
 }
