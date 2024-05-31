@@ -78,3 +78,23 @@ export interface GeschenkCategorie {
   geschenken: Geschenk[];
   color?: string;
 }
+
+export interface Vraag {
+  id: string;
+  vraagTekst: string;
+  parameter: string;
+}
+
+export interface AntwoordDTO {
+  vraagId: string;
+  antwoord: string;
+}
+
+export interface GebruikerWaardes {
+  conventioneel: number;
+  praktisch: number;
+  analytisch: number;
+  kunstzinnig: number;
+  sociaal: number;
+  ondernemend: number;
+}

@@ -1,0 +1,22 @@
+<div *ngIf="!testCompleted">
+  <div *ngIf="vragen.length > 0">
+    <h2>{{ vragen[currentVraagIndex].vraagTekst }}</h2>
+    <button (click)="antwoordGegeven('eens')">Eens</button>
+    <button (click)="antwoordGegeven('oneens')">Oneens</button>
+    <button (click)="antwoordGegeven('neutraal')">Neutraal</button>
+  </div>
+  <div *ngIf="vragen.length === 0">
+    <p>Vragen worden geladen...</p>
+  </div>
+</div>
+<div *ngIf="testCompleted">
+  <p>U hebt de vragenlijst voltooid.</p>
+  <div *ngIf="gebruikerWaardes">
+    <p>Conventioneel: {{ gebruikerWaardes.conventioneel }}</p>
+    <p>Praktisch: {{ gebruikerWaardes.praktisch }}</p>
+    <p>Analytisch: {{ gebruikerWaardes.analytisch }}</p>
+    <p>Kunstzinnig: {{ gebruikerWaardes.kunstzinnig }}</p>
+    <p>Sociaal: {{ gebruikerWaardes.sociaal }}</p>
+    <p>Ondernemend: {{ gebruikerWaardes.ondernemend }}</p>
+  </div>
+</div>

@@ -17,6 +17,7 @@ import { StudierichtingenComponent } from './studierichtingen/overview-pagina/st
 import { GebruikersLijstComponent } from './Chats/gebruikers-lijst/gebruikers-lijst.component';
 import { ChatComponent } from './Chats/chat/chat.component';
 import { LookerTestformComponent } from './matching/looker-testform/looker-testform.component';
+import { MatchingTestComponent } from './matching-test/matching-test.component';
 
 export const routes: Routes = [
   { path: '', component: StartSchermComponent },
@@ -52,5 +53,6 @@ export const routes: Routes = [
   { path: 'geschenk-info/:id', component: GeschenkInfoComponent },
   { path: 'persoonlijkeInfo', component: PersoonlijkeInfoComponent },
   { path: 'matching-test', component: LookerTestformComponent },
+  { path: 'test', component: MatchingTestComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
