@@ -61,3 +61,16 @@ mat-tab-group {
   display: flex;
   justify-content: center;
 }
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .chart-container canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+}

@@ -30,7 +30,7 @@ interface StudierichtingSimilarityDto {
 })
 export class SimilarityService {
   private apiUrl =
-    'http://localhost:8080/api/v1/studierichtingWaardes/similarity';
+    'http://localhost:8080/api/v1/studierichtingWaardes';
 
   constructor(private http: HttpClient) {}
 
@@ -39,9 +39,13 @@ export class SimilarityService {
   ): Observable<StudierichtingSimilarityDto[]> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<StudierichtingSimilarityDto[]>(
-      this.apiUrl,
+      `${this.apiUrl}/similarity`,
       userValues,
       { headers },
     );
+  }
+
+  getStudierichtingWaardesById(studierichtingId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${studierichtingId}`);
   }
 }

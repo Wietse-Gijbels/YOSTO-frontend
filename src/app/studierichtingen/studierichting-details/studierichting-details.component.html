@@ -19,6 +19,19 @@
             [innerHTML]="afstudeerrichting.beschrijving"
           ></div>
         }
+        @if (studierichtingWaardes || radarChartData.length > 0) {
+          <div class="chart-container">
+            <canvas
+              baseChart
+              width="400"
+              height="400"
+              [datasets]="radarChartData"
+              [options]="radarChartOptions"
+              [labels]="radarChartLabels"
+              [type]="'radar'"
+            ></canvas>
+          </div>
+        }
         <h3>Waar kan ik de richting volgen</h3>
         <ul>
           @for (
@@ -59,6 +72,19 @@
                 class="beschrijving"
                 [innerHTML]="afstudeerrichting.beschrijving"
               ></div>
+            }
+            @if (studierichtingWaardes || radarChartData.length > 0) {
+              <div class="chart-container">
+                <canvas
+                  baseChart
+                  width="400"
+                  height="400"
+                  [datasets]="radarChartData"
+                  [options]="radarChartOptions"
+                  [labels]="radarChartLabels"
+                  [type]="'radar'"
+                ></canvas>
+              </div>
             }
             <h3>Waar kan ik de richting volgen</h3>
             <ul>

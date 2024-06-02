@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BaseChartDirective } from 'ng2-charts';
 import { SimilarityService } from '../../common/service/similarity.service';
-
-interface Topic {
-  name: string;
-  value: number;
-}
+import { Topic } from '../../common/models/interfaces';
+import { ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { GebruikerService } from '../../common/service/gebruiker.service';
 
 @Component({
   selector: 'app-looker-testform',
@@ -63,13 +62,24 @@ export class LookerTestformComponent implements OnInit {
   richtingValues: number[] = [];
   similarityPercentage: number = 0;
   similarities: any[] = []; // To store the similarities
+  userId: string = '';
 
-  constructor(private similarityService: SimilarityService) {} // Inject the service
+  constructor(
+    private similarityService: SimilarityService,
+    private route: ActivatedRoute,
+    private cookieService: CookieService,
+    private gebruikerService: GebruikerService,
+  ) {} // Inject the services
 
   ngOnInit() {
-    this.richtingValues = this.generateRandomValues();
-    this.updateChart();
-    this.calculateSimilarity();
+    this.gebruikerService
+      .getGebruikerIdByToken(this.cookieService.get('token'))
+      .subscribe((userId) => {
+        this.userId = userId;
+        this.richtingValues = this.generateRandomValues();
+        this.updateChart();
+        this.calculateSimilarity();
+      });
   }
 
   generateRandomValues() {
@@ -117,14 +127,25 @@ export class LookerTestformComponent implements OnInit {
         this.topics.find((topic) => topic.name === 'Sociaal')?.value || 0,
       ondernemend:
         this.topics.find((topic) => topic.name === 'Ondernemend')?.value || 0,
+      gebruiker: {
+        id: this.userId,
+      },
     };
 
-    this.similarityService.calculateSimilarity(userValues).subscribe(
-      (similarities) => {
-        this.similarities = similarities.slice(0, 10); // Get top 10
+    this.gebruikerService.saveGebruikerWaardes(userValues).subscribe(
+      (response) => {
+        console.log('GebruikerWaardes saved:', response);
+        this.similarityService.calculateSimilarity(userValues).subscribe(
+          (similarities) => {
+            this.similarities = similarities.slice(0, 10); // Get top 10
+          },
+          (error) => {
+            console.error('Error calculating similarity', error);
+          },
+        );
       },
       (error) => {
-        console.error('Error calculating similarity', error);
+        console.error('Error saving GebruikerWaardes', error);
       },
     );
   }

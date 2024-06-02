@@ -36,8 +36,8 @@ export interface StudierichtingInterface {
 }
 
 export interface AfstudreerrichtingInterface {
-  id: String;
-  naam: String;
+  id: string;
+  naam: string;
   beschrijving: string;
   instellingen: InstellingInterface[];
 }
@@ -77,4 +77,9 @@ export interface GeschenkCategorie {
   fotoUrl: string;
   geschenken: Geschenk[];
   color?: string;
+}
+
+export interface Topic {
+  name: string;
+  value: number;
 }
