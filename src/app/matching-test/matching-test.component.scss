@@ -1,0 +1,80 @@
+@use "../../style-guide";
+
+button {
+  @include style-guide.font-large-header;
+  border: none;
+  border-radius: 50%;
+  margin-top: 5px;
+  width: 80px;
+  height: 80px;
+  max-width: 150px;
+}
+
+.eens {
+  color: style-guide.$secondary-wit;
+  background-color: style-guide.$secondary-groen;
+}
+
+.oneens {
+  color: style-guide.$secondary-wit;
+  background-color: style-guide.$primary-rood;
+}
+
+.neutraal {
+  color: style-guide.$secondary-wit;
+  background-color: style-guide.$secondary-geel;
+}
+
+.knoppen {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.icon {
+  width: 60px;
+  height: 60px;
+  fill: white;
+  padding-top: 9.5px;
+  cursor: pointer;
+}
+
+.progress-container {
+  position: relative;
+  height: 20px;
+  background-color: lighten(style-guide.$primary-rood, 40%);
+  border-radius: 10px;
+  margin: 10px auto;
+  width: 80%;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: style-guide.$primary-rood;
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ff3800;
+  font-weight: bold;
+}
+
+.vraag {
+  text-align: center;
+}
+
+@media screen and (min-width: 992px) {
+  .knoppen {
+    justify-content: center;
+  }
+
+  button {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
