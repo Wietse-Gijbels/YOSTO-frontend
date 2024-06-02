@@ -4,13 +4,13 @@
   <div *ngFor="let topic of topics" class="topic">
     <label [for]="topic.name">{{ topic.name }}</label>
     <input
-      type="range"
+      (ngModelChange)="updateChart()"
+      [(ngModel)]="topic.value"
       [id]="topic.name"
       [name]="topic.name"
-      min="0"
       max="100"
-      [(ngModel)]="topic.value"
-      (ngModelChange)="updateChart()"
+      min="0"
+      type="range"
     />
     <span>{{ topic.value }}</span>
   </div>
@@ -18,7 +18,7 @@
 
 <button (click)="submitValues()">Submit</button>
 
-<div *ngIf="similarities.length > 0">
+<!--<div *ngIf="similarities.length > 0">
   <h3>Top 10 Studierichtingen Voor Mij</h3>
   <div *ngFor="let similarity of similarities">
     <p>
@@ -39,8 +39,4 @@
     [type]="'radar'"
   >
   </canvas>
-</div>
-
-<div class="similarity">
-  <h3>Similarity: {{ similarityPercentage.toFixed(2) }}%</h3>
-</div>
+</div>-->

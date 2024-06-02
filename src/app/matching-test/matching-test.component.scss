@@ -68,6 +68,12 @@ button {
   text-align: center;
 }
 
+.chart-container {
+  width: 400px;
+  height: 400px;
+  margin: 0 auto; /* Center the chart horizontally */
+}
+
 @media screen and (min-width: 992px) {
   .knoppen {
     justify-content: center;

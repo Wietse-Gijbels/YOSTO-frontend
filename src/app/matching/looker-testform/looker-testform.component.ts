@@ -16,6 +16,7 @@ import { GebruikerService } from '../../common/service/gebruiker.service';
   styleUrls: ['./looker-testform.component.scss'],
 })
 export class LookerTestformComponent implements OnInit {
+  // start
   topics: Topic[] = [
     { name: 'Conventioneel', value: 0 },
     { name: 'Praktisch', value: 0 },
@@ -24,7 +25,6 @@ export class LookerTestformComponent implements OnInit {
     { name: 'Sociaal', value: 0 },
     { name: 'Ondernemend', value: 0 },
   ];
-
   radarChartData: any[] = [];
   radarChartLabels = this.topics.map((topic) => topic.name);
   radarChartOptions = {
@@ -58,6 +58,7 @@ export class LookerTestformComponent implements OnInit {
       },
     },
   };
+  // end
 
   richtingValues: number[] = [];
   similarityPercentage: number = 0;

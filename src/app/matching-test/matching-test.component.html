@@ -4,8 +4,10 @@
       <div [style.width]="progressPercentage + '%'" class="progress-bar"></div>
       <span class="progress-text">{{ progressPercentage }}%</span>
     </div>
-    <h2 class="vraag">{{ vragen[currentVraagIndex].vraagTekst }}</h2>
-    <div class="knoppen">
+    <h2 *ngIf="currentVraagIndex < vragen.length" class="vraag">
+      {{ vragen[currentVraagIndex].vraagTekst }}
+    </h2>
+    <div *ngIf="currentVraagIndex < vragen.length" class="knoppen">
       <button (click)="antwoordGegeven('oneens')" class="oneens">
         <svg
           class="icon"
@@ -57,5 +59,27 @@
     <p>Kunstzinnig: {{ gebruikerWaardes.kunstzinnig }}</p>
     <p>Sociaal: {{ gebruikerWaardes.sociaal }}</p>
     <p>Ondernemend: {{ gebruikerWaardes.ondernemend }}</p>
+  </div>
+  <div *ngIf="similarities.length > 0">
+    <h3>Top 10 Studierichtingen Voor Mij</h3>
+    <div *ngFor="let similarity of similarities">
+      <p>
+        {{ similarity.naam }} ({{ similarity.niveauNaam }}):
+        {{ similarity.similarityPercentage.toFixed(2) }}%
+      </p>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <canvas
+      [datasets]="radarChartData"
+      [labels]="radarChartLabels"
+      [options]="radarChartOptions"
+      [type]="'radar'"
+      baseChart
+      height="400"
+      width="400"
+    >
+    </canvas>
   </div>
 </div>
