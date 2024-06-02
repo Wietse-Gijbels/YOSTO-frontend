@@ -68,9 +68,9 @@ export class GebruikerService {
     );
   }
 
-  getGebruikerWaardes(id: string): Observable<any> {
+  getGebruikerWaardes(): Observable<any> {
     return this.http.get<any>(
-      `http://localhost:8080/api/v1/gebruikerWaardes/${id}`,
+      `http://localhost:8080/api/v1/gebruikerWaardes/token/${this.token}`,
       { headers: this.headers },
     );
   }

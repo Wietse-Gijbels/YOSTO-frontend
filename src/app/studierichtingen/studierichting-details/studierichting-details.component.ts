@@ -1,5 +1,5 @@
-import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
@@ -15,6 +15,7 @@ import { SimilarityService } from '../../common/service/similarity.service';
 import { BaseChartDirective } from 'ng2-charts';
 import { GebruikerService } from '../../common/service/gebruiker.service';
 import { CookieService } from 'ngx-cookie-service';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-studierichting-details',
@@ -33,13 +34,11 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./studierichting-details.component.scss'],
 })
 export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
-  private readonly destroy$ = new Subject<void>();
-
   studierichtingId: string | null = null;
   public studierichting$?: Observable<StudierichtingInterface>;
   studierichtingWaardes: any;
   radarChartData: any[] = [];
-  radarChartLabels = [
+  radarChartLabels: string[] = [
     'Conventioneel',
     'Praktisch',
     'Analytisch',
@@ -47,8 +46,6 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
     'Sociaal',
     'Ondernemend',
   ];
-
-  // Default chart options
   radarChartOptions: any = {
     responsive: true,
     scales: {
@@ -80,6 +77,9 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
       },
     },
   };
+  protected readonly encodeURIComponent = encodeURIComponent;
+  protected readonly faLocationDot: IconDefinition = faLocationDot;
+  private readonly destroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,
@@ -89,33 +89,30 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
     private cookieService: CookieService,
   ) {}
 
-  ngOnInit() {
-    this.route.paramMap.pipe(takeUntil(this.destroy$)).subscribe((params) => {
-      this.studierichtingId = params.get('id');
-      if (this.studierichtingId) {
-        this.studierichting$ = this.studierichtingService.findStudierichting(
-          this.studierichtingId,
-        );
+  ngOnInit(): void {
+    this.route.paramMap
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params: ParamMap): void => {
+        this.studierichtingId = params.get('id');
+        if (this.studierichtingId) {
+          this.studierichting$ = this.studierichtingService.findStudierichting(
+            this.studierichtingId,
+          );
 
-        this.studierichting$
-          .pipe(takeUntil(this.destroy$))
-          .subscribe((studierichting) => {
-            this.similarityService
-              .getStudierichtingWaardesById(this.studierichtingId!)
-              .pipe(takeUntil(this.destroy$))
-              .subscribe(
-                (data) => {
+          this.studierichting$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((studierichting: StudierichtingInterface): void => {
+              this.similarityService
+                .getStudierichtingWaardesById(this.studierichtingId!)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe((data): void => {
                   this.studierichtingWaardes = data;
                   this.updateChart(studierichting.naam);
-                  this.getGebruikerWaardes(); // Fetch gebruikerwaardes here
-                },
-                (error) => {
-                  console.error('Error fetching StudierichtingWaardes:', error);
-                },
-              );
-          });
-      }
-    });
+                  this.getGebruikerWaardes();
+                });
+            });
+        }
+      });
 
     this.adjustChartOptionsForScreenSize();
     window.addEventListener(
@@ -124,10 +121,9 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  adjustChartOptionsForScreenSize() {
-    const screenWidth = window.innerWidth;
+  adjustChartOptionsForScreenSize(): void {
+    const screenWidth: number = window.innerWidth;
     if (screenWidth < 600) {
-      // Small screen adjustments
       this.radarChartOptions = {
         ...this.radarChartOptions,
         scales: {
@@ -135,14 +131,13 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
             ...this.radarChartOptions.scales.r,
             pointLabels: {
               font: {
-                size: 10, // Smaller font size for labels
+                size: 10,
               },
             },
           },
         },
       };
     } else {
-      // Default settings for larger screens
       this.radarChartOptions = {
         ...this.radarChartOptions,
         scales: {
@@ -150,7 +145,7 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
             ...this.radarChartOptions.scales.r,
             pointLabels: {
               font: {
-                size: 14, // Default font size for labels
+                size: 14,
               },
             },
           },
@@ -159,29 +154,17 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  getGebruikerWaardes() {
+  getGebruikerWaardes(): void {
     this.gebruikerService
       .getGebruikerIdByToken(this.cookieService.get('token'))
-      .subscribe(
-        (userId) => {
-          console.log('GebruikerId:', userId);
-          this.gebruikerService.getGebruikerWaardes(userId).subscribe(
-            (data) => {
-              console.log('GebruikerWaardes:', data); // Check if data is logged correctly
-              this.updateGebruikerWaardesChart(data);
-            },
-            (error) => {
-              console.error('Error fetching GebruikerWaardes:', error);
-            },
-          );
-        },
-        (error) => {
-          console.error('Error fetching GebruikerId:', error);
-        },
-      );
+      .subscribe(() => {
+        this.gebruikerService.getGebruikerWaardes().subscribe((data) => {
+          this.updateGebruikerWaardesChart(data);
+        });
+      });
   }
 
-  updateGebruikerWaardesChart(gebruikerWaardes: any) {
+  updateGebruikerWaardesChart(gebruikerWaardes: any): void {
     if (gebruikerWaardes) {
       const userValues = {
         data: [
@@ -194,12 +177,11 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
         ],
         label: 'Mijn Resultaten',
       };
-      this.radarChartData = [...this.radarChartData, userValues]; // Update chart data
-      console.log('Updated radarChartData:', this.radarChartData); // Check if chart data is updated
+      this.radarChartData = [...this.radarChartData, userValues];
     }
   }
 
-  updateChart(studierichtingNaam: string) {
+  updateChart(studierichtingNaam: string): void {
     if (this.studierichtingWaardes) {
       this.radarChartData = [
         {
@@ -211,13 +193,13 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
             this.studierichtingWaardes.sociaal,
             this.studierichtingWaardes.ondernemend,
           ],
-          label: studierichtingNaam, // Use the name passed to this method
+          label: studierichtingNaam,
         },
       ];
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
     window.removeEventListener(
@@ -225,7 +207,4 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
       this.adjustChartOptionsForScreenSize.bind(this),
     );
   }
-
-  protected readonly encodeURIComponent = encodeURIComponent;
-  protected readonly faLocationDot = faLocationDot;
 }
