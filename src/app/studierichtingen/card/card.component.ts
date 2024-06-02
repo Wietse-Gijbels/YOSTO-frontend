@@ -13,13 +13,13 @@ import { RouterLink } from '@angular/router';
   styleUrl: './card.component.scss',
 })
 export class CardComponent {
-  @Input({ required: true }) title!: String;
-  @Input({ required: true }) subtextLine1!: String;
-  @Input({ required: true }) subtextLine2!: String;
-  @Input() id?: String;
+  @Input({ required: true }) title!: string;
+  @Input({ required: true }) subtextLine1!: string;
+  @Input({ required: true }) subtextLine2!: string;
+  @Input() id?: string;
   @Input() icon?: IconProp;
-  @Input() afterText?: String;
-  @Input() mapsUrl?: String;
+  @Input() afterText?: string;
+  @Input() mapsUrl?: string;
 
   private colors: string[] = [
     '#FF5733',
@@ -71,7 +71,7 @@ export class CardComponent {
   private shuffleArray(array: any[], seed: string): any[] {
     const seedLength = seed.length;
     const shuffledArray = [...array];
-    let currentIndex = shuffledArray.length;
+    const currentIndex = shuffledArray.length;
     let temporaryValue;
     let randomIndex;
 

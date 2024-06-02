@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BaseChartDirective } from 'ng2-charts';
-
-interface Topic {
-  name: string;
-  value: number;
-}
+import { SimilarityService } from '../../common/service/similarity.service';
+import { Topic } from '../../common/models/interfaces';
+import { ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { GebruikerService } from '../../common/service/gebruiker.service';
 
 @Component({
   selector: 'app-looker-testform',
@@ -61,11 +61,25 @@ export class LookerTestformComponent implements OnInit {
 
   richtingValues: number[] = [];
   similarityPercentage: number = 0;
+  similarities: any[] = []; // To store the similarities
+  userId: string = '';
+
+  constructor(
+    private similarityService: SimilarityService,
+    private route: ActivatedRoute,
+    private cookieService: CookieService,
+    private gebruikerService: GebruikerService,
+  ) {} // Inject the services
 
   ngOnInit() {
-    this.richtingValues = this.generateRandomValues();
-    this.updateChart();
-    this.calculateSimilarity();
+    this.gebruikerService
+      .getGebruikerIdByToken(this.cookieService.get('token'))
+      .subscribe((userId) => {
+        this.userId = userId;
+        this.richtingValues = this.generateRandomValues();
+        this.updateChart();
+        this.calculateSimilarity();
+      });
   }
 
   generateRandomValues() {
@@ -97,5 +111,42 @@ export class LookerTestformComponent implements OnInit {
     const maxDifference = 100 * userValues.length;
     this.similarityPercentage =
       ((maxDifference - totalDifference) / maxDifference) * 100;
+  }
+
+  submitValues() {
+    const userValues = {
+      conventioneel:
+        this.topics.find((topic) => topic.name === 'Conventioneel')?.value || 0,
+      praktisch:
+        this.topics.find((topic) => topic.name === 'Praktisch')?.value || 0,
+      analytisch:
+        this.topics.find((topic) => topic.name === 'Analytisch')?.value || 0,
+      kunstzinnig:
+        this.topics.find((topic) => topic.name === 'Kunstzinnig')?.value || 0,
+      sociaal:
+        this.topics.find((topic) => topic.name === 'Sociaal')?.value || 0,
+      ondernemend:
+        this.topics.find((topic) => topic.name === 'Ondernemend')?.value || 0,
+      gebruiker: {
+        id: this.userId,
+      },
+    };
+
+    this.gebruikerService.saveGebruikerWaardes(userValues).subscribe(
+      (response) => {
+        console.log('GebruikerWaardes saved:', response);
+        this.similarityService.calculateSimilarity(userValues).subscribe(
+          (similarities) => {
+            this.similarities = similarities.slice(0, 10); // Get top 10
+          },
+          (error) => {
+            console.error('Error calculating similarity', error);
+          },
+        );
+      },
+      (error) => {
+        console.error('Error saving GebruikerWaardes', error);
+      },
+    );
   }
 }

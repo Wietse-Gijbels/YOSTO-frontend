@@ -77,8 +77,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
           },
         );
         this.route.params.subscribe((params) => {
-          const token = this.cookieService.get('token');
-          this.gebruikerService.getGebruiker(token).subscribe(
+          const gebruikerId = params['id'];
+          this.gebruikerService.getGebruikerById(gebruikerId).subscribe(
             (gebruiker: any) => {
               this.selectedGebruiker = gebruiker;
               console.log('Selected gebruiker:', this.selectedGebruiker);

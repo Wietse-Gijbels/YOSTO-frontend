@@ -36,8 +36,8 @@ export interface StudierichtingInterface {
 }
 
 export interface AfstudreerrichtingInterface {
-  id: String;
-  naam: String;
+  id: string;
+  naam: string;
   beschrijving: string;
   instellingen: InstellingInterface[];
 }
@@ -97,4 +97,9 @@ export interface GebruikerWaardes {
   kunstzinnig: number;
   sociaal: number;
   ondernemend: number;
+}
+
+export interface Topic {
+  name: string;
+  value: number;
 }

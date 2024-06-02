@@ -43,6 +43,12 @@ export class GebruikerService {
     );
   }
 
+  getGebruikerById(id: string): Observable<GebruikerInterface> {
+    return this.http.get<GebruikerInterface>(
+      `http://localhost:8080/api/v1/gebruiker/gebruiker/${id}`,
+    );
+  }
+
   updateGebruiker(
     token: string,
     fromData: any,
@@ -50,6 +56,21 @@ export class GebruikerService {
     return this.http.put<GebruikerInterface>(
       `http://localhost:8080/api/v1/gebruiker/${token}`,
       fromData,
+      { headers: this.headers },
+    );
+  }
+
+  saveGebruikerWaardes(userValues: any): Observable<any> {
+    return this.http.post<any>(
+      `http://localhost:8080/api/v1/gebruikerWaardes/save`,
+      userValues,
+      { headers: this.headers },
+    );
+  }
+
+  getGebruikerWaardes(id: string): Observable<any> {
+    return this.http.get<any>(
+      `http://localhost:8080/api/v1/gebruikerWaardes/${id}`,
       { headers: this.headers },
     );
   }
