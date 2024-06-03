@@ -101,6 +101,17 @@
       padding: 10px;
     }
   }
+.pop-up-container {
+  position: fixed;
+  bottom: 80px;
+  right: 5px;
+  z-index: 1000;
+  padding: 10px;
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
 }
 
 .helper-container {
@@ -203,4 +214,16 @@
       padding: 10px;
     }
   }
+  
+  .pop-up-container {
+  position: fixed;
+  bottom: 80px;
+  right: 5px;
+  z-index: 1000;
+  padding: 10px;
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
 }
