@@ -1,16 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { NgIf, NgStyle } from '@angular/common';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-card',
   standalone: true,
   imports: [NgStyle, FaIconComponent, RouterLink, NgIf],
   templateUrl: './card.component.html',
-  styleUrl: './card.component.scss',
+  styleUrls: ['./card.component.scss'],
 })
 export class CardComponent {
   @Input({ required: true }) title!: string;
@@ -18,8 +18,8 @@ export class CardComponent {
   @Input({ required: true }) subtextLine2!: string;
   @Input() id?: string;
   @Input() icon?: IconProp;
-  @Input() afterText?: string;
   @Input() mapsUrl?: string;
+  @Output() iconClicked = new EventEmitter<IconProp>();
 
   private colors: string[] = [
     '#FF5733',
@@ -53,6 +53,24 @@ export class CardComponent {
     '#FFD533',
     '#33FFBD',
   ];
+
+  constructor(private router: Router) {}
+
+  navigate() {
+    if (this.mapsUrl) {
+      window.open(this.mapsUrl, '_blank');
+    } else if (this.id) {
+      this.router.navigate(['/studierichting', this.id]);
+    }
+  }
+
+  onIconClick(icon: IconProp): void {
+    if (this.mapsUrl) {
+      window.open(this.mapsUrl, '_blank');
+    } else {
+      this.iconClicked.emit(icon);
+    }
+  }
 
   getRandomGradient(seed: string): { [klass: string]: any } {
     const shuffledColors = this.shuffleArray(this.colors, seed);

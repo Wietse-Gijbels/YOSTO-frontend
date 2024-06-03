@@ -25,6 +25,7 @@ export interface GebruikerInterface {
   lastMessage?: string;
   geschenken?: Geschenk[];
   xpAantal: number;
+  favorieteStudierichtingen: StudierichtingInterface[];
 }
 
 export interface StudierichtingInterface {

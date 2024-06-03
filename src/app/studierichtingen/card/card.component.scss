@@ -9,9 +9,9 @@ li {
   border-radius: 25px;
   background-color: #fff;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Box shadow for the card effect */
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease; /* Smooth transition for hover effect */
+  cursor: pointer;
+  transition: transform 0.3s ease,
+  box-shadow 0.3s ease; /* Smooth transition for hover effect */
 
   .icon {
     width: 50px; /* Adjust the width as needed */
@@ -39,13 +39,6 @@ li {
     }
   }
 
-  .map-link {
-    margin-left: 1rem;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
-  }
 
   fa-icon {
     color: style-guide.$primary-rood;

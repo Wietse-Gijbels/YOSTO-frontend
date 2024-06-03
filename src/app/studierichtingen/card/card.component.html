@@ -1,18 +1,14 @@
-<li [routerLink]="id ? ['/studierichting', id] : null">
+<li>
   @if (id) {
-    <div class="icon" [ngStyle]="getRandomGradient(id.toString())"></div>
+    <div (click)="navigate()" class="icon" [ngStyle]="getRandomGradient(id.toString())"></div>
   }
 
-  <div class="details">
+  <div (click)="navigate()" class="details">
     <h4>{{ title }}</h4>
     <p>{{ subtextLine1 }}</p>
     <p>{{ subtextLine2 }}</p>
   </div>
   @if (icon) {
-    <a class="map-link" href="{{ mapsUrl }}" target="_blank">
-      <fa-icon [icon]="icon"></fa-icon>
-    </a>
-  } @else if (afterText) {
-    <span class="likes">{{ afterText }}</span>
+    <fa-icon (click)="onIconClick(icon)" [icon]="icon"></fa-icon>
   }
 </li>
