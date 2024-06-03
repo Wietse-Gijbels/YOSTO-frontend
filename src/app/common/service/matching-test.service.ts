@@ -34,6 +34,12 @@ export class MatchingTestService {
     });
   }
 
+  getAmountOfAntwoorden(): Observable<any> {
+    return this.http.get<number>(this.antwoordUrl + `/aantal/${this.token}`, {
+      headers: this.headers,
+    });
+  }
+
   calculateGebruikerWaardes(): Observable<GebruikerWaardes> {
     return this.http.post<GebruikerWaardes>(
       `${this.calculateWaardesUrl}/${this.token}/calculate`,

@@ -63,15 +63,7 @@
   </div>
 </div>
 <div *ngIf="testCompleted">
-  <p>U hebt de vragenlijst voltooid.</p>
-  <div *ngIf="gebruikerWaardes">
-    <p>Conventioneel: {{ gebruikerWaardes.conventioneel }}</p>
-    <p>Praktisch: {{ gebruikerWaardes.praktisch }}</p>
-    <p>Analytisch: {{ gebruikerWaardes.analytisch }}</p>
-    <p>Kunstzinnig: {{ gebruikerWaardes.kunstzinnig }}</p>
-    <p>Sociaal: {{ gebruikerWaardes.sociaal }}</p>
-    <p>Ondernemend: {{ gebruikerWaardes.ondernemend }}</p>
-  </div>
+  <p>U hebt de matching test voltooid, bekijk hieronder uw resultaten!</p>
   <div *ngIf="similarities.length > 0">
     <h3>Top 10 Studierichtingen Voor Mij</h3>
     <div *ngFor="let similarity of similarities">
