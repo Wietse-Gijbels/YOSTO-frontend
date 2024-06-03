@@ -41,7 +41,7 @@ export class GeschenkInfoComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.gebruikerService
-        .getGebruikerIdByToken(this.gebruikerService.token)
+        .getGebruikerIdByToken()
         .subscribe((gebruikerId: string) => {
           this.geschenkService
             .addGeschenkToGebruiker(gebruikerId, id)

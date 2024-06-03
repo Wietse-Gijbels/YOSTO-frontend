@@ -71,4 +71,8 @@ export class HomeComponent {
   geschenkenOverview(): void {
     this.router.navigateByUrl('/geschenken-overview');
   }
+
+  navigateToTest(): void {
+    this.router.navigateByUrl('/test');
+  }
 }

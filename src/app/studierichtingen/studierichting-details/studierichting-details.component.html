@@ -1,42 +1,143 @@
 @if (studierichting$ | async; as studierichting) {
   <gebruiker-header
     [backgroundColor]="'background-wit'"
-    [subText]="
-      studierichting.naam +
-      (studierichting.afstudeerrichting
-        ? ' - ' + studierichting.afstudeerrichting
-        : '')
-    "
+    [subMediumText]="studierichting.naam + ' - ' + studierichting.niveauNaam"
   ></gebruiker-header>
   <main>
-    @if (studierichting.beschrijving.length > 0) {
-      <h3>Wat houdt de richting in</h3>
-      <div class="beschrijving" [innerHTML]="studierichting.beschrijving"></div>
-    }
-    <h3>Waar kan ik de richting volgen</h3>
-
-    <ul>
-      @for (instelling of studierichting.instellingen; track instelling.id) {
-        <app-card
-          [subtextLine1]="instelling.adres"
-          [subtextLine2]="instelling.gemeente + ' ' + instelling.postcode"
-          [title]="
-            instelling.naam
-              ? instelling.naam + '-' + instelling.campus
-              : instelling.campus
-          "
-          [icon]="faLocationDot"
-          [mapsUrl]="
-            'https://www.google.com/maps/search/?api=1&query=' +
-            encodeURIComponent(instelling.adres.toString()) +
-            ' ' +
-            encodeURIComponent(instelling.postcode.toString()) +
-            encodeURIComponent(instelling.gemeente.toString())
-          "
-        >
-        </app-card>
+    @if (
+      studierichting.afstudeerrichtingen.length === 1 &&
+      !studierichting.afstudeerrichtingen[0].naam
+    ) {
+      @for (
+        afstudeerrichting of studierichting.afstudeerrichtingen;
+        track afstudeerrichting.id
+      ) {
+        @if (afstudeerrichting.beschrijving.length > 0) {
+          <h3>Wat houdt de richting in</h3>
+          <div
+            class="beschrijving"
+            [innerHTML]="afstudeerrichting.beschrijving"
+          ></div>
+        }
+        @if (studierichtingWaardes || radarChartData.length > 0) {
+          <h3>
+            @if (gebruikerWaardes) {
+              Hoe goed pas ik in deze richting?
+            } @else {
+              Vul de matching test in om te zien of je in de richting past:
+            }
+          </h3>
+          <div class="chart-container">
+            <canvas
+              baseChart
+              width="400"
+              height="400"
+              [datasets]="radarChartData"
+              [options]="radarChartOptions"
+              [labels]="radarChartLabels"
+              [type]="'radar'"
+            ></canvas>
+          </div>
+        }
+        <button class="join-queue" (click)="joinQueue()">
+          Chat met een student uit deze richting
+        </button>
+        <h3>Waar kan ik de richting volgen</h3>
+        <ul>
+          @for (
+            instelling of afstudeerrichting.instellingen;
+            track instelling.id
+          ) {
+            <app-card
+              [subtextLine1]="instelling.adres"
+              [subtextLine2]="instelling.gemeente + ' ' + instelling.postcode"
+              [title]="
+                instelling.naam
+                  ? instelling.naam + ' - ' + instelling.campus
+                  : instelling.campus
+              "
+              [icon]="faLocationDot"
+              [mapsUrl]="
+                'https://www.google.com/maps/search/?api=1&query=' +
+                encodeURIComponent(instelling.adres.toString()) +
+                ' ' +
+                encodeURIComponent(instelling.postcode.toString()) +
+                encodeURIComponent(instelling.gemeente.toString())
+              "
+            >
+            </app-card>
+          }
+        </ul>
       }
-    </ul>
+    } @else {
+      <mat-tab-group>
+        @for (
+          afstudeerrichting of studierichting.afstudeerrichtingen;
+          track afstudeerrichting.id
+        ) {
+          <mat-tab [label]="afstudeerrichting.naam.toString()">
+            @if (afstudeerrichting.beschrijving.length > 0) {
+              <h3>Wat houdt de richting in</h3>
+              <div
+                class="beschrijving"
+                [innerHTML]="afstudeerrichting.beschrijving"
+              ></div>
+            }
+            @if (studierichtingWaardes || radarChartData.length > 0) {
+              <h3>
+                @if (gebruikerWaardes) {
+                  Hoe goed pas ik in deze richting?
+                } @else {
+                  Vul de matching test in om te zien of je in de richting past:
+                }
+              </h3>
+              <div class="chart-container">
+                <canvas
+                  baseChart
+                  width="400"
+                  height="400"
+                  [datasets]="radarChartData"
+                  [options]="radarChartOptions"
+                  [labels]="radarChartLabels"
+                  [type]="'radar'"
+                ></canvas>
+              </div>
+            }
+            <button class="join-queue" (click)="joinQueue()">
+              Chat met een student uit deze richting
+            </button>
+            <h3>Waar kan ik de richting volgen</h3>
+            <ul>
+              @for (
+                instelling of afstudeerrichting.instellingen;
+                track instelling.id
+              ) {
+                <app-card
+                  [subtextLine1]="instelling.adres"
+                  [subtextLine2]="
+                    instelling.gemeente + ' ' + instelling.postcode
+                  "
+                  [title]="
+                    instelling.naam
+                      ? instelling.naam + ' - ' + instelling.campus
+                      : instelling.campus
+                  "
+                  [icon]="faLocationDot"
+                  [mapsUrl]="
+                    'https://www.google.com/maps/search/?api=1&query=' +
+                    encodeURIComponent(instelling.adres.toString()) +
+                    ' ' +
+                    encodeURIComponent(instelling.postcode.toString()) +
+                    encodeURIComponent(instelling.gemeente.toString())
+                  "
+                >
+                </app-card>
+              }
+            </ul>
+          </mat-tab>
+        }
+      </mat-tab-group>
+    }
   </main>
 }
 <app-nav-bar></app-nav-bar>

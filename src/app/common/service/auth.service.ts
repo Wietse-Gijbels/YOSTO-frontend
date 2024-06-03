@@ -23,19 +23,20 @@ export class AuthService {
     private cookieService: CookieService,
   ) {}
 
+  private urlMobile = 'http://192.168.0.209:8080/api/v1/auth';
+  private url = 'http://localhost:8080/api/v1/auth';
+
   isLoggedIn(): boolean {
     return this.cookieService.check('token');
   }
 
   registreerLooker(formData: any): Observable<AuthenticationResponse> {
-    const { bevestigWachtwoord, huidigeStudie, ...registreerData } = formData;
+    const { bevestigWachtwoord, ...registreerData } = formData;
 
     return this.httpClient
-      .post<AuthenticationResponse>(
-        'http://localhost:8080/api/v1/auth/registreer',
-        registreerData,
-        { headers: this.headers },
-      )
+      .post<AuthenticationResponse>(this.url + '/registreer', registreerData, {
+        headers: this.headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -44,21 +45,12 @@ export class AuthService {
   }
 
   registreerHelper(formData: any): Observable<AuthenticationResponse> {
-    const {
-      bevestigWachtwoord,
-      huidigeStudie,
-      behaaldDiploma,
-      behaaldeDiplomaArray,
-      toegevoegdDiploma,
-      ...registreerData
-    } = formData;
+    const { bevestigWachtwoord, ...registreerData } = formData;
 
     return this.httpClient
-      .post<AuthenticationResponse>(
-        'http://localhost:8080/api/v1/auth/registreer',
-        registreerData,
-        { headers: this.headers },
-      )
+      .post<AuthenticationResponse>(this.url + '/registreer', registreerData, {
+        headers: this.headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -68,11 +60,9 @@ export class AuthService {
 
   login(formData: any): Observable<AuthenticationResponse> {
     return this.httpClient
-      .post<AuthenticationResponse>(
-        'http://localhost:8080/api/v1/auth/login',
-        formData,
-        { headers: this.headers },
-      )
+      .post<AuthenticationResponse>(this.url + '/login', formData, {
+        headers: this.headers,
+      })
       .pipe(
         catchError((error) => {
           throw error;

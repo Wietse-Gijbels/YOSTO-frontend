@@ -22,6 +22,7 @@
 
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
+    <ng-container *ngIf="gebruikers.length > 0; else noChats">
       <ng-container *ngFor="let gebruiker of gebruikers">
         <mat-list-item (click)="openChat(gebruiker)">
           <div class="user-button">
@@ -42,7 +43,11 @@
           </div>
         </mat-list-item>
       </ng-container>
-    </mat-list>
-  </div>
+    </ng-container>
+
+    <ng-template #noChats>
+      <div class="no-chats-message">Je hebt nog geen bestaande chats</div>
+    </ng-template>
+  </mat-list>
 </div>
 <app-nav-bar></app-nav-bar>

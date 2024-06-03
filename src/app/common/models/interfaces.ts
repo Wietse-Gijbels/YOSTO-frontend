@@ -26,6 +26,7 @@ export interface GebruikerInterface {
   geschenken?: Geschenk[];
   xpAantal: number;
   actieveRol: GebruikerRol;
+  favorieteStudierichtingen: StudierichtingInterface[];
 }
 
 export interface StudierichtingInterface {
@@ -33,7 +34,12 @@ export interface StudierichtingInterface {
   naam: string;
   studiepunten: string;
   niveauNaam: string;
-  afstudeerrichting: string;
+  afstudeerrichtingen: AfstudreerrichtingInterface[];
+}
+
+export interface AfstudreerrichtingInterface {
+  id: string;
+  naam: string;
   beschrijving: string;
   instellingen: InstellingInterface[];
 }
@@ -45,7 +51,6 @@ export interface InstellingInterface {
   postcode: string;
   gemeente: string;
   adres: string;
-  studierichting: StudierichtingInterface[];
 }
 
 export interface AuthenticationResponse {
@@ -74,4 +79,30 @@ export interface GeschenkCategorie {
   fotoUrl: string;
   geschenken: Geschenk[];
   color?: string;
+}
+
+export interface Vraag {
+  id: string;
+  vraagTekst: string;
+  parameter: string;
+  fotoUrl: string;
+}
+
+export interface AntwoordDTO {
+  vraagId: string;
+  antwoord: string;
+}
+
+export interface GebruikerWaardes {
+  conventioneel: number;
+  praktisch: number;
+  analytisch: number;
+  kunstzinnig: number;
+  sociaal: number;
+  ondernemend: number;
+}
+
+export interface Topic {
+  name: string;
+  value: number;
 }

@@ -43,21 +43,19 @@ export class GebruikersLijstComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.gebruikerService
-      .getGebruikerIdByToken(this.cookieService.get('token'))
-      .subscribe((userId) => {
-        this.userId = userId;
-        this.chatService.getMyChatRooms(userId).subscribe(
-          (gebruikers) => {
-            this.gebruikers = gebruikers.filter(
-              (gebruiker) => gebruiker.id !== this.userId,
-            );
-          },
-          (error) => {
-            console.error('Error fetching gebruikers:', error);
-          },
-        );
-      });
+    this.gebruikerService.getGebruikerIdByToken().subscribe((userId) => {
+      this.userId = userId;
+      this.chatService.getMyChatRooms(userId).subscribe(
+        (gebruikers) => {
+          this.gebruikers = gebruikers.filter(
+            (gebruiker) => gebruiker.id !== this.userId,
+          );
+        },
+        (error) => {
+          console.error('Error fetching gebruikers:', error);
+        },
+      );
+    });
 
     this.lookerQueueService.getAmountOfLookers().subscribe(
       (response) => {

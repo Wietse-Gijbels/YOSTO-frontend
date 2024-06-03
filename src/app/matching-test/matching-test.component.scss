@@ -1,0 +1,154 @@
+@use "../../style-guide";
+
+button {
+  @include style-guide.font-large-header;
+  border: none;
+  border-radius: 50%;
+  margin-top: 5px;
+  width: 80px;
+  height: 80px;
+  max-width: 150px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.eens {
+  color: style-guide.$secondary-wit;
+  background-color: style-guide.$secondary-groen;
+}
+
+.oneens {
+  color: style-guide.$secondary-wit;
+  background-color: style-guide.$primary-rood;
+}
+
+.neutraal {
+  color: style-guide.$secondary-wit;
+  background-color: style-guide.$secondary-geel;
+}
+
+.knoppen {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.icon {
+  width: 60px;
+  height: 60px;
+  fill: white;
+  padding-top: 9.5px;
+  cursor: pointer;
+}
+
+.progress-container {
+  position: relative;
+  height: 15px;
+  background-color: lighten(style-guide.$primary-rood, 40%);
+  border-radius: 10px;
+  margin: 10px auto;
+  width: 60%;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: style-guide.$primary-rood;
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ff3800;
+  font-weight: bold;
+}
+
+.vraag {
+  text-align: center;
+}
+
+.chart-container {
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  padding-bottom: 70px;
+}
+
+.vraag-img {
+  width: 60%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.vraag-container {
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: style-guide.$primary-rood;
+  border-radius: 10px;
+  padding: 10px;
+  height: 320px;
+
+  h2 {
+    @include style-guide.font-large-header;
+    font-size: 20px;
+    color: style-guide.$secondary-wit;
+  }
+}
+
+.succes-tekst {
+  @include style-guide.font-large-header;
+  font-size: 24px;
+  color: style-guide.$primary-rood;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.info-tekst {
+  margin: 10px auto;
+  @include style-guide.font-medium-tekst;
+  font-size: 16px;
+  line-height: 1.1;
+  text-align: justify;
+}
+
+.similarity {
+  text-align: center;
+}
+
+.similarity-naam {
+  @include style-guide.font-medium-tekst;
+  color: style-guide.$primary-rood;
+  font-size: 16px;
+}
+
+.succes-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  align-items: center;
+  max-width: 90%;
+}
+
+@media screen and (min-width: 550px) {
+  .vraag-img {
+    width: 60%;
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  .vraag-container {
+    width: 60%;
+    max-width: 600px;
+    padding: 10px;
+    height: 300px;
+  }
+}

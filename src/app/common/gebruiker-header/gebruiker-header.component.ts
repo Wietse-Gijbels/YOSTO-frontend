@@ -46,6 +46,7 @@ export class GebruikerHeaderComponent implements OnInit, OnChanges {
   @Input() headerText: string = '';
   @Input({ required: true }) backgroundColor!: string;
   @Input() subText: string = '';
+  @Input() subMediumText: string = '';
   @Input() fotoPath: string = '';
   src: string = '';
   @Input() class: string = '';

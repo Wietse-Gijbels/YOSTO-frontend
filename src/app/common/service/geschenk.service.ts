@@ -1,23 +1,36 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Geschenk, GeschenkCategorie } from '../models/interfaces';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GeschenkService {
+  token: string = this.cookieService.get('token');
+  headers: HttpHeaders = new HttpHeaders({
+    Authorization: `Bearer ${this.token}`,
+    'Content-Type': 'application/json',
+  });
   private apiUrl = 'http://localhost:8080/api/v1/geschenk';
   private categorieApiUrl = 'http://localhost:8080/api/v1/geschenkcategorie';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService,
+  ) {}
 
   createGeschenk(geschenk: Geschenk): Observable<Geschenk> {
-    return this.http.post<Geschenk>(`${this.apiUrl}/create`, geschenk);
+    return this.http.post<Geschenk>(`${this.apiUrl}/create`, geschenk, {
+      headers: this.headers,
+    });
   }
 
   getAllGeschenken(): Observable<Geschenk[]> {
-    return this.http.get<Geschenk[]>(`${this.apiUrl}/all`);
+    return this.http.get<Geschenk[]>(`${this.apiUrl}/all`, {
+      headers: this.headers,
+    });
   }
 
   addGeschenkToGebruiker(
@@ -27,6 +40,7 @@ export class GeschenkService {
     return this.http.post<void>(
       `${this.apiUrl}/addToGebruiker/${gebruikerId}/${geschenkCategorieId}`,
       {},
+      { headers: this.headers },
     );
   }
 
@@ -34,20 +48,26 @@ export class GeschenkService {
     return this.http.post<GeschenkCategorie>(
       `${this.categorieApiUrl}/create`,
       uploadData,
+      { headers: this.headers },
     );
   }
 
   getAllGeschenkCategorieen(): Observable<GeschenkCategorie[]> {
-    return this.http.get<GeschenkCategorie[]>(`${this.categorieApiUrl}/all`);
+    return this.http.get<GeschenkCategorie[]>(`${this.categorieApiUrl}/all`, {
+      headers: this.headers,
+    });
   }
 
   getAllGeschenkCategorieenBeschikbaar(): Observable<GeschenkCategorie[]> {
     return this.http.get<GeschenkCategorie[]>(
       `${this.categorieApiUrl}/all-beschikbaar`,
+      { headers: this.headers },
     );
   }
 
   getGeschenkCategorieById(id: string): Observable<GeschenkCategorie> {
-    return this.http.get<GeschenkCategorie>(`${this.categorieApiUrl}/${id}`);
+    return this.http.get<GeschenkCategorie>(`${this.categorieApiUrl}/${id}`, {
+      headers: this.headers,
+    });
   }
 }

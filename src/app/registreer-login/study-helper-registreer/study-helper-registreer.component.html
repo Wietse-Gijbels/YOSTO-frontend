@@ -88,44 +88,83 @@
     </div>
     <div class="input-container">
       <input
-        class="icon-studie"
-        formControlName="huidigeStudie"
+        class="icon-studie {{ borderRadiusStudie }}"
+        formControlName="huidigeStudieAndNiveau"
         placeholder="Huidige studie*"
         type="text"
       />
+      @if (filteredRichtingen.length > 0) {
+        <ul class="suggestions">
+          <li
+            (click)="onRichtingClick(richting)"
+            *ngFor="let richting of filteredRichtingen"
+          >
+            {{ richting }}
+          </li>
+        </ul>
+      }
+      @if (
+        errorMessages["errorRichtingParser"] &&
+        !errorMessages["errorDiplomaParser"]
+      ) {
+        <p class="error">
+          {{ errorMessages["errorRichtingParser"] }}
+        </p>
+      } @else if (
+        !errorMessages["errorRichtingParser"] &&
+        errorMessages["errorDiplomaParser"]
+      ) {
+        <p class="error">
+          {{ errorMessages["errorDiplomaParser"] }}
+        </p>
+      } @else if (
+        errorMessages["errorRichtingParser"] &&
+        errorMessages["errorDiplomaParser"]
+      ) {
+        <p class="error">Onjuiste studie en diploma('s)</p>
+      }
     </div>
-    <div class="input-container">
-      <input
-        class="icon-studie"
-        formControlName="behaaldDiploma"
-        placeholder="Behaalde diploma*"
-        type="text"
-      />
-    </div>
-    <div class="input-container smaller-height">
-      <button (click)="addDiplomaField()" class="plus-button" type="button">
-        +
-      </button>
-      <input
-        class="icon-studie smaller-input"
-        formControlName="toegevoegdDiploma"
-        placeholder="Diploma toevoegen"
-        type="text"
-      />
-    </div>
-    <div formArrayName="behaaldeDiplomaArray">
-      <div
-        *ngFor="let diploma of behaaldeDiplomaArray.controls; let i = index"
-        [formGroupName]="i"
-      >
-        <div class="diploma-field">
-          <input
-            [formControlName]="'diploma'"
-            class="icon-studie smaller-input alignment-right"
-            placeholder="Diploma toevoegen"
-            type="text"
-          />
+    <div class="extra-diploma">
+      <div formArrayName="behaaldeDiplomaArray">
+        <div
+          *ngFor="let diploma of behaaldeDiplomaArray.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <div class="diploma-field">
+            <input
+              [formControlName]="'diploma'"
+              class="icon-studie diploma"
+              placeholder="Behaald diploma toevoegen"
+              type="text"
+            />
+          </div>
+          @if (hasFilteredRichtingen(diploma)) {
+            <ul class="suggestions smaller-suggestions">
+              <li
+                (click)="onRichtingClick(richting, i)"
+                *ngFor="
+                  let richting of diploma.get('filteredRichtingen')?.value
+                "
+              >
+                {{ richting }}
+              </li>
+            </ul>
+          }
         </div>
+      </div>
+      <div class="input-container smaller-height">
+        <button
+          (click)="addDiplomaField()"
+          [disabled]="
+            !behaaldeDiplomaArray
+              .at(behaaldeDiplomaArray.length - 1)
+              .get('diploma')?.value
+          "
+          class="plus-button"
+          type="button"
+        >
+          +
+        </button>
       </div>
     </div>
     <div>

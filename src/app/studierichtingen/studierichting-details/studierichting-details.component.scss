@@ -6,16 +6,106 @@ main {
   padding: 1rem 1rem 100px 1rem;
 }
 
+::ng-deep .beschrijving {
+  word-break: break-all;
+}
+
 ::ng-deep main .beschrijving p {
-  margin-bottom: 16px; /* Adjust the value as needed */
+  margin-bottom: 20px;
+}
+
+::ng-deep .beschrijving ul {
+  list-style-type: none;
+  padding-left: 5px;
+}
+
+::ng-deep .beschrijving ul li {
+  position: relative;
+  padding-left: 20px;
+}
+
+::ng-deep .beschrijving ul li:before {
+  content: "-";
+  position: absolute;
+  left: 0;
 }
 
 h3 {
-  @include style-guide.font-medium-header;
+  @include style-guide.font-subtext;
   color: style-guide.$primary-rood;
-  margin-bottom: 10px;
+  padding: 15px 0;
 }
 
-::ng-deep div ul li {
-  list-style-type: none;
+mat-tab-group {
+  z-index: 1;
+  position: relative;
+}
+
+::ng-deep .mat-tab-label {
+  white-space: normal !important;
+  text-align: center;
+}
+
+::ng-deep .mat-tab-label-content {
+  display: block;
+  white-space: normal;
+  line-height: 1.2;
+}
+
+::ng-deep .mat-tab-labels {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+::ng-deep .mat-tab-group {
+  display: flex;
+  justify-content: center;
+}
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .chart-container canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+button.join-queue {
+  background-color: style-guide.$primary-rood; // Ensure this matches your theme's primary color
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 20px 0;
+  display: block;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button.join-queue:hover {
+  background-color: darken(
+    style-guide.$primary-rood,
+    10%
+  ); // Slightly darker shade on hover
+}
+::ng-deep .mat-mdc-snack-bar-container.success {
+  background-color: #4caf50; /* Green background for success */
+  color: white;
+}
+
+::ng-deep .mat-mdc-snack-bar-container.error {
+  background-color: #f44336; /* Red background for error */
+  color: white;
+}
+
+::ng-deep .mat-mdc-snack-bar-container.warn {
+  background-color: #ff9800; /* Orange background for warnings */
+  color: white;
 }
