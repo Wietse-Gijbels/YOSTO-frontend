@@ -90,7 +90,10 @@ button.join-queue {
 }
 
 button.join-queue:hover {
-  background-color: darken(style-guide.$primary-rood, 10%); // Slightly darker shade on hover
+  background-color: darken(
+    style-guide.$primary-rood,
+    10%
+  ); // Slightly darker shade on hover
 }
 ::ng-deep .mat-mdc-snack-bar-container.success {
   background-color: #4caf50; /* Green background for success */
