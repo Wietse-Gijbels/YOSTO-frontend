@@ -73,14 +73,12 @@ export class LookerTestformComponent implements OnInit {
   ) {} // Inject the services
 
   ngOnInit() {
-    this.gebruikerService
-      .getGebruikerIdByToken(this.cookieService.get('token'))
-      .subscribe((userId) => {
-        this.userId = userId;
-        this.richtingValues = this.generateRandomValues();
-        this.updateChart();
-        this.calculateSimilarity();
-      });
+    this.gebruikerService.getGebruikerIdByToken().subscribe((userId) => {
+      this.userId = userId;
+      this.richtingValues = this.generateRandomValues();
+      this.updateChart();
+      this.calculateSimilarity();
+    });
   }
 
   generateRandomValues() {

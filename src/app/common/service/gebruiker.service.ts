@@ -26,11 +26,11 @@ export class GebruikerService {
     );
   }
 
-  getGebruikerIdByToken(token: string): Observable<string> {
+  getGebruikerIdByToken(): Observable<string> {
     return this.http
       .get<{
         id: string;
-      }>(`http://localhost:8080/api/v1/gebruiker/id/${token}`, {
+      }>(`http://localhost:8080/api/v1/gebruiker/id/${this.token}`, {
         headers: this.headers,
       })
       .pipe(map((response) => response.id));
@@ -46,6 +46,9 @@ export class GebruikerService {
   getGebruikerById(id: string): Observable<GebruikerInterface> {
     return this.http.get<GebruikerInterface>(
       `http://localhost:8080/api/v1/gebruiker/gebruiker/${id}`,
+      {
+        headers: this.headers,
+      },
     );
   }
 

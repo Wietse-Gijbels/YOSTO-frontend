@@ -39,6 +39,7 @@ export class StudierichtingService {
   getFilteredRichtingen(filter: string): Observable<string[]> {
     return this.http.get<string[]>(`${this.studierichtingUrl}/all/dto`, {
       params: { filter },
+      headers: this.headers,
     });
   }
 
@@ -47,6 +48,7 @@ export class StudierichtingService {
       `${this.studierichtingUrl}/hoger-onderwijs/dto`,
       {
         params: { filter },
+        headers: this.headers,
       },
     );
   }
