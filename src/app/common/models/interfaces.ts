@@ -83,6 +83,7 @@ export interface Vraag {
   id: string;
   vraagTekst: string;
   parameter: string;
+  fotoUrl: string;
 }
 
 export interface AntwoordDTO {

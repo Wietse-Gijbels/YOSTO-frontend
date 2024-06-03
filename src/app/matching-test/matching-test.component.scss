@@ -8,6 +8,8 @@ button {
   width: 80px;
   height: 80px;
   max-width: 150px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .eens {
@@ -28,7 +30,7 @@ button {
 .knoppen {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .icon {
@@ -41,11 +43,11 @@ button {
 
 .progress-container {
   position: relative;
-  height: 20px;
+  height: 15px;
   background-color: lighten(style-guide.$primary-rood, 40%);
   border-radius: 10px;
   margin: 10px auto;
-  width: 80%;
+  width: 60%;
 }
 
 .progress-bar {
@@ -71,16 +73,45 @@ button {
 .chart-container {
   width: 400px;
   height: 400px;
-  margin: 0 auto; /* Center the chart horizontally */
+  margin: 0 auto;
 }
 
-@media screen and (min-width: 992px) {
-  .knoppen {
-    justify-content: center;
+.vraag-img {
+  width: 60%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.vraag-container {
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: style-guide.$primary-rood;
+  border-radius: 10px;
+  padding: 10px;
+  height: 320px;
+
+  h2 {
+    @include style-guide.font-large-header;
+    font-size: 20px;
+    color: style-guide.$secondary-wit;
+  }
+}
+
+@media screen and (min-width: 550px) {
+  .vraag-img {
+    width: 60%;
+    max-width: 200px;
+    margin: 0 auto;
   }
 
-  button {
-    margin-left: 10px;
-    margin-right: 10px;
+  .vraag-container {
+    width: 60%;
+    max-width: 600px;
+    padding: 10px;
+    height: 300px;
   }
 }

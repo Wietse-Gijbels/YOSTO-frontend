@@ -1,12 +1,24 @@
+<gebruiker-header [backgroundColor]="'background-wit'"></gebruiker-header>
 <div *ngIf="!testCompleted">
   <div *ngIf="vragen.length > 0">
     <div class="progress-container">
       <div [style.width]="progressPercentage + '%'" class="progress-bar"></div>
       <span class="progress-text">{{ progressPercentage }}%</span>
     </div>
-    <h2 *ngIf="currentVraagIndex < vragen.length" class="vraag">
-      {{ vragen[currentVraagIndex].vraagTekst }}
-    </h2>
+    @if (currentVraagIndex < vragen.length) {
+      <div class="vraag-container">
+        <img
+          class="vraag-img"
+          alt="Foto voor de huidige vraag"
+          src="http://localhost:8080/api/v1/vragen/files/{{
+            vragen[currentVraagIndex].fotoUrl
+          }}"
+        />
+        <h2 class="vraag">
+          {{ vragen[currentVraagIndex].vraagTekst }}
+        </h2>
+      </div>
+    }
     <div *ngIf="currentVraagIndex < vragen.length" class="knoppen">
       <button (click)="antwoordGegeven('oneens')" class="oneens">
         <svg

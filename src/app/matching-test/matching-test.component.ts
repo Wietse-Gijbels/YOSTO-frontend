@@ -12,11 +12,18 @@ import { NavBarComponent } from '../common/navigation/nav-bar.component';
 import { BaseChartDirective } from 'ng2-charts';
 import { SimilarityService } from '../common/service/similarity.service';
 import { GebruikerService } from '../common/service/gebruiker.service';
+import { GebruikerHeaderComponent } from '../common/gebruiker-header/gebruiker-header.component';
 
 @Component({
   selector: 'app-matching-test',
   standalone: true,
-  imports: [NgIf, NavBarComponent, BaseChartDirective, NgForOf],
+  imports: [
+    NgIf,
+    NavBarComponent,
+    BaseChartDirective,
+    NgForOf,
+    GebruikerHeaderComponent,
+  ],
   templateUrl: './matching-test.component.html',
   styleUrls: ['./matching-test.component.scss'],
 })
@@ -72,6 +79,7 @@ export class MatchingTestComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchVragen();
+    console.log(this.vragen);
     this.gebruikerService
       .getGebruikerIdByToken(this.cookieService.get('token'))
       .subscribe((userId) => {
