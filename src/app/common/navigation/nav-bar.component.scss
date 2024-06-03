@@ -70,7 +70,7 @@ a fa-icon {
 }
 
 .pop-up-container {
-  position: absolute;
+  position: fixed;
   bottom: 80px;
   right: 5px;
   z-index: 1000;
