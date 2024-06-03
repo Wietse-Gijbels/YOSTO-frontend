@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 import {
   GebruikerInterface,
   StudierichtingInterface,
-  GebruikerRol
+  GebruikerRol,
 } from '../models/interfaces';
 import { CookieService } from 'ngx-cookie-service';
 

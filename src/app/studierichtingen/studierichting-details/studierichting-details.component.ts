@@ -87,7 +87,6 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
   private readonly destroy$: Subject<void> = new Subject<void>();
   userId: string | null = null;
 
-
   constructor(
     private route: ActivatedRoute,
     private studierichtingService: StudierichtingService,
