@@ -1,4 +1,7 @@
-<gebruiker-header [backgroundColor]="'background-wit'" subText="Studierichtingen"></gebruiker-header>
+<gebruiker-header
+  [backgroundColor]="'background-wit'"
+  subText="Studierichtingen"
+></gebruiker-header>
 <main>
   @if (studierichtingen$ | async; as studierichtingen) {
     @if (gebruiker$ | async; as gebruiker) {
@@ -6,15 +9,33 @@
         @if (studierichtingen.content.length === 0) {
           <p>Hier komen je favoriete studierichtingen</p>
         } @else {
-          @for (studierichting of studierichtingen.content; track studierichting.id) {
-            <app-card [subtextLine1]="studierichting.niveauNaam"
-                      [subtextLine2]="studierichting.studiepunten ? studierichting.studiepunten + ' stp' : 'geen studiepunten'"
-                      [icon]="includesFavoStudie(gebruiker, studierichting)? faHeartFull : faHeart"
-                      [title]="studierichting.naam" [id]="studierichting.id"
-                      (iconClicked)="favorite(studierichting.id, $event)"></app-card>
+          @for (
+            studierichting of studierichtingen.content;
+            track studierichting.id
+          ) {
+            <app-card
+              [subtextLine1]="studierichting.niveauNaam"
+              [subtextLine2]="
+                studierichting.studiepunten
+                  ? studierichting.studiepunten + ' stp'
+                  : 'geen studiepunten'
+              "
+              [icon]="
+                includesFavoStudie(gebruiker, studierichting)
+                  ? faHeartFull
+                  : faHeart
+              "
+              [title]="studierichting.naam"
+              [id]="studierichting.id"
+              (iconClicked)="favorite(studierichting.id, $event)"
+            ></app-card>
           }
-          <mat-paginator [length]="studierichtingen.totalElements" [pageIndex]="page" [pageSize]="pageSize"
-                         (page)="onPageChange($event)"></mat-paginator>
+          <mat-paginator
+            [length]="studierichtingen.totalElements"
+            [pageIndex]="page"
+            [pageSize]="pageSize"
+            (page)="onPageChange($event)"
+          ></mat-paginator>
         }
       </ul>
     }

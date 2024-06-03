@@ -38,18 +38,24 @@
     <div class="not-found">Loading...</div>
   }
   @if (studierichtingen$ | async; as studierichtingen) {
-    @if (gebruiker$ |async; as gebruiker) {
+    @if (gebruiker$ | async; as gebruiker) {
       <ul>
-        @for (studierichting of studierichtingen.content;
-          track studierichting.id) {
+        @for (
+          studierichting of studierichtingen.content;
+          track studierichting.id
+        ) {
           <app-card
             [subtextLine1]="studierichting.niveauNaam"
             [subtextLine2]="
-            studierichting.studiepunten
-              ? studierichting.studiepunten + ' stp'
-              : 'geen studiepunten'
-          "
-            [icon]="includesFavoStudie(gebruiker, studierichting)? faHeartFull : faHeart"
+              studierichting.studiepunten
+                ? studierichting.studiepunten + ' stp'
+                : 'geen studiepunten'
+            "
+            [icon]="
+              includesFavoStudie(gebruiker, studierichting)
+                ? faHeartFull
+                : faHeart
+            "
             [title]="studierichting.naam"
             [id]="studierichting.id"
             (iconClicked)="favorite(studierichting.id, $event)"

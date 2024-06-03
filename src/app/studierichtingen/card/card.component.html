@@ -1,6 +1,10 @@
 <li>
   @if (id) {
-    <div (click)="navigate()" class="icon" [ngStyle]="getRandomGradient(id.toString())"></div>
+    <div
+      (click)="navigate()"
+      class="icon"
+      [ngStyle]="getRandomGradient(id.toString())"
+    ></div>
   }
 
   <div (click)="navigate()" class="details">

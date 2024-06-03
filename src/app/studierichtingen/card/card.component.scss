@@ -10,8 +10,9 @@ li {
   background-color: #fff;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Box shadow for the card effect */
   cursor: pointer;
-  transition: transform 0.3s ease,
-  box-shadow 0.3s ease; /* Smooth transition for hover effect */
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease; /* Smooth transition for hover effect */
 
   .icon {
     width: 50px; /* Adjust the width as needed */
@@ -38,7 +39,6 @@ li {
       @include style-guide.font-small-tekst;
     }
   }
-
 
   fa-icon {
     color: style-guide.$primary-rood;
