@@ -15,7 +15,7 @@ export class rolChecker {
 
   @Input({ required: true }) set rolChecker(requiredRol: GebruikerRol[]) {
     this.gebruikerService.getRol().subscribe((rol) => {
-      if ( requiredRol.includes(rol) ) {
+      if (requiredRol.includes(rol)) {
         this.viewContainer.createEmbeddedView(this.templateRef);
       } else {
         this.viewContainer.clear();

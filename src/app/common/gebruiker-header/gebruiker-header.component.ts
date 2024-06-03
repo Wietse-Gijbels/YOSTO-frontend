@@ -5,29 +5,46 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import {NgClass, NgForOf, NgIf} from '@angular/common';
-import {GebruikerService} from '../service/gebruiker.service';
-import {GebruikerRol} from '../models/interfaces';
-import {rolStyle} from '../directives/rol-style.directive';
-import {CdkDropList} from "@angular/cdk/drag-drop";
-import {MatFormField} from "@angular/material/form-field";
-import {rolChecker} from "../directives/rol-checker.directive";
-import {MatButtonToggleGroup} from "@angular/material/button-toggle";
-import {MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle} from "@angular/material/expansion";
-import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {faCheck} from "@fortawesome/free-solid-svg-icons";
+import { NgClass, NgForOf, NgIf } from '@angular/common';
+import { GebruikerService } from '../service/gebruiker.service';
+import { GebruikerRol } from '../models/interfaces';
+import { rolStyle } from '../directives/rol-style.directive';
+import { CdkDropList } from '@angular/cdk/drag-drop';
+import { MatFormField } from '@angular/material/form-field';
+import { rolChecker } from '../directives/rol-checker.directive';
+import { MatButtonToggleGroup } from '@angular/material/button-toggle';
+import {
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle,
+} from '@angular/material/expansion';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'gebruiker-header',
   standalone: true,
-  imports: [NgClass, rolStyle, CdkDropList, MatFormField, rolChecker, MatButtonToggleGroup, MatExpansionPanelTitle, FaIconComponent, MatExpansionPanel, MatExpansionPanelHeader, NgForOf, NgIf],
+  imports: [
+    NgClass,
+    rolStyle,
+    CdkDropList,
+    MatFormField,
+    rolChecker,
+    MatButtonToggleGroup,
+    MatExpansionPanelTitle,
+    FaIconComponent,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    NgForOf,
+    NgIf,
+  ],
   templateUrl: './gebruiker-header.component.html',
   styleUrls: ['./gebruiker-header.component.scss'],
 })
 export class GebruikerHeaderComponent implements OnInit, OnChanges {
   protected readonly GebruikerRol = GebruikerRol;
   @Input() headerText: string = '';
-  @Input({required: true}) backgroundColor!: string;
+  @Input({ required: true }) backgroundColor!: string;
   @Input() subText: string = '';
   @Input() fotoPath: string = '';
   src: string = '';
@@ -35,8 +52,7 @@ export class GebruikerHeaderComponent implements OnInit, OnChanges {
   rollen: GebruikerRol[] = [];
   activeRol: GebruikerRol | undefined;
 
-  constructor(private gebruikerService: GebruikerService) {
-  }
+  constructor(private gebruikerService: GebruikerService) {}
 
   ngOnInit() {
     this.gebruikerService.getRollen().subscribe((rollen) => {

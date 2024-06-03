@@ -8,15 +8,20 @@
       <h2 class="{{ backgroundColor }}">{{ subText }}</h2>
     }
   </div>
-  <div class="{{class}} expansion-div" *rolChecker="[GebruikerRol.STUDYLOOKER,GebruikerRol.STUDYHELPER]">
+  <div
+    class="{{ class }} expansion-div"
+    *rolChecker="[GebruikerRol.STUDYLOOKER, GebruikerRol.STUDYHELPER]"
+  >
     <mat-expansion-panel [hideToggle]="true" class="expansion">
       <mat-expansion-panel-header class="expansion-header">
         <mat-panel-title class="expansion-title">
-          {{activeRol}}
+          {{ activeRol }}
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div *ngFor="let rol of rollen">
-        <button *ngIf="rol !== activeRol" (click)="changeRol(rol)">{{rol}}</button>
+        <button *ngIf="rol !== activeRol" (click)="changeRol(rol)">
+          {{ rol }}
+        </button>
       </div>
     </mat-expansion-panel>
   </div>

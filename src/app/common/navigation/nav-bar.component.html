@@ -33,18 +33,17 @@
     </li>
     <li class="third-icon" *rolChecker="[GebruikerRol.STUDYLOOKER]">
       <a routerLink="/studierichting" routerLinkActive="active"
-      ><img
-        alt="Start pagina"
-        height="46"
-        ngSrc="{{ '../../assets/images/studeer-hoed.png' }}"
-        width="42"
-      />
+        ><img
+          alt="Start pagina"
+          height="46"
+          ngSrc="{{ '../../assets/images/studeer-hoed.png' }}"
+          width="42"
+        />
       </a>
     </li>
     <li class="third-icon" *rolChecker="[GebruikerRol.STUDYHELPER]">
-      <a routerLink="/geschenken-overview" routerLinkActive="active"
-      >
-        <fa-icon [icon]="faBagShopping"/>
+      <a routerLink="/geschenken-overview" routerLinkActive="active">
+        <fa-icon [icon]="faBagShopping" />
       </a>
     </li>
     <li>
@@ -59,23 +58,23 @@
     </li>
   </ul>
   @if (open) {
-  <div class="pop-up-container">
-    <a
-      routerLink="/persoonlijkeInfo"
-      routerLinkActive="active"
-      class="pop-up-item"
-    >
-      <fa-icon [icon]="faAddressCard"></fa-icon>
-    </a>
-    <a
-      routerLink="/persoonlijkeInfo"
-      routerLinkActive="active"
-      class="pop-up-item"
-    >
-      <img
-        alt="Start pagina"
-        height="46"
-        ngSrc="{{ '../../assets/images/studeer-hoed.png' }}"
+    <div class="pop-up-container">
+      <a
+        routerLink="/persoonlijkeInfo"
+        routerLinkActive="active"
+        class="pop-up-item"
+      >
+        <fa-icon [icon]="faAddressCard"></fa-icon>
+      </a>
+      <a
+        routerLink="/persoonlijkeInfo"
+        routerLinkActive="active"
+        class="pop-up-item"
+      >
+        <img
+          alt="Start pagina"
+          height="46"
+          ngSrc="{{ '../../assets/images/studeer-hoed.png' }}"
           width="42"
         />
       </a>
