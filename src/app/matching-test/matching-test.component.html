@@ -62,14 +62,22 @@
     <p>Vragen worden geladen...</p>
   </div>
 </div>
-<div *ngIf="testCompleted">
-  <p>U hebt de matching test voltooid, bekijk hieronder uw resultaten!</p>
+<div *ngIf="testCompleted" class="succes-container">
+  <p class="succes-tekst">
+    U hebt de matching test voltooid, bekijk hieronder uw resultaten!
+  </p>
   <div *ngIf="similarities.length > 0">
-    <h3>Top 10 Studierichtingen Voor Mij</h3>
+    <p class="info-tekst">
+      Op basis van de antwoorden op de test hebben we de onderstaande top 10
+      gemaakt. Hierin kan je de 10 richtingen zien die het beste passen bij jou!
+      Pssttt... Neem eens een kijkje op de detail-pagina's van de richtingen om
+      jou score te vergelijken met die van jouw favoriete richting!
+    </p>
     <div *ngFor="let similarity of similarities">
-      <p>
-        {{ similarity.naam }} ({{ similarity.niveauNaam }}):
-        {{ similarity.similarityPercentage.toFixed(2) }}%
+      <p class="similarity">
+        <span class="similarity-naam">{{ similarity.naam }}</span> ({{
+          similarity.niveauNaam
+        }}): {{ similarity.similarityPercentage.toFixed(2) }}%
       </p>
     </div>
   </div>
@@ -86,4 +94,5 @@
     >
     </canvas>
   </div>
+  <app-nav-bar></app-nav-bar>
 </div>
