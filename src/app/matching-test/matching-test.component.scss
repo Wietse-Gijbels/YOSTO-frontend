@@ -74,6 +74,7 @@ button {
   width: 400px;
   height: 400px;
   margin: 0 auto;
+  padding-bottom: 70px;
 }
 
 .vraag-img {
@@ -99,6 +100,42 @@ button {
     font-size: 20px;
     color: style-guide.$secondary-wit;
   }
+}
+
+.succes-tekst {
+  @include style-guide.font-large-header;
+  font-size: 24px;
+  color: style-guide.$primary-rood;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.info-tekst {
+  margin: 10px auto;
+  @include style-guide.font-medium-tekst;
+  font-size: 16px;
+  line-height: 1.1;
+  text-align: justify;
+}
+
+.similarity {
+  text-align: center;
+}
+
+.similarity-naam {
+  @include style-guide.font-medium-tekst;
+  color: style-guide.$primary-rood;
+  font-size: 16px;
+}
+
+.succes-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  align-items: center;
+  max-width: 90%;
 }
 
 @media screen and (min-width: 550px) {
