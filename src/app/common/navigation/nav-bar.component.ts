@@ -10,6 +10,10 @@ import {
 } from '@angular/material/expansion';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { faAddressCard } from '@fortawesome/free-regular-svg-icons';
+import { rolStyle } from '../directives/rol-style.directive';
+import { rolChecker } from '../directives/rol-checker.directive';
+import { GebruikerRol } from '../models/interfaces';
+import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-nav-bar',
@@ -25,6 +29,8 @@ import { faAddressCard } from '@fortawesome/free-regular-svg-icons';
     MatExpansionPanelHeader,
     MatMenu,
     MatMenuTrigger,
+    rolStyle,
+    rolChecker,
   ],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss',
@@ -38,4 +44,7 @@ export class NavBarComponent {
   openSelection() {
     this.open = !this.open;
   }
+
+  protected readonly GebruikerRol = GebruikerRol;
+  protected readonly faBagShopping = faBagShopping;
 }

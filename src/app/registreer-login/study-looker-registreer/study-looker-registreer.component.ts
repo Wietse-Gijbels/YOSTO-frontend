@@ -78,7 +78,7 @@ export class StudyLookerRegistreerComponent {
 
     const formDataWithRole = {
       ...formData,
-      rol: 'STUDYLOOKER', // STUDYLOOKER als rol setten
+      rol: ['STUDYLOOKER'], // STUDYLOOKER als rol setten
     };
 
     this.authService.registreerLooker(formDataWithRole).subscribe(

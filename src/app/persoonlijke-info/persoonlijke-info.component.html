@@ -1,4 +1,4 @@
-<mat-grid-list class="container" cols="2">
+<mat-grid-list rolStyle cols="2">
   <fa-icon [icon]="faUser"></fa-icon>
   <h1>Persoonlijke Info</h1>
   <div class="error-container">
@@ -7,35 +7,48 @@
   @if (gebruiker$ | async; as gebruiker) {
     <form [formGroup]="form" (keydown.enter)="preventEnter($event)">
       <div class="persoonlijke-info-form-group">
-        <label>Voornaam</label>
+        <label for="voornaam">Voornaam</label>
         <input
           class="input"
+          id="voornaam"
           formControlName="voornaam"
           matInput
           [value]="gebruiker?.voornaam"
         />
-        <label>Achternaam</label>
+        <label for="achternaam">Achternaam</label>
         <input
           class="input"
+          id="achternaam"
           formControlName="achternaam"
           matInput
           [value]="gebruiker?.achternaam"
         />
-        <label>Woonplaats</label>
+        <label for="woonplaats">Woonplaats</label>
         <input
           class="input"
+          id="woonplaats"
           formControlName="woonplaats"
           matInput
           [value]="gebruiker?.woonplaats"
         />
-        <label>Leeftijd</label>
-        <select formControlName="leeftijd" class="input" [disabled]="edit">
+        <label for="leeftijd">Leeftijd</label>
+        <select
+          id="leeftijd"
+          formControlName="leeftijd"
+          class="input"
+          [disabled]="edit"
+        >
           @for (i of numbers; track i) {
             <option [value]="i">{{ i }}</option>
           }
         </select>
-        <label>Geslacht</label>
-        <select formControlName="geslacht" class="input" [disabled]="edit">
+        <label for="geslacht">Geslacht</label>
+        <select
+          id="geslacht"
+          formControlName="geslacht"
+          class="input"
+          [disabled]="edit"
+        >
           <option>Man</option>
           <option>Vrouw</option>
         </select>

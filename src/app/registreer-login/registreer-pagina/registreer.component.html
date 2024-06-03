@@ -2,23 +2,29 @@
   <gebruiker-header
     [backgroundColor]="'background-rood'"
     [headerText]="'Registreren'"
+    [fotoPath]="
+      '../../../assets/images/' + currentComponent + '-yosto-logo.png'
+    "
+    [class]="class"
   ></gebruiker-header>
-  <div class="rectangle-container">
-    <div class="rectangle">
-      <p
-        (click)="toggleComponent('looker')"
-        [class.active]="currentComponent === 'looker'"
-        class="half"
-      >
-        StudyLooker
-      </p>
-      <p
-        (click)="toggleComponent('helper')"
-        [class.active]="currentComponent === 'helper'"
-        class="half"
-      >
-        StudyHelper
-      </p>
+  <div [class]="currentComponent + '-container'">
+    <div class="rectangle-container">
+      <div class="rectangle">
+        <p
+          (click)="toggleComponent('looker')"
+          [class.active]="currentComponent === 'looker'"
+          class="half"
+        >
+          StudyLooker
+        </p>
+        <p
+          (click)="toggleComponent('helper')"
+          [class.active]="currentComponent === 'helper'"
+          class="half"
+        >
+          StudyHelper
+        </p>
+      </div>
     </div>
   </div>
 

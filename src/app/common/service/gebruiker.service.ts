@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 import {
   GebruikerInterface,
   StudierichtingInterface,
+  GebruikerRol,
 } from '../models/interfaces';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -65,6 +66,28 @@ export class GebruikerService {
     return this.http.put<GebruikerInterface>(
       `http://localhost:8080/api/v1/gebruiker/${token}`,
       fromData,
+      { headers: this.headers },
+    );
+  }
+
+  getRol(): Observable<GebruikerRol> {
+    return this.http.get<GebruikerRol>(
+      `http://localhost:8080/api/v1/gebruiker/rol/${this.token}`,
+      { headers: this.headers },
+    );
+  }
+
+  getRollen() {
+    return this.http.get<GebruikerRol[]>(
+      `http://localhost:8080/api/v1/gebruiker/rollen`,
+      { headers: this.headers },
+    );
+  }
+
+  changeActiveRol(rol: GebruikerRol) {
+    return this.http.put<void>(
+      `http://localhost:8080/api/v1/gebruiker/rol`,
+      { rol },
       { headers: this.headers },
     );
   }

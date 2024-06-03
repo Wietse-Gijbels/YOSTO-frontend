@@ -1,84 +1,159 @@
 @use "../../style-guide.scss";
 
-.persoonlijke-info-form-group {
-  overflow: hidden;
-  position: relative;
-  background-size: cover;
-  padding: 20px;
-  justify-content: center;
-  align-items: center;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  row-gap: 10px;
-}
-
-.input {
-  @include style-guide.font-small-tekst;
-  font-size: 14px;
-  font-weight: 300;
-  color: #000000;
-  border: 2px solid style-guide.$primary-rood;
-  border-radius: 5px;
-  //margin-bottom: 0;
-  padding: 10px;
-  //width: 100%;
-  //box-sizing: border-box;
+.looker-container {
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  margin-left: 20px;
 
-  &::placeholder {
+  .persoonlijke-info-form-group {
+    overflow: hidden;
+    position: relative;
+    background-size: cover;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 10px;
+  }
+
+  .input {
+    @include style-guide.font-small-tekst;
+    font-size: 14px;
+    font-weight: 300;
     color: #000000;
+    border: 2px solid style-guide.$primary-rood;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    margin-left: 20px;
+
+    &::placeholder {
+      color: #000000;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  button {
+    @include style-guide.font-large-header;
+    color: style-guide.$secondary-wit;
+    background-color: style-guide.$primary-rood;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    padding: 3px 50px;
+    width: 200px;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  h1 {
+    @include style-guide.font-large-header;
+    color: style-guide.$primary-rood;
+    margin-bottom: 20px;
+  }
+
+  fa-icon {
+    @include style-guide.font-large-header;
+    color: style-guide.$primary-rood;
+  }
+
+  label {
+    margin-left: 20px;
+    @include style-guide.font-small-tekst;
+    border: 2px solid style-guide.$primary-rood;
+    padding: 10px;
+    border-radius: 5px;
   }
 }
 
-form {
+.helper-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 500px;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
   text-align: center;
-}
 
-button {
-  @include style-guide.font-large-header;
-  color: style-guide.$secondary-wit;
-  background-color: style-guide.$primary-rood;
-  font-size: 16px;
-  border: none;
-  border-radius: 20px;
-  padding: 3px 50px;
-  width: 200px;
-  box-sizing: border-box;
-  cursor: pointer;
-  margin-top: 10px;
-}
+  .persoonlijke-info-form-group {
+    overflow: hidden;
+    position: relative;
+    background-size: cover;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 10px;
+  }
 
-li {
-  list-style-type: none;
-}
+  .input {
+    @include style-guide.font-small-tekst;
+    font-size: 14px;
+    font-weight: 300;
+    color: #000000;
+    border: 2px solid style-guide.$helper-blauw;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    margin-left: 20px;
 
-h1 {
-  @include style-guide.font-large-header;
-  color: style-guide.$primary-rood;
-  margin-bottom: 20px;
-}
+    &::placeholder {
+      color: #000000;
+    }
+  }
 
-fa-icon {
-  @include style-guide.font-large-header;
-  color: style-guide.$primary-rood;
-}
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+  }
 
-label {
-  margin-left: 20px;
-  @include style-guide.font-small-tekst;
-  border: 2px solid style-guide.$primary-rood;
-  padding: 10px;
-  border-radius: 5px;
+  button {
+    @include style-guide.font-large-header;
+    color: style-guide.$secondary-wit;
+    background-color: style-guide.$helper-blauw;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    padding: 3px 50px;
+    width: 200px;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  h1 {
+    @include style-guide.font-large-header;
+    color: style-guide.$helper-blauw;
+    margin-bottom: 20px;
+  }
+
+  fa-icon {
+    @include style-guide.font-large-header;
+    color: style-guide.$helper-blauw;
+  }
+
+  label {
+    margin-left: 20px;
+    @include style-guide.font-small-tekst;
+    border: 2px solid style-guide.$helper-blauw;
+    padding: 10px;
+    border-radius: 5px;
+  }
 }
