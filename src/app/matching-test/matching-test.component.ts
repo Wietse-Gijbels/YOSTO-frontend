@@ -80,11 +80,9 @@ export class MatchingTestComponent implements OnInit {
   ngOnInit(): void {
     this.fetchVragen();
     console.log(this.vragen);
-    this.gebruikerService
-      .getGebruikerIdByToken(this.cookieService.get('token'))
-      .subscribe((userId) => {
-        this.userId = userId;
-      });
+    this.gebruikerService.getGebruikerIdByToken().subscribe((userId) => {
+      this.userId = userId;
+    });
   }
 
   fetchVragen(): void {

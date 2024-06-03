@@ -155,13 +155,11 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
   }
 
   getGebruikerWaardes(): void {
-    this.gebruikerService
-      .getGebruikerIdByToken(this.cookieService.get('token'))
-      .subscribe(() => {
-        this.gebruikerService.getGebruikerWaardes().subscribe((data) => {
-          this.updateGebruikerWaardesChart(data);
-        });
+    this.gebruikerService.getGebruikerIdByToken().subscribe(() => {
+      this.gebruikerService.getGebruikerWaardes().subscribe((data) => {
+        this.updateGebruikerWaardesChart(data);
       });
+    });
   }
 
   updateGebruikerWaardesChart(gebruikerWaardes: any): void {

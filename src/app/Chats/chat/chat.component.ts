@@ -66,30 +66,28 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   ) {}
 
   ngOnInit(): void {
-    this.gebruikerService
-      .getGebruikerIdByToken(this.cookieService.get('token'))
-      .subscribe((userId) => {
-        this.userId = userId;
-        this.stompService.connect(
-          () => this.onConnected(),
-          (error: IFrame) => {
-            console.error('Error connecting to websocket:', error);
+    this.gebruikerService.getGebruikerIdByToken().subscribe((userId) => {
+      this.userId = userId;
+      this.stompService.connect(
+        () => this.onConnected(),
+        (error: IFrame) => {
+          console.error('Error connecting to websocket:', error);
+        },
+      );
+      this.route.params.subscribe((params) => {
+        const gebruikerId = params['id'];
+        this.gebruikerService.getGebruikerById(gebruikerId).subscribe(
+          (gebruiker: any) => {
+            this.selectedGebruiker = gebruiker;
+            console.log('Selected gebruiker:', this.selectedGebruiker);
+            this.loadMessages();
+          },
+          (error: any) => {
+            console.error('Error fetching gebruiker:', error);
           },
         );
-        this.route.params.subscribe((params) => {
-          const gebruikerId = params['id'];
-          this.gebruikerService.getGebruikerById(gebruikerId).subscribe(
-            (gebruiker: any) => {
-              this.selectedGebruiker = gebruiker;
-              console.log('Selected gebruiker:', this.selectedGebruiker);
-              this.loadMessages();
-            },
-            (error: any) => {
-              console.error('Error fetching gebruiker:', error);
-            },
-          );
-        });
       });
+    });
 
     this.messageForm = this.formBuilder.group({
       message: [''],
