@@ -20,6 +20,13 @@
           ></div>
         }
         @if (studierichtingWaardes || radarChartData.length > 0) {
+          <h3>
+            @if (gebruikerWaardes) {
+              Hoe goed pas ik in deze richting?
+            } @else {
+              Vul de matching test in om te zien of je in de richting past:
+            }
+          </h3>
           <div class="chart-container">
             <canvas
               baseChart
@@ -32,6 +39,7 @@
             ></canvas>
           </div>
         }
+        <button class="join-queue" (click)="joinQueue()">Chat met een student uit deze richting</button>
         <h3>Waar kan ik de richting volgen</h3>
         <ul>
           @for (
@@ -74,6 +82,13 @@
               ></div>
             }
             @if (studierichtingWaardes || radarChartData.length > 0) {
+              <h3>
+                @if (gebruikerWaardes) {
+                  Hoe goed pas ik in deze richting?
+                } @else {
+                  Vul de matching test in om te zien of je in de richting past:
+                }
+              </h3>
               <div class="chart-container">
                 <canvas
                   baseChart
@@ -86,6 +101,7 @@
                 ></canvas>
               </div>
             }
+            <button class="join-queue" (click)="joinQueue()">Chat met een student uit deze richting</button>
             <h3>Waar kan ik de richting volgen</h3>
             <ul>
               @for (

@@ -16,6 +16,9 @@ import { BaseChartDirective } from 'ng2-charts';
 import { GebruikerService } from '../../common/service/gebruiker.service';
 import { CookieService } from 'ngx-cookie-service';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { LookerQueueService } from '../../common/service/lookerQueue.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SnackbarService } from '../../common/service/snackbar.service';
 
 @Component({
   selector: 'app-studierichting-details',
@@ -29,6 +32,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
     MatTabGroup,
     MatTab,
     BaseChartDirective,
+    MatSnackBarModule,
   ],
   templateUrl: './studierichting-details.component.html',
   styleUrls: ['./studierichting-details.component.scss'],
@@ -37,6 +41,7 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
   studierichtingId: string | null = null;
   public studierichting$?: Observable<StudierichtingInterface>;
   studierichtingWaardes: any;
+  gebruikerWaardes: any;
   radarChartData: any[] = [];
   radarChartLabels: string[] = [
     'Conventioneel',
@@ -80,6 +85,7 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
   protected readonly encodeURIComponent = encodeURIComponent;
   protected readonly faLocationDot: IconDefinition = faLocationDot;
   private readonly destroy$: Subject<void> = new Subject<void>();
+  userId: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -87,6 +93,8 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
     private similarityService: SimilarityService,
     private gebruikerService: GebruikerService,
     private cookieService: CookieService,
+    private lookerQueueService: LookerQueueService,
+    private snackbarService: SnackbarService, // Add this line
   ) {}
 
   ngOnInit(): void {
@@ -119,6 +127,12 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
       'resize',
       this.adjustChartOptionsForScreenSize.bind(this),
     );
+
+    this.gebruikerService
+      .getGebruikerIdByToken(this.cookieService.get('token'))
+      .subscribe((userId) => {
+        this.userId = userId;
+      });
   }
 
   adjustChartOptionsForScreenSize(): void {
@@ -159,6 +173,7 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
       .getGebruikerIdByToken(this.cookieService.get('token'))
       .subscribe(() => {
         this.gebruikerService.getGebruikerWaardes().subscribe((data) => {
+          this.gebruikerWaardes = data;
           this.updateGebruikerWaardesChart(data);
         });
       });
@@ -196,6 +211,28 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
           label: studierichtingNaam,
         },
       ];
+    }
+  }
+
+  joinQueue(): void {
+    if (this.userId && this.studierichtingId) {
+      this.lookerQueueService
+        .joinQueue(this.userId, this.studierichtingId)
+        .subscribe(
+          () => {
+            this.snackbarService.openSnackBar(
+              'You have been added to the queue successfully.',
+              'success',
+            );
+          },
+          (error) => {
+            console.error('Error joining the queue:', error);
+            this.snackbarService.openSnackBar(
+              'Failed to join the queue. Please try again later.',
+              'error',
+            );
+          },
+        );
     }
   }
 

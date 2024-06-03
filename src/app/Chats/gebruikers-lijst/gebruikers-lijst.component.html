@@ -21,26 +21,32 @@
 
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
-    <ng-container *ngFor="let gebruiker of gebruikers">
-      <mat-list-item (click)="openChat(gebruiker)">
-        <div class="user-button">
-          <div
-            class="profile-circle"
-            [ngStyle]="{ 'background-color': stringToColor(gebruiker.email) }"
-          ></div>
-          <div class="user-info">
-            <span class="user-email">{{ gebruiker.email }}</span>
-            <span class="details">180 stp - UCLL, Leuven</span>
+    <ng-container *ngIf="gebruikers.length > 0; else noChats">
+      <ng-container *ngFor="let gebruiker of gebruikers">
+        <mat-list-item (click)="openChat(gebruiker)">
+          <div class="user-button">
+            <div
+              class="profile-circle"
+              [ngStyle]="{ 'background-color': stringToColor(gebruiker.email) }"
+            ></div>
+            <div class="user-info">
+              <span class="user-email">{{ gebruiker.email }}</span>
+              <span class="details">180 stp - UCLL, Leuven</span>
+            </div>
+            <div class="rating">
+              <mat-icon [ngStyle]="{ color: stringToColor(gebruiker.email) }"
+                >star</mat-icon
+              >
+              <span>200</span>
+            </div>
           </div>
-          <div class="rating">
-            <mat-icon [ngStyle]="{ color: stringToColor(gebruiker.email) }"
-              >star</mat-icon
-            >
-            <span>200</span>
-          </div>
-        </div>
-      </mat-list-item>
+        </mat-list-item>
+      </ng-container>
     </ng-container>
+
+    <ng-template #noChats>
+      <div class="no-chats-message">Je hebt nog geen bestaande chats</div>
+    </ng-template>
   </mat-list>
 </div>
 

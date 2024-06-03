@@ -15,9 +15,24 @@ export class LookerQueueService {
   }
 
   getAmountOfLookers(): Observable<{ amount: number }> {
-    // Ensure this matches the response structure
     return this.http.get<{ amount: number }>(
       'http://localhost:8080/api/v1/lookerQueue/getAmountOfLookers',
+    );
+  }
+
+  joinQueue(
+    lookerId: string,
+    studierichtingId: string,
+  ): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      'http://localhost:8080/api/v1/lookerQueue/joinQueue',
+      null,
+      {
+        params: {
+          lookerId: lookerId,
+          studierichtingId: studierichtingId,
+        },
+      },
     );
   }
 }
