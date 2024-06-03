@@ -1,6 +1,9 @@
 @use "../../../style-guide";
 
 .looker-container {
+
+  display: grid;
+
   .gebruiker-header {
     display: flex;
     flex-direction: column;
@@ -54,9 +57,33 @@
       width: 30%;
     }
   }
+
+  .expansion-title {
+    color: style-guide.$primary-rood;
+  }
+
+  .mat-expansion-panel{
+    width: 150px;
+    background-color: style-guide.$secondary-wit;
+    border: solid 2px style-guide.$primary-rood;
+    border-radius: 12px;
+    box-shadow: none;
+  }
+
+  .expansion-div{
+    margin-left: auto;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 }
 
 .helper-container {
+
+  display: grid;
+
   .gebruiker-header {
     display: flex;
     flex-direction: column;
@@ -109,6 +136,27 @@
     .gebruiker-header img {
       width: 30%;
     }
+  }
+
+  .expansion-title {
+    color: style-guide.$helper-blauw;
+  }
+
+  .mat-expansion-panel{
+    width: 150px;
+    background-color: style-guide.$secondary-wit;
+    border: solid 2px style-guide.$helper-blauw;
+    border-radius: 12px;
+    box-shadow: none;
+  }
+
+  .expansion-div{
+    margin-left: auto;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 }
 

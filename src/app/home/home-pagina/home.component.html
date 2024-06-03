@@ -4,15 +4,6 @@
 ></gebruiker-header>
 <div rolStyle>
   <button (click)="logout()">Log uit</button>
-  <button (click)="addGeschenk()" *rolChecker="GebruikerRol.ADMIN">
-    Voeg geschenk toe
-  </button>
-  <button (click)="addGeschenkCategorie()" *rolChecker="GebruikerRol.ADMIN">
-    Voeg geschenk categorie toe
-  </button>
-  <button (click)="geschenkenOverview()" *rolChecker="GebruikerRol.STUDYHELPER">
-    Overview geschenken
-  </button>
 
   <div class="small-container">
     <h3>Study match</h3>
