@@ -1,6 +1,6 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthenticationResponse } from '../models/interfaces';
@@ -10,11 +10,8 @@ import { catchError, Observable, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  token: string = this.cookieService.get('token');
-  headers: HttpHeaders = new HttpHeaders({
-    Authorization: `Bearer ${this.token}`,
-    'Content-Type': 'application/json',
-  });
+  private urlMobile = 'http://192.168.0.209:8080/api/v1/auth';
+  private url = 'http://localhost:8080/api/v1/auth';
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
@@ -22,9 +19,6 @@ export class AuthService {
     private router: Router,
     private cookieService: CookieService,
   ) {}
-
-  private urlMobile = 'http://192.168.0.209:8080/api/v1/auth';
-  private url = 'http://localhost:8080/api/v1/auth';
 
   isLoggedIn(): boolean {
     return this.cookieService.check('token');
@@ -34,9 +28,7 @@ export class AuthService {
     const { bevestigWachtwoord, ...registreerData } = formData;
 
     return this.httpClient
-      .post<AuthenticationResponse>(this.url + '/registreer', registreerData, {
-        headers: this.headers,
-      })
+      .post<AuthenticationResponse>(this.url + '/registreer', registreerData)
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -48,9 +40,7 @@ export class AuthService {
     const { bevestigWachtwoord, ...registreerData } = formData;
 
     return this.httpClient
-      .post<AuthenticationResponse>(this.url + '/registreer', registreerData, {
-        headers: this.headers,
-      })
+      .post<AuthenticationResponse>(this.url + '/registreer', registreerData)
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -60,9 +50,7 @@ export class AuthService {
 
   login(formData: any): Observable<AuthenticationResponse> {
     return this.httpClient
-      .post<AuthenticationResponse>(this.url + '/login', formData, {
-        headers: this.headers,
-      })
+      .post<AuthenticationResponse>(this.url + '/login', formData)
       .pipe(
         catchError((error) => {
           throw error;

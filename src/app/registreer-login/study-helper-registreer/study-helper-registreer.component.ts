@@ -6,7 +6,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../common/service/auth.service';
 import { Router } from '@angular/router';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
@@ -46,7 +45,6 @@ export class StudyHelperRegistreerComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private httpClient: HttpClient,
     private authService: AuthService,
     private router: Router,
     private cookieService: CookieService,
@@ -159,7 +157,6 @@ export class StudyHelperRegistreerComponent implements OnInit {
     this.clearErrorMessages();
 
     const formData = this.form.getRawValue();
-    console.log(formData);
     if (formData.wachtwoord !== formData.bevestigWachtwoord) {
       this.errorMessages = {
         errorWachtwoordDubbel: 'Wachtwoorden komen niet overeen.',
@@ -175,6 +172,7 @@ export class StudyHelperRegistreerComponent implements OnInit {
       rol: 'STUDYHELPER',
       behaaldeDiplomas, // STUDYHELPER als rol setten
     };
+    console.log(formDataWithRole);
     this.authService.registreerHelper(formDataWithRole).subscribe(
       (response) => {
         // Verwerk succesvolle registratie
