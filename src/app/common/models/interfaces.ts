@@ -55,6 +55,7 @@ export interface InstellingInterface {
 
 export interface AuthenticationResponse {
   token: string;
+  rol: GebruikerRol;
 }
 
 export interface Message {

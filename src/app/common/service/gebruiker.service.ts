@@ -17,7 +17,6 @@ export class GebruikerService {
     Authorization: `Bearer ${this.token}`,
     'Content-Type': 'application/json',
   });
-  public rol: GebruikerRol | undefined;
   private urlMobile = 'http://192.168.0.209:8080/api/v1/gebruiker';
   private url = 'http://localhost:8080/api/v1/gebruiker';
 
@@ -25,10 +24,6 @@ export class GebruikerService {
     private http: HttpClient,
     private cookieService: CookieService,
   ) {}
-
-  get activeRol(): GebruikerRol | undefined {
-    return this.rol;
-  }
 
   getAllConectedGebruikers(): Observable<GebruikerInterface[]> {
     return this.http.get<GebruikerInterface[]>(
@@ -70,24 +65,6 @@ export class GebruikerService {
     return this.http.put<GebruikerInterface>(
       `http://localhost:8080/api/v1/gebruiker/${token}`,
       fromData,
-      { headers: this.headers },
-    );
-  }
-
-  getRol(): Observable<GebruikerRol> {
-    const gebruiker = this.http.get<GebruikerRol>(
-      `http://localhost:8080/api/v1/gebruiker/rol/${this.token}`,
-      { headers: this.headers },
-    );
-    gebruiker.subscribe((rol) => {
-      this.rol = rol;
-    });
-    return gebruiker;
-  }
-
-  getRollen() {
-    return this.http.get<GebruikerRol[]>(
-      `http://localhost:8080/api/v1/gebruiker/rollen`,
       { headers: this.headers },
     );
   }

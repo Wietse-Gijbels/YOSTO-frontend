@@ -21,7 +21,11 @@ export class AuthService {
     private cookieService: CookieService,
   ) {}
 
-  get activeRol(): GebruikerRol | undefined {
+  setRol(rol: GebruikerRol) {
+    this.rol = rol;
+  }
+
+  getRol(): GebruikerRol | undefined {
     return this.rol;
   }
 
