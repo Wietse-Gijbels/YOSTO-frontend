@@ -1,6 +1,7 @@
 import { Directive, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { GebruikerRol } from '../models/interfaces';
 import { GebruikerService } from '../service/gebruiker.service';
+import { AuthService } from '../service/auth.service';
 
 @Directive({
   selector: '[rolStyle]',
@@ -11,6 +12,7 @@ export class rolStyle implements OnInit {
     private elementRef: ElementRef,
     private renderer: Renderer2,
     private gebruikerService: GebruikerService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
@@ -27,5 +29,7 @@ export class rolStyle implements OnInit {
         );
       }
     });
+    if (this.authService.activeRol !== undefined) {
+    }
   }
 }

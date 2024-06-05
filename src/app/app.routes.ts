@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './registreer-login/login/login.component';
-import { StudyHelperRegistreerComponent } from './registreer-login/study-helper-registreer/study-helper-registreer.component';
-import { StudyLookerRegistreerComponent } from './registreer-login/study-looker-registreer/study-looker-registreer.component';
 import { StartSchermComponent } from './registreer-login/start-scherm/start-scherm.component';
 import { HomeComponent } from './home/home-pagina/home.component';
 import { FavorietenComponent } from './studierichtingen/favorieten/favorieten.component';

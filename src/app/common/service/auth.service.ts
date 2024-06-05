@@ -3,13 +3,14 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthenticationResponse } from '../models/interfaces';
+import { AuthenticationResponse, GebruikerRol } from '../models/interfaces';
 import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  public rol: GebruikerRol | undefined;
   private urlMobile = 'http://192.168.0.209:8080/api/v1/auth';
   private url = 'http://localhost:8080/api/v1/auth';
 
@@ -20,12 +21,17 @@ export class AuthService {
     private cookieService: CookieService,
   ) {}
 
+  get activeRol(): GebruikerRol | undefined {
+    return this.rol;
+  }
+
   isLoggedIn(): boolean {
     return this.cookieService.check('token');
   }
 
   registreerLooker(formData: any): Observable<AuthenticationResponse> {
     const { bevestigWachtwoord, ...registreerData } = formData;
+    this.rol = GebruikerRol.STUDYLOOKER;
 
     return this.httpClient
       .post<AuthenticationResponse>(this.url + '/registreer', registreerData)
@@ -38,6 +44,7 @@ export class AuthService {
 
   registreerHelper(formData: any): Observable<AuthenticationResponse> {
     const { bevestigWachtwoord, ...registreerData } = formData;
+    this.rol = GebruikerRol.STUDYHELPER;
 
     return this.httpClient
       .post<AuthenticationResponse>(this.url + '/registreer', registreerData)
