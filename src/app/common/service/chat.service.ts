@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GebruikerInterface, Message } from '../models/interfaces';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,13 +12,13 @@ export class ChatService {
 
   getMessages(senderId: string, receiverId: string): Observable<Message[]> {
     return this.http.get<Message[]>(
-      `http://localhost:8080/messages/${senderId}/${receiverId}`,
+      environment.url + `/messages/${senderId}/${receiverId}`,
     );
   }
 
   getMyChatRooms(userId: string): Observable<GebruikerInterface[]> {
     return this.http.get<GebruikerInterface[]>(
-      `http://localhost:8080/api/v1/chatroom/getMyChatRooms/${userId}`,
+      environment.url + `/chatroom/getMyChatRooms/${userId}`,
     );
   }
 }

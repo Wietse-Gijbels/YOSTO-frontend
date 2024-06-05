@@ -7,6 +7,7 @@ import {
   StudierichtingInterface,
 } from '../models/interfaces';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -18,8 +19,8 @@ export class GebruikerService {
     'Content-Type': 'application/json',
   });
   public rol: GebruikerRol | undefined;
-  private urlMobile = 'http://192.168.0.209:8080/api/v1/gebruiker';
-  private url = 'http://localhost:8080/api/v1/gebruiker';
+  private urlMobile = environment.url + '/gebruiker';
+  private url = environment.url + '/gebruiker';
 
   constructor(
     private http: HttpClient,
@@ -31,47 +32,40 @@ export class GebruikerService {
   }
 
   getAllConectedGebruikers(): Observable<GebruikerInterface[]> {
-    return this.http.get<GebruikerInterface[]>(
-      'http://localhost:8080/api/v1/gebruiker/online',
-      { headers: this.headers },
-    );
+    return this.http.get<GebruikerInterface[]>(this.url + '/online', {
+      headers: this.headers,
+    });
   }
 
   getGebruikerIdByToken(): Observable<string> {
     return this.http
       .get<{
         id: string;
-      }>(`http://localhost:8080/api/v1/gebruiker/id/${this.token}`, {
+      }>(this.url + `/id/${this.token}`, {
         headers: this.headers,
       })
       .pipe(map((response) => response.id));
   }
 
   getGebruiker(token: string): Observable<GebruikerInterface> {
-    return this.http.get<GebruikerInterface>(
-      `http://localhost:8080/api/v1/gebruiker/${token}`,
-      { headers: this.headers },
-    );
+    return this.http.get<GebruikerInterface>(this.url + `/${token}`, {
+      headers: this.headers,
+    });
   }
 
   getGebruikerById(id: string): Observable<GebruikerInterface> {
-    return this.http.get<GebruikerInterface>(
-      `http://localhost:8080/api/v1/gebruiker/gebruiker/${id}`,
-      {
-        headers: this.headers,
-      },
-    );
+    return this.http.get<GebruikerInterface>(this.url + `/${id}`, {
+      headers: this.headers,
+    });
   }
 
   updateGebruiker(
     token: string,
     fromData: any,
   ): Observable<GebruikerInterface> {
-    return this.http.put<GebruikerInterface>(
-      `http://localhost:8080/api/v1/gebruiker/${token}`,
-      fromData,
-      { headers: this.headers },
-    );
+    return this.http.put<GebruikerInterface>(this.url + `/${token}`, fromData, {
+      headers: this.headers,
+    });
   }
 
   getRol(): Observable<GebruikerRol> {
@@ -117,7 +111,7 @@ export class GebruikerService {
 
   addFavorieteStudierichtingToGebruiker(studierichtingId: string) {
     return this.http.post<void>(
-      `http://localhost:8080/api/v1/gebruiker/addFavorieteStudierichting/${studierichtingId}`,
+      this.url + `/addFavorieteStudierichting/${studierichtingId}`,
       studierichtingId,
       { headers: this.headers },
     );
@@ -125,7 +119,7 @@ export class GebruikerService {
 
   removeFavorieteStudierichtingToGebruiker(studierichtingId: string) {
     return this.http.post<void>(
-      `http://localhost:8080/api/v1/gebruiker/removeFavorieteStudierichting/${studierichtingId}`,
+      this.url + `/removeFavorieteStudierichting/${studierichtingId}`,
       studierichtingId,
       { headers: this.headers },
     );
@@ -137,12 +131,8 @@ export class GebruikerService {
     return this.http.get<{
       totalElements: number;
       content: StudierichtingInterface[];
-    }>(
-      'http://localhost:8080/api/v1/gebruiker/favorietenStudierichtingen/' +
-        page,
-      {
-        headers: this.headers,
-      },
-    );
+    }>(this.url + '/favorietenStudierichtingen/' + page, {
+      headers: this.headers,
+    });
   }
 }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../environments/environment';
 
 interface UserValuesDto {
   conventioneel: number;
@@ -35,7 +36,7 @@ export class SimilarityService {
     Authorization: `Bearer ${this.token}`,
     'Content-Type': 'application/json',
   });
-  private apiUrl = 'http://localhost:8080/api/v1/studierichtingWaardes';
+  private apiUrl = environment.url + '/studierichtingWaardes';
 
   constructor(
     private http: HttpClient,
