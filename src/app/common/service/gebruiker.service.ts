@@ -69,13 +69,6 @@ export class GebruikerService {
     );
   }
 
-  getRollen() {
-    return this.http.get<GebruikerRol[]>(
-      `http://localhost:8080/api/v1/gebruiker/rollen`,
-      { headers: this.headers },
-    );
-  }
-
   changeActiveRol(rol: GebruikerRol) {
     return this.http.put<void>(
       `http://localhost:8080/api/v1/gebruiker/rol`,
