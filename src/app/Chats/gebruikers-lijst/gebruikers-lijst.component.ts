@@ -6,7 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { CookieService } from 'ngx-cookie-service';
 import { MatIconModule } from '@angular/material/icon';
 import { LookerQueueService } from '../../common/service/lookerQueue.service';
-import { GebruikerInterface } from '../../common/models/interfaces';
+import { ChatRoomInterface } from '../../common/models/interfaces';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
 import { NavBarComponent } from '../../common/navigation/nav-bar.component';
 import { GebruikerService } from '../../common/service/gebruiker.service';
@@ -27,7 +27,7 @@ import { ChatService } from '../../common/service/chat.service';
   styleUrls: ['./gebruikers-lijst.component.scss'],
 })
 export class GebruikersLijstComponent implements OnInit {
-  gebruikers: GebruikerInterface[] = [];
+  chatrooms: ChatRoomInterface[] = [];
   userId: string = '';
   errorMessage: string = '';
   amountOfLookers: number = 0;
@@ -46,13 +46,11 @@ export class GebruikersLijstComponent implements OnInit {
       .subscribe((userId) => {
         this.userId = userId;
         this.chatService.getMyChatRooms(userId).subscribe(
-          (gebruikers) => {
-            this.gebruikers = gebruikers.filter(
-              (gebruiker) => gebruiker.id !== this.userId,
-            );
+          (chatrooms) => {
+            this.chatrooms = chatrooms;
           },
           (error) => {
-            console.error('Error fetching gebruikers:', error);
+            console.error('Error fetching chatrooms:', error);
           },
         );
       });
@@ -68,8 +66,8 @@ export class GebruikersLijstComponent implements OnInit {
     );
   }
 
-  openChat(gebruiker: GebruikerInterface): void {
-    this.router.navigate(['/chat', gebruiker.id]);
+  openChat(chatroom: ChatRoomInterface): void {
+    this.router.navigate(['/chat', chatroom.chatId]);
   }
 
   stringToColor(email: string): string {

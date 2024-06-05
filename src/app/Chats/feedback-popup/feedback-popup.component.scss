@@ -1,0 +1,36 @@
+.popup-container, .feedback-form {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #ff9800;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #e68900;
+  }
+  
+  button.selected {
+    background-color: #00B980;
+  }
+  
+  h2 {
+    color: #ff9800;
+  }
+  
+  div {
+    margin: 10px 0;
+  }
+  
+  span {
+    font-size: 24px;
+    cursor: pointer;
+  }
+  

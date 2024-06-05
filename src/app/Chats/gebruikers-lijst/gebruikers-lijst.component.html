@@ -21,20 +21,20 @@
 
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
-    <ng-container *ngIf="gebruikers.length > 0; else noChats">
-      <ng-container *ngFor="let gebruiker of gebruikers">
-        <mat-list-item (click)="openChat(gebruiker)">
+    <ng-container *ngIf="chatrooms.length > 0; else noChats">
+      <ng-container *ngFor="let chatroom of chatrooms">
+        <mat-list-item (click)="openChat(chatroom)">
           <div class="user-button">
             <div
               class="profile-circle"
-              [ngStyle]="{ 'background-color': stringToColor(gebruiker.email) }"
+              [ngStyle]="{ 'background-color': stringToColor(chatroom.id) }"
             ></div>
             <div class="user-info">
-              <span class="user-email">{{ gebruiker.email }}</span>
+              <span class="user-email">{{ chatroom.studierichtingId }}</span>
               <span class="details">180 stp - UCLL, Leuven</span>
             </div>
             <div class="rating">
-              <mat-icon [ngStyle]="{ color: stringToColor(gebruiker.email) }"
+              <mat-icon [ngStyle]="{ color: stringToColor(chatroom.studierichtingId) }"
                 >star</mat-icon
               >
               <span>200</span>

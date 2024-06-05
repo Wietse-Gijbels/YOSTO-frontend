@@ -23,10 +23,17 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { IFrame } from '@stomp/stompjs';
-import { GebruikerInterface, Message } from '../../common/models/interfaces';
+import {
+  GebruikerInterface,
+  Message,
+  StudierichtingInterface,
+} from '../../common/models/interfaces';
 import { StompService } from '../../common/service/stomp.service';
 import { GebruikerService } from '../../common/service/gebruiker.service';
 import { ChatService } from '../../common/service/chat.service';
+import { StudierichtingService } from '../../common/service/studierichting.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FeedbackPopupComponent } from '../feedback-popup/feedback-popup.component';
 
 @Component({
   selector: 'app-chat',
@@ -54,6 +61,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
   private berichtenSubject = new BehaviorSubject<Message[]>([]);
   berichten$ = this.berichtenSubject.asObservable();
+  studieRichting: StudierichtingInterface | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -63,6 +71,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     private chatService: ChatService,
     private formBuilder: FormBuilder,
     private cookieService: CookieService,
+    private studierichtingService: StudierichtingService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -76,21 +86,35 @@ export class ChatComponent implements OnInit, AfterViewChecked {
             console.error('Error connecting to websocket:', error);
           },
         );
-        this.route.params.subscribe((params) => {
-          const gebruikerId = params['id'];
-          this.gebruikerService.getGebruikerById(gebruikerId).subscribe(
-            (gebruiker: any) => {
-              this.selectedGebruiker = gebruiker;
-              console.log('Selected gebruiker:', this.selectedGebruiker);
-              this.loadMessages();
-            },
-            (error: any) => {
-              console.error('Error fetching gebruiker:', error);
-            },
-          );
-        });
+        if (this.userId === this.route.snapshot.params['id'].split('_')[0]) {
+          this.gebruikerService
+            .getGebruikerById(this.route.snapshot.params['id'].split('_')[1])
+            .subscribe(
+              (gebruiker: any) => {
+                this.selectedGebruiker = gebruiker;
+                // console.log('Selected gebruiker:', this.selectedGebruiker);
+                this.loadMessages();
+              },
+              (error: any) => {
+                console.error('Error fetching gebruiker:', error);
+              },
+            );
+        } else {
+          this.gebruikerService
+            .getGebruikerById(this.route.snapshot.params['id'].split('_')[0])
+            .subscribe(
+              (gebruiker: any) => {
+                this.selectedGebruiker = gebruiker;
+                // console.log('Selected gebruiker:', this.selectedGebruiker);
+                this.loadMessages();
+              },
+              (error: any) => {
+                console.error('Error fetching gebruiker:', error);
+              },
+            );
+        }
       });
-
+    this.setRichtingDetails();
     this.messageForm = this.formBuilder.group({
       message: [''],
     });
@@ -98,6 +122,15 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked() {
     this.scrollToBottom();
+  }
+
+  setRichtingDetails(): void {
+    this.studierichtingService
+      .findStudierichting(this.route.snapshot.params['id'].split('_')[2])
+      .subscribe((studierichting: StudierichtingInterface) => {
+        this.studieRichting = studierichting;
+        // console.log('Studierichting:', this.studieRichting);
+      });
   }
 
   scrollToBottom(): void {
@@ -111,21 +144,20 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   loadMessages(): void {
     if (this.selectedGebruiker) {
-      this.chatService
-        .getMessages(this.userId, this.selectedGebruiker.id)
-        .subscribe(
-          (messages: string | any[]) => {
-            const convertedMessages: Message[] = messages as Message[];
-            this.berichtenSubject.next(convertedMessages);
-            if (convertedMessages.length > 0) {
-              this.selectedGebruiker!.lastMessage =
-                convertedMessages[convertedMessages.length - 1].content;
-            }
-          },
-          (error: any) => {
-            console.error('Error fetching messages:', error);
-          },
-        );
+      this.chatService.getMessages(this.route.snapshot.params['id']).subscribe(
+        (messages: string | any[]) => {
+          // console.log('Messages:', messages);
+          const convertedMessages: Message[] = messages as Message[];
+          this.berichtenSubject.next(convertedMessages);
+          if (convertedMessages.length > 0) {
+            this.selectedGebruiker!.lastMessage =
+              convertedMessages[convertedMessages.length - 1].content;
+          }
+        },
+        (error: any) => {
+          console.error('Error fetching messages:', error);
+        },
+      );
     }
   }
 
@@ -142,6 +174,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         const chatMessage: Message = {
           senderId: this.userId,
           recipientId: this.selectedGebruiker?.id ?? '',
+          studierichtingId: this.route.snapshot.params['id'].split('_')[2],
           content: messageContent,
           timestamp: new Date(),
         };
@@ -163,7 +196,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   onMessageReceived = (payload: any): void => {
     const message = JSON.parse(payload.body);
     message.timestamp = new Date(message.timestamp);
-    console.log('Message received:', message);
+    // console.log('Message received:', message);
 
     if (
       this.selectedGebruiker &&
@@ -189,11 +222,21 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         this.onMessageReceived,
       );
       this.stompService.subscribe(`/user/public`, this.onMessageReceived);
+      this.loadMessages();
     }, 500);
   }
 
   goBack(): void {
-    this.router.navigate(['/chat']);
+    const dialogRef = this.dialog.open(FeedbackPopupComponent, {
+      width: '250px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      // Navigate back to chat list if popup is closed
+      if (result !== 'submitFeedback') {
+        this.router.navigate(['/chat']);
+      }
+    });
   }
 
   stringToColor(email: string): string {
