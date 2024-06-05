@@ -8,6 +8,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { NgForOf, NgIf } from '@angular/common';
 import { StudierichtingService } from '../../common/service/studierichting.service';
+import { GebruikerRol } from '../../common/models/interfaces';
 
 @Component({
   selector: 'app-study-looker-registreer',
@@ -86,6 +87,7 @@ export class StudyLookerRegistreerComponent {
         // Verwerk succesvolle registratie
         this.cookieService.set('token', response.token);
         this.router.navigateByUrl('/home');
+        this.authService.setRol(GebruikerRol.STUDYLOOKER);
       },
       (error) => {
         if (error.error) {
