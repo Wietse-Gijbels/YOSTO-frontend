@@ -1,6 +1,6 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { GebruikerService } from '../service/gebruiker.service';
 import { GebruikerRol } from '../models/interfaces';
+import { AuthService } from '../service/auth.service';
 
 @Directive({
   selector: '[rolChecker]',
@@ -10,16 +10,15 @@ export class rolChecker {
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
-    private gebruikerService: GebruikerService,
+    private authService: AuthService,
   ) {}
 
   @Input({ required: true }) set rolChecker(requiredRol: GebruikerRol[]) {
-    this.gebruikerService.getRol().subscribe((rol) => {
-      if (requiredRol.includes(rol)) {
-        this.viewContainer.createEmbeddedView(this.templateRef);
-      } else {
-        this.viewContainer.clear();
-      }
-    });
+    const rol = this.authService.getRol();
+    if (rol !== undefined && requiredRol.includes(rol)) {
+      this.viewContainer.createEmbeddedView(this.templateRef);
+    } else {
+      this.viewContainer.clear();
+    }
   }
 }

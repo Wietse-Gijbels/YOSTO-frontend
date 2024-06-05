@@ -86,6 +86,7 @@ export class StudyLookerRegistreerComponent {
         // Verwerk succesvolle registratie
         this.cookieService.set('token', response.token);
         this.router.navigateByUrl('/home');
+        this.authService.setRol(response.rol);
       },
       (error) => {
         if (error.error) {

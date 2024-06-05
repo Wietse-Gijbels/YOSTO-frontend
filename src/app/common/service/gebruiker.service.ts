@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import {
   GebruikerInterface,
-  StudierichtingInterface,
   GebruikerRol,
+  StudierichtingInterface,
 } from '../models/interfaces';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -17,14 +17,13 @@ export class GebruikerService {
     Authorization: `Bearer ${this.token}`,
     'Content-Type': 'application/json',
   });
+  private urlMobile = 'http://192.168.0.209:8080/api/v1/gebruiker';
+  private url = 'http://localhost:8080/api/v1/gebruiker';
 
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
   ) {}
-
-  private urlMobile = 'http://192.168.0.209:8080/api/v1/gebruiker';
-  private url = 'http://localhost:8080/api/v1/gebruiker';
 
   getAllConectedGebruikers(): Observable<GebruikerInterface[]> {
     return this.http.get<GebruikerInterface[]>(
@@ -66,13 +65,6 @@ export class GebruikerService {
     return this.http.put<GebruikerInterface>(
       `http://localhost:8080/api/v1/gebruiker/${token}`,
       fromData,
-      { headers: this.headers },
-    );
-  }
-
-  getRol(): Observable<GebruikerRol> {
-    return this.http.get<GebruikerRol>(
-      `http://localhost:8080/api/v1/gebruiker/rol/${this.token}`,
       { headers: this.headers },
     );
   }

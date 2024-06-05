@@ -3,7 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthenticationResponse } from '../models/interfaces';
+import { AuthenticationResponse, GebruikerRol } from '../models/interfaces';
 import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
@@ -15,6 +15,9 @@ export class AuthService {
     Authorization: `Bearer ${this.token}`,
     'Content-Type': 'application/json',
   });
+  private urlMobile = 'http://192.168.0.209:8080/api/v1/auth';
+  private url = 'http://localhost:8080/api/v1/auth';
+  private rol: GebruikerRol | undefined;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
@@ -23,8 +26,13 @@ export class AuthService {
     private cookieService: CookieService,
   ) {}
 
-  private urlMobile = 'http://192.168.0.209:8080/api/v1/auth';
-  private url = 'http://localhost:8080/api/v1/auth';
+  setRol(rol: GebruikerRol) {
+    this.rol = rol;
+  }
+
+  getRol(): GebruikerRol | undefined {
+    return this.rol;
+  }
 
   isLoggedIn(): boolean {
     return this.cookieService.check('token');

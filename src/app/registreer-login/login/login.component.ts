@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
       (response) => {
         this.cookieService.set('token', response.token, { expires: 1 });
         this.router.navigateByUrl('/home');
+        this.authService.setRol(response.rol);
       },
       (error) => {
         if (error.error) {
