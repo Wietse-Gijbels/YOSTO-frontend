@@ -44,4 +44,8 @@ export const authReducer = createReducer(
       helperError: null,
     }),
   ),
+  on(AuthActions.clearToken, (state) => ({
+    ...state,
+    token: null,
+  })),
 );

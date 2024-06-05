@@ -43,3 +43,4 @@ export const registerHelperFailure = createAction(
 );
 
 export const logout = createAction('[Auth] Logout');
+export const clearToken = createAction('[Auth] Clear Token'); // Nieuwe actie om de token te verwijderen

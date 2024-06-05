@@ -1,9 +1,14 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ApplicationRef, Component, NgZone, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../store/actions/auth.actions';
 import { selectLookerError } from '../../store/selectors/auth.selectors';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
@@ -25,17 +30,8 @@ import { StudierichtingService } from '../../common/service/studierichting.servi
   styleUrls: ['./study-looker-registreer.component.scss'],
 })
 export class StudyLookerRegistreerComponent implements OnInit {
-  form = this.formBuilder.nonNullable.group({
-    voornaam: ['', Validators.required],
-    achternaam: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    wachtwoord: ['', Validators.required],
-    bevestigWachtwoord: ['', Validators.required],
-    woonplaats: ['', Validators.required],
-    huidigeStudieAndNiveau: [''],
-  });
-
-  errorMessages$: Observable<{ [key: string]: string } | null>;
+  form: FormGroup;
+  errorMessages$ = new BehaviorSubject<{ [key: string]: string } | null>(null);
   filteredRichtingen: string[] = [];
   borderRadiusStudie: string = 'normale-radius';
 
@@ -45,9 +41,23 @@ export class StudyLookerRegistreerComponent implements OnInit {
     private router: Router,
     private cookieService: CookieService,
     private studierichtingService: StudierichtingService,
-    private cdRef: ChangeDetectorRef,
+    private cdRef: ApplicationRef,
+    private ngZone: NgZone,
   ) {
-    this.errorMessages$ = this.store.select(selectLookerError);
+    this.form = this.formBuilder.group({
+      voornaam: ['', Validators.required],
+      achternaam: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      wachtwoord: ['', Validators.required],
+      bevestigWachtwoord: ['', Validators.required],
+      woonplaats: ['', Validators.required],
+      huidigeStudieAndNiveau: [''],
+    });
+
+    this.store.select(selectLookerError).subscribe((errorMessages) => {
+      this.errorMessages$.next(errorMessages);
+      this.updateFormErrors(errorMessages);
+    });
   }
 
   ngOnInit() {
@@ -69,10 +79,6 @@ export class StudyLookerRegistreerComponent implements OnInit {
       .subscribe((richtingen) => {
         this.filteredRichtingen = richtingen;
       });
-
-    this.errorMessages$.subscribe(() => {
-      this.cdRef.detectChanges();
-    });
   }
 
   onSubmit(): void {
@@ -81,10 +87,9 @@ export class StudyLookerRegistreerComponent implements OnInit {
     const formData = this.form.getRawValue();
 
     if (formData.wachtwoord !== formData.bevestigWachtwoord) {
-      this.errorMessages$ = of({
+      this.errorMessages$.next({
         errorWachtwoordDubbel: 'Wachtwoorden komen niet overeen.',
       });
-      this.cdRef.detectChanges(); // Trigger change detection
       return;
     }
 
@@ -99,7 +104,6 @@ export class StudyLookerRegistreerComponent implements OnInit {
         role: 'STUDYLOOKER',
       }),
     );
-    console.log(this.errorMessages$);
   }
 
   onRichtingClick(richting: string) {
@@ -108,7 +112,28 @@ export class StudyLookerRegistreerComponent implements OnInit {
   }
 
   private clearErrorMessages() {
-    this.errorMessages$ = of({});
-    this.cdRef.detectChanges(); // Trigger change detection
+    this.errorMessages$.next(null);
+    this.updateFormErrors(null);
+  }
+
+  private updateFormErrors(errorMessages: { [key: string]: string } | null) {
+    this.ngZone.run(() => {
+      Object.keys(this.form.controls).forEach((key) => {
+        const control = this.form.get(key);
+        if (key === 'woonplaats') {
+          key = 'provincie';
+        } else if (key === 'huidigeStudieAndNiveau') {
+          key = 'richtingParser';
+        }
+        if (control) {
+          const errorKey = `error${key.charAt(0).toUpperCase() + key.slice(1)}`;
+          if (errorMessages && errorMessages[errorKey]) {
+            control.setErrors({ serverError: errorMessages[errorKey] });
+          } else {
+            control.setErrors(null);
+          }
+        }
+      });
+    });
   }
 }

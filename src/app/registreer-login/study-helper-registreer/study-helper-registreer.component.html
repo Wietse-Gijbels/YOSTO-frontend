@@ -7,13 +7,9 @@
         placeholder="Voornaam*"
         type="text"
       />
-      @if (errorMessages$ | async; as errorMessages) {
-        @if (errorMessages["errorVoornaam"]) {
-          <p class="error">
-            {{ errorMessages["errorVoornaam"] }}
-          </p>
-        }
-      }
+      <ng-container *ngIf="form.get('voornaam')?.errors?.['serverError']">
+        <p class="error">{{ form.get("voornaam")?.errors?.["serverError"] }}</p>
+      </ng-container>
     </div>
     <div class="input-container">
       <input
@@ -22,13 +18,11 @@
         placeholder="Achternaam*"
         type="text"
       />
-      @if (errorMessages$ | async; as errorMessages) {
-        @if (errorMessages["errorAchternaam"]) {
-          <p class="error">
-            {{ errorMessages["errorAchternaam"] }}
-          </p>
-        }
-      }
+      <ng-container *ngIf="form.get('achternaam')?.errors?.['serverError']">
+        <p class="error">
+          {{ form.get("achternaam")?.errors?.["serverError"] }}
+        </p>
+      </ng-container>
     </div>
     <div class="input-container">
       <input
@@ -37,20 +31,9 @@
         placeholder="E-mailadres*"
         type="email"
       />
-      @if (errorMessages$ | async; as errorMessages) {
-        @if (errorMessages["errorEmail"]) {
-          <p class="error">
-            {{ errorMessages["errorEmail"] }}
-          </p>
-        }
-      }
-      @if (errorMessages$ | async; as errorMessages) {
-        @if (errorMessages["errorDuplicate"]) {
-          <p class="error">
-            {{ errorMessages["errorDuplicate"] }}
-          </p>
-        }
-      }
+      <ng-container *ngIf="form.get('email')?.errors?.['serverError']">
+        <p class="error">{{ form.get("email")?.errors?.["serverError"] }}</p>
+      </ng-container>
     </div>
     <div class="input-container">
       <input
@@ -59,23 +42,11 @@
         placeholder="Wachtwoord*"
         type="password"
       />
-      @if (errorMessages$ | async; as errorMessages) {
-        @if (
-          errorMessages["errorWachtwoord"] &&
-          !errorMessages["errorWachtwoordDubbel"]
-        ) {
-          <p class="error">
-            {{ errorMessages["errorWachtwoord"] }}
-          </p>
-        }
-      }
-      @if (errorMessages$ | async; as errorMessages) {
-        @if (errorMessages["errorWachtwoordDubbel"]) {
-          <p class="error">
-            {{ errorMessages["errorWachtwoordDubbel"] }}
-          </p>
-        }
-      }
+      <ng-container *ngIf="form.get('wachtwoord')?.errors?.['serverError']">
+        <p class="error">
+          {{ form.get("wachtwoord")?.errors?.["serverError"] }}
+        </p>
+      </ng-container>
     </div>
     <div class="input-container">
       <input
@@ -84,6 +55,13 @@
         placeholder="Bevestig wachtwoord*"
         type="password"
       />
+      <ng-container
+        *ngIf="form.get('bevestigWachtwoord')?.errors?.['serverError']"
+      >
+        <p class="error">
+          {{ form.get("bevestigWachtwoord")?.errors?.["serverError"] }}
+        </p>
+      </ng-container>
     </div>
     <div class="input-container">
       <input
@@ -92,13 +70,11 @@
         placeholder="Provincie*"
         type="text"
       />
-      @if (errorMessages$ | async; as errorMessages) {
-        @if (errorMessages["errorProvincie"]) {
-          <p class="error">
-            {{ errorMessages["errorProvincie"] }}
-          </p>
-        }
-      }
+      <ng-container *ngIf="form.get('woonplaats')?.errors?.['serverError']">
+        <p class="error">
+          {{ form.get("woonplaats")?.errors?.["serverError"] }}
+        </p>
+      </ng-container>
     </div>
     <div class="input-container">
       <input
@@ -107,38 +83,21 @@
         placeholder="Huidige studie*"
         type="text"
       />
-      @if (filteredRichtingen.length > 0) {
-        <ul class="suggestions">
-          <li
-            (click)="onRichtingClick(richting)"
-            *ngFor="let richting of filteredRichtingen"
-          >
-            {{ richting }}
-          </li>
-        </ul>
-      }
-      @if (errorMessages$ | async; as errorMessages) {
-        @if (
-          errorMessages["errorRichtingParser"] &&
-          !errorMessages["errorDiplomaParser"]
-        ) {
-          <p class="error">
-            {{ errorMessages["errorRichtingParser"] }}
-          </p>
-        } @else if (
-          !errorMessages["errorRichtingParser"] &&
-          errorMessages["errorDiplomaParser"]
-        ) {
-          <p class="error">
-            {{ errorMessages["errorDiplomaParser"] }}
-          </p>
-        } @else if (
-          errorMessages["errorRichtingParser"] &&
-          errorMessages["errorDiplomaParser"]
-        ) {
-          <p class="error">Onjuiste studie en diploma('s)</p>
-        }
-      }
+      <ul *ngIf="filteredRichtingen.length > 0" class="suggestions">
+        <li
+          (click)="onRichtingClick(richting)"
+          *ngFor="let richting of filteredRichtingen"
+        >
+          {{ richting }}
+        </li>
+      </ul>
+      <ng-container
+        *ngIf="form.get('huidigeStudieAndNiveau')?.errors?.['serverError']"
+      >
+        <p class="error">
+          {{ form.get("huidigeStudieAndNiveau")?.errors?.["serverError"] }}
+        </p>
+      </ng-container>
     </div>
     <div class="extra-diploma">
       <div formArrayName="behaaldeDiplomaArray">
@@ -154,18 +113,17 @@
               type="text"
             />
           </div>
-          @if (hasFilteredRichtingen(diploma)) {
-            <ul class="suggestions smaller-suggestions">
-              <li
-                (click)="onRichtingClick(richting, i)"
-                *ngFor="
-                  let richting of diploma.get('filteredRichtingen')?.value
-                "
-              >
-                {{ richting }}
-              </li>
-            </ul>
-          }
+          <ul
+            *ngIf="hasFilteredRichtingen(diploma)"
+            class="suggestions smaller-suggestions"
+          >
+            <li
+              (click)="onRichtingClick(richting, i)"
+              *ngFor="let richting of diploma.get('filteredRichtingen')?.value"
+            >
+              {{ richting }}
+            </li>
+          </ul>
         </div>
       </div>
       <div class="input-container smaller-height">

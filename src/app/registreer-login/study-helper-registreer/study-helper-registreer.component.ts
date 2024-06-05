@@ -1,16 +1,16 @@
-// src/app/components/study-helper-registreer/study-helper-registreer.component.ts
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ApplicationRef, Component, NgZone, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
   FormBuilder,
+  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../store/actions/auth.actions';
 import { selectHelperError } from '../../store/selectors/auth.selectors';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
@@ -32,23 +32,8 @@ import { StudierichtingService } from '../../common/service/studierichting.servi
   styleUrls: ['./study-helper-registreer.component.scss'],
 })
 export class StudyHelperRegistreerComponent implements OnInit {
-  form = this.formBuilder.nonNullable.group({
-    voornaam: ['', Validators.required],
-    achternaam: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    wachtwoord: ['', Validators.required],
-    bevestigWachtwoord: ['', Validators.required],
-    woonplaats: ['', Validators.required],
-    huidigeStudieAndNiveau: [''],
-    behaaldeDiplomaArray: this.formBuilder.array([
-      this.formBuilder.group({
-        diploma: [''],
-        filteredRichtingen: [[]],
-      }),
-    ]),
-  });
-
-  errorMessages$: Observable<{ [key: string]: string } | null>;
+  form: FormGroup;
+  errorMessages$ = new BehaviorSubject<{ [key: string]: string } | null>(null);
   filteredRichtingen: string[] = [];
   borderRadiusStudie: string = 'normale-radius';
 
@@ -58,9 +43,29 @@ export class StudyHelperRegistreerComponent implements OnInit {
     private router: Router,
     private cookieService: CookieService,
     private studierichtingService: StudierichtingService,
-    private cdRef: ChangeDetectorRef,
+    private cdRef: ApplicationRef,
+    private ngZone: NgZone,
   ) {
-    this.errorMessages$ = this.store.select(selectHelperError);
+    this.form = this.formBuilder.group({
+      voornaam: ['', Validators.required],
+      achternaam: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      wachtwoord: ['', Validators.required],
+      bevestigWachtwoord: ['', Validators.required],
+      woonplaats: ['', Validators.required],
+      huidigeStudieAndNiveau: [''],
+      behaaldeDiplomaArray: this.formBuilder.array([
+        this.formBuilder.group({
+          diploma: [''],
+          filteredRichtingen: [[]],
+        }),
+      ]),
+    });
+
+    this.store.select(selectHelperError).subscribe((errorMessages) => {
+      this.errorMessages$.next(errorMessages);
+      this.updateFormErrors(errorMessages);
+    });
   }
 
   get behaaldeDiplomaArray(): FormArray {
@@ -90,10 +95,6 @@ export class StudyHelperRegistreerComponent implements OnInit {
       });
 
     this.setupDiplomaFieldSubscriptions();
-
-    this.errorMessages$.subscribe(() => {
-      this.cdRef.detectChanges();
-    });
   }
 
   setupDiplomaFieldSubscriptions() {
@@ -171,10 +172,9 @@ export class StudyHelperRegistreerComponent implements OnInit {
 
     const formData = this.form.getRawValue();
     if (formData.wachtwoord !== formData.bevestigWachtwoord) {
-      this.errorMessages$ = of({
+      this.errorMessages$.next({
         errorWachtwoordDubbel: 'Wachtwoorden komen niet overeen.',
       });
-      return;
     }
 
     const behaaldeDiplomas = formData.behaaldeDiplomaArray.map(
@@ -218,6 +218,30 @@ export class StudyHelperRegistreerComponent implements OnInit {
   }
 
   private clearErrorMessages() {
-    this.errorMessages$ = of({});
+    this.errorMessages$.next(null);
+    this.updateFormErrors(null);
+  }
+
+  private updateFormErrors(errorMessages: { [key: string]: string } | null) {
+    this.ngZone.run(() => {
+      Object.keys(this.form.controls).forEach((key) => {
+        const control = this.form.get(key);
+        if (key === 'woonplaats') {
+          key = 'provincie';
+        } else if (key === 'huidigeStudieAndNiveau') {
+          key = 'richtingParser';
+        } else if (key === 'diploma') {
+          key = 'diplomaParser';
+        }
+        if (control) {
+          const errorKey = `error${key.charAt(0).toUpperCase() + key.slice(1)}`;
+          if (errorMessages && errorMessages[errorKey]) {
+            control.setErrors({ serverError: errorMessages[errorKey] });
+          } else {
+            control.setErrors(null);
+          }
+        }
+      });
+    });
   }
 }

@@ -1,7 +1,7 @@
 // src/app/components/login/login.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import * as AuthActions from '../../store/actions/auth.actions';
 import { selectAuthError } from '../../store/selectors/auth.selectors';
 import { Observable } from 'rxjs';
@@ -13,7 +13,13 @@ import { AsyncPipe, NgIf } from '@angular/common';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, GebruikerHeaderComponent, AsyncPipe, NgIf],
+  imports: [
+    ReactiveFormsModule,
+    GebruikerHeaderComponent,
+    AsyncPipe,
+    NgIf,
+    StoreModule,
+  ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
@@ -30,6 +36,7 @@ export class LoginComponent implements OnInit {
     private store: Store,
     private router: Router,
     private cookieService: CookieService,
+    private storeModule: StoreModule,
   ) {
     this.errorMessages$ = this.store.select(selectAuthError);
   }
@@ -40,6 +47,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(AuthActions.clearToken()); // Verwijder de token wanneer de component wordt geïnitialiseerd
     this.cookieService.delete('token');
   }
 }
