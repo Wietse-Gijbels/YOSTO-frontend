@@ -10,9 +10,7 @@ export class ChatService {
   constructor(private http: HttpClient) {}
 
   getMessages(chatId: string): Observable<Message[]> {
-    return this.http.get<Message[]>(
-      `http://localhost:8080/messages/${chatId}`,
-    );
+    return this.http.get<Message[]>(`http://localhost:8080/messages/${chatId}`);
   }
 
   getMyChatRooms(userId: string): Observable<ChatRoomInterface[]> {

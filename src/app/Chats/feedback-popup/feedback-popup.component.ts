@@ -8,7 +8,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   templateUrl: './feedback-popup.component.html',
   styleUrls: ['./feedback-popup.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatDialogModule]
+  imports: [CommonModule, MatDialogModule],
 })
 export class FeedbackPopupComponent {
   showFeedbackForm = false;
@@ -32,7 +32,7 @@ export class FeedbackPopupComponent {
       responseTime: this.responseTime,
       clarity: this.clarity,
       answered: this.answered,
-      overallRating: this.overallRating
+      overallRating: this.overallRating,
     };
     console.log('Feedback:', feedback);
     this.dialogRef.close('submitFeedback');

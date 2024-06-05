@@ -1,50 +1,91 @@
 <div *ngIf="!showFeedbackForm" class="popup-container">
-    <p>Wil je de chat afsluiten en beoordelen?</p>
-    <button (click)="closeDialog()">Nee</button>
-    <button (click)="openFeedbackForm()">Ja</button>
+  <p>Wil je de chat afsluiten en beoordelen?</p>
+  <button (click)="closeDialog()">Nee</button>
+  <button (click)="openFeedbackForm()">Ja</button>
+</div>
+
+<div *ngIf="showFeedbackForm" class="feedback-form">
+  <h2>FEEDBACK</h2>
+  <div>
+    <p>
+      Hoe beoordeel je de inhoud van de informatie die je van de StudyHelper
+      ontving?
+    </p>
+    <div>
+      <span
+        *ngFor="let star of [1, 2, 3, 4, 5]"
+        (click)="setRating('contentRating', star)"
+      >
+        {{ star <= contentRating ? "★" : "☆" }}
+      </span>
+    </div>
   </div>
-  
-  <div *ngIf="showFeedbackForm" class="feedback-form">
-    <h2>FEEDBACK</h2>
+  <div>
+    <p>Hoe beoordeel je de houding van de StudyHelper?</p>
     <div>
-      <p>Hoe beoordeel je de inhoud van de informatie die je van de StudyHelper ontving?</p>
-      <div>
-        <span *ngFor="let star of [1,2,3,4,5]" (click)="setRating('contentRating', star)">
-          {{ star <= contentRating ? '★' : '☆' }}
-        </span>
-      </div>
+      <span
+        *ngFor="let star of [1, 2, 3, 4, 5]"
+        (click)="setRating('attitudeRating', star)"
+      >
+        {{ star <= attitudeRating ? "★" : "☆" }}
+      </span>
     </div>
-    <div>
-      <p>Hoe beoordeel je de houding van de StudyHelper?</p>
-      <div>
-        <span *ngFor="let star of [1,2,3,4,5]" (click)="setRating('attitudeRating', star)">
-          {{ star <= attitudeRating ? '★' : '☆' }}
-        </span>
-      </div>
-    </div>
-    <div>
-      <p>Heb je soms langer dan 5 dagen moeten wachten op een antwoord?</p>
-      <button [class.selected]="isSelected(responseTime, true)" (click)="setResponseTime(true)">Ja</button>
-      <button [class.selected]="isSelected(responseTime, false)" (click)="setResponseTime(false)">Nee</button>
-    </div>
-    <div>
-      <p>Was de informatie duidelijk?</p>
-      <button [class.selected]="isSelected(clarity, true)" (click)="setClarity(true)">Ja</button>
-      <button [class.selected]="isSelected(clarity, false)" (click)="setClarity(false)">Nee</button>
-    </div>
-    <div>
-      <p>Zijn al je vragen beantwoord?</p>
-      <button [class.selected]="isSelected(answered, true)" (click)="setAnswered(true)">Ja</button>
-      <button [class.selected]="isSelected(answered, false)" (click)="setAnswered(false)">Nee</button>
-    </div>
-    <div>
-      <p>Geef een algemene score voor de StudyHelper:</p>
-      <div>
-        <span *ngFor="let star of [1,2,3,4,5]" (click)="setRating('overallRating', star)">
-          {{ star <= overallRating ? '★' : '☆' }}
-        </span>
-      </div>
-    </div>
-    <button (click)="submitFeedback()">Feedback Verzenden</button>
   </div>
-  
+  <div>
+    <p>Heb je soms langer dan 5 dagen moeten wachten op een antwoord?</p>
+    <button
+      [class.selected]="isSelected(responseTime, true)"
+      (click)="setResponseTime(true)"
+    >
+      Ja
+    </button>
+    <button
+      [class.selected]="isSelected(responseTime, false)"
+      (click)="setResponseTime(false)"
+    >
+      Nee
+    </button>
+  </div>
+  <div>
+    <p>Was de informatie duidelijk?</p>
+    <button
+      [class.selected]="isSelected(clarity, true)"
+      (click)="setClarity(true)"
+    >
+      Ja
+    </button>
+    <button
+      [class.selected]="isSelected(clarity, false)"
+      (click)="setClarity(false)"
+    >
+      Nee
+    </button>
+  </div>
+  <div>
+    <p>Zijn al je vragen beantwoord?</p>
+    <button
+      [class.selected]="isSelected(answered, true)"
+      (click)="setAnswered(true)"
+    >
+      Ja
+    </button>
+    <button
+      [class.selected]="isSelected(answered, false)"
+      (click)="setAnswered(false)"
+    >
+      Nee
+    </button>
+  </div>
+  <div>
+    <p>Geef een algemene score voor de StudyHelper:</p>
+    <div>
+      <span
+        *ngFor="let star of [1, 2, 3, 4, 5]"
+        (click)="setRating('overallRating', star)"
+      >
+        {{ star <= overallRating ? "★" : "☆" }}
+      </span>
+    </div>
+  </div>
+  <button (click)="submitFeedback()">Feedback Verzenden</button>
+</div>
