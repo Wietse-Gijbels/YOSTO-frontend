@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+// src/app/components/study-helper-registreer/study-helper-registreer.component.ts
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -6,20 +7,27 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../../common/service/auth.service';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../store/actions/auth.actions';
+import { selectHelperError } from '../../store/selectors/auth.selectors';
+import { Observable, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
-import { NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
 import { StudierichtingService } from '../../common/service/studierichting.service';
 
 @Component({
   selector: 'app-study-helper-registreer',
   standalone: true,
-  imports: [ReactiveFormsModule, GebruikerHeaderComponent, NgIf, NgForOf],
+  imports: [
+    ReactiveFormsModule,
+    GebruikerHeaderComponent,
+    NgIf,
+    NgForOf,
+    AsyncPipe,
+  ],
   templateUrl: './study-helper-registreer.component.html',
   styleUrls: ['./study-helper-registreer.component.scss'],
 })
@@ -40,18 +48,20 @@ export class StudyHelperRegistreerComponent implements OnInit {
     ]),
   });
 
-  errorMessages: { [key: string]: string } = {};
+  errorMessages$: Observable<{ [key: string]: string } | null>;
   filteredRichtingen: string[] = [];
   borderRadiusStudie: string = 'normale-radius';
 
   constructor(
     private formBuilder: FormBuilder,
-    private httpClient: HttpClient,
-    private authService: AuthService,
+    private store: Store,
     private router: Router,
     private cookieService: CookieService,
     private studierichtingService: StudierichtingService,
-  ) {}
+    private cdRef: ChangeDetectorRef,
+  ) {
+    this.errorMessages$ = this.store.select(selectHelperError);
+  }
 
   get behaaldeDiplomaArray(): FormArray {
     return this.form.get('behaaldeDiplomaArray') as FormArray;
@@ -80,6 +90,10 @@ export class StudyHelperRegistreerComponent implements OnInit {
       });
 
     this.setupDiplomaFieldSubscriptions();
+
+    this.errorMessages$.subscribe(() => {
+      this.cdRef.detectChanges();
+    });
   }
 
   setupDiplomaFieldSubscriptions() {
@@ -111,7 +125,6 @@ export class StudyHelperRegistreerComponent implements OnInit {
   }
 
   addDiplomaField(): void {
-    // Check if the last diploma field has a value before adding a new one
     const lastDiplomaControl = this.behaaldeDiplomaArray.at(
       this.behaaldeDiplomaArray.length - 1,
     );
@@ -122,7 +135,6 @@ export class StudyHelperRegistreerComponent implements OnInit {
       });
       this.behaaldeDiplomaArray.push(newField);
 
-      // Add subscription for the new field
       const index = this.behaaldeDiplomaArray.length - 1;
       const diplomaControl = newField.get('diploma');
       diplomaControl!.valueChanges
@@ -148,7 +160,6 @@ export class StudyHelperRegistreerComponent implements OnInit {
           );
         });
     } else {
-      // Optionally show a message to the user indicating the need to fill the previous field
       console.warn(
         'Please fill the previous diploma field before adding a new one.',
       );
@@ -159,11 +170,11 @@ export class StudyHelperRegistreerComponent implements OnInit {
     this.clearErrorMessages();
 
     const formData = this.form.getRawValue();
-    console.log(formData);
     if (formData.wachtwoord !== formData.bevestigWachtwoord) {
-      this.errorMessages = {
+      this.errorMessages$ = of({
         errorWachtwoordDubbel: 'Wachtwoorden komen niet overeen.',
-      };
+      });
+      return;
     }
 
     const behaaldeDiplomas = formData.behaaldeDiplomaArray.map(
@@ -173,23 +184,13 @@ export class StudyHelperRegistreerComponent implements OnInit {
     const formDataWithRole = {
       ...formData,
       rol: 'STUDYHELPER',
-      behaaldeDiplomas, // STUDYHELPER als rol setten
+      behaaldeDiplomas,
     };
-    this.authService.registreerHelper(formDataWithRole).subscribe(
-      (response) => {
-        // Verwerk succesvolle registratie
-        this.cookieService.set('token', response.token);
-        this.router.navigateByUrl('/home');
-      },
-      (error) => {
-        if (error.error) {
-          this.errorMessages = { ...error.error, ...this.errorMessages };
-        } else {
-          this.errorMessages = {
-            errorRegistreer: 'Er is een fout opgetreden bij het registreren.',
-          };
-        }
-      },
+    this.store.dispatch(
+      AuthActions.registerHelper({
+        formData: formDataWithRole,
+        role: 'STUDYHELPER',
+      }),
     );
   }
 
@@ -217,6 +218,6 @@ export class StudyHelperRegistreerComponent implements OnInit {
   }
 
   private clearErrorMessages() {
-    this.errorMessages = {};
+    this.errorMessages$ = of({});
   }
 }

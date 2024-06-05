@@ -5,10 +5,12 @@
   ></gebruiker-header>
   <div class="login-page">
     <div class="error-container">
-      @if (errorMessages["errorLogin"]) {
-        <p class="errorTop">
-          {{ errorMessages["errorLogin"] }}
-        </p>
+      @if (errorMessages$ | async; as errorMessages) {
+        @if (errorMessages["errorLogin"]) {
+          <p class="errorTop">
+            {{ errorMessages["errorLogin"] }}
+          </p>
+        }
       }
     </div>
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
@@ -19,10 +21,12 @@
           placeholder="E-mailadres*"
           type="text"
         />
-        @if (errorMessages["errorLoginEmail"]) {
-          <p class="error">
-            {{ errorMessages["errorLoginEmail"] }}
-          </p>
+        @if (errorMessages$ | async; as errorMessages) {
+          @if (errorMessages["errorLoginEmail"]) {
+            <p class="error">
+              {{ errorMessages["errorLoginEmail"] }}
+            </p>
+          }
         }
       </div>
       <div class="input-container">
@@ -32,10 +36,12 @@
           placeholder="Wachtwoord*"
           type="password"
         />
-        @if (errorMessages["errorLoginWachtwoord"]) {
-          <p class="error">
-            {{ errorMessages["errorLoginWachtwoord"] }}
-          </p>
+        @if (errorMessages$ | async; as errorMessages) {
+          @if (errorMessages["errorLoginWachtwoord"]) {
+            <p class="error">
+              {{ errorMessages["errorLoginWachtwoord"] }}
+            </p>
+          }
         }
       </div>
       <div>

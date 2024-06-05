@@ -3,12 +3,10 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NavBarComponent } from './common/navigation/nav-bar.component';
 import { StartSchermComponent } from './registreer-login/start-scherm/start-scherm.component';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  providers: [CookieService],
   imports: [
     RouterOutlet,
     HttpClientModule,

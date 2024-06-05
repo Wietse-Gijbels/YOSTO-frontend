@@ -61,11 +61,11 @@ export class StudierichtingenComponent implements OnInit {
     private cookieService: CookieService,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadPage(this.page);
     const token = this.cookieService.get('token');
     this.gebruikerService.getGebruiker(token).subscribe({
-      next: (gebruiker) => {
+      next: (gebruiker: GebruikerInterface): void => {
         this.gebruiker$.next(gebruiker);
       },
     });
@@ -77,7 +77,6 @@ export class StudierichtingenComponent implements OnInit {
 
   applyFilter() {
     this.page = 0;
-    this.toggleFilter();
     this.loadPage(this.page);
   }
 
@@ -86,28 +85,7 @@ export class StudierichtingenComponent implements OnInit {
     this.loadPage(event.pageIndex);
   }
 
-  private loadPage(page: number) {
-    this.loading = true; // Show loading spinner
-    setTimeout(() => {
-      this.studierichtingen$ =
-        this.studierichtingService.getOverviewFilteredHogerOnderwijsRichtingen(
-          page,
-          this.filterNaam,
-          this.filterNiveau,
-          this.order,
-        );
-      this.studierichtingen$.subscribe(
-        () => {
-          this.loading = false;
-        },
-        () => {
-          this.loading = false;
-        },
-      );
-    }, 200); // Delay for 0.2 seconds
-  }
-
-  favorite(studierichtingId: string, icon: IconProp) {
+  favorite(studierichtingId: string, icon: IconProp): void {
     const token = this.cookieService.get('token');
 
     if (icon == faHeart) {
@@ -152,5 +130,26 @@ export class StudierichtingenComponent implements OnInit {
     return gebruiker.favorieteStudierichtingen.some(
       (favo) => favo.id === studierichting.id,
     );
+  }
+
+  private loadPage(page: number) {
+    this.loading = true; // Show loading spinner
+    setTimeout(() => {
+      this.studierichtingen$ =
+        this.studierichtingService.getOverviewFilteredHogerOnderwijsRichtingen(
+          page,
+          this.filterNaam,
+          this.filterNiveau,
+          this.order,
+        );
+      this.studierichtingen$.subscribe(
+        () => {
+          this.loading = false;
+        },
+        () => {
+          this.loading = false;
+        },
+      );
+    }, 200); // Delay for 0.2 seconds
   }
 }

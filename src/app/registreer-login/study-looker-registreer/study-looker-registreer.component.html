@@ -7,10 +7,12 @@
         placeholder="Voornaam*"
         type="text"
       />
-      @if (errorMessages["errorVoornaam"]) {
-        <p class="error">
-          {{ errorMessages["errorVoornaam"] }}
-        </p>
+      @if (errorMessages$ | async; as errorMessages) {
+        @if (errorMessages["errorVoornaam"]) {
+          <p class="error">
+            {{ errorMessages["errorVoornaam"] }}
+          </p>
+        }
       }
     </div>
     <div class="input-container">
@@ -20,10 +22,12 @@
         placeholder="Achternaam*"
         type="text"
       />
-      @if (errorMessages["errorAchternaam"]) {
-        <p class="error">
-          {{ errorMessages["errorAchternaam"] }}
-        </p>
+      @if (errorMessages$ | async; as errorMessages) {
+        @if (errorMessages["errorAchternaam"]) {
+          <p class="error">
+            {{ errorMessages["errorAchternaam"] }}
+          </p>
+        }
       }
     </div>
     <div class="input-container">
@@ -33,15 +37,19 @@
         placeholder="E-mailadres*"
         type="email"
       />
-      @if (errorMessages["errorEmail"]) {
-        <p class="error">
-          {{ errorMessages["errorEmail"] }}
-        </p>
+      @if (errorMessages$ | async; as errorMessages) {
+        @if (errorMessages["errorEmail"]) {
+          <p class="error">
+            {{ errorMessages["errorEmail"] }}
+          </p>
+        }
       }
-      @if (errorMessages["errorDuplicate"]) {
-        <p class="error">
-          {{ errorMessages["errorDuplicate"] }}
-        </p>
+      @if (errorMessages$ | async; as errorMessages) {
+        @if (errorMessages["errorDuplicate"]) {
+          <p class="error">
+            {{ errorMessages["errorDuplicate"] }}
+          </p>
+        }
       }
     </div>
     <div class="input-container">
@@ -51,18 +59,22 @@
         placeholder="Wachtwoord*"
         type="password"
       />
-      @if (
-        errorMessages["errorWachtwoord"] &&
-        !errorMessages["errorWachtwoordDubbel"]
-      ) {
-        <p class="error">
-          {{ errorMessages["errorWachtwoord"] }}
-        </p>
+      @if (errorMessages$ | async; as errorMessages) {
+        @if (
+          errorMessages["errorWachtwoord"] &&
+          !errorMessages["errorWachtwoordDubbel"]
+        ) {
+          <p class="error">
+            {{ errorMessages["errorWachtwoord"] }}
+          </p>
+        }
       }
-      @if (errorMessages["errorWachtwoordDubbel"]) {
-        <p class="error">
-          {{ errorMessages["errorWachtwoordDubbel"] }}
-        </p>
+      @if (errorMessages$ | async; as errorMessages) {
+        @if (errorMessages["errorWachtwoordDubbel"]) {
+          <p class="error">
+            {{ errorMessages["errorWachtwoordDubbel"] }}
+          </p>
+        }
       }
     </div>
     <div class="input-container">
@@ -80,10 +92,12 @@
         placeholder="Provincie*"
         type="text"
       />
-      @if (errorMessages["errorProvincie"]) {
-        <p class="error">
-          {{ errorMessages["errorProvincie"] }}
-        </p>
+      @if (errorMessages$ | async; as errorMessages) {
+        @if (errorMessages["errorProvincie"]) {
+          <p class="error">
+            {{ errorMessages["errorProvincie"] }}
+          </p>
+        }
       }
     </div>
     <div class="input-container">
@@ -101,10 +115,12 @@
           {{ richting }}
         </li>
       </ul>
-      @if (errorMessages["errorRichtingParser"]) {
-        <p class="error">
-          {{ errorMessages["errorRichtingParser"] }}
-        </p>
+      @if (errorMessages$ | async; as errorMessages) {
+        @if (errorMessages["errorRichtingParser"]) {
+          <p class="error">
+            {{ errorMessages["errorRichtingParser"] }}
+          </p>
+        }
       }
     </div>
     <div>

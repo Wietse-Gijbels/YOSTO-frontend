@@ -1,43 +1,54 @@
-import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../../common/service/auth.service';
-import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../store/actions/auth.actions';
+import { selectLookerError } from '../../store/selectors/auth.selectors';
+import { Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { NgForOf, NgIf } from '@angular/common';
+import { Router } from '@angular/router';
+import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 import { StudierichtingService } from '../../common/service/studierichting.service';
 
 @Component({
   selector: 'app-study-looker-registreer',
   standalone: true,
-  imports: [ReactiveFormsModule, GebruikerHeaderComponent, NgIf, NgForOf],
+  imports: [
+    ReactiveFormsModule,
+    GebruikerHeaderComponent,
+    NgIf,
+    NgForOf,
+    AsyncPipe,
+  ],
   templateUrl: './study-looker-registreer.component.html',
   styleUrls: ['./study-looker-registreer.component.scss'],
 })
-export class StudyLookerRegistreerComponent {
+export class StudyLookerRegistreerComponent implements OnInit {
   form = this.formBuilder.nonNullable.group({
-    voornaam: [''],
-    achternaam: [''],
-    email: [''],
-    wachtwoord: [''],
-    bevestigWachtwoord: [''],
-    woonplaats: [''],
+    voornaam: ['', Validators.required],
+    achternaam: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    wachtwoord: ['', Validators.required],
+    bevestigWachtwoord: ['', Validators.required],
+    woonplaats: ['', Validators.required],
     huidigeStudieAndNiveau: [''],
   });
 
-  errorMessages: { [key: string]: string } = {};
+  errorMessages$: Observable<{ [key: string]: string } | null>;
   filteredRichtingen: string[] = [];
   borderRadiusStudie: string = 'normale-radius';
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
+    private store: Store,
     private router: Router,
     private cookieService: CookieService,
     private studierichtingService: StudierichtingService,
-  ) {}
+    private cdRef: ChangeDetectorRef,
+  ) {
+    this.errorMessages$ = this.store.select(selectLookerError);
+  }
 
   ngOnInit() {
     this.form
@@ -58,45 +69,37 @@ export class StudyLookerRegistreerComponent {
       .subscribe((richtingen) => {
         this.filteredRichtingen = richtingen;
       });
+
+    this.errorMessages$.subscribe(() => {
+      this.cdRef.detectChanges();
+    });
   }
 
   onSubmit(): void {
-    if (this.form.invalid) {
-      return;
-    }
-
     this.clearErrorMessages();
 
     const formData = this.form.getRawValue();
 
     if (formData.wachtwoord !== formData.bevestigWachtwoord) {
-      this.errorMessages = {
+      this.errorMessages$ = of({
         errorWachtwoordDubbel: 'Wachtwoorden komen niet overeen.',
-      };
+      });
+      this.cdRef.detectChanges(); // Trigger change detection
       return;
     }
 
     const formDataWithRole = {
       ...formData,
-      rol: 'STUDYLOOKER', // STUDYLOOKER als rol setten
+      rol: 'STUDYLOOKER',
     };
 
-    this.authService.registreerLooker(formDataWithRole).subscribe(
-      (response) => {
-        // Verwerk succesvolle registratie
-        this.cookieService.set('token', response.token);
-        this.router.navigateByUrl('/home');
-      },
-      (error) => {
-        if (error.error) {
-          this.errorMessages = { ...error.error, ...this.errorMessages };
-        } else {
-          this.errorMessages = {
-            errorRegistreer: 'Er is een fout opgetreden bij het registreren.',
-          };
-        }
-      },
+    this.store.dispatch(
+      AuthActions.registerLooker({
+        formData: formDataWithRole,
+        role: 'STUDYLOOKER',
+      }),
     );
+    console.log(this.errorMessages$);
   }
 
   onRichtingClick(richting: string) {
@@ -105,6 +108,7 @@ export class StudyLookerRegistreerComponent {
   }
 
   private clearErrorMessages() {
-    this.errorMessages = {};
+    this.errorMessages$ = of({});
+    this.cdRef.detectChanges(); // Trigger change detection
   }
 }
