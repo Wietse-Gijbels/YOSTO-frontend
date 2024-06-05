@@ -15,6 +15,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { StudierichtingService } from '../../common/service/studierichting.service';
+import { GebruikerRol } from '../../common/models/interfaces';
 
 @Component({
   selector: 'app-study-helper-registreer',
@@ -180,7 +181,7 @@ export class StudyHelperRegistreerComponent implements OnInit {
         // Verwerk succesvolle registratie
         this.cookieService.set('token', response.token);
         this.router.navigateByUrl('/home');
-        this.authService.setRol(response.rol);
+        this.authService.setRol(GebruikerRol.STUDYHELPER);
       },
       (error) => {
         if (error.error) {
