@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { AntwoordDTO, GebruikerWaardes, Vraag } from '../models/interfaces';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,9 +14,9 @@ export class MatchingTestService {
     Authorization: `Bearer ${this.token}`,
     'Content-Type': 'application/json',
   });
-  private vraagUrl = 'http://localhost:8080/api/v1/vragen';
-  private antwoordUrl = 'http://localhost:8080/api/v1/antwoorden';
-  private calculateWaardesUrl = 'http://localhost:8080/api/v1/gebruikerWaardes';
+  private vraagUrl = environment.url + '/vragen';
+  private antwoordUrl = environment.url + '/antwoorden';
+  private calculateWaardesUrl = environment.url + '/gebruikerWaardes';
 
   constructor(
     private http: HttpClient,

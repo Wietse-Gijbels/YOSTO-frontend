@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Geschenk, GeschenkCategorie } from '../models/interfaces';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +14,8 @@ export class GeschenkService {
     Authorization: `Bearer ${this.token}`,
     'Content-Type': 'application/json',
   });
-  private apiUrl = 'http://localhost:8080/api/v1/geschenk';
-  private categorieApiUrl = 'http://localhost:8080/api/v1/geschenkcategorie';
+  private apiUrl = environment.url + '/geschenk';
+  private categorieApiUrl = environment.url + '/geschenkcategorie';
 
   constructor(
     private http: HttpClient,

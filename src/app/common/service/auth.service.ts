@@ -5,14 +5,14 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthenticationResponse, GebruikerRol } from '../models/interfaces';
 import { catchError, Observable, throwError } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   public rol: GebruikerRol | undefined;
-  private urlMobile = 'http://192.168.0.209:8080/api/v1/auth';
-  private url = 'http://localhost:8080/api/v1/auth';
+  private url = environment.url + '/auth';
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,

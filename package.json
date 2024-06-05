@@ -10,7 +10,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:frontend-yosto": "node dist/frontend-yosto/server/server.mjs",
-    "rebuild:cap": "ng build && npx cap copy && npx cap sync android && npx cap open android",
+    "rebuild:cap": "ng build --configuration production && npx cap copy && npx cap sync android && node scripts/addCleartextTraffic.js && npx cap open android",
     "prepare": "husky install"
   },
   "private": true,
