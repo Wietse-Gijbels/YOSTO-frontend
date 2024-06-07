@@ -6,7 +6,6 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { GebruikerService } from '../service/gebruiker.service';
 import { GebruikerRol } from '../models/interfaces';
 import { rolStyle } from '../directives/rol-style.directive';
 import { CdkDropList } from '@angular/cdk/drag-drop';
@@ -19,7 +18,7 @@ import {
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'gebruiker-header',
@@ -42,7 +41,6 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./gebruiker-header.component.scss'],
 })
 export class GebruikerHeaderComponent implements OnInit, OnChanges {
-  protected readonly GebruikerRol = GebruikerRol;
   @Input() headerText: string = '';
   @Input({ required: true }) backgroundColor!: string;
   @Input() subText: string = '';
@@ -50,26 +48,18 @@ export class GebruikerHeaderComponent implements OnInit, OnChanges {
   @Input() fotoPath: string = '';
   src: string = '';
   @Input() class: string = '';
-  rollen: GebruikerRol[] = [];
-  activeRol: GebruikerRol | undefined;
 
-  constructor(private gebruikerService: GebruikerService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.gebruikerService.getRollen().subscribe((rollen) => {
-      this.rollen = rollen;
-    });
     if (this.fotoPath) {
       this.src = this.fotoPath;
     } else {
-      this.gebruikerService.getRol().subscribe((rol) => {
-        this.activeRol = rol;
-        if (rol === GebruikerRol.STUDYHELPER) {
-          this.src = '../../../assets/images/helper-yosto-logo.png';
-        } else {
-          this.src = '../../../assets/images/looker-yosto-logo.png';
-        }
-      });
+      if (this.authService.getRol() === GebruikerRol.STUDYHELPER) {
+        this.src = '../../../assets/images/helper-yosto-logo.png';
+      } else {
+        this.src = '../../../assets/images/looker-yosto-logo.png';
+      }
     }
   }
 
@@ -77,10 +67,5 @@ export class GebruikerHeaderComponent implements OnInit, OnChanges {
     if (changes['fotoPath']) {
       this.src = changes['fotoPath'].currentValue;
     }
-  }
-
-  changeRol(rol: GebruikerRol) {
-    this.gebruikerService.changeActiveRol(rol);
-    this.activeRol = rol;
   }
 }
