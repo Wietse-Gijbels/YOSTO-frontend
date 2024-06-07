@@ -36,7 +36,11 @@
       type="text"
       class="message-input"
       [class.closed]="isChatClosed"
-      [placeholder]="isChatClosed ? 'You cannot send anymore messages as the chat is closed' : 'Type your message...'"
+      [placeholder]="
+        isChatClosed
+          ? 'You cannot send anymore messages as the chat is closed'
+          : 'Type your message...'
+      "
       formControlName="message"
       [disabled]="isChatClosed"
     />

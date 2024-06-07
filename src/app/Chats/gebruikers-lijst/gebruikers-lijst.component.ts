@@ -49,8 +49,12 @@ export class GebruikersLijstComponent implements OnInit {
         this.chatService.getMyChatRooms(userId).subscribe(
           (chatrooms) => {
             console.log('Chatrooms:', chatrooms);
-            this.openChatrooms = chatrooms.filter(chatroom => !chatroom.isAfgesloten);
-            this.closedChatrooms = chatrooms.filter(chatroom => chatroom.isAfgesloten);
+            this.openChatrooms = chatrooms.filter(
+              (chatroom) => !chatroom.isAfgesloten,
+            );
+            this.closedChatrooms = chatrooms.filter(
+              (chatroom) => chatroom.isAfgesloten,
+            );
           },
           (error) => {
             console.error('Error fetching chatrooms:', error);
