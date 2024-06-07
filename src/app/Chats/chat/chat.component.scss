@@ -64,6 +64,11 @@
   border-radius: 20px; /* Rounded corners */
   background-color: #fff;
   color: #000;
+
+  &.closed {
+    background-color: #f0f0f0;
+    color: #888;
+  }
 }
 
 .send-button {
@@ -107,10 +112,11 @@
 
 .my-message-container .message-content span {
   background-color: #00b980; /* Background color for my messages */
+  color: #fff; /* Text color for my messages */
 }
 
 .other-message-container .message-content span {
-  background-color: #fff; /* Background color for other messages */
+  background-color: #f0f0f0; /* Background color for other messages */
   border: 1px solid #ddd; /* Border color for messages */
 }
 

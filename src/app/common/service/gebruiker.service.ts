@@ -49,7 +49,7 @@ export class GebruikerService {
   }
 
   getGebruikerById(id: string): Observable<GebruikerInterface> {
-    return this.http.get<GebruikerInterface>(this.url + `/${id}`, {
+    return this.http.get<GebruikerInterface>(this.url + `/gebruiker/${id}`, {
       headers: this.headers,
     });
   }
@@ -111,5 +111,13 @@ export class GebruikerService {
     }>(this.url + '/favorietenStudierichtingen/' + page, {
       headers: this.headers,
     });
+  }
+
+  addGebruikerXp(id: string, xp: number): Observable<void> {
+    return this.http.post<void>(
+      'http://localhost:8080/api/v1/gebruiker/xp',
+      { id, xp },
+      { headers: this.headers },
+    );
   }
 }

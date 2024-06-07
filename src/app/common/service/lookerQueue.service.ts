@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { LookerQueueInterface } from '../models/interfaces';
 import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LookerQueueService {
+  private url = environment.url + '/lookerQueue';
   constructor(private http: HttpClient) {}
 
-  private url = environment.url + '/lookerQueue';
-
-  getFirstLooker(userId: string): Observable<{ lookerId: string }> {
-    return this.http.get<{ lookerId: string }>(
+  getFirstLooker(userId: string): Observable<{ looker: LookerQueueInterface }> {
+    return this.http.get<{ looker: LookerQueueInterface }>(
       this.url + `/getFirstLooker?userId=${userId}`,
     );
   }

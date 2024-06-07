@@ -6,7 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { CookieService } from 'ngx-cookie-service';
 import { MatIconModule } from '@angular/material/icon';
 import { LookerQueueService } from '../../common/service/lookerQueue.service';
-import { GebruikerInterface } from '../../common/models/interfaces';
+import { ChatRoomInterface } from '../../common/models/interfaces';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
 import { NavBarComponent } from '../../common/navigation/nav-bar.component';
 import { GebruikerService } from '../../common/service/gebruiker.service';
@@ -29,7 +29,8 @@ import { rolStyle } from '../../common/directives/rol-style.directive';
   styleUrls: ['./gebruikers-lijst.component.scss'],
 })
 export class GebruikersLijstComponent implements OnInit {
-  gebruikers: GebruikerInterface[] = [];
+  openChatrooms: ChatRoomInterface[] = [];
+  closedChatrooms: ChatRoomInterface[] = [];
   userId: string = '';
   errorMessage: string = '';
   amountOfLookers: number = 0;
@@ -46,13 +47,17 @@ export class GebruikersLijstComponent implements OnInit {
     this.gebruikerService.getGebruikerIdByToken().subscribe((userId) => {
       this.userId = userId;
       this.chatService.getMyChatRooms(userId).subscribe(
-        (gebruikers) => {
-          this.gebruikers = gebruikers.filter(
-            (gebruiker) => gebruiker.id !== this.userId,
+        (chatrooms) => {
+          console.log('Chatrooms:', chatrooms);
+          this.openChatrooms = chatrooms.filter(
+            (chatroom) => !chatroom.isAfgesloten,
+          );
+          this.closedChatrooms = chatrooms.filter(
+            (chatroom) => chatroom.isAfgesloten,
           );
         },
         (error) => {
-          console.error('Error fetching gebruikers:', error);
+          console.error('Error fetching chatrooms:', error);
         },
       );
     });
@@ -68,8 +73,8 @@ export class GebruikersLijstComponent implements OnInit {
     );
   }
 
-  openChat(gebruiker: GebruikerInterface): void {
-    this.router.navigate(['/chat', gebruiker.id]);
+  openChat(chatroom: ChatRoomInterface): void {
+    this.router.navigate(['/chat', chatroom.chatId]);
   }
 
   stringToColor(email: string): string {
