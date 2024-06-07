@@ -23,10 +23,18 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { IFrame } from '@stomp/stompjs';
-import { GebruikerInterface, Message } from '../../common/models/interfaces';
+import {
+  ChatRoomInterface,
+  GebruikerInterface,
+  Message,
+  StudierichtingInterface,
+} from '../../common/models/interfaces';
 import { StompService } from '../../common/service/stomp.service';
 import { GebruikerService } from '../../common/service/gebruiker.service';
 import { ChatService } from '../../common/service/chat.service';
+import { StudierichtingService } from '../../common/service/studierichting.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FeedbackPopupComponent } from '../feedback-popup/feedback-popup.component';
 
 @Component({
   selector: 'app-chat',
@@ -51,9 +59,11 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   selectedGebruiker?: GebruikerInterface;
   messageForm!: FormGroup;
   userId: string = '';
+  isChatClosed: boolean = false;
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
   private berichtenSubject = new BehaviorSubject<Message[]>([]);
   berichten$ = this.berichtenSubject.asObservable();
+  studieRichting: StudierichtingInterface | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -63,6 +73,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     private chatService: ChatService,
     private formBuilder: FormBuilder,
     private cookieService: CookieService,
+    private studierichtingService: StudierichtingService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -74,28 +86,49 @@ export class ChatComponent implements OnInit, AfterViewChecked {
           console.error('Error connecting to websocket:', error);
         },
       );
-      this.route.params.subscribe((params) => {
-        const gebruikerId = params['id'];
-        this.gebruikerService.getGebruikerById(gebruikerId).subscribe(
-          (gebruiker: any) => {
-            this.selectedGebruiker = gebruiker;
-            console.log('Selected gebruiker:', this.selectedGebruiker);
-            this.loadMessages();
-          },
-          (error: any) => {
-            console.error('Error fetching gebruiker:', error);
-          },
-        );
-      });
+      if (this.userId === this.route.snapshot.params['id'].split('_')[0]) {
+        this.gebruikerService
+          .getGebruikerById(this.route.snapshot.params['id'].split('_')[1])
+          .subscribe(
+            (gebruiker: any) => {
+              this.selectedGebruiker = gebruiker;
+              this.loadMessages();
+            },
+            (error: any) => {
+              console.error('Error fetching gebruiker:', error);
+            },
+          );
+      } else {
+        this.gebruikerService
+          .getGebruikerById(this.route.snapshot.params['id'].split('_')[0])
+          .subscribe(
+            (gebruiker: any) => {
+              this.selectedGebruiker = gebruiker;
+              this.loadMessages();
+            },
+            (error: any) => {
+              console.error('Error fetching gebruiker:', error);
+            },
+          );
+      }
     });
-
+    this.setRichtingDetails();
     this.messageForm = this.formBuilder.group({
-      message: [''],
+      message: [{ value: '', disabled: this.isChatClosed }],
     });
+    this.getChatRoomDetails();
   }
 
   ngAfterViewChecked() {
     this.scrollToBottom();
+  }
+
+  setRichtingDetails(): void {
+    this.studierichtingService
+      .findStudierichting(this.route.snapshot.params['id'].split('_')[2])
+      .subscribe((studierichting: StudierichtingInterface) => {
+        this.studieRichting = studierichting;
+      });
   }
 
   scrollToBottom(): void {
@@ -109,21 +142,19 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   loadMessages(): void {
     if (this.selectedGebruiker) {
-      this.chatService
-        .getMessages(this.userId, this.selectedGebruiker.id)
-        .subscribe(
-          (messages: string | any[]) => {
-            const convertedMessages: Message[] = messages as Message[];
-            this.berichtenSubject.next(convertedMessages);
-            if (convertedMessages.length > 0) {
-              this.selectedGebruiker!.lastMessage =
-                convertedMessages[convertedMessages.length - 1].content;
-            }
-          },
-          (error: any) => {
-            console.error('Error fetching messages:', error);
-          },
-        );
+      this.chatService.getMessages(this.route.snapshot.params['id']).subscribe(
+        (messages: string | any[]) => {
+          const convertedMessages: Message[] = messages as Message[];
+          this.berichtenSubject.next(convertedMessages);
+          if (convertedMessages.length > 0) {
+            this.selectedGebruiker!.lastMessage =
+              convertedMessages[convertedMessages.length - 1].content;
+          }
+        },
+        (error: any) => {
+          console.error('Error fetching messages:', error);
+        },
+      );
     }
   }
 
@@ -133,13 +164,14 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   }
 
   onSubmit() {
-    if (this.messageForm.valid) {
+    if (this.messageForm.valid && !this.isChatClosed) {
       const messageContent = this.messageForm.value.message;
 
       if (this.userId !== '') {
         const chatMessage: Message = {
           senderId: this.userId,
           recipientId: this.selectedGebruiker?.id ?? '',
+          studierichtingId: this.route.snapshot.params['id'].split('_')[2],
           content: messageContent,
           timestamp: new Date(),
         };
@@ -161,7 +193,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   onMessageReceived = (payload: any): void => {
     const message = JSON.parse(payload.body);
     message.timestamp = new Date(message.timestamp);
-    console.log('Message received:', message);
 
     if (
       this.selectedGebruiker &&
@@ -187,11 +218,28 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         this.onMessageReceived,
       );
       this.stompService.subscribe(`/user/public`, this.onMessageReceived);
+      this.loadMessages();
     }, 500);
   }
 
   goBack(): void {
-    this.router.navigate(['/chat']);
+    if (this.isChatClosed) {
+      this.router.navigate(['/chat']);
+    } else {
+      const dialogRef = this.dialog.open(FeedbackPopupComponent, {
+        width: '250px',
+        data: {
+          userId: this.selectedGebruiker?.id,
+          chatId: this.route.snapshot.params['id'],
+        }, // Pass the userId to the dialog
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        // if (result !== 'submitFeedback') {
+        this.router.navigate(['/chat']);
+        // }
+      });
+    }
   }
 
   stringToColor(email: string): string {
@@ -201,5 +249,21 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     }
     const color = `hsl(${hash % 360}, 75%, 60%)`;
     return color;
+  }
+
+  getChatRoomDetails(): void {
+    this.chatService.getChatRoom(this.route.snapshot.params['id']).subscribe(
+      (chatroom: ChatRoomInterface) => {
+        this.isChatClosed = chatroom.isAfgesloten;
+        if (this.isChatClosed) {
+          this.messageForm.controls['message'].disable();
+        } else {
+          this.messageForm.controls['message'].enable();
+        }
+      },
+      (error: any) => {
+        console.error('Error fetching chatroom:', error);
+      },
+    );
   }
 }

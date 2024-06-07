@@ -29,6 +29,23 @@ export interface GebruikerInterface {
   favorieteStudierichtingen: StudierichtingInterface[];
 }
 
+export interface ChatRoomInterface {
+  id: string;
+  chatId: string;
+  senderId: string;
+  recipientId: string;
+  studierichtingId: string;
+  studierichtingNaam: string;
+  isAfgesloten: boolean;
+}
+
+export interface LookerQueueInterface {
+  timestamp: Date;
+  id: string;
+  lookerId: string;
+  studierichtingId: string;
+}
+
 export interface StudierichtingInterface {
   id: string;
   naam: string;
@@ -61,6 +78,7 @@ export interface AuthenticationResponse {
 export interface Message {
   senderId: string;
   recipientId: string;
+  studierichtingId: string;
   content: string;
   timestamp: Date;
 }

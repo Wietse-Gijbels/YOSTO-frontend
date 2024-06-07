@@ -3,8 +3,7 @@
   [subText]="'Chats'"
   class="header"
 ></gebruiker-header>
-
-<div rolStyle>
+<div class="looker-container">
   <div class="user-list">
     <mat-list>
       <mat-list-item class="help-someone-item" (click)="helpSomeone()">
@@ -14,7 +13,7 @@
               Help een van de {{ amountOfLookers }} lookers
             </span>
             <span class="user-email" *ngIf="amountOfLookers === 0">
-              Goed nieuws, alle Lookers krijgen op dit moment de nodige hulp
+              Geen lookers beschikbaar op dit moment
             </span>
           </div>
         </div>
@@ -22,25 +21,53 @@
 
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
-      <ng-container *ngIf="gebruikers.length > 0; else noChats">
-        <ng-container *ngFor="let gebruiker of gebruikers">
-          <mat-list-item (click)="openChat(gebruiker)">
+      <ng-container
+        *ngIf="
+          openChatrooms.length > 0 || closedChatrooms.length > 0;
+          else noChats
+        "
+      >
+        <!-- Open Chats -->
+        <div class="section-header" *ngIf="openChatrooms.length > 0">
+          Open Chats
+        </div>
+        <ng-container *ngFor="let chatroom of openChatrooms">
+          <mat-list-item (click)="openChat(chatroom)">
             <div class="user-button">
               <div
                 class="profile-circle"
                 [ngStyle]="{
-                  'background-color': stringToColor(gebruiker.email)
+                  'background-color': stringToColor(chatroom.chatId)
                 }"
               ></div>
               <div class="user-info">
-                <span class="user-email">{{ gebruiker.email }}</span>
+                <span class="user-email">{{
+                  chatroom.studierichtingNaam
+                }}</span>
                 <span class="details">180 stp - UCLL, Leuven</span>
               </div>
-              <div class="rating">
-                <mat-icon [ngStyle]="{ color: stringToColor(gebruiker.email) }"
-                  >star</mat-icon
-                >
-                <span>200</span>
+            </div>
+          </mat-list-item>
+        </ng-container>
+
+        <!-- Closed Chats -->
+        <div class="section-header" *ngIf="closedChatrooms.length > 0">
+          Gesloten Chats
+        </div>
+        <ng-container *ngFor="let chatroom of closedChatrooms">
+          <mat-list-item (click)="openChat(chatroom)">
+            <div class="user-button">
+              <div
+                class="profile-circle"
+                [ngStyle]="{
+                  'background-color': stringToColor(chatroom.chatId)
+                }"
+              ></div>
+              <div class="user-info">
+                <span class="user-email">{{
+                  chatroom.studierichtingNaam
+                }}</span>
+                <span class="details">180 stp - UCLL, Leuven</span>
               </div>
             </div>
           </mat-list-item>

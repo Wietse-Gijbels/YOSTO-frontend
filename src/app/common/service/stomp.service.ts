@@ -11,7 +11,7 @@ export class StompService {
 
   constructor() {
     this.stompClient = new Client({
-      webSocketFactory: () => new SockJS(environment.url + '/ws'),
+      webSocketFactory: () => new SockJS('http://localhost:8080/ws'),
     });
   }
 
