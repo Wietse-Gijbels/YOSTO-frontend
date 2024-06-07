@@ -47,6 +47,10 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  goToVerify(): void {
+    this.router.navigateByUrl('/verify');
+  }
+
   ngOnInit(): void {
     this.cookieService.delete('token');
   }

@@ -1,4 +1,4 @@
-<div class="looker-container">
+<div rolStyle>
   <ul class="navbar">
     <li>
       <a routerLink="/home" routerLinkActive="active">
@@ -30,7 +30,7 @@
         />
       </a>
     </li>
-    <li class="third-icon" *rolChecker="[GebruikerRol.STUDYLOOKER]">
+    <li *rolChecker="[GebruikerRol.STUDYLOOKER]" class="third-icon">
       <a routerLink="/studierichting" routerLinkActive="active">
         <img
           alt="Start pagina"
@@ -40,13 +40,13 @@
         />
       </a>
     </li>
-    <li class="third-icon" *rolChecker="[GebruikerRol.STUDYHELPER]">
+    <li *rolChecker="[GebruikerRol.STUDYHELPER]" class="third-icon">
       <a routerLink="/geschenken-overview" routerLinkActive="active">
         <fa-icon [icon]="faBagShopping"></fa-icon>
       </a>
     </li>
     <li>
-      <a class="pop-up-button" (click)="togglePopUp()">
+      <a (click)="togglePopUp()" class="pop-up-button">
         <img
           alt="Start pagina"
           height="36"

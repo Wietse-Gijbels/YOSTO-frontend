@@ -13,7 +13,7 @@
         </p>
       }
       @if (errorMessages["errorActiefAccount"]) {
-        <p class="errorTop">
+        <p (click)="goToVerify()" class="errorTop">
           {{ errorMessages["errorActiefAccount"] }}
         </p>
       }
