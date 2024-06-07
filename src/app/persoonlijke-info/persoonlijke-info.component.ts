@@ -14,6 +14,7 @@ import { GebruikerService } from '../common/service/gebruiker.service';
 import { NavBarComponent } from '../common/navigation/nav-bar.component';
 import { rolChecker } from '../common/directives/rol-checker.directive';
 import { rolStyle } from '../common/directives/rol-style.directive';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-persoonlijke-info',
@@ -30,6 +31,7 @@ import { rolStyle } from '../common/directives/rol-style.directive';
     NavBarComponent,
     rolChecker,
     rolStyle,
+    RouterLink,
   ],
   templateUrl: './persoonlijke-info.component.html',
   styleUrl: './persoonlijke-info.component.scss',
