@@ -70,15 +70,15 @@
       </div>
     </form>
     @if (gebruiker.xpAantal == 0) {
-      <p>Je hebt {{ gebruiker.xpAantal }} xp. verdien xp door studenten te helpen</p>
+      <p>
+        Je hebt {{ gebruiker.xpAantal }} xp. verdien xp door studenten te helpen
+      </p>
       <button routerLink="/chat">help een student</button>
-
     } @else {
-      <p>Je hebt {{ gebruiker.xpAantal }} xp. koop er iets leuks mee </p>
+      <p>Je hebt {{ gebruiker.xpAantal }} xp. koop er iets leuks mee</p>
       <button routerLink="/geschenken-overview">Ga naar Geschenken</button>
     }
   }
-
 </mat-grid-list>
 
 <app-nav-bar></app-nav-bar>
