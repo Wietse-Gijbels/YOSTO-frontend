@@ -69,6 +69,19 @@ export class AuthService {
       );
   }
 
+  verify(email: string, code: string): Observable<any> {
+    return this.httpClient
+      .post<AuthenticationResponse>(
+        this.url + '/verify?email=' + email + '&code=' + code,
+        {},
+      )
+      .pipe(
+        catchError((error) => {
+          throw error;
+        }),
+      );
+  }
+
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.cookieService.delete('token');

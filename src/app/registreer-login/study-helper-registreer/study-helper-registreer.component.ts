@@ -170,7 +170,7 @@ export class StudyHelperRegistreerComponent implements OnInit {
 
     const formDataWithRole = {
       ...formData,
-      rol: ['STUDYHELPER'],
+      rol: [GebruikerRol.STUDYHELPER],
       behaaldeDiplomas, // STUDYHELPER als rol setten
     };
     console.log(formDataWithRole);
@@ -178,7 +178,7 @@ export class StudyHelperRegistreerComponent implements OnInit {
       (response) => {
         // Verwerk succesvolle registratie
         this.cookieService.set('token', response.token);
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/verify');
         this.authService.setRol(GebruikerRol.STUDYHELPER);
       },
       (error) => {

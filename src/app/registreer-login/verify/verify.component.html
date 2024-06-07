@@ -3,18 +3,13 @@
     [backgroundColor]="'background-rood'"
     [class]="'looker-container'"
     [fotoPath]="'../../../assets/images/looker-yosto-logo.png'"
-    [headerText]="'LOG IN'"
+    [headerText]="'VERIFIEËR ACCOUNT'"
   ></gebruiker-header>
   <div class="login-page">
     <div class="error-container">
-      @if (errorMessages["errorLogin"]) {
+      @if (errorMessages["errorVerify"]) {
         <p class="errorTop">
-          {{ errorMessages["errorLogin"] }}
-        </p>
-      }
-      @if (errorMessages["errorActiefAccount"]) {
-        <p class="errorTop">
-          {{ errorMessages["errorActiefAccount"] }}
+          {{ errorMessages["errorVerify"] }}
         </p>
       }
     </div>
@@ -26,29 +21,24 @@
           placeholder="E-mailadres*"
           type="text"
         />
-        @if (errorMessages["errorLoginEmail"]) {
+        @if (errorMessages["errorEmail"]) {
           <p class="error">
-            {{ errorMessages["errorLoginEmail"] }}
+            {{ errorMessages["errorEmail"] }}
           </p>
         }
       </div>
       <div class="input-container">
         <input
           class="icon-wachtwoord"
-          formControlName="wachtwoord"
-          placeholder="Wachtwoord*"
-          type="password"
+          formControlName="code"
+          placeholder="Code*"
+          type="text"
         />
-        @if (errorMessages["errorLoginWachtwoord"]) {
-          <p class="error">
-            {{ errorMessages["errorLoginWachtwoord"] }}
-          </p>
-        }
       </div>
       <div>
-        <button type="submit">Log In!</button>
+        <button type="submit">Verifieër!</button>
       </div>
     </form>
-    <p>Ik ben mijn wachtwoord vergeten.</p>
+    <p>Na het verifiëren zal u gevraagd worden opnieuw in te loggen.</p>
   </div>
 </div>
