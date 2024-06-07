@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthenticationResponse, GebruikerRol } from '../models/interfaces';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from '../environments/environment';
 
 @Injectable({
@@ -43,6 +43,10 @@ export class AuthService {
         catchError((error) => {
           return throwError(error);
         }),
+        tap((response) => {
+          // Handle push notification registration
+          //this.handlePushNotificationRegistration(registreerData.email);
+        }),
       );
   }
 
@@ -56,6 +60,10 @@ export class AuthService {
         catchError((error) => {
           return throwError(error);
         }),
+        tap((response) => {
+          // Handle push notification registration
+          //this.handlePushNotificationRegistration(registreerData.email);
+        }),
       );
   }
 
@@ -65,6 +73,10 @@ export class AuthService {
       .pipe(
         catchError((error) => {
           throw error;
+        }),
+        tap((response) => {
+          // Handle push notification registration
+          //this.handlePushNotificationRegistration(formData.email);
         }),
       );
   }
@@ -82,4 +94,26 @@ export class AuthService {
     }
     return null;
   }
+
+  registerFcmToken(token: string) {
+    const url = this.url + '/api/v1/registerToken';
+    return this.httpClient
+      .post(url, { email: 'kuno.vercammen@gmail.com', token: token })
+      .subscribe(
+        (response) => console.log('Token registered successfully'),
+        (error) => console.error('Error registering token', error),
+      );
+  }
+
+  // private handlePushNotificationRegistration(email: string) {
+  //   PushNotifications.requestPermissions().then((result) => {
+  //     if (result.receive === 'granted') {
+  //       PushNotifications.register();
+  //     }
+  //   });
+  //
+  //   PushNotifications.addListener('registration', (token: Token) => {
+  //     this.registerFcmToken(email, token.value);
+  //   });
+  // }
 }

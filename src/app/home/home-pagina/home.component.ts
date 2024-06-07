@@ -8,12 +8,8 @@ import { GebruikerRol } from '../../common/models/interfaces';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
 import { rolStyle } from '../../common/directives/rol-style.directive';
 import { rolChecker } from '../../common/directives/rol-checker.directive';
-import {
-  ActionPerformed,
-  PushNotifications,
-  PushNotificationSchema,
-  Token,
-} from '@capacitor/push-notifications';
+import { PushNotifications, Token } from '@capacitor/push-notifications';
+import { AuthService } from '../../common/service/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -55,10 +51,12 @@ export class HomeComponent implements OnInit {
     { name: 'ICT-helpdesk', backgroundColor: 'background-paars' },
   ];
   protected readonly GebruikerRol = GebruikerRol;
+  protected tokentje: string = '';
 
   constructor(
     private cookieService: CookieService,
     private router: Router,
+    private authService: AuthService,
   ) {}
 
   logout(): void {
@@ -83,14 +81,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Initializing HomePage');
-
     // Request permission to use push notifications
-    // iOS will prompt user and return if they granted permission or not
-    // Android will just grant without prompting
     PushNotifications.requestPermissions().then((result) => {
       if (result.receive === 'granted') {
-        // Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register();
       } else {
         // Show some error
@@ -100,27 +93,29 @@ export class HomeComponent implements OnInit {
     // On success, we should be able to receive notifications
     PushNotifications.addListener('registration', (token: Token) => {
       alert('Push registration success, token: ' + token.value);
+      this.authService.registerFcmToken(token.value);
+      this.tokentje = token.value;
     });
-
-    // Some issue with our setup and push will not work
-    PushNotifications.addListener('registrationError', (error: any) => {
-      alert('Error on registration: ' + JSON.stringify(error));
-    });
-
-    // Show us the notification payload if the app is open on our device
-    PushNotifications.addListener(
-      'pushNotificationReceived',
-      (notification: PushNotificationSchema) => {
-        alert('Push received: ' + JSON.stringify(notification));
-      },
-    );
-
-    // Method called when tapping on a notification
-    PushNotifications.addListener(
-      'pushNotificationActionPerformed',
-      (notification: ActionPerformed) => {
-        alert('Push action performed: ' + JSON.stringify(notification));
-      },
-    );
+    //
+    // // Some issue with our setup and push will not work
+    // PushNotifications.addListener('registrationError', (error: any) => {
+    //   alert('Error on registration: ' + JSON.stringify(error));
+    // });
+    //
+    // // Show us the notification payload if the app is open on our device
+    // PushNotifications.addListener(
+    //   'pushNotificationReceived',
+    //   (notification: PushNotificationSchema) => {
+    //     alert('Push received: ' + JSON.stringify(notification));
+    //   },
+    // );
+    //
+    // // Method called when tapping on a notification
+    // PushNotifications.addListener(
+    //   'pushNotificationActionPerformed',
+    //   (notification: ActionPerformed) => {
+    //     alert('Push action performed: ' + JSON.stringify(notification));
+    //   },
+    // );
   }
 }

@@ -27,6 +27,7 @@ export interface GebruikerInterface {
   xpAantal: number;
   actieveRol: GebruikerRol;
   favorieteStudierichtingen: StudierichtingInterface[];
+  fcmToken: string;
 }
 
 export interface StudierichtingInterface {
