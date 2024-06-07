@@ -21,8 +21,6 @@ export class GebruikerService {
 
   private url = environment.url + '/gebruiker';
 
-
-
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,

@@ -70,4 +70,3 @@ Follow the next step to see how to start the app inside the emulator.
 2. Press the green arrow to deploy the app on the emulator
    ![Alt text](/img-documentatie/stap2.png "Title")
 3. The app should run in a couple of seconds in the emulator
-
