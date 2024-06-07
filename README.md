@@ -7,13 +7,13 @@
 
 ## First time
 
-Before running the project for the first time you will need to install all dependencies
+Voor dat je het project kan opstarten moet je de dependencies installeren met
 
 ```bash
 npm i
 ```
 
-After installing all dependencies you will need to build the project
+Na dat de dependencies geïnstalleerd zijn moet je het project builden met
 
 ```bash
 npm run build
@@ -21,58 +21,45 @@ npm run build
 
 ## Web
 
-For development run the application in the browser in the browser
+Voor ontwikkeling kan je de applicatie in de browser starten
 
 ```bash
 npm run start
 ```
 
-Android studio is kinda slow, so we develop in the browser and test afterward in the emulator.
+Android studio is redelijk traag, dus we ontwikkelen de app eerst in de browser en testen deze hierna in de emulator in android studio
 
 ## Android Studio
 
-To be able to run the app in the emulator you need to have the latest version of android studio installed.
+Om de app in de emulator te starten moet je de nieuwste versie hebben
 
-You can download it [here](https://developer.android.com/studio)
+Deze kan je [hier](https://developer.android.com/studio) installeren
 
-After installing android studio you will need to install ionic to be able to run the app in the emulator.
+Na dat android studio geïnstalleerd is zal je ionic moeten installeren om de app te kunnen starten in de emulator
 
 ```bash
 npm install -g ionic@latest
 ```
 
-When running for first time run you will need to add android to the project
+Wanneer je de app voor de eerste keer wilt starten moet je eerst een android mapje genereren met
 
 ```bash
 ionic cap add android
 ```
 
-If you want to run the application on IOS u will need to run
+Na dat je de android map heb toegevoegd moet je dit commando uitvoer. Dit zorgt ervoor dat je android map geupdate wordt en dat android studio start.
 
 ```bash
-ionic cap add ios
+npm rebuild:cap
 ```
 
-After adding android to the project you can run the following command to open the project in android studio
+Dus na elke verandering moet je dit commando runnen als je het op de emulator wilt testen.
+Vergeet wel niet eerst android studio af te sluiten voor dat je dit commando uitvoert anders werkt het niet.
 
-```bash
-ionic cap open android
-```
+Volg de volgende stappen om te zien hoe je in android studio ja app kan opstarten in de emulator
 
-For IOS u can run
-
-```bash
-ionic cap open ios
-```
-
-If you already add android to the project, and you changed the cod you will need to update the android folder to be able to see the changes in the emulator
-
-```bash
-ionic cap update android
-```
-
-for IOS it is the same
-
-```bash
-ionic cap update ios
-```
+1. selecteer een device. als je er nog geen hebt moet je er eerst nog eentje aanmaken.
+   ![Alt text](/img-documentatie/stap1.png "Title")
+2. klik op het groene pijltje en wacht.
+   ![Alt text](/img-documentatie/stap2.png "Title")
+3. de applicatie zou na een paar seconden in de emulator tevoorschijn komen.
