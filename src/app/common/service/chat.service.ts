@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {ChatRoomInterface, GebruikerInterface, Message} from '../models/interfaces';
+import {
+  ChatRoomInterface,
+  GebruikerInterface,
+  Message,
+} from '../models/interfaces';
 import { environment } from '../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -27,19 +31,19 @@ export class ChatService {
 
   getMyChatRooms(userId: string): Observable<ChatRoomInterface[]> {
     return this.http.get<ChatRoomInterface[]>(
-      this.url +`/getMyChatRooms/${userId}`,
+      this.url + `/getMyChatRooms/${userId}`,
     );
   }
 
   getChatRoom(chatId: string): Observable<ChatRoomInterface> {
     return this.http.get<ChatRoomInterface>(
-      this.url+`/getChatRoom/${chatId}`,
+      this.url + `/getChatRoom/${chatId}`,
     );
   }
 
   sluitChatRoom(chatId: string): Observable<void> {
     return this.http.post<void>(
-      this.url+'/sluitChat',
+      this.url + '/sluitChat',
       { chatId },
       { headers: this.headers },
     );

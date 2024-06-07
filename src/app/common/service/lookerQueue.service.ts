@@ -8,7 +8,7 @@ import { environment } from '../environments/environment';
   providedIn: 'root',
 })
 export class LookerQueueService {
-  private url = environment.url +'/lookerQueue';
+  private url = environment.url + '/lookerQueue';
   constructor(private http: HttpClient) {}
 
   getFirstLooker(userId: string): Observable<{ looker: LookerQueueInterface }> {
