@@ -1,4 +1,4 @@
-<div rolStyle>
+<div class="looker-container">
   <ul class="navbar">
     <li>
       <a routerLink="/home" routerLinkActive="active">
@@ -20,7 +20,6 @@
         />
       </a>
     </li>
-
     <li class="center-icon">
       <a routerLink="/chat" routerLinkActive="active">
         <img
@@ -32,8 +31,8 @@
       </a>
     </li>
     <li class="third-icon" *rolChecker="[GebruikerRol.STUDYLOOKER]">
-      <a routerLink="/studierichting" routerLinkActive="active"
-        ><img
+      <a routerLink="/studierichting" routerLinkActive="active">
+        <img
           alt="Start pagina"
           height="46"
           ngSrc="{{ '../../assets/images/studeer-hoed.png' }}"
@@ -43,23 +42,24 @@
     </li>
     <li class="third-icon" *rolChecker="[GebruikerRol.STUDYHELPER]">
       <a routerLink="/geschenken-overview" routerLinkActive="active">
-        <fa-icon [icon]="faBagShopping" />
+        <fa-icon [icon]="faBagShopping"></fa-icon>
       </a>
     </li>
     <li>
-      <button (click)="openSelection()" class="pop-up-button">
+      <a class="pop-up-button" (click)="togglePopUp()">
         <img
           alt="Start pagina"
           height="36"
           ngSrc="{{ '../../assets/images/menu.png' }}"
           width="36"
         />
-      </button>
+      </a>
     </li>
   </ul>
-  @if (open) {
-    <div class="pop-up-container">
+  @if (popUpVisible) {
+    <div @fadeInOut class="pop-up-container">
       <a
+        (click)="togglePopUp()"
         routerLink="/persoonlijkeInfo"
         routerLinkActive="active"
         class="pop-up-item"
@@ -67,6 +67,7 @@
         <fa-icon [icon]="faAddressCard"></fa-icon>
       </a>
       <a
+        (click)="togglePopUp()"
         routerLink="/persoonlijkeInfo"
         routerLinkActive="active"
         class="pop-up-item"
@@ -79,6 +80,7 @@
         />
       </a>
       <a
+        (click)="togglePopUp()"
         routerLink="/persoonlijkeInfo"
         routerLinkActive="active"
         class="pop-up-item"
@@ -91,6 +93,7 @@
         />
       </a>
       <a
+        (click)="togglePopUp()"
         routerLink="/persoonlijkeInfo"
         routerLinkActive="active"
         class="pop-up-item"
