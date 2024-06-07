@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NgOptimizedImage } from '@angular/common';
+import { NgClass, NgOptimizedImage } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import {
   MatExpansionPanel,
@@ -14,6 +14,15 @@ import { rolStyle } from '../directives/rol-style.directive';
 import { rolChecker } from '../directives/rol-checker.directive';
 import { GebruikerRol } from '../models/interfaces';
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
+import {
+  animate,
+  keyframes,
+  query,
+  stagger,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-nav-bar',
@@ -31,20 +40,61 @@ import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
     MatMenuTrigger,
     rolStyle,
     rolChecker,
+    NgClass,
   ],
   templateUrl: './nav-bar.component.html',
-  styleUrl: './nav-bar.component.scss',
+  styleUrls: ['./nav-bar.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        query(
+          '.pop-up-item',
+          [
+            style({ opacity: 0, transform: 'scale(0.5)' }),
+            stagger(75, [
+              animate(
+                '200ms ease-in',
+                keyframes([
+                  style({ opacity: 0, transform: 'scale(0.5)', offset: 0 }),
+                  style({ opacity: 1, transform: 'scale(1.1)', offset: 0.7 }),
+                  style({ opacity: 1, transform: 'scale(1)', offset: 1.0 }),
+                ]),
+              ),
+            ]),
+          ],
+          { optional: true },
+        ),
+      ]),
+      transition(':leave', [
+        query(
+          '.pop-up-item',
+          [
+            stagger(-75, [
+              animate(
+                '200ms ease-out',
+                keyframes([
+                  style({ opacity: 1, transform: 'scale(1)', offset: 0 }),
+                  style({ opacity: 0, transform: 'scale(0.5)', offset: 1.0 }),
+                ]),
+              ),
+            ]),
+          ],
+          { optional: true },
+        ),
+      ]),
+    ]),
+  ],
 })
 export class NavBarComponent {
-  open: boolean = false;
   protected readonly faAddressCard = faAddressCard;
+  public popUpVisible = false;
 
   constructor() {}
 
-  openSelection() {
-    this.open = !this.open;
-  }
-
   protected readonly GebruikerRol = GebruikerRol;
   protected readonly faBagShopping = faBagShopping;
+
+  togglePopUp() {
+    this.popUpVisible = !this.popUpVisible;
+  }
 }

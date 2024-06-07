@@ -40,8 +40,10 @@
   @if (studierichtingen$ | async; as studierichtingen) {
     @if (gebruiker$ | async; as gebruiker) {
       <ul>
-        @for (studierichting of studierichtingen.content;
-          track studierichting.id) {
+        @for (
+          studierichting of studierichtingen.content;
+          track studierichting.id
+        ) {
           <app-card
             [subtextLine1]="studierichting.niveauNaam"
             [subtextLine2]="
@@ -80,4 +82,3 @@
   }
 </main>
 <app-nav-bar></app-nav-bar>
-
