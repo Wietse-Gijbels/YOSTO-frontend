@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ChatRoomInterface, Message } from '../models/interfaces';
+import {ChatRoomInterface, GebruikerInterface, Message} from '../models/interfaces';
+import { environment } from '../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatService {
+  private url = environment.url + '/chatroom';
   token: string = this.cookieService.get('token');
   headers: HttpHeaders = new HttpHeaders({
     Authorization: `Bearer ${this.token}`,
@@ -25,19 +27,19 @@ export class ChatService {
 
   getMyChatRooms(userId: string): Observable<ChatRoomInterface[]> {
     return this.http.get<ChatRoomInterface[]>(
-      `http://localhost:8080/api/v1/chatroom/getMyChatRooms/${userId}`,
+      this.url +`/getMyChatRooms/${userId}`,
     );
   }
 
   getChatRoom(chatId: string): Observable<ChatRoomInterface> {
     return this.http.get<ChatRoomInterface>(
-      `http://localhost:8080/api/v1/chatroom/getChatRoom/${chatId}`,
+      this.url+`/getChatRoom/${chatId}`,
     );
   }
 
   sluitChatRoom(chatId: string): Observable<void> {
     return this.http.post<void>(
-      'http://localhost:8080/api/v1/chatroom/sluitChat',
+      this.url+'/sluitChat',
       { chatId },
       { headers: this.headers },
     );

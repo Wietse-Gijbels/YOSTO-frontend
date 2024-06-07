@@ -128,11 +128,9 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
       this.adjustChartOptionsForScreenSize.bind(this),
     );
 
-    this.gebruikerService
-      .getGebruikerIdByToken(this.cookieService.get('token'))
-      .subscribe((userId) => {
-        this.userId = userId;
-      });
+    this.gebruikerService.getGebruikerIdByToken().subscribe((userId) => {
+      this.userId = userId;
+    });
   }
 
   adjustChartOptionsForScreenSize(): void {
@@ -169,14 +167,12 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
   }
 
   getGebruikerWaardes(): void {
-    this.gebruikerService
-      .getGebruikerIdByToken(this.cookieService.get('token'))
-      .subscribe(() => {
-        this.gebruikerService.getGebruikerWaardes().subscribe((data) => {
-          this.gebruikerWaardes = data;
-          this.updateGebruikerWaardesChart(data);
-        });
+    this.gebruikerService.getGebruikerIdByToken().subscribe(() => {
+      this.gebruikerService.getGebruikerWaardes().subscribe((data) => {
+        this.gebruikerWaardes = data;
+        this.updateGebruikerWaardesChart(data);
       });
+    });
   }
 
   updateGebruikerWaardesChart(gebruikerWaardes: any): void {

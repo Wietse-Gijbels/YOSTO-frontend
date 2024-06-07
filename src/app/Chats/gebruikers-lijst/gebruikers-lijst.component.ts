@@ -11,6 +11,7 @@ import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruike
 import { NavBarComponent } from '../../common/navigation/nav-bar.component';
 import { GebruikerService } from '../../common/service/gebruiker.service';
 import { ChatService } from '../../common/service/chat.service';
+import { rolStyle } from '../../common/directives/rol-style.directive';
 
 @Component({
   selector: 'app-gebruikers-lijst',
@@ -22,6 +23,7 @@ import { ChatService } from '../../common/service/chat.service';
     NavBarComponent,
     GebruikerHeaderComponent,
     MatIconModule,
+    rolStyle,
   ],
   templateUrl: './gebruikers-lijst.component.html',
   styleUrls: ['./gebruikers-lijst.component.scss'],
@@ -42,25 +44,23 @@ export class GebruikersLijstComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.gebruikerService
-      .getGebruikerIdByToken(this.cookieService.get('token'))
-      .subscribe((userId) => {
-        this.userId = userId;
-        this.chatService.getMyChatRooms(userId).subscribe(
-          (chatrooms) => {
-            console.log('Chatrooms:', chatrooms);
-            this.openChatrooms = chatrooms.filter(
-              (chatroom) => !chatroom.isAfgesloten,
-            );
-            this.closedChatrooms = chatrooms.filter(
-              (chatroom) => chatroom.isAfgesloten,
-            );
-          },
-          (error) => {
-            console.error('Error fetching chatrooms:', error);
-          },
-        );
-      });
+    this.gebruikerService.getGebruikerIdByToken().subscribe((userId) => {
+      this.userId = userId;
+      this.chatService.getMyChatRooms(userId).subscribe(
+        (chatrooms) => {
+          console.log('Chatrooms:', chatrooms);
+          this.openChatrooms = chatrooms.filter(
+            (chatroom) => !chatroom.isAfgesloten,
+          );
+          this.closedChatrooms = chatrooms.filter(
+            (chatroom) => chatroom.isAfgesloten,
+          );
+        },
+        (error) => {
+          console.error('Error fetching chatrooms:', error);
+        },
+      );
+    });
 
     this.lookerQueueService.getAmountOfLookers().subscribe(
       (response) => {

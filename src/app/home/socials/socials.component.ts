@@ -7,11 +7,12 @@ import {
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import { NgIf, NgStyle } from '@angular/common';
+import { rolStyle } from '../../common/directives/rol-style.directive';
 
 @Component({
   selector: 'app-socials',
   standalone: true,
-  imports: [FontAwesomeModule, NgIf, NgStyle],
+  imports: [FontAwesomeModule, NgIf, NgStyle, rolStyle],
   templateUrl: './socials.component.html',
   styleUrls: ['./socials.component.scss'],
 })

@@ -1,24 +1,26 @@
+
 <gebruiker-header
   [backgroundColor]="'background-wit'"
   [subText]="'Chats'"
   class="header"
 ></gebruiker-header>
-<div class="user-list">
-  <mat-list>
-    <mat-list-item class="help-someone-item" (click)="helpSomeone()">
-      <div class="user-button">
-        <div class="user-info help-someone-info">
-          <span class="user-email" *ngIf="amountOfLookers > 0">
-            Help een van de {{ amountOfLookers }} lookers
-          </span>
-          <span class="user-email" *ngIf="amountOfLookers === 0">
+<div class="looker-container">
+  <div class="user-list">
+    <mat-list>
+      <mat-list-item class="help-someone-item" (click)="helpSomeone()">
+        <div class="user-button">
+          <div class="user-info help-someone-info">
+            <span class="user-email" *ngIf="amountOfLookers > 0">
+              Help een van de {{ amountOfLookers }} lookers
+            </span>
+            <span class="user-email" *ngIf="amountOfLookers === 0">
             Geen lookers beschikbaar op dit moment
-          </span>
+            </span>
+          </div>
         </div>
-      </div>
-    </mat-list-item>
+      </mat-list-item>
 
-    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
     <ng-container
       *ngIf="
@@ -32,15 +34,15 @@
       </div>
       <ng-container *ngFor="let chatroom of openChatrooms">
         <mat-list-item (click)="openChat(chatroom)">
-          <div class="user-button">
-            <div
-              class="profile-circle"
+            <div class="user-button">
+              <div
+                class="profile-circle"
               [ngStyle]="{ 'background-color': stringToColor(chatroom.chatId) }"
-            ></div>
-            <div class="user-info">
+              ></div>
+              <div class="user-info">
               <span class="user-email">{{ chatroom.studierichtingNaam }}</span>
-              <span class="details">180 stp - UCLL, Leuven</span>
-            </div>
+                <span class="details">180 stp - UCLL, Leuven</span>
+              </div>
           </div>
         </mat-list-item>
       </ng-container>
@@ -59,16 +61,16 @@
             <div class="user-info">
               <span class="user-email">{{ chatroom.studierichtingNaam }}</span>
               <span class="details">180 stp - UCLL, Leuven</span>
+              </div>
             </div>
-          </div>
-        </mat-list-item>
+          </mat-list-item>
+        </ng-container>
       </ng-container>
-    </ng-container>
 
-    <ng-template #noChats>
-      <div class="no-chats-message">Je hebt nog geen bestaande chats</div>
-    </ng-template>
-  </mat-list>
+      <ng-template #noChats>
+        <div class="no-chats-message">Je hebt nog geen bestaande chats</div>
+      </ng-template>
+    </mat-list>
+  </div>
+  <app-nav-bar></app-nav-bar>
 </div>
-
-<app-nav-bar></app-nav-bar>

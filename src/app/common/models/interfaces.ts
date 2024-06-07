@@ -25,6 +25,8 @@ export interface GebruikerInterface {
   lastMessage?: string;
   geschenken?: Geschenk[];
   xpAantal: number;
+  actieveRol: GebruikerRol;
+  favorieteStudierichtingen: StudierichtingInterface[];
 }
 
 export interface ChatRoomInterface {
@@ -70,6 +72,7 @@ export interface InstellingInterface {
 
 export interface AuthenticationResponse {
   token: string;
+  rol: GebruikerRol;
 }
 
 export interface Message {
@@ -101,6 +104,7 @@ export interface Vraag {
   id: string;
   vraagTekst: string;
   parameter: string;
+  fotoUrl: string;
 }
 
 export interface AntwoordDTO {

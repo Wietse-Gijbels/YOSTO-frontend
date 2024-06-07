@@ -8,6 +8,7 @@ import {
 } from '@angular/material/button-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { rolStyle } from '../../common/directives/rol-style.directive';
 
 @Component({
   selector: 'app-registreer',
@@ -18,12 +19,15 @@ import { CookieService } from 'ngx-cookie-service';
     GebruikerHeaderComponent,
     MatButtonToggleGroup,
     MatButtonToggle,
+    rolStyle,
   ],
   templateUrl: './registreer.component.html',
   styleUrl: './registreer.component.scss',
 })
 export class RegistreerComponent {
   currentComponent: 'helper' | 'looker' = 'helper';
+  foto: string = '';
+  class: string = 'helper-container';
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +39,10 @@ export class RegistreerComponent {
     this.route.queryParams.subscribe((params) => {
       const form = params['form'];
       this.currentComponent = form === 'helper' ? 'helper' : 'looker';
+      this.class =
+        this.currentComponent === 'helper'
+          ? 'helper-container'
+          : 'looker-container';
     });
     this.cookieService.delete('token');
   }
@@ -42,5 +50,12 @@ export class RegistreerComponent {
   toggleComponent(component: 'helper' | 'looker'): void {
     this.currentComponent = component;
     this.router.navigate(['/registreer']); // Zodat de url terug clean is
+    if (component === 'helper') {
+      this.foto = '../../../assets/images/helper-yosto-logo.png';
+      this.class = 'helper-container';
+    } else {
+      this.foto = '../../../assets/images/looker-yosto-logo.png';
+      this.class = 'looker-container';
+    }
   }
 }

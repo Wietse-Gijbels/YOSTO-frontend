@@ -6,17 +6,24 @@ import {
   Vraag,
 } from '../common/models/interfaces';
 import { MatchingTestService } from '../common/service/matching-test.service';
-import { CookieService } from 'ngx-cookie-service';
 import { NgForOf, NgIf } from '@angular/common';
 import { NavBarComponent } from '../common/navigation/nav-bar.component';
 import { BaseChartDirective } from 'ng2-charts';
 import { SimilarityService } from '../common/service/similarity.service';
 import { GebruikerService } from '../common/service/gebruiker.service';
+import { GebruikerHeaderComponent } from '../common/gebruiker-header/gebruiker-header.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-matching-test',
   standalone: true,
-  imports: [NgIf, NavBarComponent, BaseChartDirective, NgForOf],
+  imports: [
+    NgIf,
+    NavBarComponent,
+    BaseChartDirective,
+    NgForOf,
+    GebruikerHeaderComponent,
+  ],
   templateUrl: './matching-test.component.html',
   styleUrls: ['./matching-test.component.scss'],
 })
@@ -39,11 +46,11 @@ export class MatchingTestComponent implements OnInit {
           beginAtZero: true,
           stepSize: 20,
           backdropColor: 'rgba(0, 0, 0, 0)',
-          showLabelBackdrop: false, // Hide the label backdrop for the ticks
+          showLabelBackdrop: false,
         },
         pointLabels: {
           font: {
-            size: 14,
+            size: 16,
           },
         },
         grid: {
@@ -56,33 +63,50 @@ export class MatchingTestComponent implements OnInit {
     },
     plugins: {
       legend: {
-        display: true, // Show the legend to distinguish datasets
+        display: true,
       },
     },
   };
   userId: string = '';
-  similarities: any[] = []; // To store the similarities
+  similarities: any[] = [];
 
   constructor(
     private matchingTestService: MatchingTestService,
-    private cookieService: CookieService,
     private similarityService: SimilarityService,
     private gebruikerService: GebruikerService,
+    private cookieService: CookieService,
   ) {}
 
   ngOnInit(): void {
-    this.fetchVragen();
-    this.gebruikerService
-      .getGebruikerIdByToken(this.cookieService.get('token'))
-      .subscribe((userId) => {
-        this.userId = userId;
-      });
+    this.gebruikerService.getGebruikerWaardes().subscribe({
+      next: (data): void => {
+        this.gebruikerWaardes = data;
+        this.testCompleted = true;
+        this.calculateGebruikerWaardes();
+      },
+      error: (err) => {
+        if (err.error.errorGebruikerWaardes) {
+          this.fetchVragen();
+        } else {
+          console.error(err);
+        }
+      },
+    });
+
+    this.gebruikerService.getGebruikerIdByToken().subscribe((userId) => {
+      this.userId = userId;
+    });
+
+    this.matchingTestService.getAmountOfAntwoorden().subscribe((amount) => {
+      this.currentVraagIndex = amount;
+      this.updateProgress();
+    });
   }
 
   fetchVragen(): void {
     this.matchingTestService.getVragen().subscribe((data) => {
       this.vragen = data;
-      this.updateProgress(); // Add this line to initialize progress
+      this.updateProgress();
     });
   }
 
@@ -96,7 +120,7 @@ export class MatchingTestComponent implements OnInit {
     this.matchingTestService.saveAntwoorden([antwoordData]).subscribe(() => {
       if (this.currentVraagIndex < this.vragen.length - 1) {
         this.currentVraagIndex++;
-        this.updateProgress(); // Add this line to update progress
+        this.updateProgress();
       } else {
         this.calculateGebruikerWaardes();
       }
@@ -112,25 +136,27 @@ export class MatchingTestComponent implements OnInit {
   }
 
   calculateGebruikerWaardes(): void {
-    this.matchingTestService.calculateGebruikerWaardes().subscribe((data) => {
-      this.gebruikerWaardes = data;
-      this.testCompleted = true;
+    this.matchingTestService
+      .calculateGebruikerWaardes()
+      .subscribe((data): void => {
+        this.gebruikerWaardes = data;
+        this.testCompleted = true;
 
-      this.topics = [
-        {
-          name: 'Conventioneel',
-          value: this.gebruikerWaardes.conventioneel,
-        },
-        { name: 'Praktisch', value: this.gebruikerWaardes.praktisch },
-        { name: 'Analytisch', value: this.gebruikerWaardes.analytisch },
-        { name: 'Kunstzinnig', value: this.gebruikerWaardes.kunstzinnig },
-        { name: 'Sociaal', value: this.gebruikerWaardes.sociaal },
-        { name: 'Ondernemend', value: this.gebruikerWaardes.ondernemend },
-      ];
-      this.radarChartLabels = this.topics.map((topic) => topic.name);
-      this.updateChart();
-      this.calculateSimilarity();
-    });
+        this.topics = [
+          {
+            name: 'Conventioneel',
+            value: this.gebruikerWaardes.conventioneel,
+          },
+          { name: 'Praktisch', value: this.gebruikerWaardes.praktisch },
+          { name: 'Analytisch', value: this.gebruikerWaardes.analytisch },
+          { name: 'Kunstzinnig', value: this.gebruikerWaardes.kunstzinnig },
+          { name: 'Sociaal', value: this.gebruikerWaardes.sociaal },
+          { name: 'Ondernemend', value: this.gebruikerWaardes.ondernemend },
+        ];
+        this.radarChartLabels = this.topics.map((topic) => topic.name);
+        this.updateChart();
+        this.calculateSimilarity();
+      });
   }
 
   calculateSimilarity(): void {
@@ -148,8 +174,8 @@ export class MatchingTestComponent implements OnInit {
 
     this.similarityService
       .calculateSimilarity(userValues)
-      .subscribe((similarities) => {
-        this.similarities = similarities.slice(0, 10); // Get top 10
+      .subscribe((similarities): void => {
+        this.similarities = similarities.slice(0, 10); // De top 10 richtingen ophalen
       });
   }
 
@@ -157,7 +183,7 @@ export class MatchingTestComponent implements OnInit {
     this.radarChartData = [
       {
         data: this.topics.map((topic) => topic.value),
-        label: 'Mijn Skills',
+        label: 'Mijn Interesses',
       },
     ];
   }

@@ -78,42 +78,40 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   ) {}
 
   ngOnInit(): void {
-    this.gebruikerService
-      .getGebruikerIdByToken(this.cookieService.get('token'))
-      .subscribe((userId) => {
-        this.userId = userId;
-        this.stompService.connect(
-          () => this.onConnected(),
-          (error: IFrame) => {
-            console.error('Error connecting to websocket:', error);
-          },
-        );
-        if (this.userId === this.route.snapshot.params['id'].split('_')[0]) {
-          this.gebruikerService
-            .getGebruikerById(this.route.snapshot.params['id'].split('_')[1])
-            .subscribe(
-              (gebruiker: any) => {
-                this.selectedGebruiker = gebruiker;
-                this.loadMessages();
-              },
-              (error: any) => {
-                console.error('Error fetching gebruiker:', error);
-              },
-            );
-        } else {
-          this.gebruikerService
-            .getGebruikerById(this.route.snapshot.params['id'].split('_')[0])
-            .subscribe(
-              (gebruiker: any) => {
-                this.selectedGebruiker = gebruiker;
-                this.loadMessages();
-              },
-              (error: any) => {
-                console.error('Error fetching gebruiker:', error);
-              },
-            );
-        }
-      });
+    this.gebruikerService.getGebruikerIdByToken().subscribe((userId) => {
+      this.userId = userId;
+      this.stompService.connect(
+        () => this.onConnected(),
+        (error: IFrame) => {
+          console.error('Error connecting to websocket:', error);
+        },
+      );
+      if (this.userId === this.route.snapshot.params['id'].split('_')[0]) {
+        this.gebruikerService
+          .getGebruikerById(this.route.snapshot.params['id'].split('_')[1])
+          .subscribe(
+            (gebruiker: any) => {
+              this.selectedGebruiker = gebruiker;
+              this.loadMessages();
+            },
+            (error: any) => {
+              console.error('Error fetching gebruiker:', error);
+            },
+          );
+      } else {
+        this.gebruikerService
+          .getGebruikerById(this.route.snapshot.params['id'].split('_')[0])
+          .subscribe(
+            (gebruiker: any) => {
+              this.selectedGebruiker = gebruiker;
+              this.loadMessages();
+            },
+            (error: any) => {
+              console.error('Error fetching gebruiker:', error);
+            },
+          );
+      }
+    });
     this.setRichtingDetails();
     this.messageForm = this.formBuilder.group({
       message: [{ value: '', disabled: this.isChatClosed }],

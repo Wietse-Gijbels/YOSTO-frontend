@@ -1,61 +1,206 @@
 @use "../../../style-guide";
 
-.gebruiker-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  margin: 0 auto;
-  background-color: style-guide.$primary-rood;
-}
+.looker-container {
+  display: grid;
 
-.gebruiker-header img {
-  width: 10%;
-  padding-bottom: 20px;
-  padding-top: 20px;
-}
+  .gebruiker-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    background-color: style-guide.$primary-rood;
+  }
 
-.background-rood {
-  background-color: style-guide.$primary-rood;
-  color: style-guide.$secondary-wit;
-}
-
-.background-wit {
-  background-color: style-guide.$secondary-wit;
-  color: style-guide.$primary-rood;
-}
-
-.background-groen {
-  background-color: style-guide.$secondary-groen;
-}
-
-h1 {
-  @include style-guide.font-large-header;
-  background-color: style-guide.$secondary-wit;
-  width: 90%;
-}
-
-h2 {
-  @include style-guide.font-medium-header;
-  background-color: style-guide.$primary-oranje;
-  width: 90%;
-}
-
-h3 {
-  @include style-guide.font-subtext;
-  background-color: style-guide.$primary-oranje;
-  width: 90%;
-}
-
-@media only screen and (max-width: 768px) {
   .gebruiker-header img {
-    width: 20%;
+    width: 10%;
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
+
+  .background-rood {
+    background-color: style-guide.$primary-rood;
+    color: style-guide.$secondary-wit;
+  }
+
+  .background-wit {
+    background-color: style-guide.$secondary-wit;
+    color: style-guide.$primary-rood;
+  }
+
+  .background-groen {
+    background-color: style-guide.$secondary-groen;
+  }
+
+  h1 {
+    @include style-guide.font-large-header;
+    background-color: style-guide.$secondary-wit;
+    width: 90%;
+  }
+
+  h2 {
+    @include style-guide.font-medium-header;
+    background-color: style-guide.$primary-oranje;
+    width: 90%;
+  }
+
+  h3 {
+    @include style-guide.font-subtext;
+    background-color: style-guide.$primary-oranje;
+    width: 90%;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .gebruiker-header img {
+      width: 20%;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .gebruiker-header img {
+      width: 30%;
+    }
   }
 }
 
-@media only screen and (max-width: 500px) {
+.helper-container {
+  display: grid;
+
+  .gebruiker-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    background-color: style-guide.$helper-blauw;
+  }
+
   .gebruiker-header img {
-    width: 30%;
+    width: 10%;
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
+
+  .background-rood {
+    background-color: style-guide.$helper-blauw;
+    color: style-guide.$secondary-wit;
+  }
+
+  .background-wit {
+    background-color: style-guide.$secondary-wit;
+    color: style-guide.$helper-blauw;
+  }
+
+  .background-groen {
+    background-color: style-guide.$secondary-groen;
+  }
+
+  h1 {
+    @include style-guide.font-large-header;
+    background-color: style-guide.$secondary-wit;
+    width: 90%;
+  }
+
+  h2 {
+    @include style-guide.font-medium-header;
+    background-color: style-guide.$helper-groen;
+    width: 90%;
+  }
+
+  h3 {
+    @include style-guide.font-subtext;
+    background-color: style-guide.$helper-groen;
+    width: 90%;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .gebruiker-header img {
+      width: 20%;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .gebruiker-header img {
+      width: 30%;
+    }
+  }
+
+  .expansion-title {
+    color: style-guide.$helper-blauw;
+  }
+
+  .mat-expansion-panel {
+    width: 150px;
+    background-color: style-guide.$secondary-wit;
+    border: solid 2px style-guide.$helper-blauw;
+    border-radius: 12px;
+    box-shadow: none;
+  }
+
+  .expansion-div {
+    margin-left: auto;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+div {
+  .gebruiker-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    background-color: style-guide.$helper-blauw;
+  }
+
+  .gebruiker-header img {
+    width: 10%;
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
+
+  .background-rood {
+    background-color: style-guide.$helper-blauw;
+    color: style-guide.$secondary-wit;
+  }
+
+  .background-wit {
+    background-color: style-guide.$secondary-wit;
+    color: style-guide.$helper-blauw;
+  }
+
+  .background-groen {
+    background-color: style-guide.$secondary-groen;
+  }
+
+  h1 {
+    @include style-guide.font-large-header;
+    background-color: style-guide.$secondary-wit;
+    width: 90%;
+  }
+
+  h2 {
+    @include style-guide.font-subtext;
+    background-color: style-guide.$helper-blauw;
+    width: 90%;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .gebruiker-header img {
+      width: 20%;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .gebruiker-header img {
+      width: 30%;
+    }
   }
 }

@@ -1,132 +1,245 @@
 @use "../../../style-guide.scss";
 
-.user-list {
-  height: 100vh;
-  overflow-y: auto;
-  padding: 10px;
-  background-color: #ffffff;
-}
+.looker-container {
+  .user-list {
+    height: 100vh;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: style-guide.$secondary-wit;
+  }
 
-mat-list-item {
-  height: 80px !important; /* Set the height to 80px */
-  padding: 15px 10px; /* Increase padding for more height */
-  margin-bottom: 10px; /* Space between list items */
-  border: 1px solid #ff3800; /* Orange border color */
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Distribute space between elements */
-  cursor: pointer; /* Add cursor pointer for clickable items */
-  word-wrap: break-word; /* Allow text to wrap */
-}
-
-.user-button {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  text-align: left;
-}
-
-.profile-circle {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 15px;
-  flex-shrink: 0;
-}
-
-.user-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-grow: 1; /* Allow user-info to grow */
-}
-
-.user-email {
-  @include style-guide.font-medium-tekst;
-  font-weight: bold;
-  word-wrap: break-word; /* Allow text to wrap */
-}
-
-.details {
-  font-size: 0.85em;
-  color: grey;
-}
-
-.rating {
-  display: flex;
-  align-items: center;
-  margin-top: 5px;
-}
-
-.rating mat-icon {
-  font-size: 24px;
-  margin-right: 5px;
-}
-
-mat-divider {
-  width: 100%;
-  background-color: #ddd;
-}
-
-.error-message {
-  color: red;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.help-someone-item {
-  height: 50px !important; /* Make the Help someone item less high */
-  padding: 10px 10px; /* Adjust padding accordingly */
-}
-
-.help-someone-info {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Center the text */
-  word-wrap: break-word; /* Allow text to wrap */
-  text-align: center; /* Center align text for better readability on small screens */
-}
-
-.no-chats-message {
-  text-align: center;
-  font-size: 1.2em;
-  color: #888;
-  margin-top: 20px;
-  padding: 10px;
-}
-
-.section-header {
-  font-size: 1.2em;
-  font-weight: bold;
-  margin: 20px 0 10px;
-}
-
-@media screen and (max-width: 600px) {
   mat-list-item {
-    height: 80px;
-    padding: 15px 10px;
+    height: 80px !important; /* Set the height to 80px */
+    padding: 15px 10px; /* Increase padding for more height */
+    margin-bottom: 10px; /* Space between list items */
+    border: 1px solid style-guide.$primary-rood; /* Orange border color */
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribute space between elements */
+    cursor: pointer; /* Add cursor pointer for clickable items */
+    word-wrap: break-word; /* Allow text to wrap */
+  }
+
+  .user-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-align: left;
   }
 
   .profile-circle {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    flex-shrink: 0;
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1; /* Allow user-info to grow */
   }
 
   .user-email {
-    font-size: 0.9em;
+    @include style-guide.font-medium-tekst;
+    font-weight: bold;
+    word-wrap: break-word; /* Allow text to wrap */
   }
 
   .details {
-    font-size: 0.75em;
+    font-size: 0.85em;
+    color: grey;
   }
 
-  .rating span {
-    font-size: 0.9em;
+  .rating {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+  }
+
+  .rating mat-icon {
+    font-size: 24px;
+    margin-right: 5px;
+  }
+
+  mat-divider {
+    width: 100%;
+    background-color: style-guide.$secondary-wit;
+  }
+
+  .error-message {
+    color: style-guide.$primary-rood;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  /* Specific styles for the Help someone item */
+  .help-someone-item {
+    height: 50px !important; /* Make the Help someone item less high */
+    padding: 10px 10px; /* Adjust padding accordingly */
   }
 
   .help-someone-info {
-    font-size: 0.9em; /* Adjust font size for small screens */
-    padding: 5px; /* Reduce padding for small screens */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the text */
+  }
+
+  @media screen and (max-width: 600px) {
+    mat-list-item {
+      height: 80px;
+      padding: 15px 10px;
+    }
+
+    .profile-circle {
+      width: 40px;
+      height: 40px;
+    }
+
+    .user-email {
+      font-size: 0.9em;
+    }
+
+    .details {
+      font-size: 0.75em;
+    }
+
+    .rating span {
+      font-size: 0.9em;
+    }
+  }
+}
+
+.helper-container {
+  .user-list {
+    height: 100vh;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: style-guide.$secondary-wit;
+  }
+
+  mat-list-item {
+    height: 80px !important; /* Set the height to 80px */
+    padding: 15px 10px; /* Increase padding for more height */
+    margin-bottom: 10px; /* Space between list items */
+    border: 1px solid style-guide.$helper-blauw; /* Orange border color */
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribute space between elements */
+    cursor: pointer; /* Add cursor pointer for clickable items */
+  }
+
+  .user-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-align: left;
+  }
+
+  .profile-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    flex-shrink: 0;
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1; /* Allow user-info to grow */
+  }
+
+  .user-email {
+    @include style-guide.font-medium-tekst;
+    font-weight: bold;
+  }
+
+  .details {
+    font-size: 0.85em;
+    color: grey;
+  }
+
+  .rating {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+  }
+
+  .rating mat-icon {
+    font-size: 24px;
+    margin-right: 5px;
+  }
+
+  mat-divider {
+    width: 100%;
+    background-color: style-guide.$secondary-wit;
+  }
+
+  .error-message {
+    color: style-guide.$primary-rood;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .help-someone-item {
+    height: 50px !important; /* Make the Help someone item less high */
+    padding: 10px 10px; /* Adjust padding accordingly */
+  }
+
+  .help-someone-info {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the text */
+    word-wrap: break-word; /* Allow text to wrap */
+    text-align: center; /* Center align text for better readability on small screens */
+  }
+
+  .no-chats-message {
+    text-align: center;
+    font-size: 1.2em;
+    color: #888;
+    margin-top: 20px;
+    padding: 10px;
+  }
+
+  .section-header {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 20px 0 10px;
+  }
+
+  @media screen and (max-width: 600px) {
+    mat-list-item {
+      height: 80px;
+      padding: 15px 10px;
+    }
+
+    .profile-circle {
+      width: 40px;
+      height: 40px;
+    }
+
+    .user-email {
+      font-size: 0.9em;
+    }
+
+    .details {
+      font-size: 0.75em;
+    }
+
+    .rating span {
+      font-size: 0.9em;
+    }
+
+    .help-someone-info {
+      font-size: 0.9em; /* Adjust font size for small screens */
+      padding: 5px; /* Reduce padding for small screens */
+    }
   }
 }

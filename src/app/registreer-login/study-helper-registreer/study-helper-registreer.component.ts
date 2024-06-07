@@ -6,7 +6,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../common/service/auth.service';
 import { Router } from '@angular/router';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
@@ -15,6 +14,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { StudierichtingService } from '../../common/service/studierichting.service';
+import { GebruikerRol } from '../../common/models/interfaces';
 
 @Component({
   selector: 'app-study-helper-registreer',
@@ -46,7 +46,6 @@ export class StudyHelperRegistreerComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private httpClient: HttpClient,
     private authService: AuthService,
     private router: Router,
     private cookieService: CookieService,
@@ -159,7 +158,6 @@ export class StudyHelperRegistreerComponent implements OnInit {
     this.clearErrorMessages();
 
     const formData = this.form.getRawValue();
-    console.log(formData);
     if (formData.wachtwoord !== formData.bevestigWachtwoord) {
       this.errorMessages = {
         errorWachtwoordDubbel: 'Wachtwoorden komen niet overeen.',
@@ -172,14 +170,16 @@ export class StudyHelperRegistreerComponent implements OnInit {
 
     const formDataWithRole = {
       ...formData,
-      rol: 'STUDYHELPER',
+      rol: ['STUDYHELPER'],
       behaaldeDiplomas, // STUDYHELPER als rol setten
     };
+    console.log(formDataWithRole);
     this.authService.registreerHelper(formDataWithRole).subscribe(
       (response) => {
         // Verwerk succesvolle registratie
         this.cookieService.set('token', response.token);
         this.router.navigateByUrl('/home');
+        this.authService.setRol(GebruikerRol.STUDYHELPER);
       },
       (error) => {
         if (error.error) {
