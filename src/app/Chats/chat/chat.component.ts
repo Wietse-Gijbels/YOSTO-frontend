@@ -24,6 +24,7 @@ import { BehaviorSubject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { IFrame } from '@stomp/stompjs';
 import {
+  ChatRoomInterface,
   GebruikerInterface,
   Message,
   StudierichtingInterface,
@@ -58,6 +59,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   selectedGebruiker?: GebruikerInterface;
   messageForm!: FormGroup;
   userId: string = '';
+  isChatClosed: boolean = false;
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
   private berichtenSubject = new BehaviorSubject<Message[]>([]);
   berichten$ = this.berichtenSubject.asObservable();
@@ -92,7 +94,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
             .subscribe(
               (gebruiker: any) => {
                 this.selectedGebruiker = gebruiker;
-                // console.log('Selected gebruiker:', this.selectedGebruiker);
                 this.loadMessages();
               },
               (error: any) => {
@@ -105,7 +106,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
             .subscribe(
               (gebruiker: any) => {
                 this.selectedGebruiker = gebruiker;
-                // console.log('Selected gebruiker:', this.selectedGebruiker);
                 this.loadMessages();
               },
               (error: any) => {
@@ -116,8 +116,9 @@ export class ChatComponent implements OnInit, AfterViewChecked {
       });
     this.setRichtingDetails();
     this.messageForm = this.formBuilder.group({
-      message: [''],
+      message: [{ value: '', disabled: this.isChatClosed }],
     });
+    this.getChatRoomDetails();
   }
 
   ngAfterViewChecked() {
@@ -129,7 +130,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
       .findStudierichting(this.route.snapshot.params['id'].split('_')[2])
       .subscribe((studierichting: StudierichtingInterface) => {
         this.studieRichting = studierichting;
-        // console.log('Studierichting:', this.studieRichting);
       });
   }
 
@@ -146,7 +146,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     if (this.selectedGebruiker) {
       this.chatService.getMessages(this.route.snapshot.params['id']).subscribe(
         (messages: string | any[]) => {
-          // console.log('Messages:', messages);
           const convertedMessages: Message[] = messages as Message[];
           this.berichtenSubject.next(convertedMessages);
           if (convertedMessages.length > 0) {
@@ -167,7 +166,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   }
 
   onSubmit() {
-    if (this.messageForm.valid) {
+    if (this.messageForm.valid && !this.isChatClosed) {
       const messageContent = this.messageForm.value.message;
 
       if (this.userId !== '') {
@@ -196,7 +195,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   onMessageReceived = (payload: any): void => {
     const message = JSON.parse(payload.body);
     message.timestamp = new Date(message.timestamp);
-    // console.log('Message received:', message);
 
     if (
       this.selectedGebruiker &&
@@ -227,16 +225,23 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   }
 
   goBack(): void {
-    const dialogRef = this.dialog.open(FeedbackPopupComponent, {
-      width: '250px',
-    });
+    if (this.isChatClosed) {
+      this.router.navigate(['/chat']);
+    } else {
+      const dialogRef = this.dialog.open(FeedbackPopupComponent, {
+        width: '250px',
+        data: {
+          userId: this.selectedGebruiker?.id,
+          chatId: this.route.snapshot.params['id'],
+        }, // Pass the userId to the dialog
+      });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      // Navigate back to chat list if popup is closed
-      if (result !== 'submitFeedback') {
+      dialogRef.afterClosed().subscribe((result) => {
+        // if (result !== 'submitFeedback') {
         this.router.navigate(['/chat']);
-      }
-    });
+        // }
+      });
+    }
   }
 
   stringToColor(email: string): string {
@@ -246,5 +251,21 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     }
     const color = `hsl(${hash % 360}, 75%, 60%)`;
     return color;
+  }
+
+  getChatRoomDetails(): void {
+    this.chatService.getChatRoom(this.route.snapshot.params['id']).subscribe(
+      (chatroom: ChatRoomInterface) => {
+        this.isChatClosed = chatroom.isAfgesloten;
+        if (this.isChatClosed) {
+          this.messageForm.controls['message'].disable();
+        } else {
+          this.messageForm.controls['message'].enable();
+        }
+      },
+      (error: any) => {
+        console.error('Error fetching chatroom:', error);
+      },
+    );
   }
 }

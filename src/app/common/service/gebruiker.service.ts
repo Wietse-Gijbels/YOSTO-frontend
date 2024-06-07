@@ -74,4 +74,12 @@ export class GebruikerService {
       { headers: this.headers },
     );
   }
+
+  addGebruikerXp(id: string, xp: number): Observable<void> {
+    return this.http.post<void>(
+      'http://localhost:8080/api/v1/gebruiker/xp',
+      { id, xp },
+      { headers: this.headers },
+    );
+  }
 }

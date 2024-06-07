@@ -33,6 +33,8 @@ export interface ChatRoomInterface {
   senderId: string;
   recipientId: string;
   studierichtingId: string;
+  studierichtingNaam: string;
+  isAfgesloten: boolean;
 }
 
 export interface LookerQueueInterface {

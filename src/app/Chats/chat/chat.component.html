@@ -35,12 +35,14 @@
     <input
       type="text"
       class="message-input"
-      placeholder="Type your message..."
+      [class.closed]="isChatClosed"
+      [placeholder]="isChatClosed ? 'You cannot send anymore messages as the chat is closed' : 'Type your message...'"
       formControlName="message"
+      [disabled]="isChatClosed"
     />
     <button
       type="submit"
-      [disabled]="isMessageFieldEmpty()"
+      [disabled]="isMessageFieldEmpty() || isChatClosed"
       class="send-button"
     >
       <mat-icon class="send-icon">send</mat-icon>

@@ -27,7 +27,8 @@ import { ChatService } from '../../common/service/chat.service';
   styleUrls: ['./gebruikers-lijst.component.scss'],
 })
 export class GebruikersLijstComponent implements OnInit {
-  chatrooms: ChatRoomInterface[] = [];
+  openChatrooms: ChatRoomInterface[] = [];
+  closedChatrooms: ChatRoomInterface[] = [];
   userId: string = '';
   errorMessage: string = '';
   amountOfLookers: number = 0;
@@ -47,7 +48,9 @@ export class GebruikersLijstComponent implements OnInit {
         this.userId = userId;
         this.chatService.getMyChatRooms(userId).subscribe(
           (chatrooms) => {
-            this.chatrooms = chatrooms;
+            console.log('Chatrooms:', chatrooms);
+            this.openChatrooms = chatrooms.filter(chatroom => !chatroom.isAfgesloten);
+            this.closedChatrooms = chatrooms.filter(chatroom => chatroom.isAfgesloten);
           },
           (error) => {
             console.error('Error fetching chatrooms:', error);
