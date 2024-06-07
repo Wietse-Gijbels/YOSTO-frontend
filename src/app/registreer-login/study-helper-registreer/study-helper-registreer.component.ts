@@ -173,7 +173,6 @@ export class StudyHelperRegistreerComponent implements OnInit {
       rol: [GebruikerRol.STUDYHELPER],
       behaaldeDiplomas, // STUDYHELPER als rol setten
     };
-    console.log(formDataWithRole);
     this.authService.registreerHelper(formDataWithRole).subscribe(
       (response) => {
         // Verwerk succesvolle registratie
