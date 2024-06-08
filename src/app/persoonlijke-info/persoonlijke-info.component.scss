@@ -65,7 +65,7 @@
     margin-bottom: 20px;
   }
 
-  fa-icon {
+  header-icon {
     @include style-guide.font-large-header;
     color: style-guide.$primary-rood;
   }
@@ -76,6 +76,34 @@
     border: 2px solid style-guide.$primary-rood;
     padding: 10px;
     border-radius: 5px;
+  }
+
+  .rol-switch {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    background-color: style-guide.$primary-rood;
+    border: none;
+    border-radius: 20px;
+    padding: 3px 50px;
+    width: 200px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    margin-right: auto;
+    margin-left: auto;
+
+    fa-icon {
+      background-color: style-guide.$primary-rood;
+      padding-top: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      @include style-guide.font-medium-header;
+      color: style-guide.$secondary-wit;
+      background-color: style-guide.$primary-rood;
+    }
   }
 }
 
@@ -144,7 +172,7 @@
     margin-bottom: 20px;
   }
 
-  fa-icon {
+  header-icon {
     @include style-guide.font-large-header;
     color: style-guide.$helper-blauw;
   }
@@ -155,5 +183,33 @@
     border: 2px solid style-guide.$helper-blauw;
     padding: 10px;
     border-radius: 5px;
+  }
+
+  .rol-switch {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    background-color: style-guide.$helper-blauw;
+    border: none;
+    border-radius: 20px;
+    padding: 3px 50px;
+    width: 200px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    margin-right: auto;
+    margin-left: auto;
+
+    fa-icon {
+      background-color: style-guide.$helper-blauw;
+      padding-top: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      @include style-guide.font-medium-header;
+      color: style-guide.$secondary-wit;
+      background-color: style-guide.$helper-blauw;
+    }
   }
 }
