@@ -61,6 +61,16 @@ export class GebruikerHeaderComponent implements OnInit, OnChanges {
         this.src = '../../../assets/images/looker-yosto-logo.png';
       }
     }
+    if (this.class) {
+      // remove class names from the div and add only the class name that is passed
+      const classList = this.class.split(' ');
+      const div = document.getElementById('div');
+      if (div){
+        div.classList.remove('helper-container');
+        div.classList.remove('looker-container');
+          div.classList.add(this.class);
+      }
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
