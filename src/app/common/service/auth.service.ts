@@ -102,10 +102,7 @@ export class AuthService {
     } else {
       this.setRol(GebruikerRol.STUDYHELPER);
     }
-    this.httpClient
-      .post(this.url + '/switch', {
-        token: this.cookieService.get('token'),
-      })
-      .subscribe();
+    const token = this.cookieService.get('token');
+    this.httpClient.post(this.url + `/switch/${token}`, {}).subscribe();
   }
 }

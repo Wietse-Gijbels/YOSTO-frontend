@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faRepeat, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -56,9 +56,10 @@ export class PersoonlijkeInfoComponent implements OnInit {
     geslacht: [''],
   });
   numbers: number[] = Array.from({ length: 101 }, (_, i) => i);
+  rolSwitch: string = '';
   protected readonly faUser = faUser;
   protected readonly GebruikerRol = GebruikerRol;
-  rolSwitch: string = '';
+  protected readonly faRepeat = faRepeat;
 
   constructor(
     private gebruikerService: GebruikerService,
@@ -110,9 +111,12 @@ export class PersoonlijkeInfoComponent implements OnInit {
     });
   }
 
-  protected readonly faRepeat = faRepeat;
-
   switchRol() {
+    if (this.authService.getRol() === 'STUDYHELPER') {
+      this.cookieService.set('rol', GebruikerRol.STUDYLOOKER);
+    } else {
+      this.cookieService.set('rol', GebruikerRol.STUDYHELPER);
+    }
     this.authService.switchRol();
     this.router.navigateByUrl('/home');
   }

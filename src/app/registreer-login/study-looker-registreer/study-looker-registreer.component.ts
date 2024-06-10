@@ -91,6 +91,7 @@ export class StudyLookerRegistreerComponent {
         this.gebruikerService.setHeaders();
         this.router.navigateByUrl('/verify');
         this.authService.setRol(GebruikerRol.STUDYLOOKER);
+        this.cookieService.set('rol', GebruikerRol.STUDYHELPER);
       },
       (error) => {
         if (error.error) {

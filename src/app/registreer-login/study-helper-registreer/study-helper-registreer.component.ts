@@ -182,6 +182,7 @@ export class StudyHelperRegistreerComponent implements OnInit {
         this.gebruikerService.setHeaders();
         this.router.navigateByUrl('/verify');
         this.authService.setRol(GebruikerRol.STUDYHELPER);
+        this.cookieService.set('rol', GebruikerRol.STUDYHELPER);
       },
       (error) => {
         if (error.error) {
