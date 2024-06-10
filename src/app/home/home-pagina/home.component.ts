@@ -1,13 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavBarComponent } from '../../common/navigation/nav-bar.component';
-import { NgClass, NgForOf, NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, NgClass, NgForOf, NgOptimizedImage } from '@angular/common';
 import { SocialsComponent } from '../socials/socials.component';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { GebruikerRol } from '../../common/models/interfaces';
+import {
+  GebruikerInterface,
+  GebruikerRol,
+} from '../../common/models/interfaces';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
 import { rolStyle } from '../../common/directives/rol-style.directive';
 import { rolChecker } from '../../common/directives/rol-checker.directive';
+import { Observable } from 'rxjs';
+import { GebruikerService } from '../../common/service/gebruiker.service';
 
 @Component({
   selector: 'app-home',
@@ -21,11 +26,12 @@ import { rolChecker } from '../../common/directives/rol-checker.directive';
     GebruikerHeaderComponent,
     rolStyle,
     rolChecker,
+    AsyncPipe,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   interests = [
     {
       name: 'Dieetkunde',
@@ -49,11 +55,19 @@ export class HomeComponent {
     { name: 'ICT-helpdesk', backgroundColor: 'background-paars' },
   ];
   protected readonly GebruikerRol = GebruikerRol;
+  gebruiker$: Observable<GebruikerInterface> | undefined;
 
   constructor(
     private cookieService: CookieService,
     private router: Router,
+    private gebruikerService: GebruikerService,
   ) {}
+
+  ngOnInit() {
+    this.gebruiker$ = this.gebruikerService.getGebruiker(
+      this.cookieService.get('token'),
+    );
+  }
 
   logout(): void {
     this.cookieService.delete('token');
@@ -74,5 +88,9 @@ export class HomeComponent {
 
   navigateToTest(): void {
     this.router.navigateByUrl('/test');
+  }
+
+  navigateToChats(): void {
+    this.router.navigateByUrl('/chat');
   }
 }

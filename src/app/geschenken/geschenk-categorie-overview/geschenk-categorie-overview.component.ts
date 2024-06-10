@@ -7,7 +7,13 @@ import { GeschenkService } from '../../common/service/geschenk.service';
 import { Router } from '@angular/router';
 import { NavBarComponent } from '../../common/navigation/nav-bar.component';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
-import { GeschenkCategorie } from '../../common/models/interfaces';
+import {
+  GebruikerInterface,
+  GeschenkCategorie,
+} from '../../common/models/interfaces';
+import { GebruikerService } from '../../common/service/gebruiker.service';
+import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-geschenk-categorie-overview',
@@ -27,6 +33,7 @@ import { GeschenkCategorie } from '../../common/models/interfaces';
 export class GeschenkCategorieOverviewComponent implements OnInit {
   geschenkCategorieen: GeschenkCategorie[] = [];
   backgroundColorClasses: string[] = [];
+  gebruiker$: Observable<GebruikerInterface> | undefined;
 
   categorieColors = [
     'categorie-color-100',
@@ -41,10 +48,15 @@ export class GeschenkCategorieOverviewComponent implements OnInit {
   constructor(
     private geschenkService: GeschenkService,
     private router: Router,
+    private gebruikerService: GebruikerService,
+    private cookieService: CookieService,
   ) {}
 
   ngOnInit(): void {
     this.loadGeschenkCategorieen();
+    this.gebruiker$ = this.gebruikerService.getGebruiker(
+      this.cookieService.get('token'),
+    );
   }
 
   assignColorsToCategories(): void {

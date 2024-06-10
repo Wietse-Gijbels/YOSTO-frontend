@@ -20,6 +20,10 @@
     margin-top: 5px;
   }
 
+  img {
+    vertical-align: middle;
+  }
+
   h3 {
     @include style-guide.font-medium-tekst;
     color: style-guide.$primary-rood;
@@ -113,6 +117,10 @@
     border-radius: 20px;
     padding: 5px 20px;
     margin-top: 5px;
+  }
+
+  img {
+    vertical-align: middle;
   }
 
   h3 {

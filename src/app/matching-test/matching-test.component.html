@@ -20,7 +20,7 @@
       </div>
     }
     <div *ngIf="currentVraagIndex < vragen.length" class="knoppen">
-      <button (click)="antwoordGegeven('oneens')" class="oneens">
+      <button (click)="antwoordGegeven('oneens')" class="oneens button">
         <svg
           class="icon"
           viewBox="0 0 384 512"
@@ -32,7 +32,7 @@
           />
         </svg>
       </button>
-      <button (click)="antwoordGegeven('neutraal')" class="neutraal">
+      <button (click)="antwoordGegeven('neutraal')" class="neutraal button">
         <svg
           class="icon"
           viewBox="0 0 512 512"
@@ -44,7 +44,7 @@
           />
         </svg>
       </button>
-      <button (click)="antwoordGegeven('eens')" class="eens">
+      <button (click)="antwoordGegeven('eens')" class="eens button">
         <svg
           class="icon"
           viewBox="0 0 512 512"

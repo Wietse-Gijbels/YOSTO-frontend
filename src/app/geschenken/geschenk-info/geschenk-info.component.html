@@ -15,7 +15,12 @@
       } @else if (getAvailableGeschenkenCount() > 1) {
         <p class="availability">
           Er zijn nog {{ getAvailableGeschenkenCount() }} geschenken beschikbaar
-          voor maar {{ geschenkCategorie.prijs }} XP
+          voor maar {{ geschenkCategorie.prijs }} <img
+          alt="Start pagina"
+          height="30"
+          ngSrc="{{ '../../../assets/images/studycoin.png' }}"
+          width="30"
+        />
         </p>
       } @else {
         <p class="availability">
@@ -24,7 +29,7 @@
       }
 
       <p>{{ geschenkCategorie.beschrijving }}</p>
-      <button (click)="claimGeschenk()" class="claim-button">
+      <button (click)="claimGeschenk()" class="claim-button button">
         Claim geschenk
       </button>
 
