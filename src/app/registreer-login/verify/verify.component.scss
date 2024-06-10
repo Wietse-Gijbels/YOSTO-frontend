@@ -6,11 +6,13 @@
   height: 100vh;
 
   .icon-email {
-    background: url("../../../assets/images/mail-envloppe.png") no-repeat 5px center;
+    background: url("../../../assets/images/mail-envloppe.png") no-repeat 5px
+      center;
   }
 
   .icon-wachtwoord {
-    background: url("../../../assets/images/wachtwoord.png") no-repeat 5px center;
+    background: url("../../../assets/images/wachtwoord.png") no-repeat 5px
+      center;
   }
 
   .login-page {
@@ -119,7 +121,6 @@
 }
 
 .looker-container {
-
   .icon-email,
   .icon-wachtwoord,
   .login-page {
@@ -129,11 +130,9 @@
   button {
     color: style-guide.$primary-rood;
   }
-
 }
 
 .helper-container {
-
   .icon-email,
   .icon-wachtwoord,
   .login-page {

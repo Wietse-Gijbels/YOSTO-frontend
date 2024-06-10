@@ -4,7 +4,7 @@ import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruike
 import { AuthService } from '../../common/service/auth.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import {rolStyle} from "../../common/directives/rol-style.directive";
+import { rolStyle } from '../../common/directives/rol-style.directive';
 
 @Component({
   selector: 'app-verify',
