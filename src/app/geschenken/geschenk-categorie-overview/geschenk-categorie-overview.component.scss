@@ -8,6 +8,21 @@
   gap: 20px;
 }
 
+.xp-count {
+  top: 10px;
+  right: 10px;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+img {
+  vertical-align: middle;
+}
+
 .categorie-card {
   width: 100%;
   max-width: 500px;
@@ -79,9 +94,8 @@ button {
   margin-top: 10px;
   cursor: pointer;
   border: 1px solid style-guide.$secondary-wit;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease,
+  box-shadow 0.3s ease;
 }
 
 h3 {
@@ -118,77 +132,70 @@ p {
 
 .categorie-color-100 {
   background: linear-gradient(
-    to top,
-    style-guide.$primary-rood,
-    darken(style-guide.$primary-rood, 5%)
+      to top,
+      style-guide.$primary-rood,
+      darken(style-guide.$primary-rood, 5%)
   );
-  box-shadow:
-    inset 0 0 20px rgba(255, 255, 255, 0.5),
-    0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5),
+  0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .categorie-color-200 {
   background: linear-gradient(
-    to top,
-    style-guide.$primary-oranje,
-    darken(style-guide.$primary-oranje, 5%)
+      to top,
+      style-guide.$primary-oranje,
+      darken(style-guide.$primary-oranje, 5%)
   );
-  box-shadow:
-    inset 0 0 20px rgba(255, 255, 255, 0.5),
-    0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5),
+  0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .categorie-color-300 {
   background: linear-gradient(
-    to top,
-    style-guide.$primary-roos,
-    darken(style-guide.$primary-roos, 5%)
+      to top,
+      style-guide.$primary-roos,
+      darken(style-guide.$primary-roos, 5%)
   );
-  box-shadow:
-    inset 0 0 20px rgba(255, 255, 255, 0.5),
-    0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5),
+  0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .categorie-color-400 {
   background: linear-gradient(
-    to top,
-    style-guide.$secondary-licht-blauw,
-    darken(style-guide.$secondary-licht-blauw, 5%)
+      to top,
+      style-guide.$secondary-licht-blauw,
+      darken(style-guide.$secondary-licht-blauw, 5%)
   );
-  box-shadow:
-    inset 0 0 20px rgba(255, 255, 255, 0.5),
-    0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5),
+  0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .categorie-color-500 {
   background: linear-gradient(
-    to top,
-    style-guide.$secondary-paars,
-    darken(style-guide.$secondary-paars, 5%)
+      to top,
+      style-guide.$secondary-paars,
+      darken(style-guide.$secondary-paars, 5%)
   );
-  box-shadow:
-    inset 0 0 20px rgba(255, 255, 255, 0.5),
-    0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5),
+  0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .categorie-color-600 {
   background: linear-gradient(
-    to top,
-    style-guide.$secondary-groen,
-    darken(style-guide.$secondary-groen, 5%)
+      to top,
+      style-guide.$secondary-groen,
+      darken(style-guide.$secondary-groen, 5%)
   );
-  box-shadow:
-    inset 0 0 20px rgba(255, 255, 255, 0.5),
-    0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5),
+  0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .categorie-color-700 {
   background: linear-gradient(
-    to top,
-    style-guide.$secondary-geel,
-    darken(style-guide.$secondary-geel, 5%)
+      to top,
+      style-guide.$secondary-geel,
+      darken(style-guide.$secondary-geel, 5%)
   );
-  box-shadow:
-    inset 0 0 20px rgba(255, 255, 255, 0.5),
-    0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5),
+  0 4px 8px rgba(0, 0, 0, 0.2);
 }

@@ -3,69 +3,85 @@
   [headerText]="''"
 ></gebruiker-header>
 <div rolStyle>
-  <button (click)="logout()">Log uit</button>
+  @if (gebruiker$ | async; as gebruiker) {
+    <button class="button" (click)="logout()">Log uit</button>
 
-  <div class="small-container">
-    <h3>Study match</h3>
-    <div class="progress-bar">
-      <div class="progress"></div>
+    <div class="small-container">
+      <h3>Study match</h3>
+      <div class="progress-bar">
+        <div class="progress"></div>
+      </div>
+      <button class="button" (click)="navigateToTest()">Start de matching test</button>
     </div>
-    <button (click)="navigateToTest()">Start de matching test</button>
-  </div>
-  <div class="small-container">
-    <h3>Over Yosto</h3>
-    <p>
-      Yosto wil studenten bijstaan in hun zoektocht naar de juiste studie en
-      helpt hen om een beslissing te nemen. Dit kan door het verkennen van
-      verschillende studierichtingen inhouden, het ontdekken van jobs,
-      stageplaatsen,... en het identificeren van interessegebieden aan de hand
-      van een krachtige matchingtool. Door studenten middelen en begeleiding te
-      bieden, kunnen ze weloverwogen keuzes maken en een studie vinden die
-      aansluit bij hun doelen en passies.
-    </p>
-    <button>Lees meer</button>
-  </div>
-  <div class="small-container">
-    <h3>Jouw interesses</h3>
-    <div class="tiles">
-      <div
-        *ngFor="let interest of interests"
-        [ngClass]="interest.backgroundColor"
-        class="tile-item"
-      >
-        <img [src]="interest.icon" alt="icon" class="icon" />
-        <p>{{ interest.name }}</p>
+    <div *rolChecker="[GebruikerRol.STUDYHELPER]" class="small-container">
+      <h3>Study coins</h3>
+      <p>Studycoins<img
+        alt="Start pagina"
+        height="30"
+        ngSrc="{{ '../../assets/images/studycoin.png' }}"
+        width="30"
+      /> zijn punten die je kan verzamelen door studenten te helpen met hun studie keuze.
+        Hiermee kan je dan leuke geschenken kopen.</p>
+      <p>U heeft nu {{ gebruiker.xpAantal }} <img
+        alt="Start pagina"
+        height="30"
+        ngSrc="{{ '../../assets/images/studycoin.png' }}"
+        width="30"
+      /></p>
+      <button class="button" (click)="navigateToChats()">Verdien Studycoins door te helpen</button>
+
+
+    </div>
+    <div class="small-container">
+      <h3>Over Yosto</h3>
+      <p>
+        Yosto wil studenten bijstaan in hun zoektocht naar de juiste studie en
+        helpt hen om een beslissing te nemen. Dit kan door het verkennen van
+        verschillende studierichtingen inhouden, het ontdekken van jobs,
+        stageplaatsen,... en het identificeren van interessegebieden aan de hand
+        van een krachtige matchingtool. Door studenten middelen en begeleiding te
+        bieden, kunnen ze weloverwogen keuzes maken en een studie vinden die
+        aansluit bij hun doelen en passies.
+      </p>
+    </div>
+    <div class="small-container">
+      <h3>Jouw interesses</h3>
+      <div class="tiles">
+        <div
+          *ngFor="let interest of interests"
+          [ngClass]="interest.backgroundColor"
+          class="tile-item"
+        >
+          <img [src]="interest.icon" alt="icon" class="icon"/>
+          <p>{{ interest.name }}</p>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="small-container">
-    <h3>Studierichtingen</h3>
-    <button>Lees meer</button>
-  </div>
-  <div class="small-container">
-    <h3>Stageplaatsen</h3>
-    <div class="tiles">
-      <div
-        *ngFor="let internship of internships"
-        [ngClass]="internship.backgroundColor"
-        class="tile-item"
-      >
-        <p>{{ internship.name }}</p>
+    <div class="small-container">
+      <h3>Stageplaatsen</h3>
+      <div class="tiles">
+        <div
+          *ngFor="let internship of internships"
+          [ngClass]="internship.backgroundColor"
+          class="tile-item"
+        >
+          <p>{{ internship.name }}</p>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="small-container">
-    <h3>Socials</h3>
-    <app-socials
-      [facebookLink]="'https://www.facebook.com/yourprofile'"
-      [grootte]="'groot'"
-      [iconColor]="'rood'"
-      [instagramLink]="'https://www.instagram.com/yourprofile'"
-      [linkedinLink]="'https://www.linkedin.com/yourprofile'"
-      [twitterLink]="'https://www.twitter.com/yourprofile'"
-      [uitlijning]="'links'"
-    >
-    </app-socials>
-  </div>
+    <div class="small-container">
+      <h3>Socials</h3>
+      <app-socials
+        [facebookLink]="'https://www.facebook.com/yourprofile'"
+        [grootte]="'groot'"
+        [iconColor]="'rood'"
+        [instagramLink]="'https://www.instagram.com/yourprofile'"
+        [linkedinLink]="'https://www.linkedin.com/yourprofile'"
+        [twitterLink]="'https://www.twitter.com/yourprofile'"
+        [uitlijning]="'links'"
+      >
+      </app-socials>
+    </div>
+  }
 </div>
 <app-nav-bar></app-nav-bar>
