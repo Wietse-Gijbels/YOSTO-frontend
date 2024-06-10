@@ -2,6 +2,7 @@ import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { GebruikerRol } from '../models/interfaces';
 import { AuthService } from '../service/auth.service';
 import { GebruikerService } from '../service/gebruiker.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Directive({
   selector: '[rolChecker]',
@@ -13,10 +14,18 @@ export class rolChecker {
     private viewContainer: ViewContainerRef,
     private authService: AuthService,
     private gebruikerService: GebruikerService,
+    private cookieService: CookieService,
   ) {}
 
   @Input({ required: true }) set rolChecker(requiredRol: GebruikerRol[]) {
     const rol = this.authService.getRol();
+    if (this.cookieService.get('rol')) {
+      if (requiredRol.toString().includes(this.cookieService.get('rol'))) {
+        this.viewContainer.createEmbeddedView(this.templateRef);
+      } else {
+        this.viewContainer.clear();
+      }
+    }
     if (this.authService.getRol() && rol !== undefined) {
       if (requiredRol.includes(rol)) {
         this.viewContainer.createEmbeddedView(this.templateRef);

@@ -17,6 +17,7 @@ export class StartSchermComponent implements OnInit {
 
   ngOnInit(): void {
     this.cookieService.delete('token');
+    this.cookieService.delete('rol');
   }
 
   navigeerNaarRegistreerHelper(): void {

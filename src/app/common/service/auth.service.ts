@@ -1,11 +1,11 @@
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {isPlatformBrowser} from '@angular/common';
-import {HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router';
-import {CookieService} from 'ngx-cookie-service';
-import {AuthenticationResponse, GebruikerRol} from '../models/interfaces';
-import {catchError, Observable, throwError} from 'rxjs';
-import {environment} from '../environments/environment';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthenticationResponse, GebruikerRol } from '../models/interfaces';
+import { catchError, Observable, throwError } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -99,12 +99,10 @@ export class AuthService {
   switchRol() {
     if (this.rol === GebruikerRol.STUDYHELPER) {
       this.setRol(GebruikerRol.STUDYLOOKER);
-    }
-    else {
+    } else {
       this.setRol(GebruikerRol.STUDYHELPER);
     }
-    this.httpClient.post(this.url + '/switch', {
-      token: this.cookieService.get('token'),
-    }).subscribe();
+    const token = this.cookieService.get('token');
+    this.httpClient.post(this.url + `/switch/${token}`, {}).subscribe();
   }
 }

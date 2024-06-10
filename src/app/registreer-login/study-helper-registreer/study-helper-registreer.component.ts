@@ -179,6 +179,7 @@ export class StudyHelperRegistreerComponent implements OnInit {
         this.cookieService.set('token', response.token);
         this.router.navigateByUrl('/verify');
         this.authService.setRol(GebruikerRol.STUDYHELPER);
+        this.cookieService.set('rol', GebruikerRol.STUDYHELPER);
       },
       (error) => {
         if (error.error) {
