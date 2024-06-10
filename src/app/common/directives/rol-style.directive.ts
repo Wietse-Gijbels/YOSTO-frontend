@@ -1,7 +1,6 @@
 import { Directive, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { GebruikerRol } from '../models/interfaces';
 import { AuthService } from '../service/auth.service';
-import { GebruikerService } from '../service/gebruiker.service';
 import { CookieService } from 'ngx-cookie-service';
 
 @Directive({
@@ -13,7 +12,6 @@ export class rolStyle implements OnInit {
     private elementRef: ElementRef,
     private renderer: Renderer2,
     private authService: AuthService,
-    private gebruikerService: GebruikerService,
     private cookieService: CookieService,
   ) {}
 
@@ -42,6 +40,8 @@ export class rolStyle implements OnInit {
           'looker-container',
         );
       }
+    } else {
+      this.renderer.addClass(this.elementRef.nativeElement, 'looker-container');
     }
   }
 }

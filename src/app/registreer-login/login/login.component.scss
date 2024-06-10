@@ -1,8 +1,7 @@
 @use "../../../style-guide";
 
 .icon-email {
-  background: url("../../../assets/images/mail-envloppe.png") no-repeat 5px
-    center;
+  background: url("../../../assets/images/mail-envloppe.png") no-repeat 5px center;
 }
 
 .icon-wachtwoord {
@@ -121,4 +120,47 @@ p {
   text-align: center;
   font-size: 12px;
   margin: 7px;
+}
+
+.looker-container {
+  display: grid;
+
+  .gebruiker-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    background-color: style-guide.$primary-rood;
+  }
+
+  .gebruiker-header img {
+    width: 10%;
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
+
+  .background-rood {
+    background-color: style-guide.$primary-rood;
+    color: style-guide.$secondary-wit;
+  }
+
+  h1 {
+    @include style-guide.font-large-header;
+    background-color: style-guide.$primary-rood;
+    width: 90%;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .gebruiker-header img {
+      width: 20%;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .gebruiker-header img {
+      width: 30%;
+    }
+  }
 }
