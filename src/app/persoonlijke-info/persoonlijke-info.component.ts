@@ -1,22 +1,27 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import {faRepeat, faUser} from '@fortawesome/free-solid-svg-icons';
+import { faRepeat, faUser } from '@fortawesome/free-solid-svg-icons';
 import { MatGridList } from '@angular/material/grid-list';
 import { CookieService } from 'ngx-cookie-service';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { GebruikerInterface, GebruikerRol } from '../common/models/interfaces';
 import { GebruikerService } from '../common/service/gebruiker.service';
 import { NavBarComponent } from '../common/navigation/nav-bar.component';
 import { rolChecker } from '../common/directives/rol-checker.directive';
 import { rolStyle } from '../common/directives/rol-style.directive';
-import {MatSlideToggle} from "@angular/material/slide-toggle";
-import {Router, RouterLink} from '@angular/router';
-import {AuthService} from "../common/service/auth.service";
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../common/service/auth.service';
 
 @Component({
   selector: 'app-persoonlijke-info',
@@ -51,9 +56,10 @@ export class PersoonlijkeInfoComponent implements OnInit {
     geslacht: [''],
   });
   numbers: number[] = Array.from({ length: 101 }, (_, i) => i);
+  rolSwitch: string = '';
   protected readonly faUser = faUser;
   protected readonly GebruikerRol = GebruikerRol;
-  rolSwitch: string = '';
+  protected readonly faRepeat = faRepeat;
 
   constructor(
     private gebruikerService: GebruikerService,
@@ -73,7 +79,9 @@ export class PersoonlijkeInfoComponent implements OnInit {
     this.form.disable();
     if (this.authService.getRol() === GebruikerRol.STUDYHELPER) {
       this.rolSwitch = 'Student Looker';
-    }else{this.rolSwitch = 'Student Helper';}
+    } else {
+      this.rolSwitch = 'Student Helper';
+    }
   }
 
   preventEnter(event: Event) {
@@ -103,9 +111,12 @@ export class PersoonlijkeInfoComponent implements OnInit {
     });
   }
 
-  protected readonly faRepeat = faRepeat;
-
   switchRol() {
+    if (this.authService.getRol() === 'STUDYHELPER') {
+      this.cookieService.set('rol', GebruikerRol.STUDYLOOKER);
+    } else {
+      this.cookieService.set('rol', GebruikerRol.STUDYHELPER);
+    }
     this.authService.switchRol();
     this.router.navigateByUrl('/home');
   }

@@ -4,11 +4,17 @@ import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruike
 import { AuthService } from '../../common/service/auth.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import {rolStyle} from "../../common/directives/rol-style.directive";
 
 @Component({
   selector: 'app-verify',
   standalone: true,
-  imports: [FormsModule, GebruikerHeaderComponent, ReactiveFormsModule],
+  imports: [
+    FormsModule,
+    GebruikerHeaderComponent,
+    ReactiveFormsModule,
+    rolStyle,
+  ],
   templateUrl: './verify.component.html',
   styleUrl: './verify.component.scss',
 })

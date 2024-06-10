@@ -6,7 +6,6 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { GebruikerRol } from '../models/interfaces';
 import { rolStyle } from '../directives/rol-style.directive';
 import { CdkDropList } from '@angular/cdk/drag-drop';
 import { MatFormField } from '@angular/material/form-field';
@@ -18,7 +17,7 @@ import {
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import { AuthService } from '../service/auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'gebruiker-header',
@@ -49,13 +48,13 @@ export class GebruikerHeaderComponent implements OnInit, OnChanges {
   src: string = '';
   @Input() class: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private cookieService: CookieService) {}
 
   ngOnInit() {
     if (this.fotoPath) {
       this.src = this.fotoPath;
     } else {
-      if (this.authService.getRol() === GebruikerRol.STUDYHELPER) {
+      if (this.cookieService.get('rol') === 'STUDYHELPER') {
         this.src = '../../../assets/images/helper-yosto-logo.png';
       } else {
         this.src = '../../../assets/images/looker-yosto-logo.png';
@@ -65,10 +64,10 @@ export class GebruikerHeaderComponent implements OnInit, OnChanges {
       // remove class names from the div and add only the class name that is passed
       const classList = this.class.split(' ');
       const div = document.getElementById('div');
-      if (div){
+      if (div) {
         div.classList.remove('helper-container');
         div.classList.remove('looker-container');
-          div.classList.add(this.class);
+        div.classList.add(this.class);
       }
     }
   }
