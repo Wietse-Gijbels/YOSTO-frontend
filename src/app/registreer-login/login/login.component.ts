@@ -4,6 +4,7 @@ import { AuthService } from '../../common/service/auth.service';
 import { Router } from '@angular/router';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
 import { CookieService } from 'ngx-cookie-service';
+import { GebruikerService } from '../../common/service/gebruiker.service';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private cookieService: CookieService,
+    private gebruikerService: GebruikerService,
   ) {}
 
   onSubmit(): void {
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(formData).subscribe(
       (response) => {
         this.cookieService.set('token', response.token, { expires: 1 });
+        this.gebruikerService.setHeaders();
         this.router.navigateByUrl('/home');
         this.authService.setRol(response.rol);
       },

@@ -26,6 +26,14 @@ export class GebruikerService {
     private cookieService: CookieService,
   ) {}
 
+  setHeaders() {
+    this.token = this.cookieService.get('token');
+    this.headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+      'Content-Type': 'application/json',
+    });
+  }
+
   getAllConectedGebruikers(): Observable<GebruikerInterface[]> {
     return this.http.get<GebruikerInterface[]>(this.url + '/online', {
       headers: this.headers,

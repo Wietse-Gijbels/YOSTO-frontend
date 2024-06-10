@@ -48,7 +48,6 @@ export class GebruikersLijstComponent implements OnInit {
       this.userId = userId;
       this.chatService.getMyChatRooms(userId).subscribe(
         (chatrooms) => {
-          console.log('Chatrooms:', chatrooms);
           this.openChatrooms = chatrooms.filter(
             (chatroom) => !chatroom.isAfgesloten,
           );
@@ -64,7 +63,6 @@ export class GebruikersLijstComponent implements OnInit {
 
     this.lookerQueueService.getAmountOfLookers().subscribe(
       (response) => {
-        console.log('Amount of lookers:', response);
         this.amountOfLookers = response.amount; // Update to correctly assign the amount
       },
       (error) => {

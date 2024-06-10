@@ -19,6 +19,8 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { LookerQueueService } from '../../common/service/lookerQueue.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackbarService } from '../../common/service/snackbar.service';
+import { rolChecker } from '../../common/directives/rol-checker.directive';
+import { GebruikerRol } from '../../common/models/interfaces';
 
 @Component({
   selector: 'app-studierichting-details',
@@ -33,6 +35,7 @@ import { SnackbarService } from '../../common/service/snackbar.service';
     MatTab,
     BaseChartDirective,
     MatSnackBarModule,
+    rolChecker,
   ],
   templateUrl: './studierichting-details.component.html',
   styleUrls: ['./studierichting-details.component.scss'],
@@ -85,6 +88,7 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
   protected readonly encodeURIComponent = encodeURIComponent;
   protected readonly faLocationDot: IconDefinition = faLocationDot;
   private readonly destroy$: Subject<void> = new Subject<void>();
+  protected readonly GebruikerRol = GebruikerRol;
   userId: string | null = null;
 
   constructor(
@@ -129,6 +133,7 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
     );
 
     this.gebruikerService.getGebruikerIdByToken().subscribe((userId) => {
+      console.log('User ID:', userId);
       this.userId = userId;
     });
   }
@@ -211,6 +216,8 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
   }
 
   joinQueue(): void {
+    console.log('Joining queue');
+    console.log('User ID:', this.userId);
     if (this.userId && this.studierichtingId) {
       this.lookerQueueService
         .joinQueue(this.userId, this.studierichtingId)
@@ -235,9 +242,9 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-    window.removeEventListener(
-      'resize',
-      this.adjustChartOptionsForScreenSize.bind(this),
-    );
+    // window.removeEventListener(
+    //   'resize',
+    //   this.adjustChartOptionsForScreenSize.bind(this),
+    // );
   }
 }

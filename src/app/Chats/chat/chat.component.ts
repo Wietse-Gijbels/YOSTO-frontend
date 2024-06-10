@@ -26,6 +26,7 @@ import { IFrame } from '@stomp/stompjs';
 import {
   ChatRoomInterface,
   GebruikerInterface,
+  GebruikerRol,
   Message,
   StudierichtingInterface,
 } from '../../common/models/interfaces';
@@ -35,6 +36,7 @@ import { ChatService } from '../../common/service/chat.service';
 import { StudierichtingService } from '../../common/service/studierichting.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FeedbackPopupComponent } from '../feedback-popup/feedback-popup.component';
+import { AuthService } from '../../common/service/auth.service';
 
 @Component({
   selector: 'app-chat',
