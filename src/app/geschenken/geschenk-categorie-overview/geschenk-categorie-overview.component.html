@@ -4,26 +4,47 @@
   [subText]="'Geschenken'"
 ></gebruiker-header>
 <div class="container">
-  <div
-    *ngFor="let categorie of geschenkCategorieen; let i = index"
-    class="categorie-card"
-  >
-    <div class="tile-item {{ backgroundColorClasses[i] }}">
-      <div class="tile-content">
-        <h3>{{ categorie.naam }}</h3>
-        <p>{{ categorie.prijs }} XP</p>
-        <button (click)="meerInfo(categorie.id)">Meer info</button>
-      </div>
-      <div class="tile-image">
-        <img
-          alt="{{ categorie.naam }}"
-          class="vraag-img"
-          src="http://localhost:8080/api/v1/geschenkcategorie/files/{{
-            categorie.fotoUrl
-          }}"
-        />
+  @if (gebruiker$ | async; as gebruiker) {
+    <div class="xp-count">
+      U heeft {{ gebruiker.xpAantal }}
+      <img
+        alt="Start pagina"
+        height="30"
+        ngSrc="{{ '../../../assets/images/studycoin.png' }}"
+        width="30"
+      />
+    </div>
+    <div
+      *ngFor="let categorie of geschenkCategorieen; let i = index"
+      class="categorie-card"
+    >
+      <div class="tile-item {{ backgroundColorClasses[i] }}">
+        <div class="tile-content">
+          <h3>{{ categorie.naam }}</h3>
+          <p class="prijs">
+            {{ categorie.prijs }}
+            <img
+              alt="Start pagina"
+              height="30"
+              ngSrc="{{ '../../../assets/images/studycoin-white.png' }}"
+              width="30"
+            />
+          </p>
+          <button class="button" (click)="meerInfo(categorie.id)">
+            Meer info
+          </button>
+        </div>
+        <div class="tile-image">
+          <img
+            alt="{{ categorie.naam }}"
+            class="vraag-img"
+            src="http://localhost:8080/api/v1/geschenkcategorie/files/{{
+              categorie.fotoUrl
+            }}"
+          />
+        </div>
       </div>
     </div>
-  </div>
+  }
 </div>
 <app-nav-bar></app-nav-bar>

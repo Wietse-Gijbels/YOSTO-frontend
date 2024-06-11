@@ -18,6 +18,7 @@ import {
 } from '@angular/material/expansion';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'gebruiker-header',
@@ -48,7 +49,10 @@ export class GebruikerHeaderComponent implements OnInit, OnChanges {
   src: string = '';
   @Input() class: string = '';
 
-  constructor(private cookieService: CookieService) {}
+  constructor(
+    private cookieService: CookieService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     if (this.fotoPath) {

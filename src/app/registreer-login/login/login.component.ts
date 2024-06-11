@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
 import { CookieService } from 'ngx-cookie-service';
 import { GebruikerService } from '../../common/service/gebruiker.service';
+import { rolStyle } from '../../common/directives/rol-style.directive';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, GebruikerHeaderComponent],
+  imports: [ReactiveFormsModule, GebruikerHeaderComponent, rolStyle],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })

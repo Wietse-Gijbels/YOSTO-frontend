@@ -4,7 +4,7 @@
 ></gebruiker-header>
 <main>
   <div class="filter-container">
-    <button (click)="toggleFilter()">
+    <button class="button" (click)="toggleFilter()">
       Filter
       <span
         [ngClass]="{ 'arrow-down': !showFilter, 'arrow-up': showFilter }"
@@ -29,7 +29,7 @@
           <option value="asc">Oplopend</option>
           <option value="desc">Aflopend</option>
         </select>
-        <button (click)="applyFilter()">Toepassen</button>
+        <button class="button" (click)="applyFilter()">Toepassen</button>
       </div>
     }
   </div>

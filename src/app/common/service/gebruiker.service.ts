@@ -102,6 +102,8 @@ export class GebruikerService {
   }
 
   addFavorieteStudierichtingToGebruiker(studierichtingId: string) {
+    console.log(this.token);
+    console.log(this.headers);
     return this.http.post<void>(
       this.url + `/addFavorieteStudierichting/${studierichtingId}`,
       studierichtingId,

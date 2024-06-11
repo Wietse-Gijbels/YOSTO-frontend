@@ -61,7 +61,16 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.button {
+  transition: all 0.1s ease;
+}
+
+.button:active {
+  transform: scale(90%);
 }

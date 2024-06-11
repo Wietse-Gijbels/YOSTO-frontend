@@ -10,6 +10,10 @@
   margin: 25px 0;
 }
 
+img {
+  vertical-align: middle;
+}
+
 h1 {
   @include style-guide.font-large-header;
   color: style-guide.$primary-rood;

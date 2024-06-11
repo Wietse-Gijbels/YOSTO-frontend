@@ -1,10 +1,13 @@
 <div class="container">
-  <gebruiker-header
-    [backgroundColor]="'background-rood'"
-    [class]="'looker-container'"
-    [fotoPath]="'../../../assets/images/looker-yosto-logo.png'"
-    [headerText]="'LOG IN'"
-  ></gebruiker-header>
+  <div class="looker-container">
+    <div class="background-rood gebruiker-header">
+      <img
+        alt="logo van yosto"
+        src="../../../assets/images/looker-yosto-logo.png"
+      />
+      <h1>LOG IN</h1>
+    </div>
+  </div>
   <div class="login-page">
     <div class="error-container">
       @if (errorMessages["errorLogin"]) {
