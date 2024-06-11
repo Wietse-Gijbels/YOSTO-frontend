@@ -21,6 +21,8 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import {GebruikerRol} from "../models/interfaces";
+import {rolChecker} from "../directives/rol-checker.directive";
 
 @Component({
   selector: 'app-nav-bar',
@@ -38,6 +40,7 @@ import {
     MatMenuTrigger,
     rolStyle,
     NgClass,
+    rolChecker,
   ],
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss'],
@@ -92,4 +95,6 @@ export class NavBarComponent {
   togglePopUp() {
     this.popUpVisible = !this.popUpVisible;
   }
+
+  protected readonly GebruikerRol = GebruikerRol;
 }

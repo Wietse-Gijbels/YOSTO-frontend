@@ -37,6 +37,7 @@ import { StudierichtingService } from '../../common/service/studierichting.servi
 import { MatDialog } from '@angular/material/dialog';
 import { FeedbackPopupComponent } from '../feedback-popup/feedback-popup.component';
 import { AuthService } from '../../common/service/auth.service';
+import {rolStyle} from "../../common/directives/rol-style.directive";
 
 @Component({
   selector: 'app-chat',
@@ -52,6 +53,7 @@ import { AuthService } from '../../common/service/auth.service';
     MatDividerModule,
     ReactiveFormsModule,
     AsyncPipe,
+    rolStyle,
   ],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
@@ -225,7 +227,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   }
 
   goBack(): void {
-    if (this.isChatClosed) {
+    if (this.isChatClosed || this.cookieService.get('rol') === 'STUDYHELPER') {
       this.router.navigate(['/chat']);
     } else {
       const dialogRef = this.dialog.open(FeedbackPopupComponent, {

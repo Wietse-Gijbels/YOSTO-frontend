@@ -30,7 +30,7 @@
         />
       </a>
     </li>
-    <li class="third-icon">
+    <li class="third-icon" *rolChecker="[GebruikerRol.STUDYLOOKER]">
       <a routerLink="/studierichting" routerLinkActive="active">
         <img
           alt="Start pagina"
@@ -40,7 +40,7 @@
         />
       </a>
     </li>
-    <li class="third-icon">
+    <li class="third-icon" *rolChecker="[GebruikerRol.STUDYHELPER]">
       <a routerLink="/geschenken-overview" routerLinkActive="active">
         <fa-icon [icon]="faBagShopping"></fa-icon>
       </a>

@@ -26,7 +26,7 @@ export class rolChecker {
         this.viewContainer.clear();
       }
     }
-    if (this.authService.getRol() && rol !== undefined) {
+    else if (this.authService.getRol() && rol !== undefined) {
       if (requiredRol.includes(rol)) {
         this.viewContainer.createEmbeddedView(this.templateRef);
       } else {

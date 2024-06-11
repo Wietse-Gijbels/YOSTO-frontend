@@ -3,10 +3,10 @@
   [subText]="'Chats'"
   class="header"
 ></gebruiker-header>
-<div class="looker-container">
+<div rolStyle>
   <div class="user-list">
     <mat-list>
-      <mat-list-item class="help-someone-item" (click)="helpSomeone()">
+      <mat-list-item class="help-someone-item" (click)="helpSomeone()" *rolChecker="[GebruikerRol.STUDYHELPER]">
         <div class="user-button">
           <div class="user-info help-someone-info">
             <span class="user-email" *ngIf="amountOfLookers > 0">

@@ -88,6 +88,12 @@
     justify-content: center; /* Center the text */
   }
 
+  .section-header {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 20px 0 10px;
+  }
+
   @media screen and (max-width: 600px) {
     mat-list-item {
       height: 80px;
