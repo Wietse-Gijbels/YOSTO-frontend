@@ -37,7 +37,7 @@ import { StudierichtingService } from '../../common/service/studierichting.servi
 import { MatDialog } from '@angular/material/dialog';
 import { FeedbackPopupComponent } from '../feedback-popup/feedback-popup.component';
 import { AuthService } from '../../common/service/auth.service';
-import {rolStyle} from "../../common/directives/rol-style.directive";
+import { rolStyle } from '../../common/directives/rol-style.directive';
 
 @Component({
   selector: 'app-chat',

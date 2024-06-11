@@ -6,7 +6,10 @@ import { MatListModule } from '@angular/material/list';
 import { CookieService } from 'ngx-cookie-service';
 import { MatIconModule } from '@angular/material/icon';
 import { LookerQueueService } from '../../common/service/lookerQueue.service';
-import { ChatRoomInterface, GebruikerRol } from '../../common/models/interfaces';
+import {
+  ChatRoomInterface,
+  GebruikerRol,
+} from '../../common/models/interfaces';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
 import { NavBarComponent } from '../../common/navigation/nav-bar.component';
 import { GebruikerService } from '../../common/service/gebruiker.service';

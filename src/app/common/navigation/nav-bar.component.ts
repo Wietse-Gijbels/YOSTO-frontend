@@ -21,8 +21,8 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import {GebruikerRol} from "../models/interfaces";
-import {rolChecker} from "../directives/rol-checker.directive";
+import { GebruikerRol } from '../models/interfaces';
+import { rolChecker } from '../directives/rol-checker.directive';
 
 @Component({
   selector: 'app-nav-bar',
