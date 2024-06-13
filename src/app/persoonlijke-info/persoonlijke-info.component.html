@@ -1,4 +1,4 @@
-<mat-grid-list rolStyle cols="2">
+<mat-grid-list cols="2" rolStyle>
   <fa-icon [icon]="faUser" class="header-icon"></fa-icon>
   <h1>Persoonlijke Info</h1>
   <div class="error-container">
@@ -52,6 +52,25 @@
           <option>Man</option>
           <option>Vrouw</option>
         </select>
+        <!--        <label for="huidigeStudieAndNiveau">Diplomas</label>-->
+        <!--        <input-->
+        <!--          id="huidigeStudieAndNiveau"-->
+        <!--          class="icon-studie {{ borderRadiusStudie }} input"-->
+        <!--          formControlName="huidigeStudieAndNiveau"-->
+        <!--          matInput-->
+        <!--          [disabled]="edit"-->
+        <!--        />-->
+        <!--        @if (filteredRichtingen.length > 0) {-->
+        <!--          <ul class="suggestions">-->
+        <!--            @for (richting of filteredRichtingen; track richting) {-->
+        <!--              <li-->
+        <!--                (click)="onRichtingClick(richting)"-->
+        <!--              >-->
+        <!--                {{ richting }}-->
+        <!--              </li>-->
+        <!--            }-->
+        <!--          </ul>-->
+        <!--        }-->
       </div>
       <div class="container">
         <button
@@ -79,9 +98,22 @@
       <button routerLink="/geschenken-overview">Ga naar Geschenken</button>
     }
   }
-  <button class="rol-switch" (click)="switchRol()">
-    <fa-icon [icon]="faRepeat" class="switch-icon"></fa-icon>
-    <p>{{ rolSwitch }}</p>
-  </button>
+  @if (gebruiker$ |async; as gebruiker) {
+    @if (gebruiker.rollen.length > 1) {
+      <button (click)="switchRol()" class="rol-switch">
+        <fa-icon [icon]="faRepeat" class="switch-icon"></fa-icon>
+        <p>{{ rolSwitch }}</p>
+      </button>
+    } @else {
+      <button class="rol-switch" (click)="addRol()">
+        <fa-icon [icon]="faPlus" class="switch-icon"></fa-icon>
+        @if (gebruiker.rollen[0] == GebruikerRol.STUDYHELPER) {
+          <p>Word Looker</p>
+        } @else {
+          <p>Word Helper</p>
+        }
+      </button>
+    }
+  }
 </mat-grid-list>
 <app-nav-bar></app-nav-bar>

@@ -11,10 +11,10 @@
     background-size: cover;
     padding: 20px;
     justify-content: center;
-    align-items: center;
     display: grid;
     grid-template-columns: 1fr 1fr;
     row-gap: 10px;
+    text-align: center;
   }
 
   .input {
@@ -39,6 +39,8 @@
     align-items: center;
     width: 100%;
     max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   button {
@@ -105,6 +107,19 @@
       background-color: style-guide.$primary-rood;
     }
   }
+
+  .suggestions {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-height: 150px;
+    overflow-y: auto;
+    width: 319.6px;
+    background-color: lighten(style-guide.$primary-rood, 90%);
+    outline: none;
+    //border: 1px solid #FFFFFF;
+  }
+
 }
 
 .helper-container {
@@ -146,6 +161,8 @@
     align-items: center;
     width: 100%;
     max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   button {

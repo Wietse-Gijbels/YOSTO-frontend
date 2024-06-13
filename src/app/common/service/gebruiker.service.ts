@@ -124,8 +124,17 @@ export class GebruikerService {
 
   addGebruikerXp(id: string, xp: number): Observable<void> {
     return this.http.post<void>(
-      'http://localhost:8080/api/v1/gebruiker/xp',
+      this.url + '/xp',
       { id, xp },
+      { headers: this.headers },
+    );
+  }
+
+  addRol(rol: GebruikerRol): Observable<GebruikerInterface> {
+    console.log(rol);
+    return this.http.put<GebruikerInterface>(
+      this.url + '/addRol',
+      { rol, token: this.token },
       { headers: this.headers },
     );
   }
