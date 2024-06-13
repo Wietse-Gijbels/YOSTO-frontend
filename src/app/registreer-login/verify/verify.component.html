@@ -28,6 +28,19 @@
       <div class="input-container">
         <input
           class="icon-wachtwoord"
+          formControlName="wachtwoord"
+          placeholder="Wachtwoord*"
+          type="password"
+        />
+        @if (errorMessages["errorLoginWachtwoord"]) {
+          <p class="error">
+            {{ errorMessages["errorLoginWachtwoord"] }}
+          </p>
+        }
+      </div>
+      <div class="input-container">
+        <input
+          class="icon-wachtwoord"
           formControlName="code"
           placeholder="Code*"
           type="text"

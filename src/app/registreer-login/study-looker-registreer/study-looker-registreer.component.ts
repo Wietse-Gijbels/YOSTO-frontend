@@ -89,7 +89,7 @@ export class StudyLookerRegistreerComponent {
         // Verwerk succesvolle registratie
         this.cookieService.set('token', response.token);
         this.gebruikerService.setHeaders();
-        this.router.navigateByUrl('/verify');
+        this.router.navigateByUrl(`/verify?email=${formData.email}`);
         this.authService.setRol(GebruikerRol.STUDYLOOKER);
         this.cookieService.set('rol', GebruikerRol.STUDYHELPER);
       },
