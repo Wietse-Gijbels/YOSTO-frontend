@@ -93,14 +93,16 @@
         placeholder="Huidige studie*"
         type="text"
       />
-      <ul *ngIf="filteredRichtingen.length > 0" class="suggestions">
-        <li
-          (click)="onRichtingClick(richting)"
-          *ngFor="let richting of filteredRichtingen"
-        >
-          {{ richting }}
-        </li>
-      </ul>
+      @if (filteredRichtingen.length > 0) {
+        <ul class="suggestions">
+          <li
+            (click)="onRichtingClick(richting)"
+            *ngFor="let richting of filteredRichtingen"
+          >
+            {{ richting }}
+          </li>
+        </ul>
+      }
       @if (errorMessages["errorRichtingParser"]) {
         <p class="error">
           {{ errorMessages["errorRichtingParser"] }}
