@@ -98,7 +98,7 @@
       <button routerLink="/geschenken-overview">Ga naar Geschenken</button>
     }
   }
-  @if (gebruiker$ |async; as gebruiker) {
+  @if (gebruiker$ | async; as gebruiker) {
     @if (gebruiker.rollen.length > 1) {
       <button (click)="switchRol()" class="rol-switch">
         <fa-icon [icon]="faRepeat" class="switch-icon"></fa-icon>
