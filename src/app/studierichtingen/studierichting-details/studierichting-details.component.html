@@ -4,10 +4,14 @@
     [subMediumText]="studierichting.naam + ' - ' + studierichting.niveauNaam"
   ></gebruiker-header>
   <main rolStyle>
-    @if (studierichting.afstudeerrichtingen.length === 1 &&
-    !studierichting.afstudeerrichtingen[0].naam) {
-      @for (afstudeerrichting of studierichting.afstudeerrichtingen;
-        track afstudeerrichting.id) {
+    @if (
+      studierichting.afstudeerrichtingen.length === 1 &&
+      !studierichting.afstudeerrichtingen[0].naam
+    ) {
+      @for (
+        afstudeerrichting of studierichting.afstudeerrichtingen;
+        track afstudeerrichting.id
+      ) {
         @if (afstudeerrichting.beschrijving.length > 0) {
           <h3>Wat houdt de richting in</h3>
           <div
@@ -44,8 +48,10 @@
         </button>
         <h3>Waar kan ik de richting volgen</h3>
         <ul>
-          @for (instelling of afstudeerrichting.instellingen;
-            track instelling.id) {
+          @for (
+            instelling of afstudeerrichting.instellingen;
+            track instelling.id
+          ) {
             <app-card
               [subtextLine1]="instelling.adres"
               [subtextLine2]="instelling.gemeente + ' ' + instelling.postcode"
@@ -69,8 +75,10 @@
       }
     } @else {
       <mat-tab-group>
-        @for (afstudeerrichting of studierichting.afstudeerrichtingen;
-          track afstudeerrichting.id) {
+        @for (
+          afstudeerrichting of studierichting.afstudeerrichtingen;
+          track afstudeerrichting.id
+        ) {
           <mat-tab [label]="afstudeerrichting.naam.toString()">
             @if (afstudeerrichting.beschrijving.length > 0) {
               <h3>Wat houdt de richting in</h3>
@@ -108,8 +116,10 @@
             </button>
             <h3>Waar kan ik de richting volgen</h3>
             <ul>
-              @for (instelling of afstudeerrichting.instellingen;
-                track instelling.id) {
+              @for (
+                instelling of afstudeerrichting.instellingen;
+                track instelling.id
+              ) {
                 <app-card
                   [subtextLine1]="instelling.adres"
                   [subtextLine2]="

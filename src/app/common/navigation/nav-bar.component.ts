@@ -12,8 +12,8 @@ import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { faAddressCard } from '@fortawesome/free-regular-svg-icons';
 import { rolStyle } from '../directives/rol-style.directive';
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
-import {GebruikerRol} from "../models/interfaces";
-import {rolChecker} from "../directives/rol-checker.directive";
+import { GebruikerRol } from '../models/interfaces';
+import { rolChecker } from '../directives/rol-checker.directive';
 
 @Component({
   selector: 'app-nav-bar',
