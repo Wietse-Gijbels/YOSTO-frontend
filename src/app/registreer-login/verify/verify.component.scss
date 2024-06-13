@@ -6,12 +6,14 @@
   height: 100vh;
 
   .icon-email {
-    background: url("../../../assets/images/mail-envloppe.png") no-repeat 5px center;
+    background: url("../../../assets/images/mail-envloppe.png") no-repeat 5px
+      center;
     color: #ffffff; /* Add this line */
   }
 
   .icon-wachtwoord {
-    background: url("../../../assets/images/wachtwoord.png") no-repeat 5px center;
+    background: url("../../../assets/images/wachtwoord.png") no-repeat 5px
+      center;
     color: #ffffff; /* Add this line */
   }
 
@@ -127,7 +129,7 @@
   .login-page {
     background-color: style-guide.$primary-rood;
   }
-  
+
   button {
     color: style-guide.$primary-rood;
   }
@@ -144,4 +146,3 @@
     color: style-guide.$helper-blauw;
   }
 }
-
