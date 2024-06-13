@@ -51,10 +51,8 @@
         placeholder="Wachtwoord*"
         type="password"
       />
-      @if (
-        errorMessages["errorWachtwoord"] &&
-        !errorMessages["errorWachtwoordDubbel"]
-      ) {
+      @if (errorMessages["errorWachtwoord"] &&
+      !errorMessages["errorWachtwoordDubbel"]) {
         <p class="error">
           {{ errorMessages["errorWachtwoord"] }}
         </p>
@@ -93,14 +91,17 @@
         placeholder="Huidige studie*"
         type="text"
       />
-      <ul *ngIf="filteredRichtingen.length > 0" class="suggestions">
-        <li
-          (click)="onRichtingClick(richting)"
-          *ngFor="let richting of filteredRichtingen"
-        >
-          {{ richting }}
-        </li>
-      </ul>
+      @if (filteredRichtingen.length > 0) {
+
+        <ul class="suggestions">
+          <li
+            (click)="onRichtingClick(richting)"
+            *ngFor="let richting of filteredRichtingen"
+          >
+            {{ richting }}
+          </li>
+        </ul>
+      }
       @if (errorMessages["errorRichtingParser"]) {
         <p class="error">
           {{ errorMessages["errorRichtingParser"] }}
@@ -112,7 +113,7 @@
     </div>
   </form>
   <p>
-    Door te registreren ga je akkoord met de algemene <br />
+    Door te registreren ga je akkoord met de algemene <br/>
     voorwaarden en het Privacybeleid.
   </p>
 </div>

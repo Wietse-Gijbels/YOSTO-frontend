@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgForOf } from '@angular/common';
 import { StudierichtingService } from '../../common/service/studierichting.service';
 import { GebruikerRol } from '../../common/models/interfaces';
 import { GebruikerService } from '../../common/service/gebruiker.service';
@@ -14,7 +14,7 @@ import { GebruikerService } from '../../common/service/gebruiker.service';
 @Component({
   selector: 'app-study-looker-registreer',
   standalone: true,
-  imports: [ReactiveFormsModule, GebruikerHeaderComponent, NgIf, NgForOf],
+  imports: [ReactiveFormsModule, GebruikerHeaderComponent, NgForOf],
   templateUrl: './study-looker-registreer.component.html',
   styleUrls: ['./study-looker-registreer.component.scss'],
 })
