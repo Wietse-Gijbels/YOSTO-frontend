@@ -1,0 +1,52 @@
+@use "../../style-guide";
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+  margin-top: 20px;
+  padding-bottom: 150px;
+}
+
+.looker-container {
+  .card {
+    border: 2px solid style-guide.$primary-rood;
+    border-radius: 8px;
+    padding: 20px;
+    width: 80%;
+    text-align: center;
+    cursor: pointer;
+
+    &:active {
+      background-color: style-guide.$primary-rood;
+    }
+  }
+
+  .card .title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.helper-container {
+  .card {
+    border: 2px solid style-guide.$helper-blauw;
+    border-radius: 8px;
+    padding: 20px;
+    width: 80%;
+    text-align: center;
+    cursor: pointer;
+
+    &:active {
+      background-color: style-guide.$helper-blauw;
+    }
+  }
+
+  .card .title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
