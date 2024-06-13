@@ -21,7 +21,7 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import {BehaviorSubject, Subscription} from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { IFrame } from '@stomp/stompjs';
 import {
@@ -79,7 +79,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     private cookieService: CookieService,
     private studierichtingService: StudierichtingService,
     private dialog: MatDialog,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -104,7 +104,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
                 (error: any) => {
                   console.error('Error fetching gebruiker:', error);
                 },
-              )
+              ),
           );
         } else {
           this.subscriptions.add(
@@ -118,10 +118,10 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
                 (error: any) => {
                   console.error('Error fetching gebruiker:', error);
                 },
-              )
+              ),
           );
         }
-      })
+      }),
     );
     this.setRichtingDetails();
     this.messageForm = this.formBuilder.group({
@@ -145,7 +145,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
         .findStudierichting(this.route.snapshot.params['id'].split('_')[2])
         .subscribe((studierichting: StudierichtingInterface) => {
           this.studieRichting = studierichting;
-        })
+        }),
     );
   }
 
@@ -161,20 +161,22 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   loadMessages(): void {
     if (this.selectedGebruiker) {
       this.subscriptions.add(
-        this.chatService.getMessages(this.route.snapshot.params['id']).subscribe(
-          (messages: string | any[]) => {
-            const convertedMessages: Message[] = messages as Message[];
-            this.berichtenSubject.next(convertedMessages);
-            this.cdr.detectChanges(); // Explicitly mark for change detection
-            if (convertedMessages.length > 0) {
-              this.selectedGebruiker!.lastMessage =
-                convertedMessages[convertedMessages.length - 1].content;
-            }
-          },
-          (error: any) => {
-            console.error('Error fetching messages:', error);
-          },
-        )
+        this.chatService
+          .getMessages(this.route.snapshot.params['id'])
+          .subscribe(
+            (messages: string | any[]) => {
+              const convertedMessages: Message[] = messages as Message[];
+              this.berichtenSubject.next(convertedMessages);
+              this.cdr.detectChanges(); // Explicitly mark for change detection
+              if (convertedMessages.length > 0) {
+                this.selectedGebruiker!.lastMessage =
+                  convertedMessages[convertedMessages.length - 1].content;
+              }
+            },
+            (error: any) => {
+              console.error('Error fetching messages:', error);
+            },
+          ),
       );
     }
   }
@@ -215,11 +217,12 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   onMessageReceived = (payload: any): void => {
     const message = JSON.parse(payload.body);
     message.timestamp = new Date(message.timestamp);
-    console.log(message.studierichtingId)
+    console.log(message.studierichtingId);
     if (
       this.selectedGebruiker &&
-      message.senderId === this.selectedGebruiker.id&&
-      message.studierichtingId === this.route.snapshot.params['id'].split('_')[2]
+      message.senderId === this.selectedGebruiker.id &&
+      message.studierichtingId ===
+        this.route.snapshot.params['id'].split('_')[2]
     ) {
       this.berichtenSubject.next([...this.berichtenSubject.value, message]);
     } else {
@@ -307,7 +310,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
         (error: any) => {
           console.error('Error fetching chatroom:', error);
         },
-      )
+      ),
     );
   }
 }

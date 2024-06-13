@@ -22,11 +22,14 @@ export class LookerQueueService {
   }
 
   getAmountOfLookersForMe(userId: string): Observable<{ amount: number }> {
-    return this.http.get<{ amount: number }>(this.url + '/getAmountForMyStudierichtingen', {
-      params: {
-        userId: userId,
+    return this.http.get<{ amount: number }>(
+      this.url + '/getAmountForMyStudierichtingen',
+      {
+        params: {
+          userId: userId,
+        },
       },
-    });
+    );
   }
 
   joinQueue(
