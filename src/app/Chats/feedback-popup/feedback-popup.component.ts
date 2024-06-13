@@ -46,7 +46,7 @@ export class FeedbackPopupComponent {
       this.gebruikerService
         .addGebruikerXp(this.data.userId, xp)
         .subscribe(() => {
-          this.dialogRef.close('submitFeedback');
+          this.dialogRef.close({ action: 'submitFeedback', xp });
         });
     });
   }

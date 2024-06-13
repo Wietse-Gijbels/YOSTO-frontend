@@ -17,6 +17,15 @@
     </div>
     <div *rolChecker="[GebruikerRol.STUDYHELPER]" class="small-container">
       <h3>Study coins</h3>
+      <div class="xp-count">
+        U heeft {{ gebruiker.xpAantal }}
+        <img
+          alt="Start pagina"
+          height="30"
+          ngSrc="{{ '../../../assets/images/studycoin.png' }}"
+          width="30"
+        />
+      </div>
       <p>
         Studycoins<img
           alt="Start pagina"
@@ -27,17 +36,9 @@
         zijn punten die je kan verzamelen door studenten te helpen met hun
         studie keuze. Hiermee kan je dan leuke geschenken kopen.
       </p>
-      <p>
-        U heeft nu {{ gebruiker.xpAantal }}
-        <img
-          alt="Start pagina"
-          height="30"
-          ngSrc="{{ '../../assets/images/studycoin.png' }}"
-          width="30"
-        />
-      </p>
+
       <button class="button" (click)="navigateToChats()">
-        Verdien Studycoins door te helpen
+        Verdien nu Studycoins
       </button>
     </div>
     <div class="small-container">

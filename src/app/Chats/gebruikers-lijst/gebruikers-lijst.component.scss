@@ -78,7 +78,7 @@
 
   /* Specific styles for the Help someone item */
   .help-someone-item {
-    height: 50px !important; /* Make the Help someone item less high */
+    //height: 50px !important; /* Make the Help someone item less high */
     padding: 10px 10px; /* Adjust padding accordingly */
   }
 
@@ -86,6 +86,20 @@
     display: flex;
     align-items: center;
     justify-content: center; /* Center the text */
+  }
+
+  .no-chats-message {
+    text-align: center;
+    font-size: 1.2em;
+    color: #888;
+    margin-top: 20px;
+    padding: 10px;
+  }
+
+  .section-header {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 20px 0 10px;
   }
 
   @media screen and (max-width: 600px) {
@@ -188,7 +202,7 @@
   }
 
   .help-someone-item {
-    height: 50px !important; /* Make the Help someone item less high */
+    //height: 50px !important; /* Make the Help someone item less high */
     padding: 10px 10px; /* Adjust padding accordingly */
   }
 

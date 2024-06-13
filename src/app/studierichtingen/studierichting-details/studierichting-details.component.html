@@ -3,7 +3,7 @@
     [backgroundColor]="'background-wit'"
     [subMediumText]="studierichting.naam + ' - ' + studierichting.niveauNaam"
   ></gebruiker-header>
-  <main>
+  <main rolStyle>
     @if (
       studierichting.afstudeerrichtingen.length === 1 &&
       !studierichting.afstudeerrichtingen[0].naam
@@ -39,7 +39,11 @@
             ></canvas>
           </div>
         }
-        <button class="join-queue button" (click)="joinQueue()">
+        <button
+          class="join-queue"
+          (click)="joinQueue()"
+          *rolChecker="[GebruikerRol.STUDYLOOKER]"
+        >
           Chat met een student uit deze richting
         </button>
         <h3>Waar kan ik de richting volgen</h3>
@@ -103,7 +107,11 @@
                 ></canvas>
               </div>
             }
-            <button class="join-queue" (click)="joinQueue()">
+            <button
+              class="join-queue"
+              (click)="joinQueue()"
+              *rolChecker="[GebruikerRol.STUDYLOOKER]"
+            >
               Chat met een student uit deze richting
             </button>
             <h3>Waar kan ik de richting volgen</h3>

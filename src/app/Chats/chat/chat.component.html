@@ -1,55 +1,61 @@
-<div class="chat-container">
-  <div class="chat-header">
-    <button mat-icon-button (click)="goBack()" class="back-button">
-      <img alt="Arrow back" src="{{ '../assets/images/arrowback.png' }}" />
-    </button>
-    <div class="header-content">
-      <div
-        class="profile-circle"
-        [ngStyle]="{
-          'background-color': stringToColor(selectedGebruiker?.email || '')
-        }"
-      ></div>
-      <span class="email">{{ studieRichting?.naam }}</span>
-    </div>
-  </div>
-
-  <div class="messages" #messagesContainer>
-    <div
-      *ngFor="let bericht of berichten$ | async"
-      [ngClass]="{
-        'my-message-container': bericht.senderId === userId,
-        'other-message-container': bericht.senderId !== userId
-      }"
-    >
-      <div class="message-content">
-        <span>{{ bericht.content }}</span>
+<div rolStyle>
+  <div class="chat-container">
+    <div class="chat-header">
+      <button mat-icon-button (click)="goBack()" class="back-button">
+        <img alt="Arrow back" src="{{ '../assets/images/arrowback.png' }}" />
+      </button>
+      <div class="header-content">
+        <div
+          class="profile-circle"
+          [ngStyle]="{
+            'background-color': stringToColor(selectedGebruiker?.email || '')
+          }"
+        ></div>
+        <span class="email">{{ studieRichting?.naam }}</span>
       </div>
-      <span class="message-timestamp">
-        {{ bericht.timestamp | date: "shortTime" }}
-      </span>
     </div>
-  </div>
 
-  <form [formGroup]="messageForm" (ngSubmit)="onSubmit()" class="message-form">
-    <input
-      type="text"
-      class="message-input"
-      [class.closed]="isChatClosed"
-      [placeholder]="
-        isChatClosed
-          ? 'De chat is gesloten. U kunt geen berichten meer sturen.'
-          : 'Typ uw bericht...'
-      "
-      formControlName="message"
-      [disabled]="isChatClosed"
-    />
-    <button
-      type="submit"
-      [disabled]="isMessageFieldEmpty() || isChatClosed"
-      class="send-button"
+    <div class="messages" #messagesContainer>
+      <div
+        *ngFor="let bericht of berichtenSubject | async"
+        [ngClass]="{
+          'my-message-container': bericht.senderId === userId,
+          'other-message-container': bericht.senderId !== userId
+        }"
+      >
+        <div class="message-content">
+          <span>{{ bericht.content }}</span>
+        </div>
+        <span class="message-timestamp">
+          {{ bericht.timestamp | date: "shortTime" }}
+        </span>
+      </div>
+    </div>
+
+    <form
+      [formGroup]="messageForm"
+      (ngSubmit)="onSubmit()"
+      class="message-form"
     >
-      <mat-icon class="send-icon">send</mat-icon>
-    </button>
-  </form>
+      <input
+        type="text"
+        class="message-input"
+        [class.closed]="isChatClosed"
+        [placeholder]="
+          isChatClosed
+            ? 'De chat is gesloten. U kunt geen berichten meer sturen.'
+            : 'Typ uw bericht...'
+        "
+        formControlName="message"
+        [disabled]="isChatClosed"
+      />
+      <button
+        type="submit"
+        [disabled]="isMessageFieldEmpty() || isChatClosed"
+        class="send-button"
+      >
+        <mat-icon class="send-icon">send</mat-icon>
+      </button>
+    </form>
+  </div>
 </div>

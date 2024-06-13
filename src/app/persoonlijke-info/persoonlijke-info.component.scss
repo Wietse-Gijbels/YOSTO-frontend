@@ -1,5 +1,21 @@
 @use "../../style-guide.scss";
 
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+mat-grid-list {
+  padding-bottom: 150px;
+}
+
+img {
+  vertical-align: middle;
+}
+
 .looker-container {
   display: flex;
   flex-direction: column;

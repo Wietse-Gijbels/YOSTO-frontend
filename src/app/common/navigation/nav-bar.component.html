@@ -30,7 +30,7 @@
         />
       </a>
     </li>
-    <li class="third-icon">
+    <li class="third-icon" *rolChecker="[GebruikerRol.STUDYLOOKER]">
       <a routerLink="/studierichting" routerLinkActive="active">
         <img
           alt="Start pagina"
@@ -40,13 +40,13 @@
         />
       </a>
     </li>
-    <li class="third-icon">
+    <li class="third-icon" *rolChecker="[GebruikerRol.STUDYHELPER]">
       <a routerLink="/geschenken-overview" routerLinkActive="active">
         <fa-icon [icon]="faBagShopping"></fa-icon>
       </a>
     </li>
     <li>
-      <a (click)="togglePopUp()" class="pop-up-button">
+      <a routerLink="/linktree">
         <img
           alt="Start pagina"
           height="36"
@@ -56,55 +56,4 @@
       </a>
     </li>
   </ul>
-  @if (popUpVisible) {
-    <div @fadeInOut class="pop-up-container">
-      <a
-        (click)="togglePopUp()"
-        routerLink="/persoonlijkeInfo"
-        routerLinkActive="active"
-        class="pop-up-item"
-      >
-        <fa-icon [icon]="faAddressCard"></fa-icon>
-      </a>
-      <a
-        (click)="togglePopUp()"
-        routerLink="/persoonlijkeInfo"
-        routerLinkActive="active"
-        class="pop-up-item"
-      >
-        <img
-          alt="Start pagina"
-          height="46"
-          ngSrc="{{ '../../assets/images/studeer-hoed.png' }}"
-          width="42"
-        />
-      </a>
-      <a
-        (click)="togglePopUp()"
-        routerLink="/persoonlijkeInfo"
-        routerLinkActive="active"
-        class="pop-up-item"
-      >
-        <img
-          alt="Start pagina"
-          height="46"
-          ngSrc="{{ '../../assets/images/studeer-hoed.png' }}"
-          width="42"
-        />
-      </a>
-      <a
-        (click)="togglePopUp()"
-        routerLink="/persoonlijkeInfo"
-        routerLinkActive="active"
-        class="pop-up-item"
-      >
-        <img
-          alt="Start pagina"
-          height="46"
-          ngSrc="{{ '../../assets/images/studeer-hoed.png' }}"
-          width="42"
-        />
-      </a>
-    </div>
-  }
 </div>

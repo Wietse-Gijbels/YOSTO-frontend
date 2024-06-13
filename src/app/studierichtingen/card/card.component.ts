@@ -4,11 +4,12 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { NgIf, NgStyle } from '@angular/common';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { Router, RouterLink } from '@angular/router';
+import { rolStyle } from '../../common/directives/rol-style.directive';
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [NgStyle, FaIconComponent, RouterLink, NgIf],
+  imports: [NgStyle, FaIconComponent, RouterLink, NgIf, rolStyle],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
 })

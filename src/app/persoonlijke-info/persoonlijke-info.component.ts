@@ -6,8 +6,8 @@ import { MatGridList } from '@angular/material/grid-list';
 import { CookieService } from 'ngx-cookie-service';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { Observable, of } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
@@ -44,7 +44,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     MatSlideToggle,
     FormsModule,
     RouterLink,
-    MatProgressSpinner,
+    NgOptimizedImage,
   ],
   templateUrl: './persoonlijke-info.component.html',
   styleUrl: './persoonlijke-info.component.scss',

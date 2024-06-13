@@ -15,6 +15,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { StudierichtingService } from '../../common/service/studierichting.service';
 import { GebruikerRol } from '../../common/models/interfaces';
+import { GebruikerService } from '../../common/service/gebruiker.service';
 
 @Component({
   selector: 'app-study-helper-registreer',
@@ -50,6 +51,7 @@ export class StudyHelperRegistreerComponent implements OnInit {
     private router: Router,
     private cookieService: CookieService,
     private studierichtingService: StudierichtingService,
+    private gebruikerService: GebruikerService,
   ) {}
 
   get behaaldeDiplomaArray(): FormArray {
@@ -177,6 +179,7 @@ export class StudyHelperRegistreerComponent implements OnInit {
       (response) => {
         // Verwerk succesvolle registratie
         this.cookieService.set('token', response.token);
+        this.gebruikerService.setHeaders();
         this.router.navigateByUrl('/verify');
         this.authService.setRol(GebruikerRol.STUDYHELPER);
         this.cookieService.set('rol', GebruikerRol.STUDYHELPER);

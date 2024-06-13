@@ -19,6 +19,7 @@ import { GebruikerService } from '../../common/service/gebruiker.service';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { CookieService } from 'ngx-cookie-service';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { rolStyle } from '../../common/directives/rol-style.directive';
 
 @Component({
   selector: 'app-studierichtingen',
@@ -35,6 +36,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
     NgIf,
     FormsModule,
     NgClass,
+    rolStyle,
   ],
 })
 export class StudierichtingenComponent implements OnInit {
