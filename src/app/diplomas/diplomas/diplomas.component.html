@@ -1,0 +1,18 @@
+<gebruiker-header
+  [backgroundColor]="'background-wit'"
+  [headerText]="'Diplomas'"
+/>
+<div rolStyle>
+  <mat-table>
+    @for (diploma of diplomas$ | async; track diploma) {
+      <tr>
+        <td>{{ diploma.naam }}</td>
+      </tr>
+    }
+  </mat-table>
+  <button (click)="addDiploma()">
+    <fa-icon [icon]="faPlus"></fa-icon>
+    Voeg diploma toe
+  </button>
+</div>
+<app-nav-bar></app-nav-bar>
