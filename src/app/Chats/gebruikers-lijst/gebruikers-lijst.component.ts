@@ -39,6 +39,7 @@ export class GebruikersLijstComponent implements OnInit, OnDestroy {
   userId: string = '';
   errorMessage: string = '';
   amountOfLookers: number = 0;
+  amountOfLookersforMe: number = 0;
   private intervalId: any;
 
   constructor(
@@ -53,21 +54,28 @@ export class GebruikersLijstComponent implements OnInit, OnDestroy {
     this.gebruikerService.getGebruikerIdByToken().subscribe((userId) => {
       this.userId = userId;
       this.fetchChatRooms();
+      this.lookerQueueService.getAmountOfLookers().subscribe(
+        (response) => {
+          this.amountOfLookers = response.amount; // Update to correctly assign the amount
+        },
+        (error) => {
+          console.error('Error fetching amount of lookers:', error);
+        },
+      );
+      this.lookerQueueService.getAmountOfLookersForMe(this.userId).subscribe(
+        (response) => {
+          this.amountOfLookersforMe = response.amount; // Update to correctly assign the amount
+        },
+        (error) => {
+          console.error('Error fetching amount of lookers for me:', error);
+        },
+      );
 
       // Set interval to fetch chatrooms every 3 seconds
       this.intervalId = setInterval(() => {
         this.fetchChatRooms();
       }, 3000);
     });
-
-    this.lookerQueueService.getAmountOfLookers().subscribe(
-      (response) => {
-        this.amountOfLookers = response.amount; // Update to correctly assign the amount
-      },
-      (error) => {
-        console.error('Error fetching amount of lookers:', error);
-      },
-    );
   }
 
   ngOnDestroy(): void {

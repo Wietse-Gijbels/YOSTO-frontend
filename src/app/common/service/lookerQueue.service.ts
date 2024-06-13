@@ -21,6 +21,14 @@ export class LookerQueueService {
     return this.http.get<{ amount: number }>(this.url + '/getAmountOfLookers');
   }
 
+  getAmountOfLookersForMe(userId: string): Observable<{ amount: number }> {
+    return this.http.get<{ amount: number }>(this.url + '/getAmountForMyStudierichtingen', {
+      params: {
+        userId: userId,
+      },
+    });
+  }
+
   joinQueue(
     lookerId: string,
     studierichtingId: string,

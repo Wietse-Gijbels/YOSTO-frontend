@@ -17,7 +17,7 @@
 
     <div class="messages" #messagesContainer>
       <div
-        *ngFor="let bericht of berichten$ | async"
+        *ngFor="let bericht of berichtenSubject | async"
         [ngClass]="{
           'my-message-container': bericht.senderId === userId,
           'other-message-container': bericht.senderId !== userId

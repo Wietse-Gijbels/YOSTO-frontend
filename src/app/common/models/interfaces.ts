@@ -36,6 +36,7 @@ export interface ChatRoomInterface {
   recipientId: string;
   studierichtingId: string;
   studierichtingNaam: string;
+  studiepunten: string;
   isAfgesloten: boolean;
 }
 
