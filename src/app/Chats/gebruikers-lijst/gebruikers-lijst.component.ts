@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
@@ -6,12 +6,16 @@ import { MatListModule } from '@angular/material/list';
 import { CookieService } from 'ngx-cookie-service';
 import { MatIconModule } from '@angular/material/icon';
 import { LookerQueueService } from '../../common/service/lookerQueue.service';
-import { ChatRoomInterface } from '../../common/models/interfaces';
+import {
+  ChatRoomInterface,
+  GebruikerRol,
+} from '../../common/models/interfaces';
 import { GebruikerHeaderComponent } from '../../common/gebruiker-header/gebruiker-header.component';
 import { NavBarComponent } from '../../common/navigation/nav-bar.component';
 import { GebruikerService } from '../../common/service/gebruiker.service';
 import { ChatService } from '../../common/service/chat.service';
 import { rolStyle } from '../../common/directives/rol-style.directive';
+import { rolChecker } from '../../common/directives/rol-checker.directive';
 
 @Component({
   selector: 'app-gebruikers-lijst',
@@ -24,16 +28,19 @@ import { rolStyle } from '../../common/directives/rol-style.directive';
     GebruikerHeaderComponent,
     MatIconModule,
     rolStyle,
+    rolChecker,
   ],
   templateUrl: './gebruikers-lijst.component.html',
   styleUrls: ['./gebruikers-lijst.component.scss'],
 })
-export class GebruikersLijstComponent implements OnInit {
+export class GebruikersLijstComponent implements OnInit, OnDestroy {
   openChatrooms: ChatRoomInterface[] = [];
   closedChatrooms: ChatRoomInterface[] = [];
   userId: string = '';
   errorMessage: string = '';
   amountOfLookers: number = 0;
+  amountOfLookersforMe: number = 0;
+  private intervalId: any;
 
   constructor(
     private gebruikerService: GebruikerService,
@@ -46,29 +53,49 @@ export class GebruikersLijstComponent implements OnInit {
   ngOnInit(): void {
     this.gebruikerService.getGebruikerIdByToken().subscribe((userId) => {
       this.userId = userId;
-      this.chatService.getMyChatRooms(userId).subscribe(
-        (chatrooms) => {
-          console.log('Chatrooms:', chatrooms);
-          this.openChatrooms = chatrooms.filter(
-            (chatroom) => !chatroom.isAfgesloten,
-          );
-          this.closedChatrooms = chatrooms.filter(
-            (chatroom) => chatroom.isAfgesloten,
-          );
+      this.fetchChatRooms();
+      this.lookerQueueService.getAmountOfLookers().subscribe(
+        (response) => {
+          this.amountOfLookers = response.amount; // Update to correctly assign the amount
         },
         (error) => {
-          console.error('Error fetching chatrooms:', error);
+          console.error('Error fetching amount of lookers:', error);
         },
       );
-    });
+      this.lookerQueueService.getAmountOfLookersForMe(this.userId).subscribe(
+        (response) => {
+          this.amountOfLookersforMe = response.amount; // Update to correctly assign the amount
+        },
+        (error) => {
+          console.error('Error fetching amount of lookers for me:', error);
+        },
+      );
 
-    this.lookerQueueService.getAmountOfLookers().subscribe(
-      (response) => {
-        console.log('Amount of lookers:', response);
-        this.amountOfLookers = response.amount; // Update to correctly assign the amount
+      // Set interval to fetch chatrooms every 3 seconds
+      this.intervalId = setInterval(() => {
+        this.fetchChatRooms();
+      }, 3000);
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+
+  fetchChatRooms(): void {
+    this.chatService.getMyChatRooms(this.userId).subscribe(
+      (chatrooms) => {
+        this.openChatrooms = chatrooms.filter(
+          (chatroom) => !chatroom.isAfgesloten,
+        );
+        this.closedChatrooms = chatrooms.filter(
+          (chatroom) => chatroom.isAfgesloten,
+        );
       },
       (error) => {
-        console.error('Error fetching amount of lookers:', error);
+        console.error('Error fetching chatrooms:', error);
       },
     );
   }
@@ -101,4 +128,6 @@ export class GebruikersLijstComponent implements OnInit {
       },
     );
   }
+
+  protected readonly GebruikerRol = GebruikerRol;
 }

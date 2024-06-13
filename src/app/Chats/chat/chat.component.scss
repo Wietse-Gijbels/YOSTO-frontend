@@ -1,18 +1,9 @@
+@use "../../../style-guide";
+
 .chat-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
-}
-
-.chat-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 12px;
-  background-color: #ff3800; /* Orange color */
-  color: #fff;
-  border-bottom: 1px solid #ddd;
-  position: relative;
 }
 
 .chat-header button {
@@ -45,15 +36,6 @@
   overflow-y: auto;
   padding: 20px;
   background-color: #fff;
-}
-
-.message-form {
-  display: flex;
-  padding: 12px;
-  background-color: #ff3800;
-  border-top: 1px solid #ddd;
-  align-items: center;
-  justify-content: space-between; /* Ensure content is spaced evenly */
 }
 
 .message-input {
@@ -133,4 +115,48 @@
 
 .other-timestamp {
   text-align: left;
+}
+
+.looker-container {
+  .chat-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+    background-color: #ff3800; /* Orange color */
+    color: #fff;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+  }
+
+  .message-form {
+    display: flex;
+    padding: 12px;
+    background-color: #ff3800;
+    border-top: 1px solid #ddd;
+    align-items: center;
+    justify-content: space-between; /* Ensure content is spaced evenly */
+  }
+}
+
+.helper-container {
+  .chat-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+    background-color: style-guide.$helper-blauw; /* Orange color */
+    color: #fff;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+  }
+
+  .message-form {
+    display: flex;
+    padding: 12px;
+    background-color: style-guide.$helper-blauw;
+    border-top: 1px solid #ddd;
+    align-items: center;
+    justify-content: space-between; /* Ensure content is spaced evenly */
+  }
 }

@@ -36,4 +36,10 @@ export class StompService {
       body: body,
     });
   }
+
+  disconnect(): void {
+    if (this.stompClient.active) {
+      this.stompClient.deactivate();
+    }
+  }
 }
