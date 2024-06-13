@@ -217,7 +217,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   onMessageReceived = (payload: any): void => {
     const message = JSON.parse(payload.body);
     message.timestamp = new Date(message.timestamp);
-    console.log(message.studierichtingId);
     if (
       this.selectedGebruiker &&
       message.senderId === this.selectedGebruiker.id &&
@@ -252,7 +251,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.router.navigate(['/chat']);
     } else {
       const dialogRef = this.dialog.open(FeedbackPopupComponent, {
-        width: '250px',
+        width: '300px',
         data: {
           userId: this.selectedGebruiker?.id,
           chatId: this.route.snapshot.params['id'],

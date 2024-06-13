@@ -152,3 +152,53 @@ button {
     height: 300px;
   }
 }
+
+.chart-container {
+  width: 100%;
+  max-width: 600px; /* Adjust max-width as needed */
+  height: auto;
+  margin: 0 auto;
+  padding-bottom: 70px;
+}
+
+.chart-container canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+@media screen and (max-width: 550px) {
+  .vraag-container {
+    width: 80%;
+    max-width: 100%;
+    padding: 10px;
+    height: auto; /* Let the height adjust based on content */
+  }
+  .vraag-img {
+    width: 100%;
+    max-width: none;
+  }
+  .progress-container {
+    width: 80%; /* Adjust to fit smaller screens */
+  }
+  .knoppen {
+    flex-direction: column; /* Stack buttons vertically */
+  }
+  .icon {
+    width: 40px;
+    height: 40px;
+  }
+  button {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.succes-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  align-items: center;
+  width: 100%; /* Ensure it takes full width */
+  max-width: 90%;
+}

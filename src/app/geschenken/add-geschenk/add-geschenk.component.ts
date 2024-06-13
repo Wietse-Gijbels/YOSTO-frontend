@@ -68,8 +68,6 @@ export class AddGeschenkComponent {
 
       this.geschenkService.createGeschenk(newGeschenk).subscribe(
         (response) => {
-          console.log(response);
-          // Handle success
           this.form.reset();
         },
         (error) => {

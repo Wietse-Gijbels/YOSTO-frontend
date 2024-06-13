@@ -77,10 +77,6 @@ export class FavorietenComponent implements OnInit {
         .subscribe({
           next: (gebruiker) => {
             this.gebruiker$.next(gebruiker);
-            console.log(
-              'Favoriete studierichting toegevoegd en gebruiker bijgewerkt',
-              gebruiker,
-            );
           },
           error: (error) => {
             console.error('Er is een fout opgetreden:', error);
@@ -93,10 +89,6 @@ export class FavorietenComponent implements OnInit {
         .subscribe({
           next: (gebruiker) => {
             this.gebruiker$.next(gebruiker);
-            console.log(
-              'Favoriete studierichting toegevoegd en gebruiker bijgewerkt',
-              gebruiker,
-            );
           },
           error: (error) => {
             console.error('Er is een fout opgetreden:', error);

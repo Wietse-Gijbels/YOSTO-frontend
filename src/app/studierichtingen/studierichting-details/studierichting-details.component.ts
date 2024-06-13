@@ -135,7 +135,6 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
     );
 
     this.gebruikerService.getGebruikerIdByToken().subscribe((userId) => {
-      console.log('User ID:', userId);
       this.userId = userId;
     });
   }
@@ -218,8 +217,6 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
   }
 
   joinQueue(): void {
-    console.log('Joining queue');
-    console.log('User ID:', this.userId);
     if (this.userId && this.studierichtingId) {
       this.lookerQueueService
         .joinQueue(this.userId, this.studierichtingId)

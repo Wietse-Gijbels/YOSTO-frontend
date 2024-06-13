@@ -2,6 +2,27 @@
 .feedback-form {
   text-align: center;
   padding: 20px;
+  max-height: 80vh; /* Limits the height of the popup */
+  overflow-y: auto; /* Enables vertical scrolling */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #ff9800 #f1f1f1; /* Firefox */
+}
+
+/* Webkit browsers (Chrome, Safari) */
+.popup-container::-webkit-scrollbar,
+.feedback-form::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.popup-container::-webkit-scrollbar-thumb,
+.feedback-form::-webkit-scrollbar-thumb {
+  background-color: #ff9800; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.popup-container::-webkit-scrollbar-track,
+.feedback-form::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background of the scrollbar track */
 }
 
 button {
@@ -26,11 +47,18 @@ h2 {
   color: #ff9800;
 }
 
-div {
+.feedback-section {
   margin: 10px 0;
 }
 
-span {
+.rating span {
   font-size: 24px;
   cursor: pointer;
+}
+
+@media (max-height: 600px) {
+  .popup-container,
+  .feedback-form {
+    max-height: 50vh;
+  }
 }
