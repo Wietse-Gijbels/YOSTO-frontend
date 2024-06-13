@@ -6,12 +6,12 @@
 
 <div *ngIf="showFeedbackForm" class="feedback-form">
   <h2>FEEDBACK</h2>
-  <div>
+  <div class="feedback-section">
     <p>
       Hoe beoordeel je de inhoud van de informatie die je van de StudyHelper
       ontving?
     </p>
-    <div>
+    <div class="rating">
       <span
         *ngFor="let star of [1, 2, 3, 4, 5]"
         (click)="setRating('contentRating', star)"
@@ -20,9 +20,9 @@
       </span>
     </div>
   </div>
-  <div>
+  <div class="feedback-section">
     <p>Hoe beoordeel je de houding van de StudyHelper?</p>
-    <div>
+    <div class="rating">
       <span
         *ngFor="let star of [1, 2, 3, 4, 5]"
         (click)="setRating('attitudeRating', star)"
@@ -31,7 +31,7 @@
       </span>
     </div>
   </div>
-  <div>
+  <div class="feedback-section">
     <p>Heb je soms langer dan 5 dagen moeten wachten op een antwoord?</p>
     <button
       [class.selected]="isSelected(responseTime, true)"
@@ -46,7 +46,7 @@
       Nee
     </button>
   </div>
-  <div>
+  <div class="feedback-section">
     <p>Was de informatie duidelijk?</p>
     <button
       [class.selected]="isSelected(clarity, true)"
@@ -61,7 +61,7 @@
       Nee
     </button>
   </div>
-  <div>
+  <div class="feedback-section">
     <p>Zijn al je vragen beantwoord?</p>
     <button
       [class.selected]="isSelected(answered, true)"
@@ -76,9 +76,9 @@
       Nee
     </button>
   </div>
-  <div>
+  <div class="feedback-section">
     <p>Geef een algemene score voor de StudyHelper:</p>
-    <div>
+    <div class="rating">
       <span
         *ngFor="let star of [1, 2, 3, 4, 5]"
         (click)="setRating('overallRating', star)"

@@ -57,8 +57,6 @@ export class AddGeschenkCategorieComponent {
 
       this.geschenkService.createGeschenkCategorie(uploadData).subscribe(
         (response) => {
-          console.log(response);
-          // Handle success
           this.form.reset();
           this.selectedFile = null;
         },

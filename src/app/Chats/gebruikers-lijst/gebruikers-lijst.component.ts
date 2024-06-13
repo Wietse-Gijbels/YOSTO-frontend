@@ -124,7 +124,7 @@ export class GebruikersLijstComponent implements OnInit, OnDestroy {
       },
       (error) => {
         this.errorMessage = 'Er is geen looker beschikbaar';
-        console.log('Error fetching first looker:', error);
+        console.error('Error fetching first looker:', error);
       },
     );
   }
