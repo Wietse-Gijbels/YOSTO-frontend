@@ -8,11 +8,13 @@
   .icon-email {
     background: url("../../../assets/images/mail-envloppe.png") no-repeat 5px
       center;
+    color: #ffffff; /* Add this line */
   }
 
   .icon-wachtwoord {
     background: url("../../../assets/images/wachtwoord.png") no-repeat 5px
       center;
+    color: #ffffff; /* Add this line */
   }
 
   .login-page {
@@ -63,6 +65,7 @@
     background-size: 20px;
     padding: 5px 5px 5px 35px;
     width: 278px;
+    color: #ffffff; /* Add this line */
   }
 
   .icon-email:focus,
