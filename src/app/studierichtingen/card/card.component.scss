@@ -33,7 +33,6 @@ li {
   }
 
   fa-icon {
-    color: style-guide.$primary-rood;
     font-size: 36px;
   }
 
@@ -42,4 +41,12 @@ li {
     font-size: 0.875rem;
     white-space: nowrap; /* Prevent text from wrapping */
   }
+}
+
+.looker-container fa-icon {
+  color: style-guide.$primary-rood;
+}
+
+.helper-container fa-icon {
+  color: style-guide.$helper-blauw;
 }

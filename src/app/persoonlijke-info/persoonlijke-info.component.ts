@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
@@ -41,6 +41,7 @@ import { AuthService } from '../common/service/auth.service';
     MatSlideToggle,
     FormsModule,
     RouterLink,
+    NgOptimizedImage,
   ],
   templateUrl: './persoonlijke-info.component.html',
   styleUrl: './persoonlijke-info.component.scss',

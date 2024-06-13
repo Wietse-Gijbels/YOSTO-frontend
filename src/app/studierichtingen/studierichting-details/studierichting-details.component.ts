@@ -19,6 +19,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { LookerQueueService } from '../../common/service/lookerQueue.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackbarService } from '../../common/service/snackbar.service';
+import { rolStyle } from '../../common/directives/rol-style.directive';
 import { rolChecker } from '../../common/directives/rol-checker.directive';
 import { GebruikerRol } from '../../common/models/interfaces';
 
@@ -35,6 +36,7 @@ import { GebruikerRol } from '../../common/models/interfaces';
     MatTab,
     BaseChartDirective,
     MatSnackBarModule,
+    rolStyle,
     rolChecker,
   ],
   templateUrl: './studierichting-details.component.html',

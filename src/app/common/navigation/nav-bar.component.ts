@@ -12,17 +12,8 @@ import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { faAddressCard } from '@fortawesome/free-regular-svg-icons';
 import { rolStyle } from '../directives/rol-style.directive';
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
-import {
-  animate,
-  keyframes,
-  query,
-  stagger,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
-import { GebruikerRol } from '../models/interfaces';
-import { rolChecker } from '../directives/rol-checker.directive';
+import {GebruikerRol} from "../models/interfaces";
+import {rolChecker} from "../directives/rol-checker.directive";
 
 @Component({
   selector: 'app-nav-bar',
@@ -44,57 +35,12 @@ import { rolChecker } from '../directives/rol-checker.directive';
   ],
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        query(
-          '.pop-up-item',
-          [
-            style({ opacity: 0, transform: 'scale(0.5)' }),
-            stagger(75, [
-              animate(
-                '200ms ease-in',
-                keyframes([
-                  style({ opacity: 0, transform: 'scale(0.5)', offset: 0 }),
-                  style({ opacity: 1, transform: 'scale(1.1)', offset: 0.7 }),
-                  style({ opacity: 1, transform: 'scale(1)', offset: 1.0 }),
-                ]),
-              ),
-            ]),
-          ],
-          { optional: true },
-        ),
-      ]),
-      transition(':leave', [
-        query(
-          '.pop-up-item',
-          [
-            stagger(-75, [
-              animate(
-                '200ms ease-out',
-                keyframes([
-                  style({ opacity: 1, transform: 'scale(1)', offset: 0 }),
-                  style({ opacity: 0, transform: 'scale(0.5)', offset: 1.0 }),
-                ]),
-              ),
-            ]),
-          ],
-          { optional: true },
-        ),
-      ]),
-    ]),
-  ],
 })
 export class NavBarComponent {
-  public popUpVisible = false;
   protected readonly faAddressCard = faAddressCard;
   protected readonly faBagShopping = faBagShopping;
 
   constructor() {}
-
-  togglePopUp() {
-    this.popUpVisible = !this.popUpVisible;
-  }
 
   protected readonly GebruikerRol = GebruikerRol;
 }

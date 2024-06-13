@@ -17,6 +17,7 @@ import { ChatComponent } from './Chats/chat/chat.component';
 import { LookerTestformComponent } from './matching/looker-testform/looker-testform.component';
 import { MatchingTestComponent } from './matching-test/matching-test.component';
 import { VerifyComponent } from './registreer-login/verify/verify.component';
+import { LinktreeComponent } from './linktree/linktree.component';
 
 export const routes: Routes = [
   { path: '', component: StartSchermComponent },
@@ -46,5 +47,6 @@ export const routes: Routes = [
   { path: 'matching-test', component: LookerTestformComponent },
   { path: 'test', component: MatchingTestComponent },
   { path: 'verify', component: VerifyComponent },
+  { path: 'linktree', component: LinktreeComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

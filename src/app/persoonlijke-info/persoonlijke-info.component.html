@@ -1,87 +1,81 @@
-<mat-grid-list rolStyle cols="2">
-  <fa-icon [icon]="faUser" class="header-icon"></fa-icon>
-  <h1>Persoonlijke Info</h1>
-  <div class="error-container">
-    <!-- Add error message handling if needed -->
-  </div>
-  @if (gebruiker$ | async; as gebruiker) {
-    <form [formGroup]="form" (keydown.enter)="preventEnter($event)">
-      <div class="persoonlijke-info-form-group">
-        <label for="voornaam">Voornaam</label>
-        <input
-          class="input"
-          id="voornaam"
-          formControlName="voornaam"
-          matInput
-          [value]="gebruiker?.voornaam"
-        />
-        <label for="achternaam">Achternaam</label>
-        <input
-          class="input"
-          id="achternaam"
-          formControlName="achternaam"
-          matInput
-          [value]="gebruiker?.achternaam"
-        />
-        <label for="woonplaats">Woonplaats</label>
-        <input
-          class="input"
-          id="woonplaats"
-          formControlName="woonplaats"
-          matInput
-          [value]="gebruiker?.woonplaats"
-        />
-        <label for="leeftijd">Leeftijd</label>
-        <select
-          id="leeftijd"
-          formControlName="leeftijd"
-          class="input"
-          [disabled]="edit"
-        >
-          @for (i of numbers; track i) {
-            <option [value]="i">{{ i }}</option>
-          }
-        </select>
-        <label for="geslacht">Geslacht</label>
-        <select
-          id="geslacht"
-          formControlName="geslacht"
-          class="input"
-          [disabled]="edit"
-        >
-          <option>Man</option>
-          <option>Vrouw</option>
-        </select>
-      </div>
-      <div class="container">
-        <button
-          (click)="editGebruiker()"
-          [hidden]="!edit"
-          class="custom-file-upload"
-        >
-          Bewerken
-        </button>
-        <button (click)="save()" [hidden]="edit" class="custom-file-upload">
-          Opslaan
-        </button>
-        <button (click)="cancel()" [hidden]="edit" class="custom-file-upload">
-          Annuleren
-        </button>
-      </div>
-    </form>
-    @if (gebruiker.xpAantal == 0) {
-      <p>
-        Je hebt {{ gebruiker.xpAantal }} xp. verdien xp door studenten te helpen
-      </p>
-      <button routerLink="/chat">help een student</button>
-    } @else {
-      <p>Je hebt {{ gebruiker.xpAantal }} xp. koop er iets leuks mee</p>
-      <button routerLink="/geschenken-overview">Ga naar Geschenken</button>
+<main>
+  <mat-grid-list rolStyle cols="2">
+    <fa-icon [icon]="faUser" class="header-icon"></fa-icon>
+    <h1>Persoonlijke Info</h1>
+    <div class="error-container">
+      <!-- Add error message handling if needed -->
+    </div>
+    @if (gebruiker$ | async; as gebruiker) {
+      <form [formGroup]="form" (keydown.enter)="preventEnter($event)">
+        <div class="persoonlijke-info-form-group">
+          <label for="voornaam">Voornaam</label>
+          <input
+            class="input"
+            id="voornaam"
+            formControlName="voornaam"
+            matInput
+            [value]="gebruiker?.voornaam"
+          />
+          <label for="achternaam">Achternaam</label>
+          <input
+            class="input"
+            id="achternaam"
+            formControlName="achternaam"
+            matInput
+            [value]="gebruiker?.achternaam"
+          />
+          <label for="woonplaats">Woonplaats</label>
+          <input
+            class="input"
+            id="woonplaats"
+            formControlName="woonplaats"
+            matInput
+            [value]="gebruiker?.woonplaats"
+          />
+          <label for="leeftijd">Leeftijd</label>
+          <select
+            id="leeftijd"
+            formControlName="leeftijd"
+            class="input"
+            [disabled]="edit"
+          >
+            @for (i of numbers; track i) {
+              <option [value]="i">{{ i }}</option>
+            }
+          </select>
+          <label for="geslacht">Geslacht</label>
+          <select
+            id="geslacht"
+            formControlName="geslacht"
+            class="input"
+            [disabled]="edit"
+          >
+            <option>Man</option>
+            <option>Vrouw</option>
+          </select>
+        </div>
+        <div class="container">
+          <button
+            (click)="editGebruiker()"
+            [hidden]="!edit"
+            class="custom-file-upload"
+          >
+            Bewerken
+          </button>
+          <button (click)="save()" [hidden]="edit" class="custom-file-upload">
+            Opslaan
+          </button>
+          <button (click)="cancel()" [hidden]="edit" class="custom-file-upload">
+            Annuleren
+          </button>
+        </div>
+      </form>
+
     }
-  }
-  <button class="rol-switch" (click)="switchRol()">
-    <fa-icon [icon]="faRepeat" class="switch-icon"></fa-icon>
-    <p>{{ rolSwitch }}</p>
-  </button>
-</mat-grid-list>
+    <button class="rol-switch" (click)="switchRol()">
+      <fa-icon [icon]="faRepeat" class="switch-icon"></fa-icon>
+      <p>{{ rolSwitch }}</p>
+    </button>
+  </mat-grid-list>
+</main>
 <app-nav-bar></app-nav-bar>
