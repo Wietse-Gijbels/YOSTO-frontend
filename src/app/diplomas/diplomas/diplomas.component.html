@@ -24,9 +24,7 @@
   @if (filteredRichtingen.length > 0) {
     <ul class="suggestions">
       @for (richting of filteredRichtingen; track richting) {
-        <li
-          (click)="onRichtingClick(richting)"
-        >
+        <li (click)="onRichtingClick(richting)">
           {{ richting }}
         </li>
       }
