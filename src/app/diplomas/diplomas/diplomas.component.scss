@@ -1,0 +1,115 @@
+@use "../../../style-guide";
+
+.suggestions {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  width: 319.6px;
+  outline: none;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #ffffff;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  color: #ffffff;
+  @include style-guide.font-large-header;
+  font-size: 16px;
+  border: none;
+  border-radius: 20px;
+  padding: 3px 50px;
+  margin-top: 5px;
+}
+
+.input {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  flex-direction: column;
+  display: flex;
+  max-width: 250px;
+}
+
+.smaller-suggestions {
+  width: 279.8px;
+  margin-top: -10px;
+}
+
+.suggestions li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions::-webkit-scrollbar {
+  width: 8px;
+}
+
+.suggestions::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.suggestions::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.aangepaste-radius {
+  border-radius: 5px 5px 0 0;
+}
+
+.normale-radius {
+  border-radius: 5px;
+}
+
+.diplomas {
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.diplomas li {
+  margin-top: 10px;
+}
+
+.diplomas p {
+  @include style-guide.font-small-tekst;
+}
+
+.helper-container {
+  .diplomas p {
+    color: style-guide.$helper-blauw;
+  }
+
+  button {
+    background-color: style-guide.$helper-blauw;
+  }
+}
+
+.looker-container {
+  .diplomas p {
+    color: style-guide.$primary-rood;
+  }
+
+  button {
+    background-color: style-guide.$primary-rood;
+  }
+}

@@ -137,10 +137,23 @@ export class GebruikerService {
   }
 
   addRol(rol: GebruikerRol): Observable<GebruikerInterface> {
-    console.log(rol);
     return this.http.put<GebruikerInterface>(
       this.url + '/addRol',
       { rol, token: this.token },
+      { headers: this.headers },
+    );
+  }
+
+  diplomas() {
+    return this.http.get<StudierichtingInterface[]>(this.url + '/diplomas', {
+      headers: this.headers,
+    });
+  }
+
+  addDiploma(formData: string) {
+    return this.http.post<StudierichtingInterface[]>(
+      this.url + `/diplomas/${this.token}`,
+      { diploma: formData },
       { headers: this.headers },
     );
   }

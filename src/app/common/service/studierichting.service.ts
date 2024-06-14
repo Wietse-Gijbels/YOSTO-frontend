@@ -73,4 +73,16 @@ export class StudierichtingService {
       { headers: this.headers },
     );
   }
+
+  getFilteredHogerOnderwijsRichtingenToevoeging(
+    filter: string,
+  ): Observable<string[]> {
+    return this.http.get<string[]>(
+      `${this.url}/hoger-onderwijs/dto/${this.token}`,
+      {
+        params: { filter },
+        headers: this.headers,
+      },
+    );
+  }
 }

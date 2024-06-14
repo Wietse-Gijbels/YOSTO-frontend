@@ -22,9 +22,6 @@ import { rolStyle } from '../common/directives/rol-style.directive';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../common/service/auth.service';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { StudierichtingService } from '../common/service/studierichting.service';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-persoonlijke-info',
@@ -58,16 +55,14 @@ export class PersoonlijkeInfoComponent implements OnInit {
     woonplaats: [''],
     leeftijd: [0],
     geslacht: [''],
-    // huidigeStudieAndNiveau: [''],
   });
   numbers: number[] = Array.from({ length: 101 }, (_, i) => i);
   rolSwitch: string = '';
   hidden: boolean = true;
-  filteredRichtingen: string[] = [];
-  borderRadiusStudie: string = 'normale-radius';
   protected readonly faUser = faUser;
   protected readonly GebruikerRol = GebruikerRol;
   protected readonly faRepeat = faRepeat;
+  protected readonly faPlus = faPlus;
 
   constructor(
     private gebruikerService: GebruikerService,
@@ -75,7 +70,6 @@ export class PersoonlijkeInfoComponent implements OnInit {
     private fromBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private studierichtingService: StudierichtingService,
   ) {}
 
   ngOnInit() {
@@ -96,24 +90,6 @@ export class PersoonlijkeInfoComponent implements OnInit {
         this.hidden = true;
       }
     });
-    this.form
-      .get('huidigeStudieAndNiveau')!
-      .valueChanges.pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        switchMap((value) => {
-          if (value) {
-            this.borderRadiusStudie = 'aangepaste-radius';
-            return this.studierichtingService.getFilteredRichtingen(value);
-          } else {
-            this.borderRadiusStudie = 'normale-radius';
-            return of([]);
-          }
-        }),
-      )
-      .subscribe((richtingen) => {
-        this.filteredRichtingen = richtingen;
-      });
   }
 
   preventEnter(event: Event) {
@@ -160,11 +136,4 @@ export class PersoonlijkeInfoComponent implements OnInit {
       this.gebruiker$ = this.gebruikerService.addRol(GebruikerRol.STUDYHELPER);
     }
   }
-
-  onRichtingClick(richting: string) {
-    this.form.get('huidigeStudieAndNiveau')!.setValue(richting);
-    this.filteredRichtingen = [];
-  }
-
-  protected readonly faPlus = faPlus;
 }
