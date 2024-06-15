@@ -13,11 +13,11 @@
       >
         <div class="user-button">
           <div class="user-info help-someone-info">
-            <span class="user-email" *ngIf="amountOfLookers > 0">
-              Er wachten {{ amountOfLookers }} lookers op hulp
-            </span>
-            <span class="user-email" *ngIf="amountOfLookers > 0">
+            <span class="user-email" *ngIf="amountOfLookersforMe > 1">
               Help een van de {{ amountOfLookersforMe }} lookers uit je richting
+            </span>
+            <span class="user-email" *ngIf="amountOfLookersforMe === 1">
+              Help 1 looker uit je richting
             </span>
             <span class="user-email" *ngIf="amountOfLookers === 0">
               Geen lookers beschikbaar op dit moment

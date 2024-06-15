@@ -166,33 +166,6 @@ button {
   height: auto !important;
 }
 
-@media screen and (max-width: 550px) {
-  .vraag-container {
-    width: 80%;
-    max-width: 100%;
-    padding: 10px;
-    height: auto; /* Let the height adjust based on content */
-  }
-  .vraag-img {
-    width: 100%;
-    max-width: none;
-  }
-  .progress-container {
-    width: 80%; /* Adjust to fit smaller screens */
-  }
-  .knoppen {
-    flex-direction: column; /* Stack buttons vertically */
-  }
-  .icon {
-    width: 40px;
-    height: 40px;
-  }
-  button {
-    width: 60px;
-    height: 60px;
-  }
-}
-
 .succes-container {
   display: flex;
   flex-direction: column;

@@ -223,14 +223,14 @@ export class StudierichtingDetailsComponent implements OnInit, OnDestroy {
         .subscribe(
           () => {
             this.snackbarService.openSnackBar(
-              'You have been added to the queue successfully.',
+              'U bent toegevoegd aan de wachtrij voor deze richting.',
               'success',
             );
           },
           (error) => {
             console.error('Error joining the queue:', error);
             this.snackbarService.openSnackBar(
-              'Failed to join the queue. Please try again later.',
+              'U kunt niet ingeschreven worden voor deze wachtrij.',
               'error',
             );
           },
