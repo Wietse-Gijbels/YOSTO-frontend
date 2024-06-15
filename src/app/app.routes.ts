@@ -17,6 +17,7 @@ import { ChatComponent } from './Chats/chat/chat.component';
 import { MatchingTestComponent } from './matching-test/matching-test.component';
 import { VerifyComponent } from './registreer-login/verify/verify.component';
 import { LinktreeComponent } from './linktree/linktree.component';
+import { DiplomasComponent } from './diplomas/diplomas/diplomas.component';
 
 export const routes: Routes = [
   { path: '', component: StartSchermComponent },
@@ -46,5 +47,6 @@ export const routes: Routes = [
   { path: 'test', component: MatchingTestComponent },
   { path: 'verify', component: VerifyComponent },
   { path: 'linktree', component: LinktreeComponent },
+  { path: 'diplomas', component: DiplomasComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

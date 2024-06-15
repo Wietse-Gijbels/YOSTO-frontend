@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import { faRepeat, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faRepeat, faUser } from '@fortawesome/free-solid-svg-icons';
 import { MatGridList } from '@angular/material/grid-list';
 import { CookieService } from 'ngx-cookie-service';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -58,9 +58,11 @@ export class PersoonlijkeInfoComponent implements OnInit {
   });
   numbers: number[] = Array.from({ length: 101 }, (_, i) => i);
   rolSwitch: string = '';
+  hidden: boolean = true;
   protected readonly faUser = faUser;
   protected readonly GebruikerRol = GebruikerRol;
   protected readonly faRepeat = faRepeat;
+  protected readonly faPlus = faPlus;
 
   constructor(
     private gebruikerService: GebruikerService,
@@ -78,11 +80,16 @@ export class PersoonlijkeInfoComponent implements OnInit {
       this.form.patchValue(gebruiker);
     });
     this.form.disable();
-    if (this.authService.getRol() === GebruikerRol.STUDYHELPER) {
+    if (this.cookieService.get('rol') === GebruikerRol.STUDYHELPER) {
       this.rolSwitch = 'Student Looker';
     } else {
       this.rolSwitch = 'Student Helper';
     }
+    this.gebruiker$.subscribe((gebruiker) => {
+      if (gebruiker.rollen.length < 2) {
+        this.hidden = true;
+      }
+    });
   }
 
   preventEnter(event: Event) {
@@ -113,12 +120,20 @@ export class PersoonlijkeInfoComponent implements OnInit {
   }
 
   switchRol() {
-    if (this.authService.getRol() === 'STUDYHELPER') {
+    if (this.cookieService.get('rol') === 'STUDYHELPER') {
       this.cookieService.set('rol', GebruikerRol.STUDYLOOKER);
     } else {
       this.cookieService.set('rol', GebruikerRol.STUDYHELPER);
     }
     this.authService.switchRol();
     this.router.navigateByUrl('/home');
+  }
+
+  addRol() {
+    if (this.cookieService.get('rol') === 'STUDYHELPER') {
+      this.gebruiker$ = this.gebruikerService.addRol(GebruikerRol.STUDYLOOKER);
+    } else {
+      this.gebruiker$ = this.gebruikerService.addRol(GebruikerRol.STUDYHELPER);
+    }
   }
 }

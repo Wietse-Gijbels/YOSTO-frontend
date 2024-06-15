@@ -1,0 +1,34 @@
+<gebruiker-header
+  [backgroundColor]="'background-wit'"
+  [headerText]="'Diplomas'"
+/>
+<div rolStyle>
+  <ul class="diplomas">
+    @for (diploma of diplomas$ | async; track diploma) {
+      <li>
+        <p>{{ diploma.naam }}</p>
+      </li>
+    }
+  </ul>
+  <div [formGroup]="form" class="form-group">
+    <input
+      class="icon-studie normale-radius"
+      formControlName="nieuwDiploma"
+      type="text"
+    />
+    <button (click)="addDiploma()">
+      <fa-icon [icon]="faPlus"></fa-icon>
+      Voeg diploma toe
+    </button>
+  </div>
+  @if (filteredRichtingen.length > 0) {
+    <ul class="suggestions">
+      @for (richting of filteredRichtingen; track richting) {
+        <li (click)="onRichtingClick(richting)">
+          {{ richting }}
+        </li>
+      }
+    </ul>
+  }
+</div>
+<app-nav-bar></app-nav-bar>

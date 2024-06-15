@@ -9,6 +9,7 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import {
   faBriefcase,
   faBuildingColumns,
+  faGraduationCap,
   faHouse,
   faPlaneDeparture,
   faSchool,
@@ -43,4 +44,5 @@ export class LinktreeComponent {
   protected readonly faPlaneDeparture = faPlaneDeparture;
   protected readonly faSchool = faSchool;
   protected readonly faBuildingColumns = faBuildingColumns;
+  protected readonly faGraduationCap = faGraduationCap;
 }
